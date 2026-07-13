@@ -1,0 +1,631 @@
+{%- liquid
+  assign sid = section.id
+  assign blocks = section.blocks
+-%}
+
+<style>
+  #shopify-section-{{ sid }} {
+    display: block;
+  }
+
+  #oh-{{ sid }} {
+    padding-top: {{ section.settings.pt_mobile }}px;
+    padding-bottom: {{ section.settings.pb_mobile }}px;
+    {% unless section.settings.bg_color == blank or section.settings.bg_color == 'rgba(0,0,0,0)' %}
+    --background: {{ section.settings.bg_color }};
+    {% endunless %}
+  }
+
+  #oh-{{ sid }} .oh-inner {
+    max-width: {{ section.settings.content_max_width }}px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  #oh-{{ sid }} .oh-header {
+    text-align: {{ section.settings.heading_alignment }};
+    margin-bottom: {{ section.settings.grid_gap | times: 1 | plus: 20 }}px;
+  }
+
+  #oh-{{ sid }} .oh-heading {
+    margin: 0;
+    font-size: {{ section.settings.heading_font_size_mobile }}px;
+    font-weight: {{ section.settings.heading_font_weight }};
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    {% unless section.settings.heading_color == blank or section.settings.heading_color == 'rgba(0,0,0,0)' %}
+    color: {{ section.settings.heading_color }};
+    {% endunless %}
+  }
+
+  #oh-{{ sid }} .oh-subheading {
+    margin: 0.75rem 0 0;
+    opacity: 0.6;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  #oh-{{ sid }} .oh-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(50% - {{ section.settings.grid_gap | divided_by: 2 | round }}px / 2);
+    gap: {{ section.settings.grid_gap | divided_by: 2 | round }}px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    list-style: none;
+    margin: 0;
+    padding-bottom: 4px;
+  }
+
+  #oh-{{ sid }} .oh-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  #oh-{{ sid }} .oh-item {
+    scroll-snap-align: start;
+  }
+
+  #oh-{{ sid }} .oh-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  #oh-{{ sid }} .oh-item__label {
+    display: block;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    opacity: 0.55;
+  }
+
+  #oh-{{ sid }} .oh-item__title {
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  #oh-{{ sid }} .oh-item__desc {
+    margin: 0.25rem 0 0;
+    line-height: 1.55;
+    opacity: 0.75;
+  }
+
+  #oh-{{ sid }} .oh-item__icon {
+    display: block;
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
+    margin-bottom: 0.25rem;
+  }
+
+  {% if section.settings.enable_hover %}
+  #oh-{{ sid }} .oh-item {
+    transition: transform 0.25s ease;
+  }
+  #oh-{{ sid }} .oh-item:hover {
+    transform: translateY(-4px);
+  }
+  {% endif %}
+
+  {% if section.settings.enable_dividers %}
+  #oh-{{ sid }} .oh-grid {
+    position: relative;
+  }
+  {% endif %}
+
+  @media screen and (min-width: 750px) {
+    #oh-{{ sid }} {
+      padding-top: {{ section.settings.pt_desktop }}px;
+      padding-bottom: {{ section.settings.pb_desktop }}px;
+    }
+
+    #oh-{{ sid }} .oh-heading {
+      font-size: {{ section.settings.heading_font_size_desktop }}px;
+    }
+
+    #oh-{{ sid }} .oh-grid {
+      grid-auto-flow: unset;
+      grid-auto-columns: unset;
+      grid-template-columns: repeat(3, 1fr);
+      overflow-x: unset;
+      scroll-snap-type: unset;
+      gap: {{ section.settings.grid_gap }}px;
+      padding-bottom: 0;
+    }
+
+    #oh-{{ sid }} .oh-item {
+      scroll-snap-align: unset;
+    }
+
+    {% if section.settings.enable_dividers %}
+    #oh-{{ sid }} .oh-item {
+      position: relative;
+    }
+    #oh-{{ sid }} .oh-item:not(:nth-child(3n)) {
+      border-right: 1px solid currentColor;
+      opacity: 1;
+      padding-right: {{ section.settings.grid_gap | divided_by: 2 }}px;
+    }
+    {% endif %}
+  }
+</style>
+
+<div id="oh-{{ sid }}" class="color-scheme color-scheme--{{ section.settings.color_scheme.id }}">
+  <div class="{% if section.settings.container_width == 'full' %}section-full-width{% else %}container{% endif %}">
+    <div class="oh-inner">
+
+      {%- if section.settings.section_heading != blank or section.settings.section_subheading != blank -%}
+        <div class="oh-header">
+          {%- if section.settings.section_heading != blank -%}
+            <p class="oh-heading">{{ section.settings.section_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.section_subheading != blank -%}
+            <p class="oh-subheading">{{ section.settings.section_subheading | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if blocks.size > 0 -%}
+        <ul class="oh-grid" role="list">
+          {%- for block in blocks -%}
+            {%- liquid
+              assign b = block.settings
+              assign align = b.text_alignment | default: 'center'
+
+              assign label_color_blank = false
+              assign title_color_blank = false
+              assign desc_color_blank  = false
+
+              if b.label_color == blank or b.label_color == 'rgba(0,0,0,0)'
+                assign label_color_blank = true
+              endif
+              if b.title_color == blank or b.title_color == 'rgba(0,0,0,0)'
+                assign title_color_blank = true
+              endif
+              if b.desc_color == blank or b.desc_color == 'rgba(0,0,0,0)'
+                assign desc_color_blank = true
+              endif
+            -%}
+            <li
+              class="oh-item"
+              style="text-align: {{ align }}; align-items: {% if align == 'left' %}flex-start{% elsif align == 'right' %}flex-end{% else %}center{% endif %};"
+              {{ block.shopify_attributes }}
+            >
+              {%- if b.icon_image != blank -%}
+                <img
+                  class="oh-item__icon"
+                  src="{{ b.icon_image | image_url: width: 80 }}"
+                  alt="{{ b.label_text | escape }}"
+                  width="80"
+                  loading="lazy"
+                >
+              {%- endif -%}
+
+              {%- if b.label_text != blank -%}
+                <span
+                  class="oh-item__label"
+                  style="
+                    font-size: {{ b.label_font_size }}px;
+                    font-weight: {{ b.label_font_weight }};
+                    {% unless label_color_blank %}color: {{ b.label_color }};{% endunless %}
+                  "
+                >{{ b.label_text | escape }}</span>
+              {%- endif -%}
+
+              {%- if b.title_text != blank -%}
+                <p
+                  class="oh-item__title"
+                  style="
+                    font-size: {{ b.title_font_size_mobile }}px;
+                    font-weight: {{ b.title_font_weight }};
+                    {% unless title_color_blank %}color: {{ b.title_color }};{% endunless %}
+                  "
+                >{{ b.title_text }}</p>
+              {%- endif -%}
+
+              {%- if b.desc_text != blank -%}
+                <p
+                  class="oh-item__desc"
+                  style="
+                    font-size: {{ b.desc_font_size }}px;
+                    {% unless desc_color_blank %}color: {{ b.desc_color }};{% endunless %}
+                  "
+                >{{ b.desc_text | escape }}</p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+
+<style>
+  @media screen and (min-width: 750px) {
+    {%- for block in blocks -%}
+      #oh-{{ sid }} li:nth-child({{ forloop.index }}) .oh-item__title {
+        font-size: {{ block.settings.title_font_size_desktop }}px;
+      }
+    {%- endfor -%}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ownership Highlights",
+  "tag": "section",
+  "class": "shopify-section--ownership-highlights",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "ESSENCE OF OWNERSHIP"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading (optional)"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_desktop",
+      "label": "Heading Font Size — Desktop",
+      "min": 10,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size — Mobile",
+      "min": 10,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color Override"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container Width",
+      "options": [
+        { "value": "page",  "label": "Page (default)" },
+        { "value": "full",  "label": "Full Width" }
+      ],
+      "default": "page"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content Max Width",
+      "min": 600,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid Gap",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "header",
+      "content": "Spacing — Desktop"
+    },
+    {
+      "type": "range",
+      "id": "pt_desktop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "pb_desktop",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Spacing — Mobile"
+    },
+    {
+      "type": "range",
+      "id": "pt_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "pb_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_hover",
+      "label": "Enable Hover Lift Effect",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_dividers",
+      "label": "Enable Divider Lines Between Columns",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Label"
+        },
+        {
+          "type": "text",
+          "id": "label_text",
+          "label": "Label Text",
+          "default": "LABEL"
+        },
+        {
+          "type": "color",
+          "id": "label_color",
+          "label": "Label Color"
+        },
+        {
+          "type": "range",
+          "id": "label_font_size",
+          "label": "Label Font Size",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "label_font_weight",
+          "label": "Label Font Weight",
+          "options": [
+            { "value": "300", "label": "Light" },
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi-bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "400"
+        },
+        {
+          "type": "header",
+          "content": "Main Title"
+        },
+        {
+          "type": "text",
+          "id": "title_text",
+          "label": "Title Text",
+          "default": "Feature Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_desktop",
+          "label": "Title Font Size — Desktop",
+          "min": 14,
+          "max": 72,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_mobile",
+          "label": "Title Font Size — Mobile",
+          "min": 14,
+          "max": 56,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "select",
+          "id": "title_font_weight",
+          "label": "Title Font Weight",
+          "options": [
+            { "value": "300", "label": "Light" },
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi-bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "400"
+        },
+        {
+          "type": "header",
+          "content": "Description"
+        },
+        {
+          "type": "text",
+          "id": "desc_text",
+          "label": "Description (optional)"
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "label": "Description Color"
+        },
+        {
+          "type": "range",
+          "id": "desc_font_size",
+          "label": "Description Font Size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 13
+        },
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text Alignment",
+          "options": [
+            { "value": "left",   "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Custom Icon (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ownership Highlights",
+      "blocks": [
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "TOTAL",
+            "title_text": "84 Pieces"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PERSONALLY SIGNED BY",
+            "title_text": "Lionel Messi & others"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "CRAFTMANSHIP",
+            "title_text": "Hand Finished"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PROVENANCE",
+            "title_text": "Official Argentine Collection"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "ONE LAST CHANCE",
+            "title_text": "Last World Cup of numeric Legends"
+          }
+        },
+        {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "FOREVER",
+            "title_text": "Legacy worth owning"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

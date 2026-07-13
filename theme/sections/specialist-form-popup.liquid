@@ -1,0 +1,225 @@
+<style>
+  /*
+    IMMEDIATE hiding — CSS-only, no JS required.
+
+    Shopify embeds sections with IDs like:
+      shopify-section-template--{TEMPLATE_ID}__{SECTION_KEY}
+    So we use an ends-with attribute selector [id$="__specialist_form_apps"]
+    which matches regardless of the template prefix.
+
+    The :has() rule uses the actual data attribute that Shopify Forms
+    renders in the static HTML: data-forms-id="forms-root-980079"
+  */
+  [id$="__specialist_form_apps"],
+  .shopify-section:has([data-forms-id="forms-root-980079"]) {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Modal overlay — applied via JS class once section is found */
+  .spc-apps-section {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(0, 0, 0, 0.72) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .spc-apps-section.spc-open {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Card */
+  .spc-apps-section > div {
+    position: relative !important;
+    background: #1c1c1c !important;
+    border-radius: 12px !important;
+    padding: 44px 28px 28px !important;
+    width: min(540px, 92vw) !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5) !important;
+  }
+  .spc-apps-section > div > div {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .spc-apps-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    color: #aaa;
+    z-index: 10;
+    padding: 4px 8px;
+  }
+  .spc-apps-close:hover { color: #fff; }
+
+  .spc-apps-section .section-header,
+  .spc-apps-section [class*="section-header"] {
+    display: none !important;
+  }
+
+  /* Form field visibility — inputs, selects and textareas need visible borders on dark bg */
+  .spc-apps-section input[type="text"],
+  .spc-apps-section input[type="email"],
+  .spc-apps-section input[type="tel"],
+  .spc-apps-section input[type="number"],
+  .spc-apps-section input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
+  .spc-apps-section select,
+  .spc-apps-section textarea {
+    display: block !important;
+    width: 100% !important;
+    background: #1a1a1a !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
+    padding: 11px 14px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    margin-bottom: 4px !important;
+  }
+  .spc-apps-section input:focus,
+  .spc-apps-section select:focus,
+  .spc-apps-section textarea:focus {
+    border-color: #5297AB !important;
+    box-shadow: 0 0 0 2px rgba(82,151,171,0.25) !important;
+  }
+  .spc-apps-section input::placeholder,
+  .spc-apps-section textarea::placeholder {
+    color: #888 !important;
+  }
+  /* Phone flag/prefix row */
+  .spc-apps-section .phone-field,
+  .spc-apps-section [class*="phone"] {
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
+    background: #1a1a1a !important;
+    overflow: hidden !important;
+  }
+  /* Dropdown / select arrow visibility */
+  .spc-apps-section select {
+    appearance: auto !important;
+    -webkit-appearance: auto !important;
+  }
+  /* Checkbox alignment */
+  .spc-apps-section input[type="checkbox"] {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 8px 0 0 !important;
+    accent-color: #5297AB !important;
+    flex-shrink: 0 !important;
+  }
+</style>
+
+<script>
+(function () {
+  var appsSection = null;
+
+  function findAppsSection() {
+    if (appsSection) return appsSection;
+
+    /* Primary: match by section key suffix — works with any template prefix */
+    var el = document.querySelector('[id$="__specialist_form_apps"]');
+    if (el) { appsSection = el; return el; }
+
+    /* Fallback: walk up from the Shopify Forms data div */
+    var formDiv = document.querySelector('[data-forms-id="forms-root-980079"]');
+    if (formDiv) {
+      var parent = formDiv;
+      while (parent && parent !== document.body) {
+        if (parent.id && parent.id.startsWith('shopify-section-')) {
+          appsSection = parent; return parent;
+        }
+        parent = parent.parentElement;
+      }
+    }
+
+    return null;
+  }
+
+  function injectCloseBtn(section) {
+    if (section.querySelector('.spc-apps-close')) return;
+    var card = section.querySelector(':scope > div');
+    if (!card) return;
+    var btn = document.createElement('button');
+    btn.className = 'spc-apps-close';
+    btn.setAttribute('aria-label', 'Close');
+    btn.textContent = '✕';
+    card.insertAdjacentElement('afterbegin', btn);
+  }
+
+  function openModal() {
+    var section = findAppsSection();
+    if (!section) { console.warn('[Specialist Popup] Could not find the forms section'); return; }
+    section.classList.add('spc-apps-section', 'spc-open');
+    injectCloseBtn(section);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    var section = findAppsSection();
+    if (!section) return;
+    section.classList.remove('spc-open');
+    document.body.style.overflow = '';
+  }
+
+  /* Pre-apply the modal class so overlay styles are ready before first open */
+  function initSection() {
+    var section = findAppsSection();
+    if (section) section.classList.add('spc-apps-section');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSection);
+  } else {
+    initSection();
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a[href="#specialist-form"]')) {
+      e.preventDefault(); openModal(); return;
+    }
+    if (e.target.closest('.spc-apps-close')) {
+      closeModal(); return;
+    }
+    var section = findAppsSection();
+    if (section && section.classList.contains('spc-open') && e.target === section) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Specialist Form Popup",
+  "settings": []
+}
+{% endschema %}

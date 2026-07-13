@@ -1,0 +1,605 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "dropdown",
+            "swatch_selector_style": "block_swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "modal_YMTEAJ": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "buy_buttons_bfe6rf": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "#e00000",
+            "payment_button_text_color": ""
+          }
+        },
+        "offers_z6VeUP": {
+          "type": "offers",
+          "settings": {
+            "layout": "carousel",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified-icon.png",
+            "offer_1_icon_width": 16,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#272727",
+            "offer_1_text_color": "#efefef",
+            "offer_2_icon": "shopify:\/\/shop_images\/star-icon.png",
+            "offer_2_icon_width": 20,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#272727",
+            "offer_2_text_color": "#efefef",
+            "offer_3_icon": "shopify:\/\/shop_images\/sign-icon.png",
+            "offer_3_icon_width": 20,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#272727",
+            "offer_3_text_color": "#efefef"
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": true,
+            "uppercase_title": false
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Return",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Delivery",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 88475 79634<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_gJKMnV": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Details & Specs",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #92 pieces worldwide<br\/>Signed by Arshdeep Singh<br\/><br\/>Enshrined in 18K Gold finish<br\/><br\/>Comes with a wooden frame<br\/>Size \/ Dimensions: 20 x 30 inches <br\/><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_ri4j66": {
+          "type": "offers",
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/frame-icon.png",
+            "offer_1_icon_width": 18,
+            "offer_1_subheading": "20 x 30 Inches",
+            "offer_1_content": "BEST IN GRADE SIZE AND MATERIAL",
+            "offer_1_background": "#272727",
+            "offer_1_text_color": "#d5ba6a",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "variant_picker",
+        "modal_YMTEAJ",
+        "buy_buttons_bfe6rf",
+        "offers_z6VeUP",
+        "separator",
+        "description",
+        "modal_6G837j",
+        "modal_gJKMnV",
+        "offers_ri4j66"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "media_blocks_bDMgbN": {
+      "type": "media-blocks",
+      "blocks": {
+        "image_with_text_LdjBVz": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/Artboard_10.png",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "bottom_left",
+            "scrolling_title": false,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        },
+        "image_with_text_ddaaaf": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/Artboard-7.png",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "top_center",
+            "scrolling_title": false,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_LdjBVz",
+        "image_with_text_ddaaaf"
+      ],
+      "name": "t:sections.media_blocks.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h4",
+        "text_alignment": "left",
+        "scrolling_title": false,
+        "scrolling_title_separator": "circle",
+        "stack_on_mobile": true,
+        "add_horizontal_spacing": false,
+        "add_border": true,
+        "column_spacing": "none",
+        "items_per_row": 2,
+        "block_size": "auto"
+      }
+    },
+    "specifications_VdRFL8": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_CUnh8A": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon.png",
+            "title": "<strong>24Kt GOLD<\/strong>",
+            "content": "<p>Stars Plated in 24 Karat Gold<\/p>"
+          }
+        },
+        "attribute_fB3zNL": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/sign-icon.png",
+            "title": "<strong>HAND SIGNED<\/strong>",
+            "content": "<p>BY ARSHDEEP SINGH<\/p>"
+          }
+        },
+        "attribute_QyRapB": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon.png",
+            "title": "<strong>COLLECTOR EDITION<\/strong>",
+            "content": "<p>Only 92 Pieces Ever Made<\/p>"
+          }
+        },
+        "attribute_YBWk3X": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/frame-icon.png",
+            "title": "<strong>LUXE FRAMING<\/strong>",
+            "content": "<p>Gold Metallic Collector Frame<\/p>"
+          }
+        },
+        "attribute_ykVQKg": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon.png",
+            "title": "<strong>LEGXI - COA<\/strong>",
+            "content": "<p>Certificate of Authenticity<\/p>"
+          }
+        },
+        "attribute_mH7h8K": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/star-icon.png",
+            "title": "<strong>LEGXI Collectors<\/strong>",
+            "content": "<p>Registered within our collector records<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_CUnh8A",
+        "attribute_fB3zNL",
+        "attribute_QyRapB",
+        "attribute_YBWk3X",
+        "attribute_ykVQKg",
+        "attribute_mH7h8K"
+      ],
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "FEATURES",
+        "title": "Specifications",
+        "heading_size": "h4",
+        "content": "<p>This artwork is created as a tribute to Arshdeep Singh’s journey, from his India Under-19 days to being part of India’s Two T20 World Cup Trophies, capturing key milestones of his rise.<\/p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "text_with_media_7xcW3p": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_zYp3PE": {
+          "type": "subheading",
+          "settings": {
+            "text": "journey that inspires",
+            "position": "top_left"
+          }
+        },
+        "heading_nNjXbd": {
+          "type": "heading",
+          "settings": {
+            "text": "From Humble Beginnings To The World Stage",
+            "heading_tag": "h4",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_hVrePi": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>A story shaped by grit, humility, and quiet resolve.<\/strong> Arshdeep Singh’s journey from the streets of Mohali to the world stage stands as a testament to what sustained belief and discipline can achieve<br\/><br\/>This limited Gold Edition, featuring <strong>24 carat gold plated elements and personally hand signed by Arshdeep Singh<\/strong>, captures the essence of that rise. From a young dreamer honing his craft to a match winner under the brightest lights, the artwork preserves the moments that shaped the journey.<br\/><br\/>More than a visual piece, this edition stands as a tribute to discipline, patience, and belief. Every detail reflects years of unseen effort, reminding us that progress is built one step at a time, long before recognition arrives.<br\/><br\/>Placed on your wall, it does more than elevate a space. It anchors a mindset. A reminder that small beginnings, when pursued with intent and consistency, can lead to extraordinary outcomes.<br\/><br\/>This edition invites you to look beyond the frame. To see your own journey reflected in his. To commit to your path. And to build your own LEGXI.<\/p>",
+            "position": "top_left"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_zYp3PE",
+        "heading_nNjXbd",
+        "richtext_hVrePi"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_position": "start",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_video": "shopify:\/\/files\/videos\/video-signing.mp4",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "hot_spots_gtHmTh": {
+      "type": "hot-spots",
+      "blocks": {
+        "hot_spot_content_item_Lepq4R": {
+          "type": "_hot-spot-content-item",
+          "name": "t:sections.hot_spots.blocks.content.name",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 32,
+            "desktop_vertical_position": 39,
+            "mobile_horizontal_position": 20,
+            "mobile_vertical_position": 29,
+            "image": "shopify:\/\/shop_images\/Artboard-1_51fb773d-6cab-4eea-9cd7-b5e935ba7924.png",
+            "round_image": false,
+            "title": "Museum Grade Display",
+            "content": "<p>Hand-signed 24k Gold plated Artwork signed by Arshdeep Singh with a Gold metal frame.<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_NXHMpH": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 68,
+            "desktop_vertical_position": 27,
+            "mobile_horizontal_position": 83,
+            "mobile_vertical_position": 28,
+            "image": "shopify:\/\/shop_images\/Artboard-5_4c842dee-75f8-4503-891c-dc04f78da267.png",
+            "round_image": false,
+            "title": "<strong>Premium Packaging<\/strong>",
+            "content": "<p>Premium LEGXI presentation box with protective foam inserts and ribbon finish<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_FkRCMn": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 25,
+            "desktop_vertical_position": 80,
+            "mobile_horizontal_position": 8,
+            "mobile_vertical_position": 78,
+            "image": "shopify:\/\/shop_images\/COA-AS.jpg",
+            "round_image": false,
+            "title": "<strong>Certificate of Authenticity<\/strong>",
+            "content": "<p>Gold Metal card with your specied Edition Number engraved on it.<\/p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "hot_spot_content_item_Lepq4R",
+        "hot_spot_content_item_NXHMpH",
+        "hot_spot_content_item_FkRCMn"
+      ],
+      "name": "t:sections.hot_spots.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify:\/\/shop_images\/in-detail.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/phone-in-detail.jpg",
+        "hot_spot_background": "#272727",
+        "hot_spot_color": "#ddbc58",
+        "background_text": "",
+        "background_text_size": "display-m",
+        "lower_scrolling_text_layer": false,
+        "show_scrolling_title": false
+      }
+    },
+    "faq_U7EXL8": {
+      "type": "faq",
+      "blocks": {
+        "question_fzMaty": {
+          "type": "question",
+          "settings": {
+            "question": "How do I know this artwork is authentic?",
+            "answer": "<p>Every LEGXI × Arshdeep Singh Gold-Plated Artwork is 100% authentic. LEGXI is a certified collectible brand, co-invested by Indian cricketer Arshdeep Singh himself. Each canvas is personally hand-signed and comes with a Certificate of Authenticity, verifying its signature, edition number, and provenance.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_zn6QHg": {
+          "type": "question",
+          "settings": {
+            "question": "HOW MUCH GOLD IS USED IN THE ARTWORK?",
+            "answer": "<p>The gold is used as decorative 24 Karat plating on the star elements, enhancing the visual prestige of the collectible rather than functioning as a raw gold asset.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_6wFcef": {
+          "type": "question",
+          "settings": {
+            "question": "IS THE GOLD USED REAL 24 KARAT GOLD?",
+            "answer": "<p>Yes. The stars within the artwork are finished using 24 Karat Gold Plating, giving the piece a genuine gold finish and premium collector appearance.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_T7JCxc": {
+          "type": "question",
+          "settings": {
+            "question": "WILL THE GOLD PLATING FADE OR TARNISH OVER TIME?",
+            "answer": "<p>No. The gold plating used in this artwork is designed for long-term preservation within the frame. When kept in normal indoor conditions, the finish remains stable and does not fade.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_PNbkhW": {
+          "type": "question",
+          "settings": {
+            "question": "Why is this a Limited Edition?",
+            "answer": "<p>This edition is strictly limited to only 192 ever created worldwide. Each artwork is individually numbered and verified, making it a rare collectible of enduring value.As a Limited Edition, it remains exclusive, investment-secure, and appreciating in value over time, a true asset for passionate collectors and cricketing connoisseurs.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_GABWk9": {
+          "type": "question",
+          "settings": {
+            "question": "What makes this artwork special?",
+            "answer": "<p>Each masterpiece is gold-plated and personally hand-signed by Arshdeep Singh, capturing his journey from humble beginnings to World Cup glory. It’s not just art - it’s a legacy immortalized in gold, crafted to inspire generations.<\/p><p>This canvas on your wall is designed to ignite the spark within you - to inspire you to create your own LEGXI.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_Awn8mF": {
+          "type": "question",
+          "settings": {
+            "question": "What comes along with the artwork?",
+            "answer": "<p>Your collectible arrives in premium LEGXI packaging, designed for a ceremonial unboxing experience. Inside, you’ll find the gold-plated artwork, a Certificate of Authenticity, and protective casing to ensure flawless presentation and safety.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_irJwYR": {
+          "type": "question",
+          "settings": {
+            "question": "When will I receive my collectible?",
+            "answer": "<p>Once your ownership is confirmed, your artwork will be delivered within 7–10 business days in premium LEGXI packaging, complete with authentication and protective casing.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_fDx7W6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I get a unique edition number?",
+            "answer": "<p>Yes, you can claim a unique edition number for your collectible. Each LEGXI piece is part of a numbered limited edition series, ensuring authenticity and exclusivity.While edition numbers are not assigned on a first-come basis, our expert team will personally connect with you after registration to explain the selection process and assist you in securing your own personal edition number. Once claimed, that number becomes exclusively yours- forever<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_fzMaty",
+        "question_zn6QHg",
+        "question_6wFcef",
+        "question_T7JCxc",
+        "question_PNbkhW",
+        "question_GABWk9",
+        "question_Awn8mF",
+        "question_irJwYR",
+        "question_fDx7W6"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently Asked Questions",
+        "title_tag": "h3",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "media_blocks_bDMgbN",
+    "specifications_VdRFL8",
+    "text_with_media_7xcW3p",
+    "hot_spots_gtHmTh",
+    "faq_U7EXL8"
+  ]
+}

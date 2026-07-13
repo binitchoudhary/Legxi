@@ -1,0 +1,435 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "sku_cPAfKw": {
+          "type": "sku",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "button_hPgGNY": {
+          "type": "button",
+          "settings": {
+            "link": "https://wa.me/919315704239?text=Hi%20LEGXI",
+            "text": "CONTACT FOR OWNERSHIP",
+            "style": "solid",
+            "stretch": true,
+            "background": "#1e616c",
+            "text_color": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "disabled": true,
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": false,
+            "add_quantity_selector_spacing": false,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "rating",
+        "payment_terms",
+        "separator",
+        "description",
+        "sku_cPAfKw",
+        "variant_picker",
+        "button_hPgGNY",
+        "buy_buttons"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": false,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 40,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "specifications_CP4tEq": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_jCyfCg": {
+          "type": "attribute",
+          "settings": {
+            "icon": "picto-secure",
+            "custom_icon": "shopify://shop_images/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "24K GOLD",
+            "content": "<p>Write some content.</p>"
+          }
+        },
+        "attribute_QY7AUP": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify://shop_images/sign-icon_d49da9e7-9569-4221-9082-cf2866a49ae4.png",
+            "title": "HAND SIGNED",
+            "content": "<p>Write some content.</p>"
+          }
+        },
+        "attribute_JpjUwQ": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify://shop_images/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "LEGXI COA",
+            "content": "<p>Certificate of Authentication</p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_jCyfCg",
+        "attribute_QY7AUP",
+        "attribute_JpjUwQ"
+      ],
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "FEATURES",
+        "title": "Specifications",
+        "heading_size": "h4",
+        "content": "<p>The Argentine Icons 24K Signature Series honours both - a limited edition tribute to the players who carried a nation’s dream and delivered it to the world. </p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "text_with_media_ikUQBL": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_bmtjDE": {
+          "type": "subheading",
+          "settings": {
+            "text": "A JOURNEY THAT INSPIRES",
+            "position": "top_left"
+          }
+        },
+        "heading_y3jzKP": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>Lionel Messi  “A Napkin. A Signature. History.”</strong>",
+            "heading_tag": "h3",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_NT7QmM": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Age 13, a paper napkin carried the first signature of belief in Lionel Messi’s future.<br/> This collectible transforms that beginning into a design language of legacy.</p><p>The textured Argentina relief map traces the nation that shaped him, while Rosario stands marked as the birthplace of a player who changed football forever. The golden football element represents football immortality, balanced against a minimalist white composition inspired by modern museum presentation.</p><p>Finished with Messi’s signature and individually numbered in a strictly limited edition. A collectible designed for the era that witnessed greatness in real time.</p>",
+            "position": "top_left"
+          }
+        },
+        "button_Yb7jzA": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "text": "Button text",
+            "url": "",
+            "position": "bottom_left",
+            "style": "solid",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_bmtjDE",
+        "heading_y3jzKP",
+        "richtext_NT7QmM",
+        "button_Yb7jzA"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "",
+        "content_position": "end",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify://shop_images/Artboard-6_96bc37e3-3a09-46c2-a425-a8698d228cbb.png",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "hot_spots_fchDzQ": {
+      "type": "hot-spots",
+      "blocks": {
+        "placeable_content_EnEmpD": {
+          "type": "_placeable-content",
+          "settings": {
+            "position": "start",
+            "max_width": "sm"
+          },
+          "blocks": {
+            "heading_BVgmyj": {
+              "type": "heading",
+              "settings": {
+                "text": "Hot spots",
+                "heading_size": "h3",
+                "html_tag": "p",
+                "indent": "none",
+                "highlight_effect": "default",
+                "highlight_accent_color": "",
+                "highlight_text_color": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading_BVgmyj"
+          ]
+        },
+        "hot_spot_content_item_ckkpQN": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 40,
+            "desktop_vertical_position": 40,
+            "mobile_horizontal_position": 40,
+            "mobile_vertical_position": 40,
+            "round_image": false,
+            "title": "Hot spot 1",
+            "content": "<p>Write some text about your products or your brand.</p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_cMcKbg": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 60,
+            "desktop_vertical_position": 60,
+            "mobile_horizontal_position": 60,
+            "mobile_vertical_position": 60,
+            "round_image": false,
+            "title": "Hot spot 2",
+            "content": "<p>Write some text about your products or your brand.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "placeable_content_EnEmpD",
+        "hot_spot_content_item_ckkpQN",
+        "hot_spot_content_item_cMcKbg"
+      ],
+      "name": "t:sections.hot_spots.name",
+      "settings": {
+        "color_scheme": "",
+        "mobile_image": "shopify://shop_images/Artboard-7_c46c7b8d-ba76-4b75-b666-c9cfac095b81.png",
+        "hot_spot_background": "#ffffff",
+        "hot_spot_color": "#000000",
+        "background_text": "",
+        "background_text_size": "display-l",
+        "lower_scrolling_text_layer": false,
+        "show_scrolling_title": false
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our shop",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Discover our products",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Related products",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "stack_products": true,
+        "recommendations_count": 4,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4,
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "1781112044f505a227": {
+      "type": "apps",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.</p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specifications_CP4tEq",
+    "text_with_media_ikUQBL",
+    "hot_spots_fchDzQ",
+    "scrolling_content_EPB3cB",
+    "related-products",
+    "1781112044f505a227"
+  ]
+}

@@ -1,0 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ownership_transfer": {
+      "type": "ownership-transfer",
+      "settings": {
+        "firebase_api_key": "AIzaSyBwY5_M7FiVM7RSDSdSIophVm1os1cg0v8",
+        "firebase_auth_domain": "legxi-auth.firebaseapp.com",
+        "firebase_project_id": "legxi-auth",
+        "firebase_app_id": "1:306823193992:web:5744d8c0b4ffa0801bc63d",
+        "firebase_messaging_sender_id": "306823193992",
+        "api_base_url": "https://api-7zal2ngszq-uc.a.run.app",
+        "transfer_fee": 499,
+        "brand_name": "LEGXI"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "ownership_transfer"
+  ]
+}

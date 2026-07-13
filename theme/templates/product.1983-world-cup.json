@@ -1,0 +1,597 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "variant_picker_YfMtFD": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "dropdown",
+            "swatch_selector_style": "block_swatch",
+            "swatch_selector_size": "sm",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "buy_buttons_kiwJhV": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "outline",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "#000000",
+            "payment_button_text_color": ""
+          }
+        },
+        "modal_dkrgmM": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_kXpExY": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_2c7353ad-9e57-4d61-ac82-70be95c7a917.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f5fbff",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_5898d2e2-5c72-4760-9e7a-e37dd63d75b8.png",
+            "offer_2_icon_width": 20,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f5fbff",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_f2d168e0-fd2e-43d4-a19d-8c1a71da5ab3.png",
+            "offer_3_icon_width": 20,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f5fbff",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Refund",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Shipping",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 88475 79634<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_hD7aw4": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Details & Specs",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #1983 pieces worldwide<\/p><p>Comes with: Archival Embossed Printing with Museum-Grade Stability and Finishing<br\/><br\/>Size \/ Dimensions: 19 × 27 Inches<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_Yw9tMe": {
+          "type": "offers",
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/tag.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "ONLY #1983 PIECES WORLDWIDE",
+            "offer_1_content": "If you wish to secure a specific edition (e.g. 0001\/1983) our after-sales team will guide you post-purchase.",
+            "offer_1_background": "#f1fff2",
+            "offer_1_text_color": "#097133",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "complementary_products_e4WW8w": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "",
+            "products_count": 2
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "rating",
+        "variant_picker_YfMtFD",
+        "price",
+        "buy_buttons_kiwJhV",
+        "modal_dkrgmM",
+        "offers_kXpExY",
+        "description",
+        "modal_6G837j",
+        "modal_hD7aw4",
+        "offers_Yw9tMe",
+        "complementary_products_e4WW8w"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "text_with_media_FqXT4R": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_mLjUza": {
+          "type": "subheading",
+          "settings": {
+            "text": "1983 world cup",
+            "position": "top_left"
+          }
+        },
+        "heading_H46kJG": {
+          "type": "heading",
+          "settings": {
+            "text": "The Making of the Edition",
+            "heading_tag": "h1",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_9B4K8T": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>The 1983 World Cup Edition is a carefully composed visual archive of the victory that introduced belief to Indian cricket.<\/p><p>At its centre stands the iconic <strong>1983 World Cup trophy<\/strong>, embossed with special treatment and elevated as the defining symbol of the moment that changed everything.<\/p><p>Surrounding it is a structured visual composition capturing the faces, moments, and emotion of that historic journey. From underdogs to champions. From uncertainty to dominance.<\/p><p>The year <strong>1983<\/strong> stands boldly at the top, marking the moment Indian cricket stepped into a new era.<\/p><p>This artwork honours the spark that ignited belief and shaped the foundation of what Indian cricket has become.<\/p>",
+            "position": "bottom_left"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_mLjUza",
+        "heading_H46kJG",
+        "richtext_9B4K8T"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_position": "start",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify:\/\/shop_images\/bts.jpg",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "text_with_icons_FtJgTV": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_4E7BMT": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-asterisk",
+            "title": "SPECIALLY TREATED TROPHY",
+            "heading_tag": "h3",
+            "content": "<p>Special treatment on 1983 World Cup trophy to emphasise it's importance<\/p>"
+          }
+        },
+        "item_EUXNrD": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-sparkle",
+            "title": "LEGACY DEPICTED THROUGH DESIGN",
+            "heading_tag": "h3",
+            "content": "<p>Precise cricket history integrated into a refined liquid composition.<\/p>"
+          }
+        },
+        "item_mHe9BG": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-ai-spark",
+            "title": "MUSEUM GRADE QUALITY",
+            "heading_tag": "h3",
+            "content": "<p>Embossed printing paired with long life, gallery standard framing.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_4E7BMT",
+        "item_EUXNrD",
+        "item_mHe9BG"
+      ],
+      "name": "t:sections.text_with_icons.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "display-m",
+        "text_alignment": "center",
+        "items_per_row_desktop": 3,
+        "stack_on_mobile": true,
+        "separator_style": "vertical",
+        "icon_position": "stacked",
+        "icon_width": 40,
+        "mobile_icon_width": 32,
+        "item_text_alignment": "left"
+      }
+    },
+    "hot_spots_ctCYaz": {
+      "type": "hot-spots",
+      "blocks": {
+        "hot_spot_content_item_c9k9Ni": {
+          "type": "_hot-spot-content-item",
+          "name": "t:sections.hot_spots.blocks.content.name",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 50,
+            "desktop_vertical_position": 18,
+            "mobile_horizontal_position": 50,
+            "mobile_vertical_position": 18,
+            "image": "shopify:\/\/shop_images\/title_b2c6e66d-cbf6-4b1f-9ed9-d06cfa6a9b4f.jpg",
+            "round_image": false,
+            "title": "1983 Edition",
+            "content": "<p><strong>From dreaming to believing<\/strong> - India’s World Cup campaign came full circle, entering as underdogs and emerging as champions.<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_VyxxjD": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 40,
+            "desktop_vertical_position": 48,
+            "mobile_horizontal_position": 32,
+            "mobile_vertical_position": 49,
+            "image": "shopify:\/\/shop_images\/stars.jpg",
+            "round_image": false,
+            "title": "Dominators",
+            "content": "<p>A structured visual composition capturing the faces, moments, and emotion of that historic journey.<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_GnqwhA": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 60,
+            "desktop_vertical_position": 63,
+            "mobile_horizontal_position": 70,
+            "mobile_vertical_position": 57,
+            "image": "shopify:\/\/shop_images\/trophy_e79e2cfd-adf5-4288-95ff-2c41e4467107.jpg",
+            "round_image": false,
+            "title": "Embossed Trophy",
+            "content": "<p>Specially treated 1983 World Cup trophy to define it's importance in shaping India as a cricketing nation.<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_TzKhkm": {
+          "type": "_hot-spot-content-item",
+          "name": "t:sections.hot_spots.blocks.content.name",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 55,
+            "desktop_vertical_position": 81,
+            "mobile_horizontal_position": 60,
+            "mobile_vertical_position": 80,
+            "image": "shopify:\/\/shop_images\/footer_ba28b68e-3bf9-4467-8d6a-eb23fe8f9f06.jpg",
+            "round_image": false,
+            "title": "Indian Flag & Authenticity",
+            "content": "<p>The Indian flag gracefully embraces the artwork, with each collectible individually numbered and secured with an authentication QR code.<\/p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "hot_spot_content_item_c9k9Ni",
+        "hot_spot_content_item_VyxxjD",
+        "hot_spot_content_item_GnqwhA",
+        "hot_spot_content_item_TzKhkm"
+      ],
+      "name": "t:sections.hot_spots.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify:\/\/shop_images\/1983-in-detail_e00912ef-7cd2-447f-8453-a4b9dafe113b.png",
+        "mobile_image": "shopify:\/\/shop_images\/1983-in-detail-phone_f0453a51-546a-4e83-970b-f2c3f525c11e.png",
+        "hot_spot_background": "#0586c1",
+        "hot_spot_color": "#ffffff",
+        "background_text": "",
+        "background_text_size": "display-m",
+        "lower_scrolling_text_layer": false,
+        "show_scrolling_title": false
+      }
+    },
+    "scrolling_content_6Eaxw6": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_8Y8JHf": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>From Dreaming to Believing.<\/strong>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_4LPrh4": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Become the Belief.<\/strong>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_8Y8JHf",
+        "text_4LPrh4"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "scrolling_speed": 0.2,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "1761294333278e356b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_6K7ArF": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_6K7ArF"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "faq_U7EXL8": {
+      "type": "faq",
+      "blocks": {
+        "question_fzMaty": {
+          "type": "question",
+          "settings": {
+            "question": "Is it a limited edition?",
+            "answer": "<p>This edition is permanently capped at <strong>1983 pieces worldwide<\/strong>, making each artwork part of a fixed global release.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_zn6QHg": {
+          "type": "question",
+          "settings": {
+            "question": "How Long will it take to deliver your order?",
+            "answer": "<p>Orders are dispatched within <strong>3 to 4 days<\/strong>. Delivery across India is completed within <strong>10 days<\/strong>, while international deliveries are completed within <strong>18 days<\/strong>.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_MHCCNJ": {
+          "type": "question",
+          "settings": {
+            "question": "What is size of the Artwork?",
+            "answer": "<p>The artwork measures <strong>19 × 27 inches<\/strong>, designed for a strong and refined wall presence.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_bc4eUW": {
+          "type": "question",
+          "settings": {
+            "question": "What print and framing standards are used?",
+            "answer": "<p>The artwork is produced using <strong>museum-grade embossed printing<\/strong>, paired with <strong>premium gallery framing<\/strong> engineered for long-term display.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_gTNiAx": {
+          "type": "question",
+          "settings": {
+            "question": "Is this officially associated with the 1983 World Cup team or players?",
+            "answer": "<p>This is an independently designed <strong>LEGXI collectible<\/strong>, created as a tribute to India’s 1983 World Cup victory.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_VfPxee": {
+          "type": "question",
+          "settings": {
+            "question": "How can I choose my edition number?",
+            "answer": "<p>After purchase, the <strong>LEGXI after-sales team<\/strong> assists in selecting an available edition number based on preference and availability.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_M33Rjj": {
+          "type": "question",
+          "settings": {
+            "question": "Can this appreciate in value?",
+            "answer": "<p>Fixed edition architecture combined with historic significance forms a strong foundation for enduring collectible value.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_P69VeC": {
+          "type": "question",
+          "settings": {
+            "question": "What is Return & Refund Policy?",
+            "answer": "<p>Each artwork is individually crafted and authenticated, with dedicated support provided for transit-related or manufacturing concerns.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_fzMaty",
+        "question_zn6QHg",
+        "question_MHCCNJ",
+        "question_bc4eUW",
+        "question_gTNiAx",
+        "question_VfPxee",
+        "question_M33Rjj",
+        "question_P69VeC"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout": "split",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently asked questions",
+        "title_tag": "h3",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_with_media_FqXT4R",
+    "text_with_icons_FtJgTV",
+    "hot_spots_ctCYaz",
+    "scrolling_content_6Eaxw6",
+    "1761294333278e356b",
+    "faq_U7EXL8"
+  ]
+}

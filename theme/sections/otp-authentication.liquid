@@ -1,0 +1,119 @@
+<div id="otp-box" style="max-width:420px;margin:20px auto;">
+  <h2>Select Product</h2>
+
+  <select id="productSelect" style="width:100%;padding:8px;margin-bottom:10px;">
+    <option>Loading products...</option>
+  </select>
+
+  <input
+    id="phone"
+    type="tel"
+    placeholder="Enter phone number"
+    style="width:100%;padding:8px;margin-bottom:10px;"
+  />
+
+  <button id="sendotp" onclick="sendOTP()" style="width:100%;padding:10px;">
+    Send OTP
+  </button>
+
+  <div id="otp-section" style="display:none;margin-top:10px;">
+    <input
+      id="otp"
+      type="text"
+      placeholder="Enter OTP"
+      style="width:100%;padding:8px;margin-bottom:10px;"
+    />
+
+    <button onclick="verifyOTP()" style="width:100%;padding:10px;">
+      Verify & Continue
+    </button>
+  </div>
+
+  <div id="recaptcha-container"></div>
+</div>
+
+
+<!-- 🟡 Load products into dropdown -->
+<script>
+fetch('/products.json')
+  .then(res => res.json())
+  .then(data => {
+    const select = document.getElementById('productSelect');
+    select.innerHTML = '<option value="">Select a product</option>';
+
+    data.products.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;        // You may switch to p.handle if needed
+      opt.textContent = p.title;
+      select.appendChild(opt);
+    });
+  });
+</script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAG7KcWrH2HOMO9qCeEpSq8QBHvgE9RCbM",
+    authDomain: "shopify-otp-73da9.firebaseapp.com",
+    projectId: "shopify-otp-73da9",
+    storageBucket: "shopify-otp-73da9.firebasestorage.app",
+    messagingSenderId: "290883976180",
+    appId: "1:290883976180:web:5953c31ea90cf98368d7a1",
+    measurementId: "G-KYH8HMY137"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  let confirmationResult;
+
+  // Create invisible reCAPTCHA on Send OTP button
+  window.recaptchaVerifier = new RecaptchaVerifier(
+    auth,
+    'sendotp',
+    { size: 'invisible' }
+  );
+
+  window.sendOTP = function () {
+    const phone = document.getElementById('phone').value;
+
+    if (!phone) {
+      alert("Enter phone number");
+      return;
+    }
+
+    signInWithPhoneNumber(auth, "+91" + phone, window.recaptchaVerifier)
+      .then(result => {
+        confirmationResult = result;
+        document.getElementById('otp-section').style.display = 'block';
+        alert("OTP sent");
+      })
+      .catch(err => alert(err.message));
+  };
+
+
+  window.verifyOTP = function () {
+    const otp = document.getElementById('otp').value;
+    const productId = document.getElementById('productSelect').value;
+
+    if (!productId) {
+      alert("Select a product first");
+      return;
+    }
+
+    confirmationResult.confirm(otp)
+      .then(() => {
+
+        // 👉 Call your backend here later
+        alert("OTP verified successfully");
+
+        // Example redirect
+        // window.location.href = "/";
+
+      })
+      .catch(() => alert("Invalid OTP"));
+  };
+</script>

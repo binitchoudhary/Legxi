@@ -1,0 +1,79 @@
+("line-item", LineItem);
+}
+
+// js/common/cart/shipping-estimator.js
+var _estimateShippingListener, _ShippingEstimator_instances, estimateShipping_fn, getAsyncShippingRates_fn, formatShippingRates_fn, formatError_fn;
+var ShippingEstimator = class extends HTMLElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _ShippingEstimator_instances);
+    __privateAdd(this, _estimateShippingListener, __privateMethod(this, _ShippingEstimator_instances, estimateShipping_fn).bind(this));
+  }
+  connectedCallback() {
+    this.submitButton = this.querySelector('[type="button"]');
+    this.resultsElement = this.querySelector('[aria-live="polite"]');
+    this.submitButton.addEventListener("click", __privateGet(this, _estimateShippingListener));
+  }
+  disconnectedCallback() {
+    this.submitButton.removeEventListener("click", __privateGet(this, _estimateShippingListener));
+  }
+};
+_estimateShippingListener = new WeakMap();
+_ShippingEstimator_instances = new WeakSet();
+estimateShipping_fn = async function(event) {
+  event.preventDefault();
+  const zip = this.querySelector('[name="address[zip]"]').value, country = this.querySelector('[name="address[country]"]').value, province = this.querySelector('[name="address[province]"]').value;
+  this.submitButton.setAttribute("aria-busy", "true");
+  const prepareResponse = await fetch(`${Shopify.routes.root}cart/prepare_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`, { method: "POST" });
+  if (prepareResponse.ok) {
+    const shippingRates = await __privateMethod(this, _ShippingEstimator_instances, getAsyncShippingRates_fn).call(this, zip, country, province);
+    __privateMethod(this, _ShippingEstimator_instances, formatShippingRates_fn).call(this, shippingRates);
+  } else {
+    const jsonError = await prepareResponse.json();
+    __privateMethod(this, _ShippingEstimator_instances, formatError_fn).call(this, jsonError);
+  }
+  this.resultsElement.hidden = false;
+  this.submitButton.removeAttribute("aria-busy");
+};
+getAsyncShippingRates_fn = async function(zip, country, province) {
+  const response = await fetch(`${Shopify.routes.root}cart/async_shipping_rates.json?shipping_address[zip]=${zip}&shipping_address[country]=${country}&shipping_address[province]=${province}`);
+  const responseAsText = await response.text();
+  if (responseAsText === "null") {
+    return __privateMethod(this, _ShippingEstimator_instances, getAsyncShippingRates_fn).call(this, zip, country, province);
+  } else {
+    return JSON.parse(responseAsText)["shipping_rates"];
+  }
+};
+formatShippingRates_fn = function(shippingRates) {
+  let formattedShippingRates = shippingRates.map((shippingRate) => {
+    return `<li>${shippingRate["presentment_name"]}: ${shippingRate["currency"]} ${shippingRate["price"]}</li>`;
+  });
+  this.resultsElement.innerHTML = `
+      <div class="v-stack gap-2">
+        <p>${shippingRates.length === 0 ? window.themeVariables.strings.shippingEstimatorNoResults : shippingRates.length === 1 ? window.themeVariables.strings.shippingEstimatorOneResult : window.themeVariables.strings.shippingEstimatorMultipleResults}</p>
+        ${formattedShippingRates === "" ? "" : `<ul class="list-disc" role="list">${formattedShippingRates.join("")}</ul>`}
+      </div>
+    `;
+};
+formatError_fn = function(errors) {
+  let formattedShippingRates = Object.keys(errors).map((errorKey) => {
+    return `<li>${errors[errorKey]}</li>`;
+  });
+  this.resultsElement.innerHTML = `
+      <div class="v-stack gap-1">
+        <p>${window.themeVariables.strings.shippingEstimatorError}</p>
+        <ul class="list-disc" role="list">${formattedShippingRates}</ul>
+      </div>
+    `;
+};
+if (!window.customElements.get("shipping-estimator")) {
+  window.customElements.define("shipping-estimator", ShippingEstimator);
+}
+
+// js/common/collection/collection-facets-floating-button.js
+var CollectionFacetsFloatingButton = class extends SandwichVisibility {
+  get startMarker() {
+    return document.querySelector(".collection__toolbar");
+  }
+  get endMarker() {
+    return docum

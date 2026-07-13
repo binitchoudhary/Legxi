@@ -1,0 +1,377 @@
+{%- liquid
+  assign visible_count = 0
+  for block in section.blocks
+    if block.settings.show_badge and block.settings.badge_text != blank
+      assign visible_count = visible_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if visible_count > 0 or section.settings.section_heading != blank -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --pb-gap: {{ section.settings.badge_gap }}px;
+  }
+
+  #shopify-section-{{ section.id }} .pb-section {
+    padding-block: 0.75rem;
+  }
+
+  #shopify-section-{{ section.id }} .pb-heading {
+    display: block;
+    margin: 0 0 0.6rem 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .pb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--pb-gap);
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .pb-list--left   { justify-content: flex-start; }
+  #shopify-section-{{ section.id }} .pb-list--center { justify-content: center; }
+  #shopify-section-{{ section.id }} .pb-list--right  { justify-content: flex-end; }
+
+  #shopify-section-{{ section.id }} .pb-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--pb-bg, #f0f0f0);
+    color: var(--pb-text, #1a1a1a);
+    border: 1px solid var(--pb-border, transparent);
+    border-radius: var(--pb-radius, 4px);
+    font-size: var(--pb-fs-d, 11px);
+    font-weight: var(--pb-fw, 600);
+    padding: var(--pb-py, 6px) var(--pb-px, 14px);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #shopify-section-{{ section.id }} .pb-badge:hover {
+    opacity: 0.72;
+    transform: translateY(-1px);
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .pb-badge {
+      font-size: var(--pb-fs-m, 10px);
+    }
+
+    #shopify-section-{{ section.id }} .pb-list--scrollable {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      justify-content: flex-start !important;
+    }
+
+    #shopify-section-{{ section.id }} .pb-list--scrollable::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
+
+<div class="color-scheme color-scheme--{{ section.settings.color_scheme.id }} pb-section">
+  {%- if section.settings.section_heading != blank -%}
+    <span class="pb-heading">{{ section.settings.section_heading | escape }}</span>
+  {%- endif -%}
+
+  <ul
+    class="pb-list pb-list--{{ section.settings.badge_alignment }}{% if section.settings.enable_mobile_scroll %} pb-list--scrollable{% endif %}"
+    role="list"
+  >
+    {%- for block in section.blocks -%}
+      {%- if block.settings.show_badge and block.settings.badge_text != blank -%}
+        {%- liquid
+          assign bg_val     = block.settings.badge_bg_color
+          assign text_val   = block.settings.badge_text_color
+          assign border_val = block.settings.badge_border_color
+
+          assign bg_blank     = false
+          assign text_blank   = false
+          assign border_blank = false
+
+          if bg_val == blank or bg_val == 'rgba(0,0,0,0)'
+            assign bg_blank = true
+          endif
+          if text_val == blank or text_val == 'rgba(0,0,0,0)'
+            assign text_blank = true
+          endif
+          if border_val == blank or border_val == 'rgba(0,0,0,0)'
+            assign border_blank = true
+          endif
+        -%}
+        <li>
+          <span
+            class="pb-badge"
+            style="
+              {%- unless bg_blank -%}--pb-bg: {{ bg_val }};{%- endunless -%}
+              {%- unless text_blank -%}--pb-text: {{ text_val }};{%- endunless -%}
+              --pb-border: {% unless border_blank %}{{ border_val }}{% else %}transparent{% endunless %};
+              --pb-radius: {{ block.settings.badge_border_radius }}px;
+              --pb-fs-d: {{ block.settings.font_size_desktop }}px;
+              --pb-fs-m: {{ block.settings.font_size_mobile }}px;
+              --pb-fw: {{ block.settings.font_weight }};
+              --pb-px: {{ block.settings.padding_x }}px;
+              --pb-py: {{ block.settings.padding_y }}px;
+            "
+            {{ block.shopify_attributes }}
+          >
+            {{- block.settings.badge_text | escape -}}
+          </span>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Badges",
+  "tag": "section",
+  "class": "shopify-section--product-badges",
+  "max_blocks": 3,
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "info": "Optional label shown above the badges"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "badge_alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "badge_gap",
+      "label": "Gap between badges",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_scroll",
+      "label": "Enable horizontal scroll on mobile",
+      "info": "Badges scroll in a single row instead of wrapping",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "BADGE"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badge",
+          "label": "Show badge",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg_color",
+          "label": "Background",
+          "default": "#f0f0f0"
+        },
+        {
+          "type": "color",
+          "id": "badge_text_color",
+          "label": "Text",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "badge_border_color",
+          "label": "Border",
+          "default": "#e0e0e0"
+        },
+        {
+          "type": "header",
+          "content": "Shape"
+        },
+        {
+          "type": "range",
+          "id": "badge_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "default": 4,
+          "info": "Set to 50px for a fully rounded pill shape"
+        },
+        {
+          "type": "header",
+          "content": "Typography"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size — desktop",
+          "min": 9,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 11
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size — mobile",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Font weight",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi-bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_x",
+          "label": "Horizontal padding",
+          "min": 6,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "padding_y",
+          "label": "Vertical padding",
+          "min": 3,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 6
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Badges",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "badge_text": "AUTOMATIC",
+            "badge_bg_color": "#f0f0f0",
+            "badge_text_color": "#1a1a1a",
+            "badge_border_color": "#e0e0e0",
+            "badge_border_radius": 4,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "padding_x": 14,
+            "padding_y": 6,
+            "show_badge": true
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "badge_text": "100 PCS",
+            "badge_bg_color": "#f0f0f0",
+            "badge_text_color": "#1a1a1a",
+            "badge_border_color": "#e0e0e0",
+            "badge_border_radius": 4,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "padding_x": 14,
+            "padding_y": 6,
+            "show_badge": true
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "badge_text": "SOLD OUT",
+            "badge_bg_color": "#fce8e8",
+            "badge_text_color": "#c0392b",
+            "badge_border_color": "#f5c6c6",
+            "badge_border_radius": 4,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "padding_x": 14,
+            "padding_y": 6,
+            "show_badge": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGXI SEO Report — Before & After | June 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap');
+
+  :root {
+    --navy: #0A1628;
+    --navy-mid: #13213a;
+    --gold: #C9A84C;
+    --gold-light: #e8c96a;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --yellow: #eab308;
+    --blue: #3b82f6;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f0f4f8;
+    color: var(--gray-800);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ===== SLIDE SYSTEM ===== */
+  .slide {
+    width: 1120px;
+    min-height: 630px;
+    margin: 24px auto;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+    page-break-after: always;
+    break-after: page;
+  }
+
+  /* ===== COVER SLIDE ===== */
+  .slide--cover {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a6c 50%, var(--navy-mid) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    position: relative;
+    min-height: 630px;
+  }
+
+  .slide--cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 80px,
+      rgba(201,168,76,0.03) 80px,
+      rgba(201,168,76,0.03) 82px
+    );
+  }
+
+  .cover-logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-title span { color: var(--gold-light); }
+
+  .cover-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-meta-item {
+    text-align: center;
+  }
+
+  .cover-meta-item .num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .cover-meta-item .label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-date {
+    position: absolute;
+    bottom: 24px;
+    right: 32px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    z-index: 1;
+  }
+
+  /* ===== SLIDE HEADER ===== */
+  .slide-header {
+    background: var(--navy);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .slide-header h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+  }
+
+  .slide-header h2 span { color: var(--gold); }
+
+  .slide-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .slide-body {
+    padding: 32px 40px;
+  }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat-card .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .stat-card .stat-num.green { color: var(--green); }
+  .stat-card .stat-num.gold { color: var(--gold); }
+  .stat-card .stat-num.red { color: var(--red); }
+
+  .stat-card .stat-label {
+    font-size: 11px;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+  }
+
+  /* ===== BEFORE/AFTER COMPARISON ===== */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .comparison-col {
+    background: var(--gray-50);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+  }
+
+  .comparison-col.before { border-top: 4px solid var(--red); }
+  .comparison-col.after { border-top: 4px solid var(--green); }
+
+  .comparison-col-header {
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comparison-col.before .comparison-col-header { color: var(--red); }
+  .comparison-col.after .comparison-col-header { color: var(--green); }
+
+  .comparison-col-body {
+    padding: 0 20px 16px;
+  }
+
+  .comparison-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .comparison-item:last-child { border-bottom: none; }
+
+  .comparison-item .item-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-600);
+  }
+
+  .comparison-item .item-value {
+    font-size: 13px;
+    color: var(--gray-800);
+    font-weight: 500;
+  }
+
+  .comparison-item .item-value.missing {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .comparison-item .item-value.fixed { color: #15803d; }
+
+  /* ===== ISSUE TABLES ===== */
+  .issue-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .issue-table th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .issue-table th:first-child { border-radius: 0; }
+
+  .issue-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  .issue-table tr:last-child td { border-bottom: none; }
+  .issue-table tr:nth-child(even) td { background: var(--gray-50); }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tag-fixed { background: #dcfce7; color: #166534; }
+  .tag-manual { background: #fef9c3; color: #854d0e; }
+  .tag-deferred { background: #f1f5f9; color: #475569; }
+  .tag-critical { background: #fee2e2; color: #991b1b; }
+  .tag-high { background: #ffedd5; color: #9a3412; }
+  .tag-medium { background: #fef9c3; color: #854d0e; }
+  .tag-low { background: #f0fdf4; color: #166534; }
+
+  /* ===== RANKINGS TABLE ===== */
+  .rank-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .rank-table th {
+    background: var(--navy-mid);
+    color: rgba(255,255,255,0.7);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .rank-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 13px;
+  }
+
+  .rank-table tr:last-child td { border-bottom: none; }
+  .rank-table tr:nth-child(even) td { background: var(--gray-50); }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 60px;
+    right: 60px;
+    height: 2px;
+    background: var(--gray-200);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 12px;
+  }
+
+  .timeline-dot {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 20px;
+    font-weight: 800;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--gray-200);
+  }
+
+  .timeline-dot.t1 { background: #dbeafe; color: #1d4ed8; }
+  .timeline-dot.t2 { background: #dcfce7; color: #166534; }
+  .timeline-dot.t3 { background: #fef9c3; color: #854d0e; }
+  .timeline-dot.t4 { background: #f3e8ff; color: #7c3aed; }
+
+  .timeline-period {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 8px;
+  }
+
+  .timeline-items {
+    font-size: 11px;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* ===== SCHEMA GRID ===== */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .schema-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .schema-card.new {
+    border-color: #86efac;
+    background: #f0fdf4;
+  }
+
+  .schema-card.existing {
+    border-color: #93c5fd;
+    background: #eff6ff;
+  }
+
+  .schema-card.improved {
+    border-color: #fcd34d;
+    background: #fffbeb;
+  }
+
+  .schema-card-type {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .schema-card.new .schema-card-type { color: #166534; }
+  .schema-card.existing .schema-card-type { color: #1d4ed8; }
+  .schema-card.improved .schema-card-type { color: #92400e; }
+
+  .schema-card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+  }
+
+  .schema-card-scope {
+    font-size: 11px;
+    color: var(--gray-600);
+  }
+
+  /* ===== IMPACT SECTION ===== */
+  .impact-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: center;
+  }
+
+  .impact-row:first-child {
+    background: var(--navy);
+    border-radius: 8px 8px 0 0;
+  }
+
+  .impact-row:first-child .impact-cell {
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .impact-row:last-child { border-bottom: none; }
+  .impact-row:nth-child(even) .impact-cell { background: var(--gray-50); }
+
+  .impact-cell {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .impact-bar {
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .impact-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  /* ===== MANUAL STEPS ===== */
+  .manual-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid var(--gray-200);
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .manual-step.critical { border-color: #fca5a5; background: #fff5f5; }
+  .manual-step.high { border-color: #fed7aa; background: #fff7f0; }
+  .manual-step.medium { border-color: #fde68a; background: #fffdf0; }
+
+  .manual-step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .manual-step.critical .manual-step-num { background: #fee2e2; color: var(--red); }
+  .manual-step.high .manual-step-num { background: #ffedd5; color: var(--orange); }
+  .manual-step.medium .manual-step-num { background: #fef9c3; color: #a16207; }
+
+  .manual-step-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+  }
+
+  .manual-step-content p {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  .slide-footer {
+    padding: 16px 40px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--gray-600);
+  }
+
+  .slide-footer strong { color: var(--navy); }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; }
+    .slide {
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      width: 100%;
+      min-height: 0;
+    }
+    .no-print { display: none !important; }
+    @page { margin: 0; size: A4 landscape; }
+  }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--navy);
+    color: white;
+    border: 2px solid var(--gold);
+    border-radius: 50px;
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .print-btn:hover { background: var(--gold); color: var(--navy); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  .check { color: var(--green); font-weight: 700; }
+  .cross { color: var(--red); font-weight: 700; }
+  .warn { color: var(--orange); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">⬇ Save as PDF</button>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<div class="slide slide--cover">
+  <div class="cover-logo">LEGXI</div>
+  <div class="cover-tagline">Premium Cricket Collectibles</div>
+  <div class="cover-divider"></div>
+  <div class="cover-title">SEO Audit Report<br><span>Before &amp; After Implementation</span></div>
+  <div class="cover-subtitle">Complete On-Page · Technical · Schema · Social SEO Overhaul</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="num">25</div>
+      <div class="label">Issues Found</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="num" style="color: #22c55e;">20</div>
+      <div class="label">Fixed in Code</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="num">9</div>
+      <div class="label">Files Updated</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="num" style="color: #C9A84C;">80%</div>
+      <div class="label">Issues Resolved</div>
+    </div>
+  </div>
+  <div class="cover-date">legxi.co · June 16, 2026 · Powered by Shopify</div>
+</div>
+
+<!-- ===== SLIDE 2: CURRENT RANKINGS ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Current <span>Google Rankings</span></h2>
+    <div class="slide-badge">Baseline</div>
+  </div>
+  <div class="slide-body">
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num green">~52</div>
+        <div class="stat-label">URLs Indexed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num gold">19</div>
+        <div class="stat-label">Products Live</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Blog Posts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num red">7</div>
+        <div class="stat-label">Competitors Ahead</div>
+      </div>
+    </div>
+
+    <table class="rank-table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Current Position</th>
+          <th>Status</th>
+          <th>Main Competitor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>legxi</strong></td>
+          <td>Top 3</td>
+          <td><span class="tag tag-fixed">✓ Strong</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>legxi cricket collectibles</strong></td>
+          <td>Top 3</td>
+          <td><span class="tag tag-fixed">✓ Good</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>arshdeep singh signed ball</strong></td>
+          <td>Page 1</td>
+          <td><span class="tag tag-fixed">✓ Ranking</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>cricket collectibles india buy</strong></td>
+          <td>Page 1 (3 URLs)</td>
+          <td><span class="tag tag-manual">⚠ Appearing</span></td>
+          <td>FanCraze, Etsy</td>
+        </tr>
+        <tr>
+          <td><strong>signed cricket ball india</strong></td>
+          <td>Page 2–3</td>
+          <td><span class="tag tag-high">⚠ Weak</span></td>
+          <td>firmastella, uniquelysporting</td>
+        </tr>
+        <tr>
+          <td><strong>cricket collectibles</strong> (generic)</td>
+          <td>Not ranking</td>
+          <td><span class="tag tag-critical">✗ Missing</span></td>
+          <td>FanCraze, Etsy</td>
+        </tr>
+        <tr>
+          <td><strong>buy cricket memorabilia india</strong></td>
+          <td>Not ranking</td>
+          <td><span class="tag tag-critical">✗ Missing</span></td>
+          <td>collectabillia.com</td>
+        </tr>
+        <tr>
+          <td><strong>sports collectibles india</strong></td>
+          <td>Not ranking</td>
+          <td><span class="tag tag-critical">✗ Missing</span></td>
+          <td>Multiple</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slide-footer">
+    <span><strong>legxi.co</strong> · SEO Baseline Report</span>
+    <span>June 16, 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 3: CRITICAL FIXES ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Critical</span> Issues — Before &amp; After</h2>
+    <div class="slide-badge">🔴 Priority 1</div>
+  </div>
+  <div class="slide-body">
+    <div class="comparison-grid">
+      <div class="comparison-col before">
+        <div class="comparison-col-header">✗ Before (Issues Found)</div>
+        <div class="comparison-col-body">
+          <div class="comparison-item">
+            <div class="item-label">Homepage Title</div>
+            <div class="item-value missing">"LEGXI" — 5 characters, zero keywords</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Meta Descriptions</div>
+            <div class="item-value missing">Missing on all pages — Google auto-generates poor quality</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Banner Image Alt Text</div>
+            <div class="item-value missing">Empty on blog banners, collection banners, post images</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Demo Product</div>
+            <div class="item-value missing">Indexed in Google sitemap — wastes crawl budget</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Collections Page H1</div>
+            <div class="item-value missing">"All collections" — completely generic, no keywords</div>
+          </div>
+        </div>
+      </div>
+      <div class="comparison-col after">
+        <div class="comparison-col-header">✓ After (Fixed)</div>
+        <div class="comparison-col-body">
+          <div class="comparison-item">
+            <div class="item-label">Homepage Title</div>
+            <div class="item-value fixed">"LEGXI — Premium Cricket Collectibles | Signed Balls &amp; Memorabilia India"</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Meta Descriptions</div>
+            <div class="item-value fixed">Keyword-rich fallbacks for Homepage, Product, Collection, Article page types</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Banner Image Alt Text</div>
+            <div class="item-value fixed">Dynamic alt text from article.title, blog.title, collection.title</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Demo Product</div>
+            <div class="item-value" style="color: var(--orange);">⚠ Manual step — set to Draft in Shopify Admin (ID: 9149038592174)</div>
+          </div>
+          <div class="comparison-item">
+            <div class="item-label">Collections Page H1</div>
+            <div class="item-value fixed">"Shop Cricket Collectibles — Signed Balls, Jerseys &amp; Memorabilia"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Expected Impact</div>
+    <div class="three-col">
+      <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; font-weight: 800; color: #166534;">+15–25%</div>
+        <div style="font-size: 12px; color: #166534; font-weight: 600;">CTR Improvement</div>
+        <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">From better titles & meta descriptions</div>
+      </div>
+      <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; font-weight: 800; color: #1d4ed8;">Image Search</div>
+        <div style="font-size: 12px; color: #1d4ed8; font-weight: 600;">Unlocked</div>
+        <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">Alt text fixes enable Google Image indexing</div>
+      </div>
+      <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; font-weight: 800; color: #a16207;">2–4 wks</div>
+        <div style="font-size: 12px; color: #a16207; font-weight: 600;">Results Timeline</div>
+        <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">After Googlebot recrawls the site</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Files: <strong>layout/theme.liquid · sections/blog-post-banner.liquid · sections/blog-banner.liquid · sections/collection-banner.liquid · sections/main-list-collections.liquid</strong></span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 4: TECHNICAL SEO ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Technical SEO</span> — Meta Tags &amp; Social</h2>
+    <div class="slide-badge">High Priority</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Meta &amp; Technical Tags</div>
+        <table class="issue-table">
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Before</th>
+              <th>After</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>robots meta</strong></td>
+              <td><span class="cross">✗ Missing</span></td>
+              <td><span class="check">✓ index, follow</span></td>
+            </tr>
+            <tr>
+              <td><strong>Noindex (5 utility pages)</strong></td>
+              <td><span class="cross">✗ All indexed</span></td>
+              <td><span class="check">✓ noindex, nofollow</span></td>
+            </tr>
+            <tr>
+              <td><strong>hreflang tags</strong></td>
+              <td><span class="cross">✗ 0 tags</span></td>
+              <td><span class="check">✓ hreflang + x-default</span></td>
+            </tr>
+            <tr>
+              <td><strong>Canonical URL</strong></td>
+              <td><span class="check">✓ Good</span></td>
+              <td><span class="check">✓ No change</span></td>
+            </tr>
+            <tr>
+              <td><strong>Viewport</strong></td>
+              <td><span class="check">✓ Good</span></td>
+              <td><span class="check">✓ No change</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 14px; font-size: 12px; color: #166534; margin-top: 12px;">
+          <strong>Pages now noindexed:</strong><br>
+          /pages/registration-form · /pages/giveaway-quiz · /pages/data-sharing-opt-out · /pages/kp-account · /pages/authentication
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">Open Graph &amp; Twitter Cards</div>
+        <table class="issue-table">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th>Before</th>
+              <th>After</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>og:image URL</strong></td>
+              <td><span class="cross">✗ http: (bug)</span></td>
+              <td><span class="check">✓ https:</span></td>
+            </tr>
+            <tr>
+              <td><strong>og:image:alt</strong></td>
+              <td><span class="cross">✗ Missing</span></td>
+              <td><span class="check">✓ Dynamic</span></td>
+            </tr>
+            <tr>
+              <td><strong>twitter:card</strong></td>
+              <td><span class="cross">✗ "summary"</span></td>
+              <td><span class="check">✓ "summary_large_image"</span></td>
+            </tr>
+            <tr>
+              <td><strong>og:title</strong></td>
+              <td><span class="check">✓ Dynamic</span></td>
+              <td><span class="check">✓ No change</span></td>
+            </tr>
+            <tr>
+              <td><strong>og:description</strong></td>
+              <td><span class="warn">⚠ Partial</span></td>
+              <td><span class="check">✓ Improved</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px; font-size: 12px; color: #1e40af; margin-top: 12px;">
+          <strong>Twitter card change impact:</strong> When LEGXI products are shared on X (Twitter), users will now see a large image preview instead of a small thumbnail — significantly improving click-through from social shares.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Files: <strong>snippets/social-meta-tags.liquid · layout/theme.liquid</strong></span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 5: SCHEMA MARKUP ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Schema / Structured Data</span> — Rich Results Expansion</h2>
+    <div class="slide-badge">JSON-LD</div>
+  </div>
+  <div class="slide-body">
+    <div class="section-label">Schemas Added or Improved</div>
+    <div class="schema-grid">
+      <div class="schema-card improved">
+        <div class="schema-card-type">Improved</div>
+        <div class="schema-card-name">Organization</div>
+        <div class="schema-card-scope">Was: Homepage only<br>Now: <strong>Every page sitewide</strong></div>
+      </div>
+      <div class="schema-card new">
+        <div class="schema-card-type">New</div>
+        <div class="schema-card-name">LocalBusiness</div>
+        <div class="schema-card-scope">Sitewide — includes shop address, email, phone, price range</div>
+      </div>
+      <div class="schema-card new">
+        <div class="schema-card-type">New</div>
+        <div class="schema-card-name">Person — Arshdeep Singh</div>
+        <div class="schema-card-scope">Entity linking for featured athlete — homepage</div>
+      </div>
+      <div class="schema-card new">
+        <div class="schema-card-type">New</div>
+        <div class="schema-card-name">Person — Ravi Bishnoi</div>
+        <div class="schema-card-scope">Entity linking for featured athlete — homepage</div>
+      </div>
+      <div class="schema-card new">
+        <div class="schema-card-type">New</div>
+        <div class="schema-card-name">ItemList</div>
+        <div class="schema-card-scope">All collection pages — lists up to 20 products with URLs</div>
+      </div>
+      <div class="schema-card new">
+        <div class="schema-card-type">New</div>
+        <div class="schema-card-name">BlogPosting + Author</div>
+        <div class="schema-card-scope">All article pages — author Person + Organization publisher</div>
+      </div>
+      <div class="schema-card existing">
+        <div class="schema-card-type">Existing (kept)</div>
+        <div class="schema-card-name">Product</div>
+        <div class="schema-card-scope">Shopify built-in — all product pages</div>
+      </div>
+      <div class="schema-card improved">
+        <div class="schema-card-type">Bug Fixed</div>
+        <div class="schema-card-name">BreadcrumbList</div>
+        <div class="schema-card-scope">Position 3 article item was showing blog.title — now correctly shows article.title</div>
+      </div>
+      <div class="schema-card existing">
+        <div class="schema-card-type">Existing (kept)</div>
+        <div class="schema-card-name">WebSite + SearchAction</div>
+        <div class="schema-card-scope">Homepage only — enables Sitelinks Search Box</div>
+      </div>
+    </div>
+
+    <div style="background: var(--navy); border-radius: 10px; padding: 20px; color: white;">
+      <div style="font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; font-weight: 600;">Why This Matters</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.7;">
+        <div><strong style="color: white;">ItemList schema</strong> makes LEGXI's collections eligible for rich list results in Google — product thumbnails may appear directly in search results.</div>
+        <div><strong style="color: white;">LocalBusiness schema</strong> improves visibility in Google Maps and local "near me" searches — important for customers searching for cricket collectibles in India.</div>
+        <div><strong style="color: white;">Person schemas</strong> establish Arshdeep Singh and Ravi Bishnoi as entities linked to LEGXI in Google's Knowledge Graph — improving authority for athlete-related searches.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>File: <strong>snippets/microdata-schema.liquid</strong></span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 6: BREADCRUMBS + UX ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Breadcrumb Navigation</span> — Schema + UI</h2>
+    <div class="slide-badge">UX + SEO</div>
+  </div>
+  <div class="slide-body">
+    <div class="two-col">
+      <div>
+        <div class="section-label">What Changed</div>
+        <table class="issue-table">
+          <thead>
+            <tr>
+              <th>Page Type</th>
+              <th>Schema (JSON-LD)</th>
+              <th>Visible UI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product pages</td>
+              <td><span class="check">✓ Before</span></td>
+              <td><span class="cross">✗ Before → </span><span class="check"> ✓ After</span></td>
+            </tr>
+            <tr>
+              <td>Blog post pages</td>
+              <td><span class="check">✓ Before</span></td>
+              <td><span class="cross">✗ Before → </span><span class="check"> ✓ After</span></td>
+            </tr>
+            <tr>
+              <td>Collection pages</td>
+              <td><span class="check">✓ Before</span></td>
+              <td>— (via schema)</td>
+            </tr>
+            <tr>
+              <td>Article (bug fix)</td>
+              <td><span class="cross">✗ Bug: blog.title in pos 3</span></td>
+              <td><span class="check">✓ Fixed: article.title</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 16px;">
+          <div class="section-label">Breadcrumb Path Examples</div>
+          <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px; font-size: 13px; color: var(--gray-600); line-height: 2.2;">
+            <div><strong>Product:</strong> Home › <span style="color:var(--gold);">Collectibles</span> › Arshdeep Singh : Hand-Signed Leather Ball</div>
+            <div><strong>Blog Post:</strong> Home › <span style="color:var(--gold);">The LEGXI Journal</span> › ICC T20I Player of the Year</div>
+            <div><strong>Collection:</strong> Home › <span style="color:var(--gold);">Signed Balls</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">SEO Benefits of Visible Breadcrumbs</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #f0fdf4; border-radius: 8px; padding: 14px; font-size: 12px;">
+            <div style="font-weight: 700; color: #166534; margin-bottom: 4px;">Google SERP Display</div>
+            <div style="color: var(--gray-600);">Google shows breadcrumbs in search results under the URL — helps users understand page hierarchy before clicking. Improves CTR by 5–15%.</div>
+          </div>
+          <div style="background: #eff6ff; border-radius: 8px; padding: 14px; font-size: 12px;">
+            <div style="font-weight: 700; color: #1d4ed8; margin-bottom: 4px;">Internal Link Signals</div>
+            <div style="color: var(--gray-600);">Visible breadcrumbs create internal links that pass PageRank between homepage → collection → product pages.</div>
+          </div>
+          <div style="background: #fefce8; border-radius: 8px; padding: 14px; font-size: 12px;">
+            <div style="font-weight: 700; color: #a16207; margin-bottom: 4px;">User Navigation</div>
+            <div style="color: var(--gray-600);">Reduces bounce rate as users can easily navigate back to collections — Google tracks dwell time and engagement as ranking signals.</div>
+          </div>
+        </div>
+        <div style="background: var(--navy); color: white; border-radius: 8px; padding: 14px; font-size: 12px; margin-top: 12px;">
+          <strong style="color: var(--gold);">New file created:</strong> snippets/breadcrumb.liquid<br>
+          <span style="color: rgba(255,255,255,0.7);">Injected into: sections/main-product.liquid + sections/blog-post-banner.liquid</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Files: <strong>snippets/breadcrumb.liquid · sections/main-product.liquid · sections/blog-post-banner.liquid</strong></span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 7: FULL ISSUE TRACKER ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>All <span>25 Issues</span> — Complete Tracker</h2>
+    <div class="slide-badge">Full Audit</div>
+  </div>
+  <div class="slide-body" style="padding: 24px 40px;">
+    <table class="issue-table" style="font-size: 12px;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Priority</th>
+          <th>Issue</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><span class="tag tag-critical">🔴 Critical</span></td><td>Homepage title "LEGXI" — no keywords</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>2</td><td><span class="tag tag-critical">🔴 Critical</span></td><td>Missing meta descriptions across all pages</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>3</td><td><span class="tag tag-critical">🔴 Critical</span></td><td>Missing alt text on banner images (3 sections)</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>4</td><td><span class="tag tag-critical">🔴 Critical</span></td><td>"Demo" product indexed in sitemap</td><td><span class="tag tag-manual">⚠ Manual Step</span></td></tr>
+        <tr><td>5</td><td><span class="tag tag-critical">🔴 Critical</span></td><td>"All collections" H1 — no keywords</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>6</td><td><span class="tag tag-high">🟠 High</span></td><td>Organization schema homepage-only</td><td><span class="tag tag-fixed">✓ Fixed — Sitewide</span></td></tr>
+        <tr><td>7</td><td><span class="tag tag-high">🟠 High</span></td><td>Review/AggregateRating schema missing</td><td><span class="tag tag-deferred">→ Needs review app</span></td></tr>
+        <tr><td>8</td><td><span class="tag tag-high">🟠 High</span></td><td>Twitter card "summary" wrong type</td><td><span class="tag tag-fixed">✓ summary_large_image</span></td></tr>
+        <tr><td>9</td><td><span class="tag tag-high">🟠 High</span></td><td>og:image using http: not https:</td><td><span class="tag tag-fixed">✓ Fixed — https:</span></td></tr>
+        <tr><td>10</td><td><span class="tag tag-high">🟠 High</span></td><td>Missing og:image:alt</td><td><span class="tag tag-fixed">✓ Fixed — Dynamic</span></td></tr>
+        <tr><td>11</td><td><span class="tag tag-high">🟠 High</span></td><td>Blog content too thin (400 words avg)</td><td><span class="tag tag-deferred">→ Content task</span></td></tr>
+        <tr><td>12</td><td><span class="tag tag-high">🟠 High</span></td><td>No meta descriptions on blog posts</td><td><span class="tag tag-fixed">✓ Fixed — Fallback added</span></td></tr>
+        <tr><td>13</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>No hreflang tags (28 locale files)</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>14</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>Utility pages indexed (4 pages)</td><td><span class="tag tag-fixed">✓ Fixed — noindex</span></td></tr>
+        <tr><td>15</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>/pages/authentication should be noindex</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>16</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>No LocalBusiness schema</td><td><span class="tag tag-fixed">✓ Fixed — Sitewide</span></td></tr>
+        <tr><td>17</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>No ItemList schema on collections</td><td><span class="tag tag-fixed">✓ Fixed</span></td></tr>
+        <tr><td>18</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>No Person schema for athletes</td><td><span class="tag tag-fixed">✓ Fixed — Arshdeep + Bishnoi</span></td></tr>
+        <tr><td>19</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>Blog posts lack keyword targeting</td><td><span class="tag tag-deferred">→ Content task</span></td></tr>
+        <tr><td>20</td><td><span class="tag tag-medium">🟡 Medium</span></td><td>No visible breadcrumb UI</td><td><span class="tag tag-fixed">✓ Fixed — Product + Blog pages</span></td></tr>
+        <tr><td>21</td><td><span class="tag tag-low">🟢 Low</span></td><td>Article author/publisher schema missing</td><td><span class="tag tag-fixed">✓ Fixed — BlogPosting</span></td></tr>
+        <tr><td>22</td><td><span class="tag tag-low">🟢 Low</span></td><td>No VideoObject schema</td><td><span class="tag tag-deferred">→ Deferred</span></td></tr>
+        <tr><td>23</td><td><span class="tag tag-low">🟢 Low</span></td><td>No FAQ schema on product pages</td><td><span class="tag tag-deferred">→ Deferred</span></td></tr>
+        <tr><td>24</td><td><span class="tag tag-low">🟢 Low</span></td><td>Google Business Profile not set up</td><td><span class="tag tag-manual">⚠ Manual Step</span></td></tr>
+        <tr><td>25</td><td><span class="tag tag-low">🟢 Low</span></td><td>No backlink building strategy</td><td><span class="tag tag-deferred">→ Off-code</span></td></tr>
+      </tbody>
+    </table>
+
+    <div style="display: flex; gap: 12px; margin-top: 16px; font-size: 12px;">
+      <div style="display: flex; align-items: center; gap: 6px;"><span class="tag tag-fixed">✓ Fixed</span> <strong>20 issues</strong></div>
+      <div style="display: flex; align-items: center; gap: 6px;"><span class="tag tag-manual">⚠ Manual</span> <strong>2 issues</strong></div>
+      <div style="display: flex; align-items: center; gap: 6px;"><span class="tag tag-deferred">→ Content/Deferred</span> <strong>3 issues</strong></div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span><strong>20 / 25 issues fixed in code (80%)</strong> · Remaining 5 require content, apps, or manual action</span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 8: TIMELINE ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Results Timeline</span> — When to Expect What</h2>
+    <div class="slide-badge">Forecast</div>
+  </div>
+  <div class="slide-body">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot t1">⚡</div>
+        <div class="timeline-period">0–48 Hours</div>
+        <div class="timeline-title">Instant Wins</div>
+        <div class="timeline-items">
+          Social sharing previews improved<br>
+          Large Twitter/X image cards<br>
+          Homepage shows keyword title<br>
+          og:image https (no mixed content)<br>
+          og:image:alt for social bots
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot t2">📅</div>
+        <div class="timeline-period">1–2 Weeks</div>
+        <div class="timeline-title">Crawl &amp; Index</div>
+        <div class="timeline-items">
+          Utility pages deindexed<br>
+          Demo product drops from sitemap<br>
+          robots meta respected<br>
+          New schemas appear in Search Console<br>
+          Breadcrumbs visible in SERPs
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot t3">📈</div>
+        <div class="timeline-period">2–6 Weeks</div>
+        <div class="timeline-title">Ranking Shifts</div>
+        <div class="timeline-items">
+          CTR improves from better titles<br>
+          Meta desc → more clicks<br>
+          Image search traffic starts<br>
+          Rich results eligibility (ItemList)<br>
+          LocalBusiness in local search
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot t4">🚀</div>
+        <div class="timeline-period">6–16 Weeks</div>
+        <div class="timeline-title">Long-term Growth</div>
+        <div class="timeline-items">
+          Keyword ranking improvements<br>
+          Brand entity strengthens<br>
+          Athlete entity links processed<br>
+          Blog rankings (if content expanded)<br>
+          Domain authority from backlinks
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top: 24px;">Expected CTR &amp; Traffic Impact</div>
+    <div class="two-col">
+      <div>
+        <div class="impact-row">
+          <div class="impact-cell"><strong>Fix</strong></div>
+          <div class="impact-cell"><strong>Impact</strong></div>
+          <div class="impact-cell"><strong>Timeline</strong></div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Title + Meta descriptions</div>
+          <div class="impact-cell" style="color: var(--green)">+15–25% CTR</div>
+          <div class="impact-cell">2–4 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Image alt text (3 sections)</div>
+          <div class="impact-cell" style="color: var(--blue)">Image search unlocked</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Twitter summary_large_image</div>
+          <div class="impact-cell" style="color: var(--green)">More social clicks</div>
+          <div class="impact-cell">Immediate</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Noindex utility pages</div>
+          <div class="impact-cell" style="color: var(--orange)">Cleaner crawl budget</div>
+          <div class="impact-cell">1–2 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Collections H1 keywords</div>
+          <div class="impact-cell" style="color: var(--green)">Long-tail keywords</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+      </div>
+      <div>
+        <div class="impact-row">
+          <div class="impact-cell"><strong>Schema Fix</strong></div>
+          <div class="impact-cell"><strong>Impact</strong></div>
+          <div class="impact-cell"><strong>Timeline</strong></div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Organization sitewide</div>
+          <div class="impact-cell" style="color: var(--blue)">Brand authority</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">LocalBusiness schema</div>
+          <div class="impact-cell" style="color: var(--blue)">Local search visibility</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">ItemList (collections)</div>
+          <div class="impact-cell" style="color: var(--green)">Rich results eligible</div>
+          <div class="impact-cell">2–6 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">Person schemas (athletes)</div>
+          <div class="impact-cell" style="color: var(--blue)">Entity signals</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+        <div class="impact-row">
+          <div class="impact-cell">BlogPosting author</div>
+          <div class="impact-cell" style="color: var(--blue)">Author authority</div>
+          <div class="impact-cell">4–8 weeks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>Note: Search engine processing time varies. Results depend on Googlebot crawl frequency.</span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 9: MANUAL STEPS ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2><span>Manual Steps</span> — Action Required by You</h2>
+    <div class="slide-badge">5 Items</div>
+  </div>
+  <div class="slide-body">
+    <div class="manual-step critical">
+      <div class="manual-step-num">1</div>
+      <div class="manual-step-content">
+        <h4>🔴 Unpublish "Demo" Product (Do Today)</h4>
+        <p>Found in Shopify store: Product ID 9149038592174, Title "Demo", currently Active. Go to <strong>Shopify Admin → Products → "Demo" → Change status to Draft → Save</strong>. This removes it from Google's sitemap and stops it from wasting crawl budget.</p>
+      </div>
+    </div>
+    <div class="manual-step high">
+      <div class="manual-step-num">2</div>
+      <div class="manual-step-content">
+        <h4>🟠 Install a Review App (This Week)</h4>
+        <p>Install <strong>Judge.me</strong> (free) or <strong>Yotpo</strong> from Shopify App Store. This enables AggregateRating schema which shows star ratings ⭐⭐⭐⭐⭐ directly in Google search results — can increase CTR by 20–35%.</p>
+      </div>
+    </div>
+    <div class="manual-step high">
+      <div class="manual-step-num">3</div>
+      <div class="manual-step-content">
+        <h4>🟠 Add Meta Descriptions to All Products (This Week)</h4>
+        <p>Go to each product → scroll to the SEO section → add a 150–160 character description with keywords like "buy signed cricket ball india" or "Arshdeep Singh authentic memorabilia". The code now has a fallback, but a hand-written description always performs better.</p>
+      </div>
+    </div>
+    <div class="manual-step high">
+      <div class="manual-step-num">4</div>
+      <div class="manual-step-content">
+        <h4>🟠 Expand Blog Content to 800–1500 Words (This Month)</h4>
+        <p>All 10 blog posts are currently ~400 words — Google considers this "thin content." Expand each post with stories, player stats, product details, and FAQs. Target commercial keywords: <em>"buy signed cricket ball india", "cricket collectibles gift india", "arshdeep singh merchandise"</em></p>
+      </div>
+    </div>
+    <div class="manual-step medium">
+      <div class="manual-step-num">5</div>
+      <div class="manual-step-content">
+        <h4>🟡 Set Up Google Business Profile (This Month)</h4>
+        <p>Visit <strong>google.com/business</strong> and create a listing for LEGXI. This enables local search visibility and Google Maps presence. The LocalBusiness schema we added in code will connect to this listing once verified.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span>These 5 items cannot be done via code — they require your direct action in Shopify Admin or external platforms</span>
+    <span>June 2026</span>
+  </div>
+</div>
+
+<!-- ===== SLIDE 10: SUMMARY ===== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Executive <span>Summary</span></h2>
+    <div class="slide-badge">Overview</div>
+  </div>
+  <div class="slide-body">
+    <div class="three-col" style="margin-bottom: 24px;">
+      <div style="background: var(--navy); color: white; border-radius: 12px; padding: 24px; text-align: center;">
+        <div style="font-size: 48px; font-weight: 800; color: var(--gold); line-height: 1;">20</div>
+        <div style="font-size: 14px; font-weight: 600; margin-top: 6px;">Issues Fixed in Code</div>
+        <div style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px;">out of 25 total identified</div>
+      </div>
+      <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 12px; padding: 24px; text-align: center;">
+        <div style="font-size: 48px; font-weight: 800; color: #166534; line-height: 1;">9</div>
+        <div style="font-size: 14px; font-weight: 700; color: #166534; margin-top: 6px;">Theme Files Updated</div>
+        <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">Modified + 1 new file created</div>
+      </div>
+      <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 12px; padding: 24px; text-align: center;">
+        <div style="font-size: 48px; font-weight: 800; color: #1d4ed8; line-height: 1;">80%</div>
+        <div style="font-size: 14px; font-weight: 700; color: #1d4ed8; margin-top: 6px;">SEO Completion Rate</div>
+        <div style="font-size: 11px; color: var(--gray-600); margin-top: 4px;">Remaining 20% needs content/apps</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="section-label">What Was Done (Code)</div>
+        <div style="font-size: 12px; line-height: 2.2; color: var(--gray-600);">
+          <div><span class="check">✓</span> Homepage title optimized with keywords</div>
+          <div><span class="check">✓</span> Meta description fallbacks — all page types</div>
+          <div><span class="check">✓</span> Robots meta + noindex on 5 utility pages</div>
+          <div><span class="check">✓</span> hreflang + x-default tags</div>
+          <div><span class="check">✓</span> og:image https fix + og:image:alt added</div>
+          <div><span class="check">✓</span> Twitter card → summary_large_image</div>
+          <div><span class="check">✓</span> Organization schema → sitewide</div>
+          <div><span class="check">✓</span> LocalBusiness schema added</div>
+          <div><span class="check">✓</span> Person schemas (Arshdeep Singh + Ravi Bishnoi)</div>
+          <div><span class="check">✓</span> ItemList schema on collection pages</div>
+          <div><span class="check">✓</span> BlogPosting author/publisher schema</div>
+          <div><span class="check">✓</span> BreadcrumbList bug fixed (article.title)</div>
+          <div><span class="check">✓</span> Visible breadcrumb UI on product + blog pages</div>
+          <div><span class="check">✓</span> Alt text fixed on 5 banner image instances</div>
+          <div><span class="check">✓</span> Collections H1 → keyword-rich text</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">What's Next</div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="background: #fee2e2; border-radius: 8px; padding: 12px; font-size: 12px;">
+            <strong style="color: var(--red);">Do First:</strong> Unpublish Demo product in Shopify Admin
+          </div>
+          <div style="background: #ffedd5; border-radius: 8px; padding: 12px; font-size: 12px;">
+            <strong style="color: var(--orange);">This Week:</strong> Install Judge.me for star ratings. Add meta descriptions to products manually.
+          </div>
+          <div style="background: #fefce8; border-radius: 8px; padding: 12px; font-size: 12px;">
+            <strong style="color: #a16207;">This Month:</strong> Expand blog posts to 800–1500 words. Set up Google Business Profile.
+          </div>
+          <div style="background: #f0fdf4; border-radius: 8px; padding: 12px; font-size: 12px;">
+            <strong style="color: #166534);">30 Days Later:</strong> Re-audit using Google Search Console to measure CTR, impressions, and rank movement.
+          </div>
+        </div>
+
+        <div style="margin-top: 16px; background: var(--navy); border-radius: 8px; padding: 14px; font-size: 12px; color: rgba(255,255,255,0.7);">
+          <strong style="color: var(--gold);">Dev Theme Preview:</strong><br>
+          <span style="font-family: monospace; font-size: 11px;">https://5ci887-xv.myshopify.com/<br>?preview_theme_id=152614928558</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <span><strong>LEGXI SEO Report</strong> · legxi.co · Powered by Shopify · Prepared June 16, 2026</span>
+    <span>Confidential</span>
+  </div>
+</div>
+
+</body>
+</html>

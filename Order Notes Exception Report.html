@@ -1,0 +1,400 @@
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; padding: 20px; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+  .p-Critical { background-color: #ffcccc; color: #990000; font-weight: bold; }
+  .p-High { background-color: #ffe5cc; color: #b35900; font-weight: bold; }
+  .p-Medium { background-color: #ffffcc; color: #999900; font-weight: bold; }
+  .p-Low { background-color: #cce5ff; color: #004c99; font-weight: bold; }
+  .dashboard { display: flex; gap: 20px; }
+  .card { border: 1px solid #ccc; padding: 15px; border-radius: 5px; background: #fafafa; min-width: 150px; }
+  h1, h2 { color: #333; }
+</style>
+</head>
+<body>
+<h1>Order Notes Exception Report</h1>
+<table>
+  <tr>
+    <th>Priority</th><th>Order Number</th><th>Customer</th><th>Issue Type</th>
+    <th>Current Value</th><th>Expected Value</th><th>Required Action</th>
+    <th>Can Auto Fix (Yes/No)</th><th>Status</th><th>Evidence</th>
+  </tr>
+  <tr class="p-Critical">
+    <td>Critical</td>
+    <td>1504</td>
+    <td>SHREYASKUMAR Chaudhari</td>
+    <td>Missing worksheet rows</td>
+    <td>Missing</td>
+    <td>#932, #938</td>
+    <td>Add 2 rows to 2011 WORLD CUP worksheet</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Shopify note lists certificates missing from sheet</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1498</td>
+    <td>Akshay Kumar</td>
+    <td>Typo normalization</td>
+    <td>NAMDE</td>
+    <td>NAMDU</td>
+    <td>Approve typo normalization</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>Shopify line item is misspelled</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1244</td>
+    <td>CHIDAMBARA M</td>
+    <td>Manual review</td>
+    <td>#555</td>
+    <td>Valid Serial < 500</td>
+    <td>Human verification of note value</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Value > 500</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1276</td>
+    <td>Nishant Ramani</td>
+    <td>Manual review</td>
+    <td>#600</td>
+    <td>Valid Serial < 500</td>
+    <td>Human verification of note value</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Value > 500</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1339</td>
+    <td>Sachin Bhatia</td>
+    <td>Manual review</td>
+    <td>#2010</td>
+    <td>Valid Serial < 500</td>
+    <td>Human verification of note value</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Value > 500</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1350</td>
+    <td>Amit Mohite</td>
+    <td>Manual review</td>
+    <td>#1983</td>
+    <td>Valid Serial < 500</td>
+    <td>Human verification of note value</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Value > 500</td>
+  </tr>
+  <tr class="p-High">
+    <td>High</td>
+    <td>1401</td>
+    <td>Aasit Vinaykant</td>
+    <td>Manual review</td>
+    <td>#007</td>
+    <td>Valid Serial < 500</td>
+    <td>Human verification of note value</td>
+    <td>No</td>
+    <td>Unresolved</td>
+    <td>Duplicate in note</td>
+  </tr>
+  <tr class="p-Medium">
+    <td>Medium</td>
+    <td>1496</td>
+    <td>Krishna Desai</td>
+    <td>Legacy cleanup</td>
+    <td>1983 WC : Become the Belief|#062</td>
+    <td>(Remove)</td>
+    <td>Set APPROVE_LEGACY_REMOVE = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>Legacy format preserved by safety checks</td>
+  </tr>
+  <tr class="p-Medium">
+    <td>Medium</td>
+    <td>1508</td>
+    <td>SHREYASKUMAR Chaudhari</td>
+    <td>Legacy cleanup</td>
+    <td>1983 WC : Become the Belief|#069</td>
+    <td>(Remove)</td>
+    <td>Set APPROVE_LEGACY_REMOVE = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>Legacy format preserved by safety checks</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1499</td>
+    <td>Sabuj Das</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1500</td>
+    <td>Akshit Arora</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1502</td>
+    <td>Hamsaraj Alva</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1503</td>
+    <td>Kunal Kushalappa</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1504</td>
+    <td>SHREYASKUMAR Chaudhari</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>3 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1505</td>
+    <td>Keshav Choudhary</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>16 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1506</td>
+    <td>Hamsaraj Alva</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1509</td>
+    <td>SHREYASKUMAR Chaudhari</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1515</td>
+    <td>Subrakanth Sutar</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1516</td>
+    <td>Vinay Sandhu</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1517</td>
+    <td>Chetan Rao</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1519</td>
+    <td>kailash kumar</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1520</td>
+    <td>Vasanth Bhatt</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1521</td>
+    <td>Zoheb Curmally</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1522</td>
+    <td>Praneeth Jagarlamudi</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1523</td>
+    <td>Nars SL</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>8 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1525</td>
+    <td>Omkar Umadi</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1526</td>
+    <td>Kiran Kumar</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1528</td>
+    <td>Prathik Jayaprakash</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1540</td>
+    <td>Krishna Chaitanya Tirumalasetti</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>4 bundle component note line(s) pending approval</td>
+  </tr>
+  <tr class="p-Low">
+    <td>Low</td>
+    <td>1559</td>
+    <td>AKSHAR PATEL</td>
+    <td>Bundle policy</td>
+    <td>Unwritten</td>
+    <td>Component lines appended</td>
+    <td>Set WRITE_BUNDLE_COMPONENTS = true</td>
+    <td>Yes</td>
+    <td>Unresolved</td>
+    <td>3 bundle component note line(s) pending approval</td>
+  </tr>
+</table>
+<h2>Dashboard</h2>
+<div class="dashboard">
+  <div class="card"><h3>Total Issues</h3><h2>30</h2></div>
+  <div class="card p-Critical"><h3>Critical</h3><h2>1</h2></div>
+  <div class="card p-High"><h3>High</h3><h2>6</h2></div>
+  <div class="card p-Medium"><h3>Medium</h3><h2>2</h2></div>
+  <div class="card p-Low"><h3>Low</h3><h2>21</h2></div>
+</div>
+<div class="dashboard" style="margin-top:20px;">
+  <div class="card"><h3>Auto Fixable</h3><h2>24</h2></div>
+  <div class="card"><h3>Manual Only</h3><h2>6</h2></div>
+  <div class="card"><h3>Issue Completion</h3><h2>0%</h2></div>
+</div>
+</body>
+</html>

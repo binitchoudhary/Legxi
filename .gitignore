@@ -1,0 +1,10 @@
+.env
+node_modules/
+backup/
+*.log
+
+partial-payment-service/backend/data/
+partial-payment-service/backend/logs/
+**/.env
+
+partial-payment-service/cloudflared.exe

@@ -1,0 +1,477 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "inventory_n9BeEm": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Return",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Delivery",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 88475 79634<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_hDed3M": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Details & Specs",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#c60000",
+            "modal_title": "AS02 Edition",
+            "modal_content": "<p>Features Arshdeep Singh initials and Punjab insignia<br\/><br\/>Premium embroidered patches<br\/><br\/>Product Size: Regular fit<br\/>Packaging Dimensions: 21 × 11 × 8 cm<br\/><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "outline",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "buy_buttons_NNLzTw": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "outline",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "offers_ri4j66": {
+          "type": "offers",
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/shipping.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Free Shipping!",
+            "offer_1_content": "only on prepaid orders",
+            "offer_1_background": "#eef3fd",
+            "offer_1_text_color": "#003db5",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "rating",
+        "inventory_n9BeEm",
+        "payment_terms",
+        "separator",
+        "description",
+        "modal_6G837j",
+        "modal_hDed3M",
+        "variant_picker",
+        "buy_buttons_NNLzTw",
+        "offers_ri4j66"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_over",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "settings": {
+            "text": "india’s <em>#1<\/em> certified collectibles",
+            "icon_position": "before_text",
+            "highlight_effect": "italic",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "settings": {
+            "text": "FOR THE CHOSEN",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "media_blocks_JztaLR": {
+      "type": "media-blocks",
+      "blocks": {
+        "image_with_text_T6g8mB": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/edition-caution.jpg",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "bottom_left",
+            "scrolling_title": true,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        },
+        "image_with_text_LUHY69": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/post-3_3d4c206f-0f4b-41eb-8806-94336ae5e3a2.jpg",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "FOR THE CHOSEN",
+            "heading_tag": "h4",
+            "heading_position": "bottom_center",
+            "scrolling_title": true,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_T6g8mB",
+        "image_with_text_LUHY69"
+      ],
+      "name": "t:sections.media_blocks.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h4",
+        "text_alignment": "left",
+        "scrolling_title": false,
+        "scrolling_title_separator": "circle",
+        "stack_on_mobile": true,
+        "add_horizontal_spacing": false,
+        "add_border": true,
+        "column_spacing": "none",
+        "items_per_row": 2,
+        "block_size": "auto"
+      }
+    },
+    "text_with_icons_FtJgTV": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_4E7BMT": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-measure",
+            "title": "6-panel design",
+            "heading_tag": "h3",
+            "content": "<p>Ensuring comfort<\/p>"
+          }
+        },
+        "item_EUXNrD": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-sparkle",
+            "title": "Ivory base",
+            "heading_tag": "h3",
+            "content": "<p>defining elegance<\/p>"
+          }
+        },
+        "item_mHe9BG": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-checked",
+            "title": "Bold red brim",
+            "heading_tag": "h3",
+            "content": "<p>Radiating confidence<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_4E7BMT",
+        "item_EUXNrD",
+        "item_mHe9BG"
+      ],
+      "name": "t:sections.text_with_icons.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "display-m",
+        "text_alignment": "center",
+        "items_per_row_desktop": 3,
+        "stack_on_mobile": true,
+        "separator_style": "vertical",
+        "icon_position": "stacked",
+        "icon_width": 40,
+        "mobile_icon_width": 32,
+        "item_text_alignment": "left"
+      }
+    },
+    "1760453587328b6045": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_ytnPih": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_ytnPih"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "faq_U7EXL8": {
+      "type": "faq",
+      "blocks": {
+        "question_fzMaty": {
+          "type": "question",
+          "settings": {
+            "question": "What comes along with the cap?",
+            "answer": "<p>Each LEGXI × Arshdeep Singh AS02 Edition Cap comes in premium LEGXI packaging, designed for a ceremonial unboxing experience. The box includes the exclusive AS02 Cap and features ‘For the Chosen’ elegantly embossed, symbolizing the spirit of legacy and belonging to the select few.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_zn6QHg": {
+          "type": "question",
+          "settings": {
+            "question": "How long will it take to deliver my cap?",
+            "answer": "<p>Your order will typically be <strong>delivered within 5-7 business days<\/strong> across India. Once shipped, you’ll receive tracking details via email or WhatsApp.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_GABWk9": {
+          "type": "question",
+          "settings": {
+            "question": "What is the size of the cap?",
+            "answer": "<p>The cap features a universal adjustable fit with a 6-panel design for maximum comfort and durability. It’s crafted to suit all head sizes while maintaining a structured premium look.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_Awn8mF": {
+          "type": "question",
+          "settings": {
+            "question": "Is the cap returnable?",
+            "answer": "<p>Yes. In case you receive a damaged or defective piece, your order is fully returnable or replaceable. We take great care to ensure every cap meets LEGXI’s quality and presentation standards.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_MHCCNJ": {
+          "type": "question",
+          "settings": {
+            "question": "Are the designs sticker patches or embroidery?",
+            "answer": "<p>This premium cap features full embroidery detailing - no stickers or patches. Every element, from the LEGXI insignia to the AS02 mark and ‘For the Chosen’ emblem, is meticulously embroidered to ensure lasting quality, rich texture, and a truly premium finish.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_fzMaty",
+        "question_zn6QHg",
+        "question_GABWk9",
+        "question_Awn8mF",
+        "question_MHCCNJ"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "layout": "split",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently asked questions",
+        "title_tag": "h3",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "scrolling_content_EPB3cB",
+    "media_blocks_JztaLR",
+    "text_with_icons_FtJgTV",
+    "1760453587328b6045",
+    "faq_U7EXL8"
+  ]
+}

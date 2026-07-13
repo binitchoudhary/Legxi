@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "blog-banner": {
+      "type": "blog-banner",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "title_tag": "h2",
+        "content": ""
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "color_scheme": "",
+        "show_tags": true,
+        "posts_per_page": 9,
+        "highlight_blog_post_position": 5,
+        "blog_post_card_heading_size": "h5",
+        "show_category": true,
+        "show_date": true,
+        "show_reading_time": false,
+        "show_excerpt": true
+      }
+    }
+  },
+  "order": [
+    "blog-banner",
+    "main"
+  ]
+}

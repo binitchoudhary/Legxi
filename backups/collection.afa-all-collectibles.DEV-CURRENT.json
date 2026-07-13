@@ -1,0 +1,476 @@
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": true,
+        "layout": "background",
+        "show_description": true,
+        "collection_title_size": "h4",
+        "content_position": "place-self-center",
+        "background_color_scheme": "",
+        "image_size": "auto",
+        "quick_navigation_menu": ""
+      }
+    },
+    "afa_header_rt": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_afa1": {
+          "type": "heading",
+          "settings": {
+            "text": "LEGXI x Argentina",
+            "heading_tag": "h4",
+            "indent": "none",
+            "highlight_effect": "none",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "heading_afa2": {
+          "type": "heading",
+          "settings": {
+            "text": "Football Association",
+            "heading_tag": "h6",
+            "indent": "none",
+            "highlight_effect": "none",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_afa1",
+        "heading_afa2"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".product-card__info {background: #1c1c1c; color: #fff;}",
+        ".text-subdued {color: #fff;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "products_per_page": 36,
+        "products_per_row_mobile": 1,
+        "products_per_row_desktop": 4,
+        "show_product_card_size_selector": true,
+        "quick_links_menu": "",
+        "filter_layout": "drawer",
+        "show_sort_by": true,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_filter_values_count": true,
+        "open_filters_by_default": false,
+        "swatch_selector_size": "lg"
+      }
+    },
+    "custom_liquid_ajJKqF": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "liquid": "<hr>\n<script>\n(function(){\n  function replaceCount(){\n    var el = document.querySelector('.collection__toolbar .subheading');\n    if (el) { el.textContent = 'LIMITED HAND SIGNED COLLECTIBLES'; el.style.fontSize = '15px'; }\n  }\n  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', replaceCount); } else { replaceCount(); }\n})();\n<\/script>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "featured_collections_AgTWrj": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_44TTAH": {
+          "type": "collection",
+          "settings": {
+            "collection": "argentina-licensed-collection",
+            "products_count": 3,
+            "title": "Football World Cup Collection",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_44TTAH"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "stack_products_mobile": true,
+        "stack_products_desktop": true,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured_collections_zhUz8k": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_9iK4jd": {
+          "type": "collection",
+          "settings": {
+            "collection": "afa-signed-collectibles",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_9iK4jd"
+      ],
+      "disabled": true,
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "stack_products_mobile": true,
+        "stack_products_desktop": true,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured_collections_lehsc1": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_lehsc1a": {
+          "type": "collection",
+          "settings": {
+            "collection": "hand-signed-products",
+            "products_count": 8,
+            "title": "LIMITED EDITION HAND SIGNED COLLECTION",
+            "content": "",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_lehsc1a"
+      ],
+      "disabled": true,
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "stack_products_mobile": true,
+        "stack_products_desktop": true,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured_collections_TAHD6a": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_bkDbXU": {
+          "type": "collection",
+          "settings": {
+            "collection": "legxi-heritage-mini",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_bkDbXU"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": false,
+        "show_scrolling_bar": true
+      }
+    },
+    "dual_product_carousel_wRbQnw": {
+      "type": "dual-product-carousel",
+      "disabled": true,
+      "name": "t:sections.featured_product_list.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "product_list": [
+          "legxi-heritage-minis-portugal",
+          "legxi-heritage-minis-france",
+          "legxi-heritage-minis-brazil"
+        ],
+        "stack_products_mobile": true,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4
+      }
+    },
+    "lgx-col-seo": {
+      "type": "collection-seo-text",
+      "disabled": true,
+      "settings": {}
+    },
+    "featured_product_frMawr": {
+      "type": "featured-product",
+      "blocks": {
+        "custom_badges_afa": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 20,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "limited edition",
+            "badge_1_show": true,
+            "badge_1_bg": "#f0f0f0",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#e0e0e0",
+            "badge_2_text": "226 PIECES WORLDWIDE",
+            "badge_2_show": true,
+            "badge_2_bg": "#dee8e2",
+            "badge_2_text_color": "#237c4c",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
+        "vendor_gECqwd": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title_KVVLgg": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "text_U6e8k6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A timeless collector's artwork honouring the legends who graced football's greatest stage in 2026<\/p>"
+          }
+        },
+        "badges_NGR7T4": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "price_diVC4x": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "inventory_afa": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "rating_pqpPPC": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "payment_terms_JDTihX": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator_6GFnWL": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {}
+        },
+        "description_9wmRVY": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "sku_afa": {
+          "type": "sku",
+          "settings": {}
+        },
+        "variant_picker_tLpTyF": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "outline",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "buy_buttons_diW3dB": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "modal_speak_afa": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_afa": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_58fd9795-f1b7-4908-bccf-7bfa18c022cf.png",
+            "offer_1_icon_width": 18,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f9f9f9",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_11525f28-e653-46a2-ad3f-616d74918f89.png",
+            "offer_2_icon_width": 18,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_66be8c4f-5fa4-41cd-93b9-b083a53545fc.png",
+            "offer_3_icon_width": 18,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "modal_material_afa": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "material & dimensions",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #226 pieces worldwide<br\/><br\/>Comes in a premium honeycomb protective box with a display frame and a museum grade finish artwork. <br\/><br\/>Final display size: 17 × 29 inches.<br\/><br\/><br\/><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "accordion_afa": {
+          "type": "accordion",
+          "settings": {
+            "title": "<strong>Description<\/strong>",
+            "content": "<p>Where Greatness Becomes Legacy<br\/><br\/>LEGXI Legacy in Motion | Edition 2026 is a tribute to the world's finest footballers, brought together in a single contemporary composition that celebrates the passion, unity, and enduring spirit of the beautiful game.<br\/><br\/>Every detail has been thoughtfully crafted to capture the movement, ambition, and emotion that define football's greatest stage. Interwoven paths symbolise the journeys of nations, while every figure represents the relentless pursuit of excellence and the legacies forged through the game.<br\/><br\/>More than a decorative artwork, Legacy in Motion is a museum grade collector's piece. Produced with exceptional craftsmanship and premium finishes, it is designed to preserve the spirit of an unforgettable football era for generations to come.<\/p>",
+            "uppercase_title": false,
+            "icon": "none",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_badges_afa",
+        "vendor_gECqwd",
+        "title_KVVLgg",
+        "text_U6e8k6",
+        "badges_NGR7T4",
+        "price_diVC4x",
+        "inventory_afa",
+        "rating_pqpPPC",
+        "payment_terms_JDTihX",
+        "separator_6GFnWL",
+        "description_9wmRVY",
+        "sku_afa",
+        "variant_picker_tLpTyF",
+        "buy_buttons_diW3dB",
+        "modal_speak_afa",
+        "offers_afa",
+        "modal_material_afa",
+        "accordion_afa"
+      ],
+      "name": "t:sections.featured_product.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "subheading": "",
+        "title": "More from World Cup 2026",
+        "title_tag": "h3",
+        "title_icon": "none",
+        "show_scrolling_title": false,
+        "show_product_link": false,
+        "text_alignment": "left",
+        "product": "legacy-in-motion-edition-2026",
+        "product_media_size": 50,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "numbers",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "afa_header_rt",
+    "main",
+    "custom_liquid_ajJKqF",
+    "featured_collections_AgTWrj",
+    "featured_collections_zhUz8k",
+    "featured_collections_lehsc1",
+    "featured_collections_TAHD6a",
+    "dual_product_carousel_wRbQnw",
+    "lgx-col-seo",
+    "featured_product_frMawr"
+  ]
+}

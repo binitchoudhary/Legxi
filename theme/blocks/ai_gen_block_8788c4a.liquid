@@ -1,0 +1,1182 @@
+{% doc %}
+  @prompt
+    carousel with auction slots according to date with enquire and join slot buttons. hover popup functionality on carousel individual tiles.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-auction-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 0;
+  }
+
+  .ai-auction-carousel__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-auction-carousel__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-auction-carousel__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .ai-auction-carousel__wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    padding: 0 20px;
+  }
+
+  .ai-auction-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.card_spacing }}px;
+    transition: transform 0.4s ease;
+    padding: 20px 0;
+  }
+
+  .ai-auction-carousel__slide-{{ ai_gen_id }} {
+    flex: 0 0 calc((100% - {{ block.settings.card_spacing | times: 2 }}px) / 3);
+    position: relative;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .ai-auction-carousel__slide-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-auction-carousel__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%;
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+
+  .ai-auction-carousel__image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-auction-carousel__image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-auction-carousel__image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-auction-carousel__badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: {{ block.settings.badge_background }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+  }
+
+  .ai-auction-carousel__content-{{ ai_gen_id }} {
+    padding: 20px;
+  }
+
+  .ai-auction-carousel__date-{{ ai_gen_id }} {
+    font-size: 12px;
+    color: {{ block.settings.date_color }};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .ai-auction-carousel__slot-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    color: {{ block.settings.text_color }};
+    margin: 0 0 8px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .ai-auction-carousel__description-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .ai-auction-carousel__buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ai-auction-carousel__button-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .ai-auction-carousel__button--enquire-{{ ai_gen_id }} {
+    background-color: {{ block.settings.enquire_button_bg }};
+    color: {{ block.settings.enquire_button_text }};
+  }
+
+  .ai-auction-carousel__button--enquire-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.enquire_button_hover_bg }};
+    opacity: 0.9;
+  }
+
+  .ai-auction-carousel__button--join-{{ ai_gen_id }} {
+    background-color: {{ block.settings.join_button_bg }};
+    color: {{ block.settings.join_button_text }};
+  }
+
+  .ai-auction-carousel__button--join-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.join_button_hover_bg }};
+    opacity: 0.9;
+  }
+
+  .ai-auction-carousel__popup-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 90%;
+    max-width: 320px;
+    background-color: {{ block.settings.popup_background }};
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .ai-auction-carousel__slide-{{ ai_gen_id }}:hover .ai-auction-carousel__popup-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+
+  .ai-auction-carousel__popup-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.popup_text_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-auction-carousel__popup-info-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .ai-auction-carousel__popup-row-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: {{ block.settings.popup_text_color }};
+  }
+
+  .ai-auction-carousel__popup-label-{{ ai_gen_id }} {
+    opacity: 0.7;
+  }
+
+  .ai-auction-carousel__popup-value-{{ ai_gen_id }} {
+    font-weight: 600;
+  }
+
+  .ai-auction-carousel__popup-description-{{ ai_gen_id }} {
+    font-size: 13px;
+    color: {{ block.settings.popup_text_color }};
+    opacity: 0.8;
+    line-height: 1.5;
+    margin-top: 8px;
+  }
+
+  .ai-auction-carousel__nav-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }} {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: {{ block.settings.nav_button_bg }};
+    color: {{ block.settings.nav_button_color }};
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_bg }};
+    transform: scale(1.1);
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }}:disabled:hover {
+    transform: scale(1);
+  }
+
+  .ai-auction-carousel__dots-{{ ai_gen_id }} {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ai-auction-carousel__dot-{{ ai_gen_id }} {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: {{ block.settings.nav_button_bg }};
+    opacity: 0.3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-auction-carousel__dot-{{ ai_gen_id }}.active {
+    opacity: 1;
+    background-color: {{ block.settings.nav_button_hover_bg }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-auction-carousel__slide-{{ ai_gen_id }} {
+      flex: 0 0 calc((100% - {{ block.settings.card_spacing }}px) / 2);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-auction-carousel-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-auction-carousel__slide-{{ ai_gen_id }} {
+      flex: 0 0 100%;
+    }
+
+    .ai-auction-carousel__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+
+    .ai-auction-carousel__popup-{{ ai_gen_id }} {
+      position: static;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 12px;
+      opacity: 0;
+      visibility: hidden;
+      max-height: 0;
+      padding: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .ai-auction-carousel__slide-{{ ai_gen_id }}:hover .ai-auction-carousel__popup-{{ ai_gen_id }} {
+      opacity: 1;
+      visibility: visible;
+      max-height: 500px;
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<auction-carousel-{{ ai_gen_id }}
+  class="ai-auction-carousel-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.heading != blank or block.settings.subheading != blank %}
+    <div class="ai-auction-carousel__header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-auction-carousel__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.subheading != blank %}
+        <p class="ai-auction-carousel__subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="ai-auction-carousel__wrapper-{{ ai_gen_id }}">
+    <div class="ai-auction-carousel__track-{{ ai_gen_id }}" data-track>
+      {% for i in (1..6) %}
+        {% liquid
+          assign slot_enabled_key = 'slot_' | append: i | append: '_enabled'
+          assign slot_date_key = 'slot_' | append: i | append: '_date'
+          assign slot_title_key = 'slot_' | append: i | append: '_title'
+          assign slot_description_key = 'slot_' | append: i | append: '_description'
+          assign slot_image_key = 'slot_' | append: i | append: '_image'
+          assign slot_badge_key = 'slot_' | append: i | append: '_badge'
+          assign slot_starting_bid_key = 'slot_' | append: i | append: '_starting_bid'
+          assign slot_current_bid_key = 'slot_' | append: i | append: '_current_bid'
+          assign slot_total_bids_key = 'slot_' | append: i | append: '_total_bids'
+          assign slot_enquire_link_key = 'slot_' | append: i | append: '_enquire_link'
+          assign slot_join_link_key = 'slot_' | append: i | append: '_join_link'
+
+          assign slot_enabled = block.settings[slot_enabled_key]
+          assign slot_date = block.settings[slot_date_key]
+          assign slot_title = block.settings[slot_title_key]
+          assign slot_description = block.settings[slot_description_key]
+          assign slot_image = block.settings[slot_image_key]
+          assign slot_badge = block.settings[slot_badge_key]
+          assign slot_starting_bid = block.settings[slot_starting_bid_key]
+          assign slot_current_bid = block.settings[slot_current_bid_key]
+          assign slot_total_bids = block.settings[slot_total_bids_key]
+          assign slot_enquire_link = block.settings[slot_enquire_link_key]
+          assign slot_join_link = block.settings[slot_join_link_key]
+
+        %}
+
+        {% if slot_enabled %}
+          <div class="ai-auction-carousel__slide-{{ ai_gen_id }}" data-slide>
+            <div class="ai-auction-carousel__image-wrapper-{{ ai_gen_id }}">
+              {% if slot_image %}
+                <img
+                  src="{{ slot_image | image_url: width: 600 }}"
+                  alt="{{ slot_title | escape }}"
+                  class="ai-auction-carousel__image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="600"
+                  height="450"
+                >
+              {% else %}
+                <div class="ai-auction-carousel__image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+
+              {% if slot_badge != blank %}
+                <div class="ai-auction-carousel__badge-{{ ai_gen_id }}">{{ slot_badge }}</div>
+              {% endif %}
+            </div>
+
+            <div class="ai-auction-carousel__content-{{ ai_gen_id }}">
+              {% if slot_date != blank %}
+                <div class="ai-auction-carousel__date-{{ ai_gen_id }}">{{ slot_date }}</div>
+              {% endif %}
+
+              {% if slot_title != blank %}
+                <h3 class="ai-auction-carousel__slot-title-{{ ai_gen_id }}">{{ slot_title }}</h3>
+              {% endif %}
+
+              {% if slot_description != blank %}
+                <p class="ai-auction-carousel__description-{{ ai_gen_id }}">{{ slot_description }}</p>
+              {% endif %}
+
+              <div class="ai-auction-carousel__buttons-{{ ai_gen_id }}">
+                {% if slot_enquire_link != blank %}
+                  <a
+                    href="{{ slot_enquire_link }}"
+                    class="ai-auction-carousel__button-{{ ai_gen_id }} ai-auction-carousel__button--enquire-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.enquire_label }}
+                  </a>
+                {% endif %}
+
+                {% if slot_join_link != blank %}
+                  <a
+                    href="{{ slot_join_link }}"
+                    class="ai-auction-carousel__button-{{ ai_gen_id }} ai-auction-carousel__button--join-{{ ai_gen_id }}"
+                  >
+                    {{ block.settings.join_label }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="ai-auction-carousel__popup-{{ ai_gen_id }}">
+              <h4 class="ai-auction-carousel__popup-title-{{ ai_gen_id }}">{{ slot_title }}</h4>
+              <div class="ai-auction-carousel__popup-info-{{ ai_gen_id }}">
+                {% if slot_starting_bid != blank %}
+                  <div class="ai-auction-carousel__popup-row-{{ ai_gen_id }}">
+                    <span class="ai-auction-carousel__popup-label-{{ ai_gen_id }}">Starting Bid:</span>
+                    <span class="ai-auction-carousel__popup-value-{{ ai_gen_id }}">{{ slot_starting_bid }}</span>
+                  </div>
+                {% endif %}
+
+                {% if slot_current_bid != blank %}
+                  <div class="ai-auction-carousel__popup-row-{{ ai_gen_id }}">
+                    <span class="ai-auction-carousel__popup-label-{{ ai_gen_id }}">Current Bid:</span>
+                    <span class="ai-auction-carousel__popup-value-{{ ai_gen_id }}">{{ slot_current_bid }}</span>
+                  </div>
+                {% endif %}
+
+                {% if slot_total_bids != blank %}
+                  <div class="ai-auction-carousel__popup-row-{{ ai_gen_id }}">
+                    <span class="ai-auction-carousel__popup-label-{{ ai_gen_id }}">Total Bids:</span>
+                    <span class="ai-auction-carousel__popup-value-{{ ai_gen_id }}">{{ slot_total_bids }}</span>
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if slot_description != blank %}
+                <p class="ai-auction-carousel__popup-description-{{ ai_gen_id }}">{{ slot_description }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="ai-auction-carousel__nav-{{ ai_gen_id }}">
+    <button
+      class="ai-auction-carousel__nav-button-{{ ai_gen_id }}"
+      data-prev
+      aria-label="Previous slide"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="ai-auction-carousel__dots-{{ ai_gen_id }}" data-dots></div>
+
+    <button
+      class="ai-auction-carousel__nav-button-{{ ai_gen_id }}"
+      data-next
+      aria-label="Next slide"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</auction-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AuctionCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+        this.slidesPerView = 3;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('[data-track]');
+        this.slides = this.querySelectorAll('[data-slide]');
+        this.prevButton = this.querySelector('[data-prev]');
+        this.nextButton = this.querySelector('[data-next]');
+        this.dotsContainer = this.querySelector('[data-dots]');
+
+        if (!this.track || this.slides.length === 0) return;
+
+        this.updateSlidesPerView();
+        this.createDots();
+        this.updateCarousel();
+        this.setupEventListeners();
+      }
+
+      updateSlidesPerView() {
+        const width = window.innerWidth;
+        if (width <= 749) {
+          this.slidesPerView = 1;
+        } else if (width <= 989) {
+          this.slidesPerView = 2;
+        } else {
+          this.slidesPerView = 3;
+        }
+      }
+
+      createDots() {
+        this.dotsContainer.innerHTML = '';
+        const totalDots = Math.ceil(this.slides.length / this.slidesPerView);
+
+        for (let i = 0; i < totalDots; i++) {
+          const dot = document.createElement('button');
+          dot.classList.add('ai-auction-carousel__dot-{{ ai_gen_id }}');
+          dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          dot.addEventListener('click', () => {
+            this.currentIndex = i;
+            this.updateCarousel();
+          });
+          this.dotsContainer.appendChild(dot);
+        }
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => this.prev());
+        this.nextButton.addEventListener('click', () => this.next());
+
+        window.addEventListener('resize', () => {
+          this.updateSlidesPerView();
+          this.createDots();
+          this.currentIndex = 0;
+          this.updateCarousel();
+        });
+      }
+
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+          this.updateCarousel();
+        }
+      }
+
+      next() {
+        const maxIndex = Math.ceil(this.slides.length / this.slidesPerView) - 1;
+        if (this.currentIndex < maxIndex) {
+          this.currentIndex++;
+          this.updateCarousel();
+        }
+      }
+
+      updateCarousel() {
+        const slideWidth = this.slides[0].offsetWidth;
+        const gap = {{ block.settings.card_spacing }};
+        const offset = -(this.currentIndex * (slideWidth + gap) * this.slidesPerView);
+
+        this.track.style.transform = 'translateX(' + offset + 'px)';
+
+        const maxIndex = Math.ceil(this.slides.length / this.slidesPerView) - 1;
+        this.prevButton.disabled = this.currentIndex === 0;
+        this.nextButton.disabled = this.currentIndex === maxIndex;
+
+        const dots = this.dotsContainer.querySelectorAll('.ai-auction-carousel__dot-{{ ai_gen_id }}');
+        dots.forEach((dot, index) => {
+          if (index === this.currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('auction-carousel-{{ ai_gen_id }}', AuctionCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Auction carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Upcoming Auctions"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Browse and join our exclusive auction slots"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_spacing",
+      "label": "Card spacing",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Background",
+      "default": "#e04837"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date color",
+      "default": "#e04837"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "enquire_label",
+      "label": "Enquire button label",
+      "default": "Enquire"
+    },
+    {
+      "type": "text",
+      "id": "join_label",
+      "label": "Join button label",
+      "default": "Join Slot"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "enquire_button_bg",
+      "label": "Enquire background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "enquire_button_text",
+      "label": "Enquire text",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "enquire_button_hover_bg",
+      "label": "Enquire hover background",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "join_button_bg",
+      "label": "Join background",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "join_button_text",
+      "label": "Join text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "join_button_hover_bg",
+      "label": "Join hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Popup"
+    },
+    {
+      "type": "color",
+      "id": "popup_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "popup_text_color",
+      "label": "Text color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_bg",
+      "label": "Button background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Button color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_bg",
+      "label": "Button hover background",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "header",
+      "content": "Slot 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_1_enabled",
+      "label": "Enable slot 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_1_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_1_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_1_join_link",
+      "label": "Join link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_2_enabled",
+      "label": "Enable slot 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_2_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_2_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_2_join_link",
+      "label": "Join link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_3_enabled",
+      "label": "Enable slot 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_3_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_3_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_3_join_link",
+      "label": "Join link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_4_enabled",
+      "label": "Enable slot 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_4_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_4_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_4_join_link",
+      "label": "Join link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_5_enabled",
+      "label": "Enable slot 5",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_5_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_5_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_5_join_link",
+      "label": "Join link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_6_enabled",
+      "label": "Enable slot 6",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_date",
+      "label": "Date"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_6_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_badge",
+      "label": "Badge text"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_starting_bid",
+      "label": "Starting bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_current_bid",
+      "label": "Current bid"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_total_bids",
+      "label": "Total bids"
+    },
+    {
+      "type": "url",
+      "id": "slot_6_enquire_link",
+      "label": "Enquire link"
+    },
+    {
+      "type": "url",
+      "id": "slot_6_join_link",
+      "label": "Join link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Auction carousel"
+    }
+  ]
+}
+{% endschema %}

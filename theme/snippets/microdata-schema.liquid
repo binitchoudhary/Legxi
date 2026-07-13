@@ -1,0 +1,276 @@
+{%- comment -%}
+Product schema — Shopify's built-in structured_data filter outputs comprehensive Product JSON-LD
+(name, description, url, offers with price/availability, images, sku, brand, gtin).
+We use this instead of a custom schema to benefit from Shopify's ongoing maintenance.
+{%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+  <script type="application/ld+json">
+    {{- product | structured_data -}}
+  </script>
+{%- endif -%}
+
+{%- comment -%}
+Article schema — custom BlogPosting with publisher logo and article tags.
+We output our own instead of `article | structured_data` to include publisher branding.
+{%- endcomment -%}
+{%- if request.page_type == 'article' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ article.title | json }},
+    "description": {{ article.excerpt | strip_html | default: article.title | json }},
+    "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+    "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%SZ' }}",
+    {%- if article.image -%}
+    "image": {
+      "@type": "ImageObject",
+      "url": "https:{{ article.image | image_url: width: 1200 }}",
+      "width": 1200
+    },
+    {%- endif -%}
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      {%- if shop.brand.logo -%}
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https:{{ shop.brand.logo | image_url: width: 600 }}"
+      }
+      {%- else -%}
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://legxi.co/cdn/shop/files/legxi_logo.png"
+      }
+      {%- endif -%}
+    },
+    {%- if article.tags.size > 0 -%}
+    "keywords": {{ article.tags | join: ', ' | json }},
+    {%- endif -%}
+    "url": "{{ shop.url }}{{ article.url }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ shop.url }}{{ article.url }}"
+    }
+  }
+  </script>
+{%- endif -%}
+
+{%- comment -%} BreadcrumbList — sitewide on all crawlable page types {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": {{ 'general.home' | t | json }},
+        "item": "{{ shop.url }}"
+      }
+
+      {%- if request.page_type == 'product' -%}
+        {%- if collection -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ collection.title | json }},
+            "item": "{{ shop.url }}{{ collection.url }}"
+          }, {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ product.title | json }},
+            "item": "{{ shop.url }}{{ product.url }}"
+          }
+        {%- else -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ product.title | json }},
+            "item": "{{ shop.url }}{{ product.url }}"
+          }
+        {%- endif -%}
+      {%- elsif request.page_type == 'collection' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ collection.title | json }},
+            "item": "{{ shop.url }}{{ collection.url }}"
+          }
+      {%- elsif request.page_type == 'blog' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ blog.title | json }},
+            "item": "{{ shop.url }}{{ blog.url }}"
+          }
+      {%- elsif request.page_type == 'article' -%}
+          ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ blog.title | json }},
+            "item": "{{ shop.url }}{{ blog.url }}"
+          }, {
+            "@type": "ListItem",
+            "position": 3,
+            "name": {{ article.title | json }},
+            "item": "{{ shop.url }}{{ article.url }}"
+          }
+      {%- elsif request.page_type == 'page' -%}
+        ,{
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ page.title | json }},
+            "item": "{{ shop.url }}{{ page.url }}"
+          }
+      {%- endif -%}
+    ]
+  }
+</script>
+
+{%- comment -%} Organization — homepage only {%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {%- if shop.brand.logo -%}
+      "logo": "https:{{ shop.brand.logo | image_url: width: shop.brand.logo.width }}",
+    {%- endif -%}
+    {%- if shop.brand.short_description != blank -%}
+      "description": {{ shop.brand.short_description | json }},
+    {%- else -%}
+      "description": "Premium authenticated sports memorabilia — AFA signed jerseys, limited edition collectibles & athlete autographs with Certificate of Authenticity",
+    {%- endif -%}
+    {%- if shop.brand.slogan != blank -%}
+      "slogan": {{ shop.brand.slogan | json }},
+    {%- endif -%}
+    {%- if shop.brand.metafields.social_links.size > 0 -%}
+      "sameAs": [
+        {%- for social_link in shop.brand.metafields.social_links -%}
+          {{- social_link.last.value | json -}}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ],
+    {%- endif -%}
+    "url": {{ shop.url | json }}
+  }
+</script>
+
+{%- comment -%} LocalBusiness — sitewide, sports memorabilia {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": {{ shop.name | json }},
+    {%- if shop.email != blank -%}
+      "email": {{ shop.email | json }},
+    {%- endif -%}
+    {%- if shop.phone != blank -%}
+      "telephone": {{ shop.phone | json }},
+    {%- endif -%}
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": {{ shop.address.country_code | default: "IN" | json }},
+      "addressLocality": {{ shop.address.city | default: "India" | json }}
+    },
+    "description": "Premium authenticated sports memorabilia — AFA certified signed jerseys, limited edition athlete autographs & collectibles with Certificate of Authenticity",
+    "priceRange": "₹₹₹",
+    "url": {{ shop.url | json }}
+  }
+</script>
+{%- endif -%}
+
+{%- comment -%} WebSite + SearchAction — homepage only {%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+  {%- assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" -%}
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }},
+    "description": "Premium authenticated sports memorabilia — AFA signed jerseys, limited edition collectibles & athlete autographs",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ potential_action_target | json }},
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  {%- comment -%} Person schemas for featured athletes — homepage only {%- endcomment -%}
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Lionel Messi",
+      "description": "Argentine football legend, 8× Ballon d'Or winner, FIFA World Cup 2022 champion",
+      "nationality": "Argentine",
+      "sport": "Football",
+      "url": "https://en.wikipedia.org/wiki/Lionel_Messi"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Arshdeep Singh",
+      "description": "Indian international cricketer and fast bowler known for his yorkers in T20 cricket",
+      "nationality": "Indian",
+      "sport": "Cricket",
+      "url": "https://en.wikipedia.org/wiki/Arshdeep_Singh"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ravi Bishnoi",
+      "description": "Indian international cricketer and leg-spin bowler for India national cricket team",
+      "nationality": "Indian",
+      "sport": "Cricket",
+      "url": "https://en.wikipedia.org/wiki/Ravi_Bishnoi"
+    }
+  ]
+  </script>
+{%- endif -%}
+
+{%- comment -%} ItemList + CollectionPage — collection pages only, includes product images {%- endcomment -%}
+{%- if request.page_type == 'collection' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": {{ collection.title | json }},
+    "description": {{ collection.description | strip_html | default: collection.title | json }},
+    "url": "{{ shop.url }}{{ collection.url }}",
+    "numberOfItems": {{ collection.products_count }},
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": {{ collection.title | json }},
+      "numberOfItems": {{ collection.products_count }},
+      "itemListElement": [
+        {%- for product in collection.products limit: 20 -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "url": "{{ shop.url }}{{ product.url }}",
+            "name": {{ product.title | json }},
+            {%- if product.featured_media -%}
+            "image": "https:{{ product.featured_media | image_url: width: 600 }}",
+            {%- endif -%}
+            "offers": {
+              "@type": "Offer",
+              "price": "{{ product.price | money_without_currency | remove: ',' }}",
+              "priceCurrency": {{ cart.currency.iso_code | json }},
+              "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}"
+            }
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  }
+  </script>
+{%- endif -%}

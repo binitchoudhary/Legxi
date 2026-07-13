@@ -1,0 +1,566 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_badges_qbLARX": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 4,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "LIMITED SIGNED EDITION",
+            "badge_1_show": true,
+            "badge_1_bg": "#f0f0f0",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#e0e0e0",
+            "badge_2_text": "3 PIECES",
+            "badge_2_show": true,
+            "badge_2_bg": "#dee8e2",
+            "badge_2_text_color": "#237c4c",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "inventory_g3DVD6": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": true,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "sku_cPAfKw": {
+          "type": "sku",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "modal_GVgNbn": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "button_hPgGNY": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "link": "#specialist-form",
+            "text": "APPLY  FOR OWNERSHIP",
+            "style": "solid",
+            "stretch": true,
+            "background": "#1e616c",
+            "text_color": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": false,
+            "add_quantity_selector_spacing": false,
+            "atc_button_style": "outline",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "button_rJNhrV": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "link": "https:\/\/wa.me\/919315704239?text=Hi%2C%20I%20would%20like%20to%20enquire%20regarding%20the%20LEGXI%20GOAT%20Collector%20Trio%20Set.",
+            "text": "CONNECT WITH A COLLECTIBLES SPECIALIST",
+            "style": "solid",
+            "stretch": true,
+            "background": "#5297ab",
+            "text_color": ""
+          }
+        },
+        "liquid_register_interest_gct": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<button id=\"legxi-ri-btn\" onclick=\"legxiOpenModal()\">\n  Register Interest\n<\/button>\n\n<div id=\"legxi-form-modal\">\n  <div id=\"legxi-modal-inner\">\n    <button id=\"legxi-close-btn\" onclick=\"legxiCloseModal()\">&#10005;<\/button>\n    <div data-forms-id=\"forms-root-1052309\"><\/div>\n  <\/div>\n<\/div>\n\n<script>\n  function legxiOpenModal() {\n    var modal = document.getElementById('legxi-form-modal');\n    modal.classList.add('legxi-active');\n    document.body.style.overflow = 'hidden';\n  }\n\n  function legxiCloseModal() {\n    var modal = document.getElementById('legxi-form-modal');\n    modal.classList.remove('legxi-active');\n    document.body.style.overflow = '';\n  }\n\n  document.addEventListener('keydown', function(e) {\n    if (e.key === 'Escape') legxiCloseModal();\n  });\n\n  document.getElementById('legxi-form-modal').addEventListener('click', function(e) {\n    if (e.target === this) legxiCloseModal();\n  });\n<\/script>\n\n<script>\n  (function () {\n    var STYLES = [\n      ':host {',\n      '  --form-background-color: transparent;',\n      '  --form-text-color: #ffffff;',\n      '  --form-placeholder-color: #888888;',\n      '  --form-field-border: 1px solid #444444;',\n      '  --form-field-border-focused: 1px solid #5297AB;',\n      '  --form-field-border-radius: 6px;',\n      '  --heading-text-color: #ffffff;',\n      '  --body-text-color: #ffffff;',\n      '  --subdued-text-color: #cccccc;',\n      '  --button-background-color: #0d3f4b;',\n      '  --button-text-color: #ffffff;',\n      '  --button-border-radius: 6px;',\n      '  --buttons-radius: 6px;',\n      '  --button-border: none;',\n      '  --button-padding: 13px 24px;',\n      '  --button-close-color: #ffffff;',\n      '  --button-close-background-color: transparent;',\n      '  --forms-accent-color: #5297AB;',\n      '  --forms-focus-outline-color: #5297AB;',\n      '  --link-text-color: #5297AB;',\n      '  --form-error-color: #ff5555;',\n      '  --forms-padding-top: 0px;',\n      '  --forms-padding-right: 0px;',\n      '  --forms-padding-bottom: 0px;',\n      '  --forms-padding-left: 0px;',\n      '}',\n\n      'section, [data-sizing], [data-form-root] { background: transparent !important; }',\n\n      'input:not([type=\"checkbox\"]):not([type=\"radio\"]):not([type=\"submit\"]):not([type=\"button\"]):not([type=\"range\"]),',\n      'select, textarea {',\n      '  background: #1a1a1a !important;',\n      '  color: #fff !important;',\n      '  border: 1px solid #444 !important;',\n      '  border-radius: 6px !important;',\n      '  padding: 11px 14px !important;',\n      '  font-size: 14px !important;',\n      '  line-height: 1.4 !important;',\n      '  box-sizing: border-box !important;',\n      '  outline: none !important;',\n      '  width: 100% !important;',\n      '}',\n      'input::placeholder, textarea::placeholder { color: #888 !important; }',\n      'input:focus, select:focus, textarea:focus {',\n      '  border-color: #5297AB !important;',\n      '  box-shadow: 0 0 0 2px rgba(82,151,171,0.25) !important;',\n      '}',\n      'select { appearance: auto !important; -webkit-appearance: auto !important; }',\n\n      '[class*=\"phone\"], [class*=\"Phone\"] {',\n      '  border: 1px solid #444 !important;',\n      '  border-radius: 6px !important;',\n      '  background: #1a1a1a !important;',\n      '  overflow: visible !important;',\n      '}',\n      'div[class*=\"phone\"], div[class*=\"Phone\"] {}',\n      'div[class*=\"phone\"] label, div[class*=\"Phone\"] label { position: absolute !important; top: 3px !important; left: 12px !important; font-size: 11px !important; transform: none !important; color: #888 !important; }',\n\n      'input[type=\"checkbox\"] {',\n      '  accent-color: #5297AB !important;',\n      '  width: 16px !important; height: 16px !important;',\n      '  margin: 0 8px 0 0 !important; flex-shrink: 0 !important;',\n      '}',\n\n      'label, p, span, li { color: #fff !important; }',\n      'h1, h2, h3, h4, h5 { color: #fff !important; margin-top: 0 !important; }',\n      'a { color: #5297AB !important; }',\n\n      'button[type=\"submit\"] {',\n      '  background: #0d3f4b !important;',\n      '  color: #fff !important;',\n      '  border: none !important;',\n      '  border-radius: 6px !important;',\n      '  width: 100% !important;',\n      '  padding: 13px 24px !important;',\n      '  font-size: 14px !important;',\n      '  font-weight: 600 !important;',\n      '  cursor: pointer !important;',\n      '}',\n      'button[type=\"submit\"]:hover { opacity: 0.88 !important; }',\n\n      '[class*=\"error\"]:not(input) { color: #ff6b6b !important; font-size: 12px !important; }',\n      '[class*=\"disclaimer\"], [class*=\"privacy\"], [class*=\"footer\"] { color: #ccc !important; font-size: 12px !important; }'\n    ].join('\\n');\n\n    function inject(embed) {\n      if (!embed.shadowRoot || embed.dataset.lgxDark) return;\n      embed.dataset.lgxDark = '1';\n      var s = document.createElement('style');\n      s.textContent = STYLES;\n      embed.shadowRoot.appendChild(s);\n    }\n\n    var container = document.querySelector('[data-forms-id=\"forms-root-1052309\"]');\n    if (!container) return;\n\n    container.querySelectorAll('shopify-forms-embed').forEach(inject);\n\n    new MutationObserver(function () {\n      container.querySelectorAll('shopify-forms-embed').forEach(inject);\n    }).observe(container, { childList: true, subtree: true });\n  })();\n<\/script>\n\n<style>\n  #legxi-ri-btn {\n    display: block;\n    width: 100%;\n    padding: var(--button-padding-block, .75rem) var(--button-padding-inline, 1.5rem);\n    background-color: #000;\n    color: #fff;\n    font: var(--button-font);\n    letter-spacing: var(--button-letter-spacing);\n    text-transform: var(--button-text-transform);\n    border-radius: var(--button-border-radius);\n    border: none;\n    cursor: pointer;\n    transition: background-color 0.2s ease;\n  }\n\n  #legxi-ri-btn:hover {\n    background-color: #222;\n  }\n\n  #legxi-form-modal {\n    position: fixed;\n    inset: 0;\n    background: rgba(0, 0, 0, 0.72);\n    z-index: 99999;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    padding: 20px;\n    visibility: hidden;\n    opacity: 0;\n    transition: opacity 0.2s ease, visibility 0.2s ease;\n  }\n\n  #legxi-form-modal.legxi-active {\n    visibility: visible;\n    opacity: 1;\n  }\n\n  #legxi-modal-inner {\n    background: #1c1c1c;\n    padding: 44px 28px 28px;\n    max-width: 540px;\n    width: 100%;\n    position: relative;\n    border-radius: 12px;\n    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);\n    max-height: calc(100vh - 40px);\n    overflow-y: auto;\n    box-sizing: border-box;\n  }\n\n  #legxi-close-btn {\n    position: absolute;\n    top: 12px;\n    right: 14px;\n    background: none;\n    border: none;\n    font-size: 22px;\n    cursor: pointer;\n    color: #fff;\n    line-height: 1;\n    padding: 4px 8px;\n  }\n\n  #legxi-close-btn:hover {\n    opacity: 0.7;\n  }\n<\/style>"
+          }
+        },
+        "offers_4FbQGN": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_58fd9795-f1b7-4908-bccf-7bfa18c022cf.png",
+            "offer_1_icon_width": 16,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f9f9f9",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_11525f28-e653-46a2-ad3f-616d74918f89.png",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_66be8c4f-5fa4-41cd-93b9-b083a53545fc.png",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "modal_FPhrCw": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "material & dimensions",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #3 sets worldwide<br\/>Personally signed by Argentine Legends.<br\/><br\/>Comes with: Wooden base and Museum grade glass display frame<br\/><br\/>Size \/ Dimensions: 12 x 12 x 12 inches<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "accordion_UakELr": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "content": "<p>The pinnacle of the Argentina collection.<\/p><p>Bringing together three of the most iconic symbols of Argentina's modern football era, the LEGXI GOAT Collector Trio Set represents the highest expression of football collecting ever. <br\/><br\/>Each set includes a Lionel Messi hand-signed boot, a Julián Álvarez hand-signed football, and an Emiliano Martínez hand-signed goalkeeper glove, bringing together three World Champions in a single collector offering.<\/p><p>Only three complete collector sets have ever been created.<\/p><p>Officially licensed by the Argentine Football Association and individually hand-signed by the athletes themselves, every piece serves as a direct connection to the players who helped define one of the most celebrated generations in football history.<\/p>",
+            "uppercase_title": false,
+            "icon": "none",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_badges_qbLARX",
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "inventory_g3DVD6",
+        "rating",
+        "payment_terms",
+        "separator",
+        "description",
+        "sku_cPAfKw",
+        "variant_picker",
+        "modal_GVgNbn",
+        "button_hPgGNY",
+        "buy_buttons",
+        "button_rJNhrV",
+        "liquid_register_interest_gct",
+        "offers_4FbQGN",
+        "modal_FPhrCw",
+        "accordion_UakELr"
+      ],
+      "custom_css": [
+        ".variant-picker__poster-note {display: none !important;}",
+        "[data-block-type=\"button\"] + [data-block-type=\"button\"] {margin-top: -8px;}",
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}",
+        ".product {gap: 1rem;}",
+        ".product-title {padding: 0 !important;}",
+        ".product-info__block-item {margin: 10px 0;}",
+        "sale-price {margin-bottom: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": false,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 40,
+        "content_alignment": "left",
+        "desktop_media_layout": "grid_half_highlight_first",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "numbers",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "specialist_form_apps": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_specialist": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "980079",
+            "text_color": "#ffffff",
+            "button_background_color": "#0d3f4b",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "left",
+            "form_alignment": "flex-start",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_specialist"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "specialist_form_popup": {
+      "type": "specialist-form-popup",
+      "settings": {}
+    },
+    "specifications_CP4tEq": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_jCyfCg": {
+          "type": "attribute",
+          "settings": {
+            "icon": "picto-secure",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "OFFICIAL AFA LICENSE",
+            "content": "<p>Produced under LEGXI's official licensing partnership with the Argentine Football Association.<\/p>"
+          }
+        },
+        "attribute_QY7AUP": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/sign-icon_d49da9e7-9569-4221-9082-cf2866a49ae4.png",
+            "title": "HAND SIGNED",
+            "content": "<p>Original Hand Signatures from Three Argentina World Champions<\/p>"
+          }
+        },
+        "attribute_EwXmLM": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/star-icon_e86cb518-683f-43a4-a20e-fa6f734df243.png",
+            "title": "EDITION SIZE",
+            "content": "<p>3 Collector Sets Worldwide.<\/p>"
+          }
+        },
+        "attribute_BjRpnD": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/frame-icon_1.png",
+            "title": "<strong>COLLECTOR SET INCLUDES<\/strong>",
+            "content": "<p>Lionel Messi Hand-Signed Boot<br\/>Julián Álvarez Hand-Signed Football<br\/>Emiliano Martínez Hand-Signed Goalkeeper Glove<\/p>"
+          }
+        },
+        "attribute_JpjUwQ": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "LEGXI COA",
+            "content": "<p>Certificate of Authentication<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_jCyfCg",
+        "attribute_QY7AUP",
+        "attribute_EwXmLM",
+        "attribute_BjRpnD",
+        "attribute_JpjUwQ"
+      ],
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "",
+        "title": "Specifications",
+        "heading_size": "h4",
+        "content": "<p>Created for a select group of collectors worldwide, the GOAT Collector Trio Set combines rarity, provenance, and sporting significance at a level unlikely to be repeated.<\/p><p>A collector's opportunity.<\/p><p>A champion's legacy.<\/p><p>Only Three sets Ever. Worldwide.<br\/><\/p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "text_with_media_ikUQBL": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_bmtjDE": {
+          "type": "subheading",
+          "settings": {
+            "text": "A JOURNEY THAT INSPIRES",
+            "position": "top_left"
+          }
+        },
+        "heading_y3jzKP": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>3 PLAYERS. ONE ERA. AN UNBREAKABLE BOND.<\/strong>",
+            "heading_tag": "h4",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_NT7QmM": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Each piece is individually hand-signed, officially licensed by the Argentina Football Association, and permanently numbered.<\/p><p>Only three collectors worldwide will ever have the opportunity to own this piece.<br\/><\/p><p>The Golden Ball represents football immortality.<br\/> The Golden Glove represents composure under pressure.<br\/> The Golden Boot represents movement, hunger, and legacy.<\/p><p>Designed as the ultimate centrepiece for serious collectors, the Trinity Set captures the complete identity of a world champion generation in one unified display.<\/p><p>Extremely limited. Individually numbered. Created for the chosen few.<\/p>",
+            "position": "top_left"
+          }
+        },
+        "button_Yb7jzA": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "text": "Button text",
+            "url": "",
+            "position": "bottom_left",
+            "style": "solid",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_bmtjDE",
+        "heading_y3jzKP",
+        "richtext_NT7QmM",
+        "button_Yb7jzA"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "",
+        "content_position": "end",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify:\/\/shop_images\/trio-set-9.jpg",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our shop",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Discover our products",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Related products",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "stack_products": true,
+        "recommendations_count": 4,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4,
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "1781112044f505a227": {
+      "type": "apps",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specialist_form_apps",
+    "specialist_form_popup",
+    "specifications_CP4tEq",
+    "text_with_media_ikUQBL",
+    "scrolling_content_EPB3cB",
+    "related-products",
+    "1781112044f505a227"
+  ]
+}

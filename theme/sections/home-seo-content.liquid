@@ -1,0 +1,194 @@
+{%- comment -%}
+Homepage SEO content — indexable brand authority copy + FAQPage schema below the fold.
+Content is pre-populated in templates/index.json section settings.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 72px 0;
+  }
+  #shopify-section-{{ section.id }} .lgx-seo-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  #shopify-section-{{ section.id }} .lgx-seo-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: inherit;
+  }
+  #shopify-section-{{ section.id }} .lgx-seo-body {
+    font-size: 0.9375rem;
+    line-height: 1.82;
+    opacity: 0.80;
+    margin-bottom: 52px;
+  }
+  #shopify-section-{{ section.id }} .lgx-seo-body p { margin-bottom: 16px; }
+  #shopify-section-{{ section.id }} .lgx-faq-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 20px;
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-item {
+    border-top: 1px solid rgba(255,255,255,0.14);
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-item:last-of-type {
+    border-bottom: 1px solid rgba(255,255,255,0.14);
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-item summary::-webkit-details-marker { display: none; }
+  #shopify-section-{{ section.id }} .lgx-faq-icon {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.22s ease;
+    opacity: 0.6;
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-item[open] .lgx-faq-icon { transform: rotate(45deg); }
+  #shopify-section-{{ section.id }} .lgx-faq-body {
+    padding: 2px 0 20px;
+    font-size: 0.9rem;
+    line-height: 1.78;
+    opacity: 0.72;
+  }
+  #shopify-section-{{ section.id }} .lgx-faq-body p { margin-bottom: 10px; }
+</style>
+
+<div>
+  <div class="lgx-seo-inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="lgx-seo-heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.body_content != blank -%}
+      <div class="lgx-seo-body">{{ section.settings.body_content }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      {%- if section.settings.faq_heading != blank -%}
+        <p class="lgx-faq-heading">{{ section.settings.faq_heading | escape }}</p>
+      {%- endif -%}
+
+      <div class="lgx-faq-list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' and block.settings.question != blank -%}
+            <details class="lgx-faq-item" {{ block.shopify_attributes }}>
+              <summary>
+                <span>{{ block.settings.question | escape }}</span>
+                <span class="lgx-faq-icon" aria-hidden="true">+</span>
+              </summary>
+              {%- if block.settings.answer != blank -%}
+                <div class="lgx-faq-body">{{ block.settings.answer }}</div>
+              {%- endif -%}
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {%- assign _first = true -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq_item' and block.settings.question != blank and block.settings.answer != blank -%}
+              {%- unless _first -%},{%- endunless -%}
+              {%- assign _first = false -%}
+              {
+                "@type": "Question",
+                "name": {{ block.settings.question | json }},
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": {{ block.settings.answer | strip_html | json }}
+                }
+              }
+            {%- endif -%}
+          {%- endfor -%}
+        ]
+      }
+      </script>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- schema -%}
+{
+  "name": "SEO Content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading"
+    },
+    {
+      "type": "richtext",
+      "id": "body_content",
+      "label": "Body content"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ section label",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SEO Content"
+    }
+  ]
+}
+{%- endschema -%}

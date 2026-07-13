@@ -1,0 +1,430 @@
+{
+  "sections": {
+    "slideshow_MVUJgH": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow_video_slide_BcqNrR": {
+          "type": "_slideshow-video-slide",
+          "name": "t:sections.slideshow.blocks.video.name",
+          "settings": {
+            "color_scheme": "",
+            "video": "shopify:\/\/files\/videos\/home banner video.mp4",
+            "mobile_video": "shopify:\/\/files\/videos\/Phone video.mp4",
+            "slide_link": "",
+            "content_max_width": 1000,
+            "mobile_content_position": "place-self-center",
+            "desktop_content_position": "sm:place-self-center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 10
+          },
+          "blocks": {
+            "icon_qFqrpB": {
+              "type": "icon",
+              "name": "t:blocks.icon.name",
+              "settings": {
+                "icon": "picto-heart",
+                "custom_icon": "shopify:\/\/shop_images\/icon.png",
+                "icon_width": 92,
+                "mobile_icon_width": 72,
+                "stroke_width": 1.5
+              },
+              "blocks": {}
+            },
+            "heading_fkEVyt": {
+              "type": "heading",
+              "name": "t:blocks.heading.name",
+              "settings": {
+                "text": "<strong>Custodians of <\/strong><em><strong>Greatness<\/strong><\/em>",
+                "heading_size": "h3",
+                "html_tag": "h1",
+                "indent": "none",
+                "highlight_effect": "underline_pencil",
+                "highlight_accent_color": "#ffffff",
+                "highlight_text_color": ""
+              },
+              "blocks": {}
+            },
+            "button_44tttX": {
+              "type": "button",
+              "name": "t:blocks.button.name",
+              "settings": {
+                "text": "EXPLORE COLLECTION",
+                "url": "shopify:\/\/pages\/afa-x-legxi",
+                "open_in_new_tab": false,
+                "style": "link",
+                "background": "",
+                "text_color": ""
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "icon_qFqrpB",
+            "heading_fkEVyt",
+            "button_44tttX"
+          ]
+        },
+        "slideshow-controls": {
+          "type": "_slideshow-controls",
+          "static": true,
+          "settings": {
+            "controls_style": "line",
+            "controls_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "slideshow_video_slide_BcqNrR"
+      ],
+      "custom_css": [
+        ".h3 {margin-top: 10px;}",
+        "a.button {margin-top: 20px;}"
+      ],
+      "name": "t:sections.slideshow.name",
+      "settings": {
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "transition_type": "curtain",
+        "autoplay": true,
+        "pause_auto_rotate_on_hover": false,
+        "cycle_speed": 6,
+        "background": "#1C1C1C"
+      }
+    },
+    "featured_collections_YjqTPw": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_wzGjrw": {
+          "type": "collection",
+          "settings": {
+            "collection": "hand-signed-products",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_wzGjrw"
+      ],
+      "custom_css": [
+        ".product-card__info {background: #1c1c1c; color: #fff;}",
+        ".text-subdued {color: #fff;}"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": true,
+        "show_scrolling_bar": false
+      }
+    },
+    "featured_collections_iXG7cp": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_RNNRTr": {
+          "type": "collection",
+          "settings": {
+            "collection": "legxi-heritage-minis",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_RNNRTr"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "stack_products_mobile": true,
+        "stack_products_desktop": true,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured_collections_WxBT8K": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_9HnAhE": {
+          "type": "collection",
+          "settings": {
+            "collection": "bespoke-edition",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_9HnAhE"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "stack_products_mobile": true,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured-product-list": {
+      "type": "featured-product-list",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "product_list": [
+          "rebuild-arshdeep-singh-gratitude-celebration",
+          "ravi-bishnoi-official-hand-signed-ball",
+          "world-t20-champions-edition-2026",
+          "2007-the-birth-of-an-era",
+          "arshdeep-singh-exclusive-hand-signed-gold-plated-artwork"
+        ],
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 3,
+        "intro_color_scheme": "scheme-2",
+        "intro_image": "shopify:\/\/shop_images\/signage-collection.jpg",
+        "intro_image_overlay": "#00000040",
+        "intro_title": "OUR EXCLUSIVE COLLECTION",
+        "intro_title_tag": "h5",
+        "intro_content": "",
+        "intro_button_text": "View all",
+        "intro_button_link": "",
+        "intro_button_style": "link"
+      }
+    },
+    "hot-spots": {
+      "type": "hot-spots",
+      "blocks": {
+        "placeable-content-1": {
+          "type": "_placeable-content",
+          "settings": {
+            "position": "start",
+            "max_width": "xs"
+          },
+          "blocks": {
+            "subheading-1": {
+              "type": "subheading",
+              "settings": {
+                "text": "the autumn look"
+              },
+              "blocks": {}
+            },
+            "heading-1": {
+              "type": "heading",
+              "settings": {
+                "text": "BUILD TO <em>PERFORM<\/em>",
+                "heading_size": "h2",
+                "html_tag": "p",
+                "indent": "none",
+                "highlight_effect": "default",
+                "highlight_accent_color": "#e04837",
+                "highlight_text_color": "#ffffff"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "subheading-1",
+            "heading-1"
+          ]
+        },
+        "hot-spot-content-product-1": {
+          "type": "_hot-spot-content-product",
+          "settings": {
+            "product": "",
+            "desktop_horizontal_position": 59,
+            "desktop_vertical_position": 35,
+            "mobile_horizontal_position": 84,
+            "mobile_vertical_position": 33
+          },
+          "blocks": {}
+        },
+        "hot-spot-content-product-2": {
+          "type": "_hot-spot-content-product",
+          "settings": {
+            "product": "",
+            "desktop_horizontal_position": 39,
+            "desktop_vertical_position": 66,
+            "mobile_horizontal_position": 37,
+            "mobile_vertical_position": 62
+          },
+          "blocks": {}
+        },
+        "hot-spot-content-product-3": {
+          "type": "_hot-spot-content-product",
+          "settings": {
+            "product": "",
+            "desktop_horizontal_position": 50,
+            "desktop_vertical_position": 85,
+            "mobile_horizontal_position": 62,
+            "mobile_vertical_position": 79
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "placeable-content-1",
+        "hot-spot-content-product-1",
+        "hot-spot-content-product-2",
+        "hot-spot-content-product-3"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-4",
+        "hot_spot_background": "#ffffff",
+        "hot_spot_color": "#000000",
+        "background_text": "",
+        "background_text_size": "display-l",
+        "lower_scrolling_text_layer": true,
+        "show_scrolling_title": false
+      }
+    },
+    "reading-text": {
+      "type": "reading-text",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "image": "shopify:\/\/shop_images\/bg-cover.jpg",
+        "subheading": "About",
+        "content": "LEGXI TRANSFORMS ICONIC MOMENTS INTO LASTING LEGACIES - TIMELESS COLLECTIBLES THAT IGNITE PASSION TODAY AND INSPIRE GENERATIONS TOMORROW.",
+        "button_text": "",
+        "button_link": "",
+        "heading_tag": "h3",
+        "mobile_text_position": "place-self-center",
+        "desktop_text_position": "sm:place-self-center",
+        "content_width": "md",
+        "reading_speed": "0.8",
+        "separate_button": false,
+        "text_opacity": 20,
+        "overlay_color": "#000000",
+        "overlay_opacity": 10
+      }
+    },
+    "lgx-home-seo": {
+      "type": "home-seo-content",
+      "blocks": {
+        "faq_q1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is LEGXI?",
+            "answer": "<p>LEGXI is India's leading authenticated sports memorabilia brand. We offer officially signed and verified collectibles from cricket and football stars, each issued with a Certificate of Authenticity and backed by our digital verification portal at legxi.co\/pages\/authentication.<\/p>"
+          }
+        },
+        "faq_q2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does LEGXI verify the authenticity of its products?",
+            "answer": "<p>Every LEGXI collectible is obtained through managed signing sessions with direct athlete oversight. Each item is issued a unique Certificate of Authenticity (COA) with a code you can verify anytime through the LEGXI Authentication Portal. The COA documents the athlete, event, signing date, and edition number.<\/p>"
+          }
+        },
+        "faq_q3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What sports memorabilia does LEGXI offer?",
+            "answer": "<p>LEGXI offers signed cricket memorabilia (balls, jerseys, framed artwork), officially licensed Argentine Football Association (AFA) collectibles, bespoke limited-edition art pieces, and numbered-edition limited-run cricket posters — all hand-signed and authenticated.<\/p>"
+          }
+        },
+        "faq_q4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do all LEGXI products come with a Certificate of Authenticity?",
+            "answer": "<p>Yes. Every product sold through LEGXI includes a tamper-proof Certificate of Authenticity documenting the athlete, event, signing date, and unique edition number. Physical and digital verification through the LEGXI portal are both supported.<\/p>"
+          }
+        },
+        "faq_q5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does LEGXI ship across India?",
+            "answer": "<p>Yes. LEGXI ships to all major cities and states across India with full insurance coverage on every order. All collectibles are packaged securely to preserve their condition and value during transit.<\/p>"
+          }
+        },
+        "faq_q6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I transfer ownership of a LEGXI collectible?",
+            "answer": "<p>Yes. LEGXI's Ownership Transfer System allows verified transfer of ownership registration for any collectible, maintaining an unbroken chain of custody and preserving the full provenance record — protecting the long-term value of your purchase.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_q1",
+        "faq_q2",
+        "faq_q3",
+        "faq_q4",
+        "faq_q5",
+        "faq_q6"
+      ],
+      "settings": {
+        "bg_color": "#1c1c1c",
+        "text_color": "#ffffff",
+        "heading": "India's Premier Destination for Authenticated Sports Memorabilia",
+        "body_content": "<p>LEGXI was founded on a singular conviction: that the rarest moments in sport deserve to live beyond the field. We are India's most trusted marketplace for officially authenticated sports memorabilia — connecting passionate collectors with <a href=\"\/collections\/hand-signed-products\">hand-signed, limited-edition collectibles<\/a> that carry the verified signature of some of the greatest athletes alive.<\/p><p>Our collection spans the two sports that India holds closest to its heart: <a href=\"\/collections\/cricket-signed-collectibles\">cricket<\/a> and football. From Arshdeep Singh's hand-signed championship ball to officially licensed <a href=\"\/collections\/afa-signed-collectibles\">Argentine Football Association (AFA)<\/a> pieces bearing the signatures of World Cup legends, every LEGXI product is the result of a carefully managed signing session conducted under strict chain-of-custody protocols.<\/p><p>Every collectible sold through LEGXI is issued a tamper-proof Certificate of Authenticity (COA). Each COA includes unique identification details — athlete, event, signing date, and edition number — so you always know exactly what you own. LEGXI's digital <a href=\"\/pages\/authentication\">Authentication Portal<\/a> lets you verify the provenance of any collectible anytime using the unique code on your certificate.<\/p><p>LEGXI ships across India with full insurance on every order. Whether you are building a personal gallery or gifting something truly extraordinary, LEGXI brings you the closest possible connection to sporting greatness.<\/p>",
+        "faq_heading": "Frequently Asked Questions"
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "blocks": {
+        "blog-1": {
+          "type": "blog",
+          "settings": {
+            "blog": "news",
+            "posts_count": 4
+          }
+        }
+      },
+      "block_order": [
+        "blog-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "mobile_layout": "carousel",
+        "desktop_layout": "grid",
+        "title": "LEGXI JOURNAL",
+        "heading_tag": "h2",
+        "scrolling_title_separator": "square",
+        "scrolling_title": false,
+        "button_link": "",
+        "button_text": "Read journal",
+        "button_style": "outline",
+        "blog_post_card_heading_size": "h5",
+        "separator_style": "border",
+        "show_category": true,
+        "show_date": true,
+        "show_excerpt": false
+      }
+    }
+  },
+  "order": [
+    "slideshow_MVUJgH",
+    "featured_collections_YjqTPw",
+    "featured_collections_iXG7cp",
+    "featured_collections_WxBT8K",
+    "featured-product-list",
+    "hot-spots",
+    "reading-text",
+    "lgx-home-seo",
+    "blog-posts"
+  ]
+}

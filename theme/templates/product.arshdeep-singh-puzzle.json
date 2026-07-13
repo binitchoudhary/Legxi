@@ -1,0 +1,593 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "countdown_46gdKY": {
+          "type": "countdown",
+          "disabled": true,
+          "settings": {
+            "text": "Global Launch Countdown Save 30% on Pre-Booking",
+            "background": "#e6f5ff",
+            "text_color": "#004e82",
+            "expiration_date": "2026-02-15",
+            "expiration_behavior": "leave"
+          }
+        },
+        "variant_picker_YfMtFD": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "dropdown",
+            "swatch_selector_style": "block_swatch",
+            "swatch_selector_size": "sm",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "offers_Yw9tMe": {
+          "type": "offers",
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/tag.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "<strong>ONLY #494 PIECES - LIMITED EDITION<\/strong>",
+            "offer_1_content": "5 lucky collectors get hand signed puzzle",
+            "offer_1_background": "#f1fff2",
+            "offer_1_text_color": "#097133",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "buy_buttons_X9Bk6W": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "modal_dkrgmM": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_kXpExY": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_2c7353ad-9e57-4d61-ac82-70be95c7a917.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f5fbff",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_5898d2e2-5c72-4760-9e7a-e37dd63d75b8.png",
+            "offer_2_icon_width": 20,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f5fbff",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_f2d168e0-fd2e-43d4-a19d-8c1a71da5ab3.png",
+            "offer_3_icon_width": 20,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f5fbff",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Refund",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Shipping",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 88475 79634<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_hD7aw4": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Details & Specs",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #494 pieces worldwide<\/p><p>494 Pieces per Puzzle. Limited to 494 Editions Only. 5 Luccy collectors get hand<br\/>signed puzzle by Athlete <br\/><br\/><br\/>Size \/ Dimensions: 15.3 × 21.6 Inches<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "complementary_products_e4WW8w": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "",
+            "products_count": 2
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "rating",
+        "countdown_46gdKY",
+        "variant_picker_YfMtFD",
+        "price",
+        "offers_Yw9tMe",
+        "buy_buttons_X9Bk6W",
+        "modal_dkrgmM",
+        "offers_kXpExY",
+        "description",
+        "modal_6G837j",
+        "modal_hD7aw4",
+        "complementary_products_e4WW8w"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": false,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "text_with_media_FqXT4R": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_mLjUza": {
+          "type": "subheading",
+          "settings": {
+            "text": "#Rebuild",
+            "position": "top_left"
+          }
+        },
+        "heading_H46kJG": {
+          "type": "heading",
+          "settings": {
+            "text": "Rebuild legacy moments, piece by piece",
+            "heading_tag": "h3",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_9B4K8T": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>494 precision-cut pieces <\/strong><\/p><p>• Premium soft-touch finish <br\/>• Final size: 15.3 × 21.6  inches<br\/>• Includes adhesive backing sheet to convert it into a display-ready poster<br\/><br\/>5 lucky out of 494 collectors receive a personally hand-signed puzzle by Arshdeep Singh.<\/p>",
+            "position": "bottom_left"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_mLjUza",
+        "heading_H46kJG",
+        "richtext_9B4K8T"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "content_position": "start",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify:\/\/shop_images\/Artboard13.png",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "text_with_icons_FtJgTV": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_4E7BMT": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-asterisk",
+            "title": "ONLY #494 PIECES",
+            "heading_tag": "h4",
+            "content": "<p>Limited drop. No restocks<br\/>Once sold out, gone forever<\/p>"
+          }
+        },
+        "item_EUXNrD": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-sparkle",
+            "title": "PREMIUM SOFT-TOUCH",
+            "heading_tag": "h4",
+            "content": "<p>Precisely cut soft touch soothing finish.<\/p>"
+          }
+        },
+        "item_mHe9BG": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-ai-spark",
+            "title": "Prominent Display Size",
+            "heading_tag": "h4",
+            "content": "<p>display-ready poster size of 15.3 × 21.6  inches.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_4E7BMT",
+        "item_EUXNrD",
+        "item_mHe9BG"
+      ],
+      "name": "t:sections.text_with_icons.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h2",
+        "text_alignment": "center",
+        "items_per_row_desktop": 3,
+        "stack_on_mobile": true,
+        "separator_style": "vertical",
+        "icon_position": "stacked",
+        "icon_width": 40,
+        "mobile_icon_width": 32,
+        "item_text_alignment": "left"
+      }
+    },
+    "hot_spots_ctCYaz": {
+      "type": "hot-spots",
+      "blocks": {
+        "hot_spot_content_item_c9k9Ni": {
+          "type": "_hot-spot-content-item",
+          "name": "t:sections.hot_spots.blocks.content.name",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 60,
+            "desktop_vertical_position": 32,
+            "mobile_horizontal_position": 74,
+            "mobile_vertical_position": 26,
+            "image": "shopify:\/\/shop_images\/main.jpg",
+            "round_image": false,
+            "title": "Gratitude Puzzle",
+            "content": "<p>Rebuild legacy moments, piece by piece.<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_VyxxjD": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 19,
+            "desktop_vertical_position": 55,
+            "mobile_horizontal_position": 72,
+            "mobile_vertical_position": 85,
+            "image": "shopify:\/\/shop_images\/potli.jpg",
+            "round_image": false,
+            "title": "Puzzle holder Potli",
+            "content": ""
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_GnqwhA": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 83,
+            "desktop_vertical_position": 62,
+            "mobile_horizontal_position": 26,
+            "mobile_vertical_position": 21,
+            "image": "shopify:\/\/shop_images\/packaging.jpg",
+            "round_image": false,
+            "title": "Puzzle packaging",
+            "content": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "hot_spot_content_item_c9k9Ni",
+        "hot_spot_content_item_VyxxjD",
+        "hot_spot_content_item_GnqwhA"
+      ],
+      "name": "t:sections.hot_spots.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify:\/\/shop_images\/in-detail_3444ba59-cdc3-48e8-8ed1-10c47557e232.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/puzzle-in-detail-phone.jpg",
+        "hot_spot_background": "#9f968a",
+        "hot_spot_color": "#dfdfdf",
+        "background_text": "",
+        "background_text_size": "display-m",
+        "lower_scrolling_text_layer": false,
+        "show_scrolling_title": false
+      }
+    },
+    "1761294333278e356b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_6K7ArF": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_6K7ArF"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "scrolling_content_6Eaxw6": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_8Y8JHf": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>REBUILD LEGACY MOMENTS<\/strong>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_4LPrh4": {
+          "type": "text",
+          "settings": {
+            "text": "Piece by piece",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_8Y8JHf",
+        "text_4LPrh4"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "scrolling_speed": 0.2,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 8,
+        "text_font_size_desktop": 4,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "faq_U7EXL8": {
+      "type": "faq",
+      "blocks": {
+        "question_fzMaty": {
+          "type": "question",
+          "settings": {
+            "question": "Is this puzzle hand signed by arshdeep singh ?",
+            "answer": "<p>Out of 494 editions, 5 <strong>puzzles are personally hand-signed by Arshdeep Singh<\/strong>.These are <strong>randomly distributed<\/strong> across all orders. Will you be the lucky one ? <br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_4DxtmC": {
+          "type": "question",
+          "settings": {
+            "question": "Can I choose to buy a signed edition?",
+            "answer": "<p>No. Signed editions are <strong>not sold separately<\/strong>.<br\/>Every order has an equal chance of receiving one.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_zn6QHg": {
+          "type": "question",
+          "settings": {
+            "question": "How many pieces does the puzzle have?",
+            "answer": "<p>Each edition contains 494<strong> precision-cut pieces<\/strong> with a premium soft-touch finish.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_bc4eUW": {
+          "type": "question",
+          "settings": {
+            "question": "How many editions are available?",
+            "answer": "<p>This drop is <strong>limited to 494 editions only<\/strong>.<br\/>Once sold out, it will <strong>not be restocked<\/strong>.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_iQdBDk": {
+          "type": "question",
+          "settings": {
+            "question": "What exactly do I receive?",
+            "answer": "<p>You receive a <strong>494-piece collectible puzzle<\/strong> along with an <strong>adhesive backing sheet<\/strong> to convert it into a display-ready poster. A few collectors will receive a personally hand-signed edition, randomly distributed.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_gTNiAx": {
+          "type": "question",
+          "settings": {
+            "question": "What is the final size after completion?",
+            "answer": "<p>The completed puzzle measures <strong>15.3 × 21.6 inches<\/strong>.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_VfPxee": {
+          "type": "question",
+          "settings": {
+            "question": "What is the delivery timeline?",
+            "answer": "<p>India: 7–10 days. International: up to 18 days.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_P69VeC": {
+          "type": "question",
+          "settings": {
+            "question": "What is the Return & Refund Policy?",
+            "answer": "<p>Due to the <strong>limited and collectible nature<\/strong> of each edition, Replacements are only provided in case of <strong>manufacturing defects or transit damage<\/strong>, subject to verification.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_fzMaty",
+        "question_4DxtmC",
+        "question_zn6QHg",
+        "question_bc4eUW",
+        "question_iQdBDk",
+        "question_gTNiAx",
+        "question_VfPxee",
+        "question_P69VeC"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout": "split",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently asked questions",
+        "title_tag": "h3",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_with_media_FqXT4R",
+    "text_with_icons_FtJgTV",
+    "hot_spots_ctCYaz",
+    "1761294333278e356b",
+    "scrolling_content_6Eaxw6",
+    "faq_U7EXL8"
+  ]
+}

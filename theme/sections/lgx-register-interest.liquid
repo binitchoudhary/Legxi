@@ -1,0 +1,32 @@
+<style>
+  /* Hide Shopify Forms "Don't Miss Out" teaser button (renders globally on all pages) */
+  [data-shopify-forms-teaser],
+  [data-forms-teaser],
+  .shopify-forms-teaser,
+  .shopify-forms-bar,
+  [data-forms-bar],
+  shopify-forms-teaser { display: none !important; }
+</style>
+
+<script>
+(function() {
+  function hideTeaser() {
+    var sel = '[data-shopify-forms-teaser],[data-forms-teaser],.shopify-forms-teaser,.shopify-forms-bar,[data-forms-bar],shopify-forms-teaser';
+    document.querySelectorAll(sel).forEach(function(el) { el.style.display = 'none'; });
+  }
+  hideTeaser();
+  if (window.MutationObserver) {
+    new MutationObserver(hideTeaser).observe(document.documentElement, {childList: true, subtree: true});
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Register Interest",
+  "limit": 1,
+  "settings": [],
+  "blocks": [],
+  "presets": [{ "name": "Register Interest" }]
+}
+{% endschema %}

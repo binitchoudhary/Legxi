@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "certificate_admin": {
+      "type": "certificate-admin",
+      "settings": {
+        "api_base_url": "https:\/\/api-7zal2ngszq-uc.a.run.app"
+      }
+    }
+  },
+  "order": [
+    "certificate_admin"
+  ]
+}

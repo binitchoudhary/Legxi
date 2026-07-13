@@ -1,0 +1,122 @@
+<div id="legxi-popup" class="legxi-popup">
+  <div class="legxi-popup-overlay"></div>
+
+  <div class="legxi-popup-content">
+    <button class="legxi-close">&times;</button>
+
+    <h2>Didn’t find your athlete?</h2>
+    <p>Tell us. We’ll try to make it happen.</p>
+
+    <form method="post" action="/contact#contact_form" accept-charset="UTF-8" class="contact-form">
+      <input type="hidden" name="form_type" value="contact">
+      <input type="hidden" name="utf8" value="✓">
+
+      <label>Sport</label>
+      <select name="contact[Sport]" required>
+        <option value="">Select</option>
+        <option>Cricket</option>
+        <option>Football</option>
+        <option>Other</option>
+      </select>
+
+      <label>Athlete Name</label>
+      <input type="text" name="contact[Athlete Name]" required>
+
+      <label>Type of Collectible</label>
+      <select name="contact[Collectible Type]">
+        <option>Artwork</option>
+        <option>Signed Ball</option>
+        <option>Jersey</option>
+        <option>Puzzle</option>
+        <option>Other</option>
+      </select>
+
+      <label>Your Name</label>
+      <input type="text" name="contact[name]" required>
+
+      <label>Email</label>
+      <input type="email" name="contact[email]" required>
+
+      <label>Phone</label>
+      <input type="tel" name="contact[phone]" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<style>
+.legxi-popup {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+}
+
+.legxi-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+
+.legxi-popup-content {
+  position: relative;
+  max-width: 420px;
+  margin: 10% auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.legxi-popup-content h2 {
+  margin-bottom: 5px;
+}
+
+.legxi-popup-content input,
+.legxi-popup-content select {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.legxi-popup-content button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.legxi-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  setTimeout(function () {
+    var popup = document.getElementById("legxi-popup");
+    if (popup) {
+      popup.style.display = "block";
+    }
+  }, 7000); // 7 seconds
+
+  // Close button
+  document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("legxi-close") || e.target.classList.contains("legxi-popup-overlay")) {
+      document.getElementById("legxi-popup").style.display = "none";
+    }
+  });
+
+});
+</script>

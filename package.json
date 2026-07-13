@@ -1,0 +1,28 @@
+{
+  "name": "legxi-shopify",
+  "version": "1.0.0",
+  "description": "Legxi Shopify store local development",
+  "scripts": {
+    "backup": "node scripts/backup.js",
+    "backup:products": "node scripts/backup.js products",
+    "backup:orders": "node scripts/backup.js orders",
+    "backup:customers": "node scripts/backup.js customers",
+    "backup:collections": "node scripts/backup.js collections",
+    "backup:all": "node scripts/backup.js all",
+    "theme:pull": "node scripts/pull-theme.js",
+    "theme:pull:id": "node scripts/pull-theme.js",
+    "dev": "node scripts/dev.js",
+    "dev:sync": "node scripts/sync-dev.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "localtunnel": "^2.0.2",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.61.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "chokidar": "^5.0.0"
+  }
+}

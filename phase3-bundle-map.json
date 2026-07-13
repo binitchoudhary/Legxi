@@ -1,0 +1,841 @@
+{
+  "orderSetErrors": [],
+  "bundleMap": [
+    {
+      "orderNum": "1498",
+      "customer": "Akshay Kumar",
+      "parentStatus": "TYPO",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDE",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#081",
+        "World T20 Champions Edition - 2026": "#081",
+        "2007 : The Birth of India's T20 Era": "#081",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#081",
+        "Hand Signed Ball | AS02": "#081"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "NO",
+          "why": "Bundle parent has NAMDE typo — cannot confirm THE 18 NAMDU purchase"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "NO",
+          "why": "Bundle parent has NAMDE typo — cannot confirm THE 18 NAMDU purchase"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "NO",
+          "why": "Bundle parent has NAMDE typo — cannot confirm THE 18 NAMDU purchase"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "NO",
+          "why": "Bundle parent has NAMDE typo — cannot confirm THE 18 NAMDU purchase"
+        }
+      }
+    },
+    {
+      "orderNum": "1499",
+      "customer": "Sabuj Das",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#154",
+        "World T20 Champions Edition - 2026": "#154",
+        "2007 : The Birth of India's T20 Era": "#154",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#154",
+        "Hand Signed Ball | AS02": "#154"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #154 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #154 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #154 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #154 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1500",
+      "customer": "Akshit Arora",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#001",
+        "World T20 Champions Edition - 2026": "#001",
+        "2007 : The Birth of India's T20 Era": "#001",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#001",
+        "Hand Signed Ball | AS02": "#001"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #001 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #001 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #001 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #001 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1502",
+      "customer": "Hamsaraj Alva",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#063",
+        "World T20 Champions Edition - 2026": "#063",
+        "2007 : The Birth of India's T20 Era": "#063",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#063",
+        "Hand Signed Ball | AS02": "#063"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #063 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #063 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #063 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #063 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1503",
+      "customer": "Kunal Kushalappa",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#072",
+        "World T20 Champions Edition - 2026": "#072",
+        "2007 : The Birth of India's T20 Era": "#072",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#072",
+        "Hand Signed Ball | AS02": "#072"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #072 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #072 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #072 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #072 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1504",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": true,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#110",
+        "World T20 Champions Edition - 2026": "#110",
+        "2007 : The Birth of India's T20 Era": "#110",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#110",
+        "Hand Signed Ball | AS02": "#110"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #110 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #110 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent AND via direct Shopify line item"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #110 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1505",
+      "customer": "Keshav Choudhary",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#105+#156+#157+#162",
+        "World T20 Champions Edition - 2026": "#105+#156+#157+#162",
+        "2007 : The Birth of India's T20 Era": "#105+#156+#157+#162",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#105+#156+#157+#162",
+        "Hand Signed Ball | AS02": "#105+#156+#157+#162"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #105+#156+#157+#162 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #105+#156+#157+#162 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #105+#156+#157+#162 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #105+#156+#157+#162 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1506",
+      "customer": "Hamsaraj Alva",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#120",
+        "World T20 Champions Edition - 2026": "#120",
+        "2007 : The Birth of India's T20 Era": "#120",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#120",
+        "Hand Signed Ball | AS02": "#120"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #120 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #120 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #120 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #120 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1509",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#007",
+        "World T20 Champions Edition - 2026": "#007",
+        "2007 : The Birth of India's T20 Era": "#007",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#007",
+        "Hand Signed Ball | AS02": "#007"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #007 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #007 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #007 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #007 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1515",
+      "customer": "Subrakanth Sutar",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#083",
+        "World T20 Champions Edition - 2026": "#083",
+        "2007 : The Birth of India's T20 Era": "#083",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#083",
+        "Hand Signed Ball | AS02": "#083"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #083 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #083 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #083 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #083 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1516",
+      "customer": "Vinay Sandhu",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#082",
+        "World T20 Champions Edition - 2026": "#082",
+        "2007 : The Birth of India's T20 Era": "#082",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#082",
+        "Hand Signed Ball | AS02": "#082"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #082 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #082 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #082 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #082 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1517",
+      "customer": "Chetan Rao",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#115",
+        "World T20 Champions Edition - 2026": "#115",
+        "2007 : The Birth of India's T20 Era": "#115",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#115",
+        "Hand Signed Ball | AS02": "#115"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #115 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #115 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #115 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #115 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1519",
+      "customer": "kailash kumar",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#131",
+        "World T20 Champions Edition - 2026": "#131",
+        "2007 : The Birth of India's T20 Era": "#131",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#131",
+        "Hand Signed Ball | AS02": "#131"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #131 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #131 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #131 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #131 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1520",
+      "customer": "Vasanth Bhatt",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#116",
+        "World T20 Champions Edition - 2026": "#116",
+        "2007 : The Birth of India's T20 Era": "#116",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#116",
+        "Hand Signed Ball | AS02": "#116"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #116 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #116 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #116 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #116 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1521",
+      "customer": "Zoheb Curmally",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#136",
+        "World T20 Champions Edition - 2026": "#136",
+        "2007 : The Birth of India's T20 Era": "#136",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#136",
+        "Hand Signed Ball | AS02": "#136"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #136 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #136 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #136 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #136 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1522",
+      "customer": "Praneeth Jagarlamudi",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#126",
+        "World T20 Champions Edition - 2026": "#126",
+        "2007 : The Birth of India's T20 Era": "#126",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#126",
+        "Hand Signed Ball | AS02": "#126"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #126 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #126 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #126 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #126 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1523",
+      "customer": "Nars SL",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#151+#163",
+        "World T20 Champions Edition - 2026": "#151+#163",
+        "2007 : The Birth of India's T20 Era": "#151+#163",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#151+#163",
+        "Hand Signed Ball | AS02": "#151+#163"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #151+#163 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #151+#163 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #151+#163 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #151+#163 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1525",
+      "customer": "Omkar Umadi",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#141",
+        "World T20 Champions Edition - 2026": "#141",
+        "2007 : The Birth of India's T20 Era": "#141",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#141",
+        "Hand Signed Ball | AS02": "#141"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #141 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #141 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #141 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #141 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1526",
+      "customer": "Kiran Kumar",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#146",
+        "World T20 Champions Edition - 2026": "#146",
+        "2007 : The Birth of India's T20 Era": "#146",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#146",
+        "Hand Signed Ball | AS02": "#146"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #146 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #146 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #146 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #146 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1528",
+      "customer": "Prathik Jayaprakash",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#121",
+        "World T20 Champions Edition - 2026": "#121",
+        "2007 : The Birth of India's T20 Era": "#121",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#121",
+        "Hand Signed Ball | AS02": "#121"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #121 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #121 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #121 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #121 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1540",
+      "customer": "Krishna Chaitanya Tirumalasetti",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": false,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#161",
+        "World T20 Champions Edition - 2026": "#161",
+        "2007 : The Birth of India's T20 Era": "#161",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#161",
+        "Hand Signed Ball | AS02": "#161"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #161 consistent across all 5 tabs"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #161 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #161 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #161 consistent across all 5 tabs"
+        }
+      }
+    },
+    {
+      "orderNum": "1559",
+      "customer": "AKSHAR PATEL",
+      "parentStatus": "CONFIRMED",
+      "parentLineItem": "THE 18 - EE SALA CUP NAMDU",
+      "directChildren": {
+        "World T20 Champions Edition - 2026": true,
+        "2007 : The Birth of India's T20 Era": false,
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": false,
+        "Hand Signed Ball | AS02": false
+      },
+      "editions": {
+        "THE 18 - EE SALA CUP NAMDU": "#073",
+        "World T20 Champions Edition - 2026": "#073",
+        "2007 : The Birth of India's T20 Era": "#073",
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": "#073",
+        "Hand Signed Ball | AS02": "#073"
+      },
+      "editionConsistent": true,
+      "childValidation": {
+        "World T20 Champions Edition - 2026": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent AND via direct Shopify line item"
+        },
+        "2007 : The Birth of India's T20 Era": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #073 consistent across all 5 tabs"
+        },
+        "THE 2011 WORLD CUP CHAMPIONS EDITION": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #073 consistent across all 5 tabs"
+        },
+        "Hand Signed Ball | AS02": {
+          "can": "YES",
+          "why": "Confirmed via bundle parent only; edition #073 consistent across all 5 tabs"
+        }
+      }
+    }
+  ]
+}

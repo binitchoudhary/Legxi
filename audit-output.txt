@@ -1,0 +1,774 @@
+﻿
+════════════════════════════════════════════════════════════════════════
+  STEP 1: Reading all worksheets
+  (Tab name = Shopify product title — exact, no inference)
+════════════════════════════════════════════════════════════════════════
+  ✔  "THE 18 - EE SALA CUP NAMDU"  →  26 row(s)
+  ✔  "World T20 Champions Edition - 2026"  →  26 row(s)
+  ✔  "Ravi Bishnoi: Official Hand-Signed Ball"  →  18 row(s)
+  ✔  "2007 : The Birth of India's T20 Era"  →  26 row(s)
+  ✔  "THE 2011 WORLD CUP CHAMPIONS EDITION"  →  26 row(s)
+  ✔  "1983 World Cup Edition : Become the Belief"  →  18 row(s)
+  ✔  "God of Cricket : 100 Centuries Edition"  →  71 row(s)
+  ✔  "Hand Signed Ball | AS02"  →  26 row(s)
+  ✔  "Arshdeep Singh Hand Signed 24 Carat Gold Edition"  →  1 row(s)
+  ✔  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork"  →  1 row(s)
+  ✔  "AS02 Player Edition Cap : Arshdeep Singh"  →  2 row(s)
+
+  Worksheets: 11   |   Total rows: 241
+
+════════════════════════════════════════════════════════════════════════
+  STEP 2: Canonical product mapping
+════════════════════════════════════════════════════════════════════════
+  "THE 18 - EE SALA CUP NAMDU"  →  26 rows
+  "World T20 Champions Edition - 2026"  →  26 rows
+  "Ravi Bishnoi: Official Hand-Signed Ball"  →  18 rows
+  "2007 : The Birth of India's T20 Era"  →  26 rows
+  "THE 2011 WORLD CUP CHAMPIONS EDITION"  →  26 rows
+  "1983 World Cup Edition : Become the Belief"  →  18 rows
+  "God of Cricket : 100 Centuries Edition"  →  71 rows
+  "Hand Signed Ball | AS02"  →  26 rows
+  "Arshdeep Singh Hand Signed 24 Carat Gold Edition"  →  1 rows
+  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork"  →  1 rows
+  "AS02 Player Edition Cap : Arshdeep Singh"  →  2 rows
+
+════════════════════════════════════════════════════════════════════════
+  STEP 3: 131 unique order number(s) found across all worksheets
+════════════════════════════════════════════════════════════════════════
+
+  Fetching all Shopify orders...
+  20 fetched...
+  40 fetched...
+  60 fetched...
+  80 fetched...
+  100 fetched...
+  120 fetched...
+  Done — 131 found, 0 not found.
+  Total line items across all orders: 180
+  Orders with existing notes        : 123
+
+════════════════════════════════════════════════════════════════════════
+  STEP 6: Sheet validation — duplicate edition detection
+════════════════════════════════════════════════════════════════════════
+  "THE 18 - EE SALA CUP NAMDU": 26 rows / 26 unique editions
+  "World T20 Champions Edition - 2026": 26 rows / 26 unique editions
+  "Ravi Bishnoi: Official Hand-Signed Ball": 18 rows / 18 unique editions
+  "2007 : The Birth of India's T20 Era": 26 rows / 26 unique editions
+  "THE 2011 WORLD CUP CHAMPIONS EDITION": 26 rows / 26 unique editions
+  "1983 World Cup Edition : Become the Belief": 18 rows / 18 unique editions
+  "God of Cricket : 100 Centuries Edition": 71 rows / 71 unique editions
+  "Hand Signed Ball | AS02": 26 rows / 26 unique editions
+  "Arshdeep Singh Hand Signed 24 Carat Gold Edition": 1 rows / 1 unique editions
+  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork": 1 rows / 1 unique editions
+  "AS02 Player Edition Cap : Arshdeep Singh": 2 rows / 2 unique editions
+
+  ✅ No duplicate editions in any worksheet.
+
+════════════════════════════════════════════════════════════════════════
+  STEP 7: Inspecting all line items — matching by exact product title
+════════════════════════════════════════════════════════════════════════
+  Mixed-product orders (span multiple worksheets): 23
+    #1420  →  1983 World Cup Edition : Become the Belief  +  God of Cricket : 100 Centuries Edition
+    #1498  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1499  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1500  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1502  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1503  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1504  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1505  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1506  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1509  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1515  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1516  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1517  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1519  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1520  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1521  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1522  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1523  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1525  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1526  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1528  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1540  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+    #1559  →  THE 18 - EE SALA CUP NAMDU  +  World T20 Champions Edition - 2026  +  2007 : The Birth of India's T20 Era  +  THE 2011 WORLD CUP CHAMPIONS EDITION  +  Hand Signed Ball | AS02
+
+════════════════════════════════════════════════════════════════════════
+  STEP 9: FULL AUDIT REPORT  —  DRY RUN  (no Shopify writes)
+════════════════════════════════════════════════════════════════════════
+
+── ❌ COUNT MISMATCHES ───────────────────────────────────────────────
+
+  ❌  #1496  (#1496)
+       Worksheet  : "1983 World Cup Edition : Become the Belief"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #062
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1498  (#1498)
+       Worksheet  : "THE 18 - EE SALA CUP NAMDU"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #081
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #081
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #081
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #081
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #081
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1499  (#1499)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #154
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #154
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #154
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #154
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1500  (#1500)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #001
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #001
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #001
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #001
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1502  (#1502)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #063
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #063
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #063
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #063
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1503  (#1503)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #072
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #072
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #072
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #072
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1504  (#1504)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #110
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #110
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #110
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #110
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1505  (#1505)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 4   |   Shopify qty: 0
+       Editions   : #105, #156, #157, #162
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 4   |   Shopify qty: 0
+       Editions   : #105, #156, #157, #162
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 4   |   Shopify qty: 0
+       Editions   : #105, #156, #157, #162
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 4   |   Shopify qty: 0
+       Editions   : #105, #156, #157, #162
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1506  (#1506)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #120
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #120
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #120
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #120
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1508  (#1508)
+       Worksheet  : "1983 World Cup Edition : Become the Belief"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #069
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1509  (#1509)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #007
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #007
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #007
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #007
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1515  (#1515)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #083
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #083
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #083
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #083
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1516  (#1516)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #082
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #082
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #082
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #082
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1517  (#1517)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #115
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #115
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #115
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #115
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1519  (#1519)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #131
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #131
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #131
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #131
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1520  (#1520)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #116
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #116
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #116
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #116
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1521  (#1521)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #136
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #136
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #136
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #136
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1522  (#1522)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #126
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #126
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #126
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #126
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1523  (#1523)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 2   |   Shopify qty: 0
+       Editions   : #151, #163
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 2   |   Shopify qty: 0
+       Editions   : #151, #163
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 2   |   Shopify qty: 0
+       Editions   : #151, #163
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 2   |   Shopify qty: 0
+       Editions   : #151, #163
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1525  (#1525)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #141
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #141
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #141
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #141
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1526  (#1526)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #146
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #146
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #146
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #146
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1528  (#1528)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #121
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #121
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #121
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #121
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1540  (#1540)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #161
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #161
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #161
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #161
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1549  (#1549)
+       Worksheet  : "1983 World Cup Edition : Become the Belief"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #070
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1559  (#1559)
+       Worksheet  : "World T20 Champions Edition - 2026"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #073
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "2007 : The Birth of India's T20 Era"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #073
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "THE 2011 WORLD CUP CHAMPIONS EDITION"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #073
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       Worksheet  : "Hand Signed Ball | AS02"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #073
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+  ❌  #1574  (#1574)
+       Worksheet  : "1983 World Cup Edition : Become the Belief"
+       Sheet rows : 1   |   Shopify qty: 0
+       Editions   : #066
+       ⚠️   Product NOT found in this Shopify order — wrong order number or wrong product title?
+       → DO NOT SYNC. Resolve mismatch first.
+
+── 🔄 ORDERS REQUIRING NOTE UPDATE ──────────────────────────────────
+
+  🔄  #1318  (#1318)
+       ⚠️  Wrong-product lines in current note (will be removed):
+          WRONG: Hand Signed Ball | AS02|#017
+       Worksheet  : "God of Cricket : 100 Centuries Edition"  →  editions: #100
+       Current note:
+          - God of Cricket : 100 Centuries Edition|#100
+          - Hand Signed Ball | AS02|#017
+       New note:
+          + God of Cricket : 100 Centuries Edition|#100
+
+  🔄  #1401  (#1401)
+       ⚠️  Duplicate lines in current note:
+          DUP: 1983 World Cup Edition : Become the Belief|#007
+       Worksheet  : "1983 World Cup Edition : Become the Belief"  →  editions: #007
+       Current note:
+          - 1983 World Cup Edition : Become the Belief|#007
+          - 1983 World Cup Edition : Become the Belief|#007
+       New note:
+          + 1983 World Cup Edition : Become the Belief|#007
+
+  🔄  #1411  (#1411)
+       ⚠️  Wrong-product lines in current note (will be removed):
+          WRONG: THE 2011 WORLD CUP CHAMPIONS EDITION|#964
+       Worksheet  : "1983 World Cup Edition : Become the Belief"  →  editions: #053
+       Current note:
+          - THE 2011 WORLD CUP CHAMPIONS EDITION|#964
+          - 1983 World Cup Edition : Become the Belief|#053
+       New note:
+          + 1983 World Cup Edition : Become the Belief|#053
+
+  🔄  #1420  (#1420)
+       ⚠️  Wrong-product lines in current note (will be removed):
+          WRONG: 2007 : The Birth of India’s T20 Era|#541
+          WRONG: THE 2011 WORLD CUP CHAMPIONS EDITION|#866
+       Worksheet  : "1983 World Cup Edition : Become the Belief"  →  editions: #055
+       Worksheet  : "God of Cricket : 100 Centuries Edition"  →  editions: #247
+       Preserved  :
+          KEEP: Arshdeep Singh : Official Hand-Signed Leather Ball|#027
+       Current note:
+          - 2007 : The Birth of India’s T20 Era|#541
+          - THE 2011 WORLD CUP CHAMPIONS EDITION|#866
+          - 1983 World Cup Edition : Become the Belief|#055
+          - God of Cricket : 100 Centuries Edition|#247
+          - Arshdeep Singh : Official Hand-Signed Leather Ball|#027
+       New note:
+          + Arshdeep Singh : Official Hand-Signed Leather Ball|#027
+          + 1983 World Cup Edition : Become the Belief|#055
+          + God of Cricket : 100 Centuries Edition|#247
+
+  🔄  #1446  (#1446)
+       ⚠️  Wrong-product lines in current note (will be removed):
+          WRONG: 2007 : The Birth of India’s T20 Era|#543
+          WRONG: THE 2011 WORLD CUP CHAMPIONS EDITION|#941
+       Worksheet  : "1983 World Cup Edition : Become the Belief"  →  editions: #071
+       Current note:
+          - 2007 : The Birth of India’s T20 Era|#543
+          - THE 2011 WORLD CUP CHAMPIONS EDITION|#941
+          - 1983 World Cup Edition : Become the Belief|#071
+       New note:
+          + 1983 World Cup Edition : Become the Belief|#071
+
+  🔄  #1514  (#1514)
+       Worksheet  : "God of Cricket : 100 Centuries Edition"  →  editions: #002
+       Current note:
+          (empty)
+       New note:
+          + God of Cricket : 100 Centuries Edition|#002
+
+  🔄  #1542  (#1542)
+       Worksheet  : "Ravi Bishnoi: Official Hand-Signed Ball"  →  editions: #141
+       Current note:
+          (empty)
+       New note:
+          + Ravi Bishnoi: Official Hand-Signed Ball|#141
+
+  🔄  #1567  (#1567)
+       Worksheet  : "God of Cricket : 100 Centuries Edition"  →  editions: #243
+       Current note:
+          (empty)
+       New note:
+          + God of Cricket : 100 Centuries Edition|#243
+
+  🔄  #1575  (#1575)
+       Worksheet  : "God of Cricket : 100 Centuries Edition"  →  editions: #240
+       Current note:
+          (empty)
+       New note:
+          + God of Cricket : 100 Centuries Edition|#240
+
+  🔄  #1583  (#1583)
+       Worksheet  : "Ravi Bishnoi: Official Hand-Signed Ball"  →  editions: #221
+       Current note:
+          (empty)
+       New note:
+          + Ravi Bishnoi: Official Hand-Signed Ball|#221
+
+  🔄  #1636  (#1636)
+       Worksheet  : "Ravi Bishnoi: Official Hand-Signed Ball"  →  editions: #134
+       Current note:
+          (empty)
+       New note:
+          + Ravi Bishnoi: Official Hand-Signed Ball|#134
+
+── ✅ ALREADY CORRECT  (94 orders) ───────────────────────────
+  ✅  #1152 — 1 line(s): Shreyas Iyer Hand-Signed White Gold-Plated Artwork|#001
+  ✅  #1208 — 1 line(s): God of Cricket : 100 Centuries Edition|#275
+  ✅  #1209 — 1 line(s): God of Cricket : 100 Centuries Edition|#288
+  ✅  #1212 — 1 line(s): God of Cricket : 100 Centuries Edition|#298
+  ✅  #1213 — 1 line(s): God of Cricket : 100 Centuries Edition|#285
+  ✅  #1214 — 1 line(s): God of Cricket : 100 Centuries Edition|#297
+  ✅  #1215 — 1 line(s): God of Cricket : 100 Centuries Edition|#001
+  ✅  #1216 — 1 line(s): God of Cricket : 100 Centuries Edition|#295
+  ✅  #1217 — 1 line(s): God of Cricket : 100 Centuries Edition|#291
+  ✅  #1218 — 1 line(s): God of Cricket : 100 Centuries Edition|#282
+  ✅  #1219 — 1 line(s): God of Cricket : 100 Centuries Edition|#274
+  ✅  #1220 — 1 line(s): God of Cricket : 100 Centuries Edition|#200
+  ✅  #1222 — 1 line(s): God of Cricket : 100 Centuries Edition|#260
+  ✅  #1223 — 1 line(s): God of Cricket : 100 Centuries Edition|#258
+  ✅  #1224 — 1 line(s): God of Cricket : 100 Centuries Edition|#289
+  ✅  #1225 — 1 line(s): God of Cricket : 100 Centuries Edition|#195
+  ✅  #1226 — 1 line(s): God of Cricket : 100 Centuries Edition|#273
+  ✅  #1227 — 1 line(s): God of Cricket : 100 Centuries Edition|#253
+  ✅  #1228 — 1 line(s): God of Cricket : 100 Centuries Edition|#280
+  ✅  #1229 — 1 line(s): God of Cricket : 100 Centuries Edition|#272
+  ✅  #1231 — 1 line(s): God of Cricket : 100 Centuries Edition|#292
+  ✅  #1232 — 1 line(s): God of Cricket : 100 Centuries Edition|#265
+  ✅  #1233 — 1 line(s): God of Cricket : 100 Centuries Edition|#294
+  ✅  #1234 — 1 line(s): God of Cricket : 100 Centuries Edition|#369
+  ✅  #1235 — 1 line(s): God of Cricket : 100 Centuries Edition|#256
+  ✅  #1236 — 1 line(s): God of Cricket : 100 Centuries Edition|#251
+  ✅  #1237 — 1 line(s): God of Cricket : 100 Centuries Edition|#286
+  ✅  #1238 — 1 line(s): God of Cricket : 100 Centuries Edition|#261
+  ✅  #1239 — 1 line(s): God of Cricket : 100 Centuries Edition|#015
+  ✅  #1240 — 1 line(s): God of Cricket : 100 Centuries Edition|#248
+  ✅  #1241 — 1 line(s): God of Cricket : 100 Centuries Edition|#276
+  ✅  #1242 — 1 line(s): God of Cricket : 100 Centuries Edition|#287
+  ✅  #1244 — 1 line(s): God of Cricket : 100 Centuries Edition|#555
+  ✅  #1245 — 1 line(s): God of Cricket : 100 Centuries Edition|#255
+  ✅  #1246 — 1 line(s): God of Cricket : 100 Centuries Edition|#270
+  ✅  #1247 — 1 line(s): God of Cricket : 100 Centuries Edition|#269
+  ✅  #1248 — 1 line(s): God of Cricket : 100 Centuries Edition|#266
+  ✅  #1249 — 1 line(s): God of Cricket : 100 Centuries Edition|#250
+  ✅  #1250 — 1 line(s): God of Cricket : 100 Centuries Edition|#281
+  ✅  #1251 — 1 line(s): God of Cricket : 100 Centuries Edition|#271
+  ✅  #1252 — 1 line(s): God of Cricket : 100 Centuries Edition|#463
+  ✅  #1256 — 1 line(s): God of Cricket : 100 Centuries Edition|#296
+  ✅  #1259 — 1 line(s): God of Cricket : 100 Centuries Edition|#293
+  ✅  #1266 — 1 line(s): God of Cricket : 100 Centuries Edition|#300
+  ✅  #1270 — 1 line(s): God of Cricket : 100 Centuries Edition|#284
+  ✅  #1275 — 1 line(s): God of Cricket : 100 Centuries Edition|#283
+  ✅  #1276 — 1 line(s): God of Cricket : 100 Centuries Edition|#600
+  ✅  #1277 — 2 line(s): God of Cricket : 100 Centuries Edition|#231 | God of Cricket : 100 Centuries Edition|#257
+  ✅  #1278 — 1 line(s): God of Cricket : 100 Centuries Edition|#246
+  ✅  #1282 — 1 line(s): God of Cricket : 100 Centuries Edition|#014
+  ✅  #1291 — 1 line(s): God of Cricket : 100 Centuries Edition|#278
+  ✅  #1305 — 1 line(s): God of Cricket : 100 Centuries Edition|#252
+  ✅  #1307 — 1 line(s): God of Cricket : 100 Centuries Edition|#010
+  ✅  #1308 — 1 line(s): God of Cricket : 100 Centuries Edition|#299
+  ✅  #1309 — 1 line(s): God of Cricket : 100 Centuries Edition|#267
+  ✅  #1310 — 1 line(s): God of Cricket : 100 Centuries Edition|#244
+  ✅  #1316 — 1 line(s): God of Cricket : 100 Centuries Edition|#230
+  ✅  #1322 — 1 line(s): AS02 Player Edition Cap : Arshdeep Singh|#001
+  ✅  #1328 — 1 line(s): God of Cricket : 100 Centuries Edition|#233
+  ✅  #1329 — 1 line(s): 1983 World Cup Edition : Become the Belief|#057
+  ✅  #1330 — 1 line(s): 1983 World Cup Edition : Become the Belief|#058
+  ✅  #1331 — 1 line(s): God of Cricket : 100 Centuries Edition|#241
+  ✅  #1332 — 1 line(s): God of Cricket : 100 Centuries Edition|#003
+  ✅  #1333 — 1 line(s): God of Cricket : 100 Centuries Edition|#245
+  ✅  #1336 — 1 line(s): 1983 World Cup Edition : Become the Belief|#059
+  ✅  #1337 — 1 line(s): 1983 World Cup Edition : Become the Belief|#060
+  ✅  #1338 — 1 line(s): God of Cricket : 100 Centuries Edition|#232
+  ✅  #1339 — 1 line(s): God of Cricket : 100 Centuries Edition|#2010
+  ✅  #1340 — 1 line(s): God of Cricket : 100 Centuries Edition|#237
+  ✅  #1341 — 1 line(s): 1983 World Cup Edition : Become the Belief|#061
+  ✅  #1342 — 1 line(s): 1983 World Cup Edition : Become the Belief|#063
+  ✅  #1345 — 1 line(s): AS02 Player Edition Cap : Arshdeep Singh|#002
+  ✅  #1346 — 2 line(s): 1983 World Cup Edition : Become the Belief|#064 | Arshdeep Singh : Official Hand-Signed Leather Ball|#112
+  ✅  #1347 — 1 line(s): 1983 World Cup Edition : Become the Belief|#051
+  ✅  #1350 — 1 line(s): 1983 World Cup Edition : Become the Belief|#1983
+  ✅  #1384 — 1 line(s): Arshdeep Singh Hand Signed 24 Carat Gold Edition|#001
+  ✅  #1400 — 1 line(s): God of Cricket : 100 Centuries Edition|#007
+  ✅  #1409 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#001
+  ✅  #1423 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#007
+  ✅  #1424 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#195
+  ✅  #1426 — 2 line(s): 1983 World Cup Edition : Become the Belief|#054 | Arshdeep Singh : Official Hand-Signed Leather Ball|#179
+  ✅  #1429 — 2 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#194 | Arshdeep Singh : Official Hand-Signed Leather Ball|#186
+  ✅  #1430 — 2 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#196 | Arshdeep Singh : Official Hand-Signed Leather Ball|#188
+  ✅  #1441 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#182
+  ✅  #1454 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#183
+  ✅  #1457 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#185
+  ✅  #1471 — 1 line(s): God of Cricket : 100 Centuries Edition|#239
+  ✅  #1477 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#188
+  ✅  #1485 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#187
+  ✅  #1489 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#186
+  ✅  #1501 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#184
+  ✅  #1512 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#192
+  ✅  #1513 — 2 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#191 | Arshdeep Singh : Official Hand-Signed Leather Ball|#123
+  ✅  #1518 — 1 line(s): Ravi Bishnoi: Official Hand-Signed Ball|#197
+
+════════════════════════════════════════════════════════════════════════
+  STEP 10: COVERAGE REPORT
+════════════════════════════════════════════════════════════════════════
+  Total worksheets scanned     : 11
+  Total rows scanned           : 241
+  Total Shopify orders scanned : 131
+  Total line items scanned     : 180
+  Total notes parsed           : 123
+  ✅  Already correct          : 94
+  🔄  Need update              : 11
+  ❌  Count mismatches         : 26
+  🚫  Duplicate editions       : 0
+  ⛔  Not found in Shopify     : 0
+  ⚠️   Sheet load errors        : 0
+════════════════════════════════════════════════════════════════════════
+
+  ❌  VALIDATION FAILED — DO NOT SYNC
+       • 26 count mismatch(es)
+════════════════════════════════════════════════════════════════════════
+
+  Sync payload → sync-payload.json  (11 orders)
+  Run  node sync-notes.mjs  only after explicit approval.
+

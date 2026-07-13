@@ -1,0 +1,1404 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+PRODUCT INFO
+----------------------------------------------------------------------------------------------------------------------
+
+This snippet renders all the blocks of a given product. It uses the blocks of the section currently in use (there is
+no need to manually pass the section as it is globally available)
+
+********************************************
+Supported variables
+********************************************
+
+* product: the product on which to render the information (if blank, it renders placeholder information)
+* allow_blocks: a list of blocks name to include. If none is passed, assumes to show all the blocks
+* product_form_id: the ID of the product form
+* content_alignment: the alignment of the content
+* context: the context of the product info. Can be "main_product", "featured_product" or "quick_buy"
+{%- endcomment -%}
+
+{%- assign alignment = content_alignment | replace: 'left', 'start' | replace: 'right', 'end' | default: 'start' -%}
+
+<safe-sticky class="product-info text-{{ alignment }}">
+  <div class="product-info__block-list">
+    {%- liquid
+      assign inside_block_group_context = false
+      assign current_block_group_name = ''
+
+      if allow_blocks != blank
+        assign filtered_blocks = '' | split: ''
+
+        for block in section.blocks
+          if allow_blocks contains block.type
+            assign block_as_arr = block | sort
+            assign filtered_blocks = filtered_blocks | concat: block_as_arr
+          endif
+        endfor
+      else
+        assign filtered_blocks = section.blocks
+      endif
+    -%}
+
+    {%- for block in filtered_blocks -%}
+      {% liquid
+        assign next_block_index = forloop.index0 | plus: 1
+        assign next_block = filtered_blocks[next_block_index]
+
+        comment
+        You can use your own condition to create smart grouping. When two or more blocks match the condition, they are
+        automatically grouped by a div that will take the desired class. This can even work for more than 2 elements
+        (for instance if you specify accordion follow by an accordion). The theme takes care of properly opening and
+        closing the group for proper HTML. In order to make it work, you need to create one condition explaining when
+        to enter into the group, and you need to indicate a block_group_class and block_group_name. Most of the time,
+        the two will be identical. However, the block_group_name must be unique. This means that as long as the block_group_name
+        stays the same, then another group will not be created as long as the conditions match.
+        endcomment
+
+        assign allow_block_group = true
+
+        if block.type == 'accordion' and next_block.type == 'accordion'
+          assign block_group_class = 'accordion-group'
+          assign block_group_name = 'accordion-group'
+        elsif block.type == 'description' and block.settings.collapse_content and product.description != blank and next_block.type == 'accordion'
+          assign block_group_class = 'accordion-group'
+          assign block_group_name = 'accordion-group'
+        elsif block.type == 'accordion' and next_block.type == 'description' and next_block.settings.collapse_content and product.description != blank 
+          assign block_group_class = 'accordion-group'
+          assign block_group_name = 'accordion-group'
+        else
+          assign allow_block_group = false
+          assign block_group_class = ''
+          assign current_block_group_name = ''
+        endif
+
+        if allow_block_group
+          assign new_block_group_name = block_group_name
+
+          if inside_block_group_context == true and new_block_group_name != current_block_group_name
+            assign allow_block_group = false
+          else
+            assign current_block_group_name = new_block_group_name
+          endif
+        endif
+      %}
+
+      {%- capture block_content -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {%- render block -%}
+
+          {%- when 'vendor' -%}
+            {%- if product != blank -%}
+              {%- render 'vendor' with product.vendor, class: 'subheading text-subdued' -%}
+            {%- else -%}
+              {%- assign placeholder_vendor = 'general.on_boarding.product_vendor' | t -%}
+              {%- render 'vendor' with placeholder_vendor, class: 'subheading text-subdued' -%}
+            {%- endif -%}
+
+          {%- when 'title' -%}
+            {%- if product != blank -%}
+              {%- assign product_title = product.title -%}
+            {%- else -%}
+              {%- assign product_title = 'general.on_boarding.product_title' | t -%}
+            {%- endif -%}
+
+            {%- if request.page_type == 'product' and context == 'main_product' -%}
+              <h1 class="product-title {{ block.settings.heading_tag }}">
+                {{- product_title -}}
+              </h1>
+            {%- else -%}
+              <h2 class="product-title {% if context == 'quick_buy' %}h4{% else %}{{ block.settings.heading_tag }}{% endif %}">
+                <a href="{{ product.url }}">{{ product_title }}</a>
+              </h2>
+            {%- endif -%}
+
+          {%- when 'sku' -%}
+            {%- if product.selected_or_first_available_variant.sku != blank -%}
+              <variant-sku class="variant-sku subheading text-subdued">
+                {{- 'product.general.sku' | t }} {{ product.selected_or_first_available_variant.sku -}}
+              </variant-sku>
+            {%- endif -%}
+
+          {%- when 'badges' -%}
+            {%- if product != blank -%}
+              {%- render 'product-badges',
+                product: product,
+                context: 'product',
+                variant: product.selected_or_first_available_variant,
+                alignment: alignment,
+                show_custom_badge: true,
+                show_sold_out_badge: settings.product_card_show_sold_out_badge,
+                show_discount_badge: settings.product_card_show_discount
+              -%}
+            {%- endif -%}
+
+          {%- when 'custom_badges' -%}
+            {%- liquid
+              assign cb_has_any = false
+              if block.settings.badge_1_show and block.settings.badge_1_text != blank
+                assign cb_has_any = true
+              endif
+              if block.settings.badge_2_show and block.settings.badge_2_text != blank
+                assign cb_has_any = true
+              endif
+              if block.settings.badge_3_show and block.settings.badge_3_text != blank
+                assign cb_has_any = true
+              endif
+            -%}
+            {%- if cb_has_any -%}
+              <style>
+                #cb-{{ block.id }} {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: {{ block.settings.badge_gap }}px;
+                  align-items: center;
+                  list-style: none;
+                  margin: 0;
+                  padding: 0;
+                }
+                #cb-{{ block.id }}.cb--left   { justify-content: flex-start; }
+                #cb-{{ block.id }}.cb--center { justify-content: center; }
+                #cb-{{ block.id }}.cb--right  { justify-content: flex-end; }
+                #cb-{{ block.id }} li { padding-inline-start: 0; }
+                #cb-{{ block.id }} .cb-badge {
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 10px;
+                  font-weight: {{ block.settings.font_weight }};
+                  letter-spacing: 0;
+                  text-transform: uppercase;
+                  white-space: nowrap;
+                  line-height: 1;
+                  cursor: default;
+                  user-select: none;
+                  -webkit-user-select: none;
+                  -webkit-font-smoothing: antialiased;
+                  transition: opacity 0.22s ease, transform 0.22s ease;
+                }
+                #cb-{{ block.id }} .cb-badge:hover {
+                  opacity: 0.72;
+                  transform: translateY(-1px);
+                }
+                @media screen and (max-width: 749px) {
+                  #cb-{{ block.id }} .cb-badge {
+                    font-size: {{ block.settings.font_size_mobile }}px;
+                  }
+                }
+              </style>
+              <ul id="cb-{{ block.id }}" class="cb--{{ block.settings.badge_alignment }}">
+                {%- for i in (1..3) -%}
+                  {%- liquid
+                    assign cb_text_key   = 'badge_' | append: i | append: '_text'
+                    assign cb_show_key   = 'badge_' | append: i | append: '_show'
+                    assign cb_bg_key     = 'badge_' | append: i | append: '_bg'
+                    assign cb_tcolor_key = 'badge_' | append: i | append: '_text_color'
+                    assign cb_border_key = 'badge_' | append: i | append: '_border'
+
+                    assign cb_text   = block.settings[cb_text_key]
+                    assign cb_show   = block.settings[cb_show_key]
+                    assign cb_bg     = block.settings[cb_bg_key]
+                    assign cb_tcolor = block.settings[cb_tcolor_key]
+                    assign cb_border = block.settings[cb_border_key]
+
+                    assign cb_bg_blank     = false
+                    assign cb_tcolor_blank = false
+                    assign cb_border_blank = false
+
+                    if cb_bg == blank or cb_bg == 'rgba(0,0,0,0)'
+                      assign cb_bg_blank = true
+                    endif
+                    if cb_tcolor == blank or cb_tcolor == 'rgba(0,0,0,0)'
+                      assign cb_tcolor_blank = true
+                    endif
+                    if cb_border == blank or cb_border == 'rgba(0,0,0,0)'
+                      assign cb_border_blank = true
+                    endif
+                  -%}
+                  {%- if cb_show and cb_text != blank -%}
+                    <li>
+                      <span
+                        class="cb-badge"
+                        style="
+                          {%- unless cb_bg_blank -%}background-color:{{ cb_bg }};{%- endunless -%}
+                          {%- unless cb_tcolor_blank -%}color:{{ cb_tcolor }};{%- endunless -%}
+                          border:1px solid {% unless cb_border_blank %}{{ cb_border }}{% else %}transparent{% endunless %};
+                          border-radius:2px;
+                          padding:{{ block.settings.padding_y }}px {{ block.settings.padding_x }}px;
+                        "
+                      >{{- cb_text | escape -}}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'price' -%}
+            {%- if product.selected_or_first_available_variant != nil -%}
+              {%- assign _lgx_sf_suffixes = 'la-scaloneta-2026-edition,campeones-world-cup-2022' | split: ',' -%}
+              {%- assign _lgx_is_starting_from = false -%}
+              {%- if _lgx_sf_suffixes contains product.template_suffix -%}
+                {%- assign _lgx_is_starting_from = true -%}
+              {%- endif -%}
+              <div class="v-stack gap-2 {% unless _lgx_is_starting_from %}{% if settings.lgx_active_promo != 'none' and settings.lgx_active_promo != blank %}has-lgx-promo{% endif %}{% endunless %}">
+                {%- if _lgx_is_starting_from -%}
+                  {%- assign _lgx_min_price = product.variants | map: 'price' | sort | first -%}
+                  <price-list class="price-list {% if alignment %}justify-{{ alignment }}{% endif %}" data-lgx-sf-price data-lgx-min="{{ _lgx_min_price }}">
+                    <sale-price class="h6" style="text-transform:none">
+                      <span class="sr-only">{{ 'product.price.sale_price' | t }}</span>
+                      Starting from {% if settings.currency_code_enabled %}{{ _lgx_min_price | money_with_currency }}{% else %}{{ _lgx_min_price | money }}{% endif %}
+                    </sale-price>
+                  </price-list>
+                  <script>
+                  (function(){
+                    if (window._lgxSfPriceInited) return;
+                    window._lgxSfPriceInited = true;
+                    function _lgxFmt(c) {
+                      if (window.Shopify && Shopify.formatMoney) { try { return Shopify.formatMoney(c); } catch(e){} }
+                      return 'Rs. ' + (c / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+                    document.addEventListener('variant:change', function(e) {
+                      var pl = document.querySelector('[data-lgx-sf-price]');
+                      if (!pl) return;
+                      var sp = pl.querySelector('sale-price');
+                      if (!sp) return;
+                      var v = e.detail && e.detail.variant;
+                      if (v && v.price != null) {
+                        sp.style.textTransform = '';
+                        sp.innerHTML = '<span class="sr-only">Sale price</span>' + _lgxFmt(v.price);
+                      } else {
+                        sp.style.textTransform = 'none';
+                        sp.innerHTML = '<span class="sr-only">Sale price</span>Starting from ' + _lgxFmt(parseInt(pl.dataset.lgxMin) || 0);
+                      }
+                    });
+                  })();
+                  </script>
+                {%- else -%}
+                  {%- render 'price-list', product: product, variant: product.selected_or_first_available_variant, alignment: alignment, context: 'product' -%}
+                  {%- render 'lgx-promo-badge', variant: product.selected_or_first_available_variant, alignment: alignment -%}
+                {%- endif -%}
+
+                {%- if block.settings.show_taxes_notice -%}
+                  <p class="subheading text-subdued">
+                    {%- if cart.taxes_included -%}
+                      {{ 'product.general.taxes_included' | t }}
+                    {%- else -%}
+                      {{ 'product.general.taxes_excluded' | t }}
+                    {%- endif -%}
+
+                    {%- if shop.shipping_policy.body != blank -%}
+                      {{ 'product.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+                    {%- endif -%}
+                  </p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+          {%- when 'payment_terms' -%}
+            {%- if product != blank -%}
+              <payment-terms class="payment-terms">
+                {%- capture product_installment_form_id -%}{{ product_form_id }}-payment-installment{%- endcapture -%}
+
+                {%- form 'product', product, id: product_installment_form_id -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  {{- form | payment_terms -}}
+                {%- endform -%}
+              </payment-terms>
+            {%- endif -%}
+
+          {%- when 'rating' -%}
+            {%- if product != blank -%}
+              {%- render 'product-rating', product: product, alignment: alignment, show_empty: block.settings.show_empty, show_placeholder: false -%}
+            {%- else -%}
+              {%- render 'product-rating', alignment: alignment, show_placeholder: true -%}
+            {%- endif -%}
+
+          {%- when 'separator' -%}
+            <hr>
+
+          {%- when 'description' -%}
+            {%- liquid
+              if product == blank
+                assign product_description = 'general.on_boarding.product_description' | t
+              else
+                # Shopify RTE often adds a useless meta tag that mess with spacing, so we remove it
+                assign product_description = product.description | remove_first: '<meta charset="utf-8">'
+              endif
+            -%}
+
+            {%- if product_description != blank -%}
+              {%- if block.settings.collapse_content -%}
+                {%- assign accordion_title = 'product.general.description' | t -%}
+
+                {%- render 'accordion', 
+                  title: accordion_title, 
+                  custom_icon: block.settings.icon,
+                  content: product_description,
+                  prose_content: true, 
+                  uppercase_title: block.settings.uppercase_title,
+                  block: block 
+                -%}
+              {%- else -%}
+                <div class="prose prose-justify-{{ alignment }}">
+                  {{- product_description -}}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+
+          {%- when 'variant_picker' -%}
+            {%- if product != blank -%}
+              {%- render 'variant-picker',
+                  product: product,
+                  form_id: product_form_id,
+                  context: context, 
+                  alignment: alignment,
+                  hide_sold_out_variants: block.settings.hide_sold_out_variants,
+                  separate_options: block.settings.separate_options,
+                  selector_style: block.settings.selector_style,
+                  swatch_selector_style: block.settings.swatch_selector_style,
+                  swatch_selector_size: block.settings.swatch_selector_size,
+                  block_selector_style: block.settings.block_selector_style,
+                  variant_image_options: block.settings.variant_image_options,
+                  size_chart_page: block.settings.size_chart_page 
+                -%}
+            {%- endif -%}
+
+          {%- when 'product_variations' -%}
+            {%- liquid
+              assign contains_product = false
+
+              for product_variation in block.settings.products
+                if product_variation == product
+                  assign contains_product = true
+                endif
+              endfor
+            -%}
+
+            {%- if contains_product -%}
+              {%- comment -%}
+                IMPLEMENTATION NOTE: this feature allows to connect different products on the same page. It is therefore
+                visually similar to a variant picker, although it does not share the functionality
+              {%- endcomment -%}
+              <div class="variant-picker">
+                <div class="variant-picker__option justify-{{ alignment }}">
+                  {%- assign metafield_parts = block.settings.option_value_metafield | split: '.' -%}
+                  {%- assign metafield_namespace = metafield_parts | first -%}
+                  {%- assign metafield_key = metafield_parts | last -%}
+                  {%- assign metafield = product.metafields[metafield_namespace][metafield_key] -%}
+
+                  {%- if block.settings.option_name != blank -%}
+                    <div class="h-stack gap-2">
+                      <p class="text-subdued">{{ block.settings.option_name | escape }}:</p>
+
+                      {%- if metafield.type == 'metaobject_reference' -%}
+                        <span>{{ product.metafields[metafield_namespace][metafield_key].value.label }}</span>
+                      {%- else -%}
+                        <span>{{ product.metafields[metafield_namespace][metafield_key].value }}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- liquid
+                    case block.settings.selector_style
+                      when 'swatch'
+                        case settings.color_swatch_shape
+                          when 'circle'
+                            if swatch_selector_size == 'sm'
+                              assign list_classes = 'h-stack gap-3 wrap'
+                            else
+                              assign list_classes = 'h-stack gap-4 wrap'
+                            endif
+        
+                          else
+                            if swatch_selector_size == 'sm'
+                              assign list_classes = 'h-stack gap-3 wrap'
+                            else
+                              assign list_classes = 'h-stack gap-4 wrap'
+                            endif
+                        endcase
+                      when 'variant_image'
+                        assign list_classes = 'h-stack gap-1 wrap'
+                      else
+                        assign list_classes = 'h-stack gap-3 wrap'
+                    endcase
+                  -%}
+
+                  <div class="variant-picker__option-values {{ list_classes }}">
+                    {%- liquid
+                      for product_variation in block.settings.products
+                        assign color_metaobject = nil
+                        assign variation_metafield = product_variation.metafields[metafield_namespace][metafield_key]
+
+                        if variation_metafield.type == 'metaobject_reference' and variation_metafield.value.system.type == 'shopify--color-pattern'
+                          assign label = variation_metafield.value.label
+                          assign color_metaobject = variation_metafield.value
+                        else
+                          assign label = variation_metafield.value
+                        endif
+
+                        if product_variation == product
+                          assign selected = true
+                        else
+                          assign selected = false
+                        endif
+
+                        case block.settings.selector_style
+                          when 'swatch'
+                            render 'option-value', type: 'swatch', url: product_variation.url, label: label, color_metaobject: color_metaobject, selected: selected, size: block.settings.swatch_selector_size
+
+                          when 'variant_image'
+                            render 'option-value', type: 'thumbnail', url: product_variation.url, label: label, image: product_variation.featured_media, selected: selected
+
+                          when 'block'
+                            render 'option-value', type: 'block', url: product_variation.url, label: label, selected: selected
+
+                          when 'block_swatch'
+                            render 'option-value', type: 'block', url: product_variation.url, label: label, color_metaobject: color_metaobject, selected: selected, show_swatch: true
+                        endcase
+                      endfor
+                    -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+
+          {%- when 'line_item_property' -%}
+            {%- if block.settings.label != blank -%}
+              {%- capture name -%}properties[{{ block.settings.label | escape }}]{%- endcapture -%}
+
+              <div class="v-stack {% if block.settings.type == 'checkbox' %}justify-items-{{ alignment }}{% else %}justify-{{ alignment }}{% endif %}">
+                {%- liquid
+                  if block.settings.type == 'text'
+                    if block.settings.allow_long_text
+                      render 'input', label: block.settings.label, show_label_as_block: true, name: name, form: product_form_id, multiline: 4, alignment: alignment, required: block.settings.required, placeholder: block.settings.placeholder, maxlength: block.settings.max_length
+                    else
+                      render 'input', type: 'text', label: block.settings.label, show_label_as_block: true, name: name, form: product_form_id, alignment: alignment, required: block.settings.required, placeholder: block.settings.placeholder, maxlength: block.settings.max_length
+                    endif
+                  elsif block.settings.type == 'checkbox'
+                    render 'checkbox', label: block.settings.label, name: name, form: product_form_id, value: block.settings.checkbox_value, required: block.settings.required
+                  elsif block.settings.type == 'dropdown' and block.settings.select_values != blank
+                    assign option_values = block.settings.select_values | split: ','
+                    render 'select', label: block.settings.label, show_label_as_block: true, option_values: option_values, show_empty_value: true, name: name, alignment: alignment, form: product_form_id, required: block.settings.required
+                  endif
+                -%}
+              </div>
+            {%- endif -%}
+
+          {%- when 'inventory' -%}
+            {%- render 'inventory',
+                variant: product.selected_or_first_available_variant,
+                alignment: alignment,
+                show_in_stock_quantity: block.settings.show_in_stock_quantity,
+                show_progress_bar: block.settings.show_progress_bar,
+                progress_bar_max_value: block.settings.progress_bar_max_value,
+                low_threshold: block.settings.low_inventory_threshold
+            -%}
+
+          {% if product.handle == 'the-18-ee-sala-cup-namde' %}
+<div style="
+  background: linear-gradient(90deg, #8B0000, #cc0000);
+  color: #FFD700;
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+">
+  EXCLUSIVIE — Use code <strong>18</strong> to get 18% off 
+</div>
+{% endif %}
+          {%- when 'buy_buttons' -%}
+            {%- render 'buy-buttons',
+                product: product,
+                form_id: product_form_id,
+                show_quantity_selector: block.settings.show_quantity_selector,
+                add_quantity_selector_spacing: block.settings.add_quantity_selector_spacing,
+                show_payment_button: block.settings.show_payment_button,
+                show_gift_card_recipient: block.settings.show_gift_card_recipient,
+                atc_button_style: block.settings.atc_button_style,
+                atc_button_background: block.settings.atc_button_background,
+                atc_button_text_color: block.settings.atc_button_text_color,
+                payment_button_background: block.settings.payment_button_background,
+                payment_button_text_color: block.settings.payment_button_text_color
+            -%}
+
+          {%- when 'volume_pricing' -%}
+            {%- render 'volume-pricing-table', variant: product.selected_or_first_available_variant -%}
+
+          {%- when 'pickup_availability' -%}
+            {%- if product != blank -%}
+              {%- render 'pickup-availability', product_variant: product.selected_or_first_available_variant, alignment: alignment -%}
+            {%- endif -%}
+
+          {%- when 'complementary_products' -%}
+            <product-recommendations class="block" hidden product="{{ product.id }}" limit="{{ block.settings.products_count }}" intent="complementary">
+              {%- if recommendations.performed? and recommendations.intent == 'complementary' and recommendations.products_count > 0 -%}
+                {%- assign carousel_id = 'carousel-' | append: section.id | append: block.id -%}
+
+                <div class="v-stack gap-4">
+                  {%- if block.settings.title != blank or recommendations.products_count > 1 -%}
+                    <div class="h-stack justify-between">
+                      {%- if block.settings.title != blank -%}
+                        <p>{{ block.settings.title }}</p>
+                      {%- endif -%}
+
+                      {%- if recommendations.products_count > 2 -%}
+                        <div class="h-stack gap-2">
+                          <carousel-prev-button aria-controls="{{ carousel_id }}">
+                            <button type="button" disabled class="circle-button">
+                              <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
+                              {%- render 'icon' with 'big-arrow-left', width: 9, direction_aware: true -%}
+                            </button>
+                          </carousel-prev-button>
+
+                          <carousel-next-button aria-controls="{{ carousel_id }}">
+                            <button type="button" class="circle-button">
+                              <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
+                              {%- render 'icon' with 'big-arrow-right', width: 9, direction_aware: true -%}
+                            </button>
+                          </carousel-next-button>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  <scroll-carousel id="{{ carousel_id }}" class="complementary-products complementary-products--vertical scroll-area bleed sm:unbleed snap-x">
+                    {%- for product in recommendations.products -%}
+                      {%- render 'product-cross-sell', product: product, layout: 'vertical', show_quick_buy: true -%}
+                    {%- endfor -%}
+                  </scroll-carousel>
+                </div>
+              {%- endif -%}
+            </product-recommendations>
+
+          {%- when 'text' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="prose prose-justify-{{ alignment }}">
+                {{- block.settings.text -}}
+              </div>
+            {%- endif -%}
+
+          {%- when 'accordion' -%}
+            {%- liquid
+              assign accordion_title = block.settings.title | default: block.settings.page.title
+              assign accordion_content = block.settings.page.content | default: block.settings.content
+
+              if accordion_title != blank and accordion_content != blank
+                if block.settings.custom_icon != blank
+                  render 'accordion', title: accordion_title, custom_icon: block.settings.custom_icon, content: accordion_content, uppercase_title: block.settings.uppercase_title, prose_content: true, block: block
+                else
+                  render 'accordion', title: accordion_title, icon: block.settings.icon, content: accordion_content, uppercase_title: block.settings.uppercase_title, prose_content: true, block: block
+                endif
+              endif
+            -%}
+
+          {%- when 'liquid' -%}
+            {%- if block.settings.liquid != blank -%}
+              <div class="liquid">
+                {{- block.settings.liquid -}}
+              </div>
+            {%- endif -%}
+
+          {%- when 'offers' -%}
+            {%- render 'offers', block: block -%}
+
+          {%- when 'countdown' -%}
+            <div class="product-countdown" style="{% render 'surface', background: block.settings.background, text_color: block.settings.text_color %}">
+              {%- if block.settings.text != blank -%}
+                <p class="product-countdown__text text-start prose">{{ block.settings.text }}</p>
+              {%- endif -%}
+
+              <countdown-timer 
+                class="countdown-condensed__timer" 
+                role="timer" 
+                expires-at="{{ block.settings.expiration_date | date: '%FT%T%:z' | escape }}" 
+                expiration-behavior="{{ block.settings.expiration_behavior }}"
+                aria-label="{{ accessibility_text | escape }}" 
+              >
+                <div class="countdown-condensed__timer-item" aria-hidden="true">
+                  <countdown-timer-flip type="days" class="subheading bold">00</countdown-timer-flip>
+                  <span class="countdown-condensed__unit subheading subheading-xs">{{ 'sections.countdown_timer.days' | t }}</span>
+                  <span class="countdown-condensed__unit-short subheading subheading-xs">D</span>
+                </div>
+        
+                <span class="subheading subheading-xs" aria-hidden="true">:</span>
+        
+                <div class="countdown-condensed__timer-item" aria-hidden="true">
+                  <countdown-timer-flip type="hours" class="subheading bold">00</countdown-timer-flip>
+                  <span class="countdown-condensed__unit subheading subheading-xs">{{ 'sections.countdown_timer.hours' | t }}</span>
+                  <span class="countdown-condensed__unit-short subheading subheading-xs">H</span>
+                </div>
+        
+                <span class="subheading subheading-xs" aria-hidden="true">:</span>
+        
+                <div class="countdown-condensed__timer-item" aria-hidden="true">
+                  <countdown-timer-flip type="minutes" class="subheading bold">00</countdown-timer-flip>
+                  <span class="countdown-condensed__unit subheading subheading-xs">{{ 'sections.countdown_timer.minutes' | t }}</span>
+                  <span class="countdown-condensed__unit-short subheading subheading-xs">M</span>
+                </div>
+        
+                <span class="subheading subheading-xs" aria-hidden="true">:</span>
+        
+                <div class="countdown-condensed__timer-item" aria-hidden="true">
+                  <countdown-timer-flip type="seconds" class="subheading bold">00</countdown-timer-flip>
+                  <span class="countdown-condensed__unit subheading subheading-xs">{{ 'sections.countdown_timer.seconds' | t }}</span>
+                  <span class="countdown-condensed__unit-short subheading subheading-xs">S</span>
+                </div>
+              </countdown-timer>
+            </div>
+
+          {%- when 'icons_with_text' -%}
+            {%- capture icons -%}
+              {%- for i in (1..4) -%}
+                {%- liquid
+                  assign icon_setting = 'icon_' | append: i
+                  assign icon_width_setting = 'icon_' | append: i | append: '_width'
+                  assign icon_text_setting = 'icon_' | append: i | append: '_text'
+                -%}
+
+                {%- if block.settings[icon_setting] != blank or block.settings[icon_text_setting] != blank -%}
+                  <div class="{% if block.settings.items_per_row == 3 %}v-stack gap-2.5 justify-items-center text-center{% else %}h-stack gap-3{% endif %}">
+                    {%- render 'icon', image: block.settings[icon_setting], width: block.settings[icon_width_setting] -%}
+                    {{- block.settings[icon_text_setting] -}}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+
+            {%- if icons != blank -%}
+              <div class="grid grid-cols-{{ block.settings.items_per_row }} justify-{{ alignment }} gap-3">
+                {{- icons -}}
+              </div>
+            {%- endif -%}
+
+          {%- when 'modal' -%}
+            {%- if block.settings.button_title != blank or block.settings.modal_content != blank -%}
+              {%- assign modal_id = product_form_id | append: block.id -%}
+
+              {%- render 'button', content: block.settings.button_title, aria_controls: modal_id, style: block.settings.button_style, stretch: block.settings.stretch_button, background: block.settings.button_background, text_color: block.settings.button_text_color -%}
+
+              {%- if block.settings.dialog_type == 'modal' -%}
+                <x-modal id="{{ modal_id | escape }}" append-to-body class="modal modal--{{ block.settings.modal_size }} color-scheme color-scheme--{{ settings.default_color_scheme.id }}">
+                  <div class="prose prose-justify-{{ alignment }}">
+                    {% if block.settings.modal_title != blank %}
+                      <p class="h5">{{ block.settings.modal_title }}</p>
+                    {%- endif -%}
+
+                    <div class="text-start">
+                      {{- block.settings.modal_content -}}
+                    </div>
+                  </div>
+                </x-modal>
+              {%- else -%}
+                <x-drawer id="{{ modal_id | escape }}" append-to-body class="drawer {% if block.settings.modal_size == 'sm' %}drawer--narrow{% endif %} color-scheme color-scheme--{{ settings.default_color_scheme.id }}">
+                  {% if block.settings.modal_title != blank %}
+                    <span class="h5" slot="header">{{ block.settings.modal_title }}</span>
+                  {%- endif -%}
+
+                  <div class="prose prose-justify-{{ alignment }}">
+                    {{- block.settings.modal_content -}}
+                  </div>
+                </x-drawer>
+              {%- endif -%}
+            {%- endif -%}
+
+          {%- when 'image' -%}
+            {%- if block.settings.image != blank -%}
+              {%- assign alignment = block.settings.alignment | replace: 'left', 'start' | replace: 'right', 'end' -%}
+              {%- capture image_style_attribute -%}{% if alignment == 'center' %}margin-inline: auto;{% elsif alignment == 'end' %}margin-inline-start: auto;{% endif %}{%- endcapture -%}
+
+              {%- if block.settings.width_mode == 'custom' -%}
+                {%- capture image_style_attribute -%}{{ image_style_attribute }} --image-max-width: {{ block.settings.max_width }}px; --image-mobile-max-width: {{ block.settings.mobile_max_width }}px{%- endcapture -%}
+                {%- capture image_sizes_attribute -%}(max-width: 699px) min({{ block.settings.mobile_max_width }}px, 100vw), min({{ block.settings.max_width }}px, 100vw){%- endcapture -%}
+              {%- else -%}
+                {%- capture image_sizes_attribute -%}min(600px, 100vw){%- endcapture -%}
+                {%- capture image_style_attribute -%}width: 100%;{%- endcapture -%}
+              {%- endif -%}
+
+              {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: image_sizes_attribute, widths: '200,300,400,500,600,800,1000,1200,1400', class: 'constrained-image', style: image_style_attribute -}}
+            {%- endif -%}
+
+          {%- when 'button' -%}
+            {%- if block.settings.text != blank -%}
+              {%- render 'button', href: block.settings.link, content: block.settings.text, stretch: block.settings.stretch, style: block.settings.style, background: block.settings.background, text_color: block.settings.text_color -%}
+            {%- endif -%}
+
+          {%- when 'player_qty_grid' -%}
+            {%- unless block.settings.enable == false -%}
+            {%- liquid
+              assign lgx_max = block.settings.max_pieces | default: 3
+              assign lgx_wa_text = block.settings.whatsapp_text | default: 'CONNECT WITH A COLLECTIBLES SPECIALIST'
+              assign lgx_wa_link = block.settings.whatsapp_link | default: ''
+              assign lgx_heading = block.settings.heading | default: 'SELECT PLAYERS & QTY'
+              assign lgx_sub = block.settings.subheading | default: 'Max 3 pieces total across all players'
+              assign lgx_msg_zero = block.settings.msg_zero | default: 'Select at least 3 pieces to continue.'
+              assign lgx_msg_ready = block.settings.msg_ready | default: 'Ready to add {count} pieces to cart.'
+              assign lgx_radius = block.settings.card_border_radius | default: 8
+              assign lgx_gap = block.settings.card_gap | default: 12
+              assign lgx_cols_d = block.settings.cols_desktop | default: 3
+              assign lgx_cols_t = block.settings.cols_tablet | default: 2
+              assign lgx_cols_m = block.settings.cols_mobile | default: 1
+              assign lgx_total_edition = 0
+              assign lgx_total_inv = 0
+              for v in product.variants
+                assign lgx_ed = v.title | split: '(' | last | split: ' ' | first | plus: 0
+                assign lgx_total_edition = lgx_total_edition | plus: lgx_ed
+                assign lgx_total_inv = lgx_total_inv | plus: v.inventory_quantity
+              endfor
+              if lgx_total_edition > 0
+                assign lgx_remaining_pct = lgx_total_inv | times: 100 | divided_by: lgx_total_edition
+              else
+                assign lgx_remaining_pct = 100
+              endif
+            -%}
+
+            <div id="lgx-player-grid" class="lgx-player-grid"
+                 data-max="{{ lgx_max }}"
+                 data-msg-zero="{{ lgx_msg_zero | escape }}"
+                 data-msg-ready="{{ lgx_msg_ready | escape }}"
+                 data-enable-price="{{ block.settings.enable_price_update }}"
+                 data-form-id="{{ product_form_id }}"
+                 data-product-handle="{{ product.handle }}"
+                 data-section-id="{{ section.id }}"
+                 {{ block.shopify_attributes }}>
+
+
+              {%- if block.settings.show_heading -%}
+              <div class="lgx-grid-header">
+                <p class="lgx-grid-title">{{ lgx_heading }}</p>
+                <p class="lgx-grid-subtitle">{{ lgx_sub }}</p>
+              </div>
+              {%- endif -%}
+
+              <div class="lgx-cards"
+                   style="--lgx-cols:{{ lgx_cols_d }};--lgx-cols-tab:{{ lgx_cols_t }};--lgx-cols-mob:{{ lgx_cols_m }};--lgx-gap:{{ lgx_gap }}px;--lgx-radius:{{ lgx_radius }}px;">
+                {%- for variant in product.variants -%}
+                  {%- assign lgx_pname = variant.title | split: ' (' | first -%}
+                  {%- assign lgx_soldout = false -%}
+                  {%- if variant.inventory_quantity <= 0 -%}{%- assign lgx_soldout = true -%}{%- endif -%}
+                  <div class="lgx-card{% if lgx_soldout %} lgx-card--soldout{% endif %}"
+                       data-variant-id="{{ variant.id }}"
+                       data-price="{{ variant.price }}"
+                       data-inventory="{{ variant.inventory_quantity }}"
+                       data-name="{{ lgx_pname | escape }}">
+
+                    {%- if lgx_soldout -%}
+                    <span class="lgx-soldout-badge">SOLD OUT</span>
+                    {%- endif -%}
+
+                    {%- if block.settings.show_tick -%}
+                    <span class="lgx-tick" aria-hidden="true">
+                      <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    {%- endif -%}
+
+                    <p class="lgx-card-name">{{ lgx_pname }}</p>
+                    <p class="lgx-card-avail">{% if lgx_soldout %}Out of stock{% else %}{{ variant.price | money }}{% endif %}</p>
+
+                    <div class="lgx-qty-row">
+                      <button class="lgx-qty-btn lgx-minus" type="button" data-action="minus" aria-label="Decrease" disabled>−</button>
+                      <span class="lgx-qty-val">0</span>
+                      <button class="lgx-qty-btn lgx-plus" type="button" data-action="plus" aria-label="Increase">+</button>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.show_summary -%}
+              <div class="lgx-summary">
+                <span class="lgx-summary-label">Total selected</span>
+                <span class="lgx-summary-val"><span class="lgx-total-count">0</span> / {{ lgx_max }} pieces</span>
+              </div>
+              {%- endif -%}
+
+              {%- if block.settings.show_whatsapp and lgx_wa_link != blank -%}
+              <a href="{{ lgx_wa_link }}" target="_blank" rel="nofollow noopener" class="lgx-wa-btn">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                {{ lgx_wa_text }}
+              </a>
+              {%- endif -%}
+
+              {%- render 'gokwik-buy-now' -%}
+              <style>
+                #gokwik-buy-now[data-lgx-state="off"]{background:#e0e0e0!important;color:#999!important;border-color:#e0e0e0!important;box-shadow:none!important;}
+                #gokwik-buy-now[data-lgx-state="on"]{background:#1c1c1c!important;color:#fff!important;border-color:#1c1c1c!important;}
+              </style>
+              <button id="lgx-buy-btn" class="lgx-buy-btn" type="button" disabled style="display:none">BUY NOW</button>
+
+              {%- if block.settings.show_validation -%}
+              <p class="lgx-validation" id="lgx-validation">{{ lgx_msg_zero }}</p>
+              {%- endif -%}
+
+            </div>
+
+            <script type="application/json" id="lgx-variant-data">
+            {
+              {%- for variant in product.variants -%}
+              "{{ variant.id }}":{"id":{{ variant.id }},"featured_media":{%- if variant.featured_media -%}{"id":{{ variant.featured_media.id }},"position":{{ variant.featured_media.position }}}{%- else -%}null{%- endif -%}}{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            }
+            </script>
+
+            <style>
+              .lgx-player-grid { margin-top: 16px; }
+
+
+              .lgx-grid-header { margin-bottom: 14px; }
+              .lgx-grid-title { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 4px; }
+              .lgx-grid-subtitle { font-size: 13px; color: #666; margin: 0; }
+
+              .lgx-cards {
+                display: grid;
+                grid-template-columns: repeat(var(--lgx-cols, 3), 1fr);
+                gap: var(--lgx-gap, 12px);
+                margin-bottom: 18px;
+              }
+              @media (max-width: 899px) { .lgx-cards { grid-template-columns: repeat(var(--lgx-cols-tab, 2), 1fr); } }
+              @media (max-width: 599px) { .lgx-cards { grid-template-columns: repeat(var(--lgx-cols-mob, 1), 1fr); } }
+
+              .lgx-card {
+                position: relative;
+                border: 1.5px solid #e0e0e0;
+                border-radius: var(--lgx-radius, 8px);
+                padding: 16px 14px 14px;
+                background: #fff;
+                transition: border-color .2s, box-shadow .2s;
+                cursor: pointer;
+              }
+              .lgx-card--active:not(.lgx-card--selected) {
+                border-color: #111;
+              }
+              .lgx-card--selected {
+                border: 2px solid #111;
+                box-shadow: 0 0 0 1px #111;
+              }
+
+              .lgx-tick {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 20px;
+                height: 20px;
+                background: #111;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transform: scale(.5);
+                transition: opacity .2s, transform .2s;
+                cursor: pointer;
+              }
+              .lgx-card--selected .lgx-tick { opacity: 1; transform: scale(1); }
+              .lgx-tick:hover { background: #444; }
+
+              .lgx-card-name { font-size: 14px; font-weight: 600; margin: 0 0 4px; color: #111; padding-right: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+              .lgx-card-avail { font-size: 12px; color: #888; margin: 0 0 14px; }
+
+              .lgx-qty-row { display: flex; align-items: center; background: #f5f5f5; border-radius: 6px; overflow: hidden; width: fit-content; }
+              .lgx-qty-btn {
+                background: transparent; border: none; width: 34px; height: 34px;
+                font-size: 20px; font-weight: 300; cursor: pointer; color: #111;
+                display: flex; align-items: center; justify-content: center;
+                transition: background .15s, opacity .15s; padding: 0; line-height: 1;
+              }
+              .lgx-qty-btn:hover:not(:disabled) { background: #e0e0e0; }
+              .lgx-qty-btn:disabled { opacity: .3; cursor: not-allowed; }
+              .lgx-qty-val { min-width: 28px; text-align: center; font-size: 14px; font-weight: 600; color: #111; }
+
+              .lgx-summary {
+                display: flex; justify-content: space-between; align-items: center;
+                font-size: 14px; color: #111;
+                padding: 12px 0; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0;
+                margin-bottom: 16px;
+              }
+              .lgx-summary-label { font-weight: 500; }
+              .lgx-summary-val { font-weight: 600; }
+
+              .lgx-wa-btn {
+                display: flex; align-items: center; justify-content: center; gap: 10px;
+                width: 100%; padding: 15px 20px; background: #25D366; color: #fff;
+                font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                text-decoration: none; border-radius: 4px; margin-bottom: 10px;
+                transition: background .2s; box-sizing: border-box;
+              }
+              .lgx-wa-btn:hover { background: #1ebe5c; color: #fff; text-decoration: none; }
+              .lgx-wa-btn svg { flex-shrink: 0; }
+
+              .lgx-buy-btn {
+                width: 100%; padding: 15px 20px; background: #111; color: #fff;
+                font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                border: none; border-radius: 4px; cursor: pointer; margin-bottom: 10px;
+                transition: background .2s, opacity .2s; box-sizing: border-box;
+              }
+              .lgx-buy-btn:disabled { background: #c0c0c0; cursor: not-allowed; }
+              .lgx-buy-btn:not(:disabled):hover { background: #333; }
+
+              .lgx-validation {
+                font-size: 13px; color: #777; text-align: center; margin: 0;
+                display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 20px;
+              }
+              .lgx-validation--ready { color: #16a34a; font-weight: 500; }
+
+              .lgx-soldout-badge {
+                display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .06em;
+                background: #c0392b; color: #fff; padding: 2px 6px; border-radius: 3px;
+                text-transform: uppercase; margin-bottom: 6px; line-height: 1.5;
+              }
+              .lgx-card--soldout { opacity: 0.55; cursor: default; }
+              .lgx-card--soldout .lgx-card-name { text-decoration: line-through; color: #aaa; }
+              .lgx-card--soldout .lgx-tick { display: none; }
+
+              @media (max-width: 599px) {
+                .lgx-cards { gap: 8px; margin-bottom: 12px; }
+                .lgx-card {
+                  padding: 10px 12px;
+                  display: grid;
+                  grid-template-columns: 1fr auto;
+                  column-gap: 12px;
+                }
+                .lgx-card-name { grid-column: 1; grid-row: 1; margin: 0 0 2px; padding-right: 0; align-self: end; }
+                .lgx-card-avail { grid-column: 1; grid-row: 2; margin: 0; align-self: start; }
+                .lgx-qty-row { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+                .lgx-tick { display: none; }
+              }
+            </style>
+
+            <script>
+            (function() {
+              function initLgxGrid() {
+                var grid = document.getElementById('lgx-player-grid');
+                if (!grid || grid.dataset.initialized) return;
+                grid.dataset.initialized = 'true';
+
+                var MAX = parseInt(grid.dataset.max) || 3;
+                var MSG_ZERO = grid.dataset.msgZero || 'Select at least ' + MAX + ' pieces to continue.';
+                var MSG_READY = grid.dataset.msgReady || 'Ready to add {count} pieces to cart.';
+                var ENABLE_PRICE = grid.dataset.enablePrice !== 'false';
+
+                var cards = Array.from(grid.querySelectorAll('.lgx-card'));
+                var minPrice = Math.min.apply(null, cards.map(function(c) { return parseFloat(c.dataset.price) || Infinity; }));
+                var summaryCount = grid.querySelector('.lgx-total-count');
+
+                // ── Gallery variant sync ────────────────────────────────────
+                var lgxVariantMap = {};
+                try { lgxVariantMap = JSON.parse((document.getElementById('lgx-variant-data') || {}).textContent || '{}'); } catch(e) {}
+
+                // Use the form ID explicitly provided in the data attributes if possible
+                var lgxGallery = document.querySelector('product-gallery');
+                var lgxFormAttr = (lgxGallery && lgxGallery.getAttribute('form')) || grid.dataset.formId;
+                var lgxProductForm = null;
+                if (lgxFormAttr) {
+                  lgxProductForm = document.forms[lgxFormAttr] || document.getElementById(lgxFormAttr) || null;
+                }
+                if (!lgxProductForm) {
+                  var _fb = document.querySelector('form input[name="id"]');
+                  if (_fb) lgxProductForm = _fb.closest('form');
+                }
+
+                var lgxIdInput = lgxProductForm ? lgxProductForm.querySelector('[name="id"]') : null;
+                var lgxPrevVariant = lgxIdInput ? (lgxVariantMap[lgxIdInput.value] || null) : null;
+                var lgxLastCard = null;
+                var lgxAbortCtrl = null;
+
+                function lgxSyncVariant() {
+                  if (!lgxProductForm || !lgxIdInput || !lgxLastCard) return;
+
+                  var vid = lgxLastCard.dataset.variantId;
+                  var vd = lgxVariantMap[vid] || { id: parseInt(vid), featured_media: null };
+
+                  // Update hidden variant input
+                  lgxIdInput.value = vd.id;
+
+                  // Update URL
+                  try {
+                    var _u = new URL(window.location.href);
+                    _u.searchParams.set('variant', vd.id);
+                    window.history.replaceState({ path: _u.toString() }, '', _u.toString());
+                  } catch(e) {}
+
+                  // Native variant picker sync
+                  if (vd.id) {
+                    // Try to find the radio button or option matching this variant
+                    var _r = document.querySelector('variant-picker input[type="radio"][value="' + (lgxLastCard.dataset.name || '').replace(/"/g, '\\"') + '"]');
+                    if (!_r) {
+                       // Try finding by value if the theme uses variant IDs or titles
+                       // The theme's VariantPicker usually creates inputs with the option value (e.g. "Emiliano Martinez")
+                       var _pname = lgxLastCard.dataset.name;
+                       if (_pname) {
+                          _r = document.querySelector('variant-picker input[type="radio"][value="' + _pname.replace(/"/g, '\\"') + '"]');
+                       }
+                    }
+                    if (_r && !_r.checked) {
+                      _r.checked = true;
+                      _r.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                  }
+
+
+                  // Dispatch variant:change FIRST so the theme updates its internal state
+                  // The stretch theme's ProductGallery listens for this event.
+                  lgxProductForm.dispatchEvent(new CustomEvent('variant:change', {
+                    bubbles: true,
+                    detail: { variant: vd, previousVariant: lgxPrevVariant }
+                  }));
+                  
+                  // Now fetch section HTML to sync the carousel filtered-indexes and scroll
+                  var _handle = grid.dataset.productHandle;
+                  var _sid = grid.dataset.sectionId;
+
+                  if (_handle && _sid && lgxGallery) {
+                    if (lgxAbortCtrl) lgxAbortCtrl.abort();
+                    lgxAbortCtrl = new AbortController();
+
+                    var _url = '/products/' + _handle + '?variant=' + vid + '&section_id=' + _sid;
+
+                    fetch(_url, { signal: lgxAbortCtrl.signal })
+                      .then(function(r) { return r.text(); })
+                      .then(function(html) {
+                        lgxAbortCtrl = null;
+                        try {
+                          var _frag = document.createRange().createContextualFragment(html);
+                          var _sel = lgxFormAttr ? ('product-gallery[form="' + lgxFormAttr + '"]') : 'product-gallery';
+                          var _gMarkup = _frag.querySelector(_sel);
+
+                          if (_gMarkup) {
+                            var _filteredAttr = _gMarkup.getAttribute('filtered-indexes') || '[]';
+                            
+                            // Liquid stores 1-based positions; carousel.filter() expects 0-based indexes
+                            var _newIdx = [];
+                            try { _newIdx = JSON.parse(_filteredAttr).map(function(n) { return parseInt(n) - 1; }); } catch(e) {}
+
+                            var _carousel = lgxGallery.querySelector('.product-gallery__carousel');
+                            if (_carousel && typeof _carousel.filter === 'function') {
+                              _carousel.filter(_newIdx);
+                              lgxGallery.setAttribute('filtered-indexes', _filteredAttr);
+                              
+                              // Check if we need to scroll to the newly featured media
+                              if (vd.featured_media && _carousel.isScrollable) {
+                                // Calculate the visual index among visible (filtered) cells
+                                var targetPos = vd.featured_media.position - 1;
+                                var hiddenBelow = _newIdx.filter(function(idx) { return idx < targetPos; }).length;
+                                _carousel.select(targetPos - hiddenBelow, { instant: false });
+                              } else if (!vd.featured_media && _carousel.isScrollable) {
+                                _carousel.select(0, { instant: true });
+                              }
+                            }
+                          }
+                        } catch(err) {}
+                      })
+                      .catch(function(err) {});
+                  }
+                  
+                  lgxPrevVariant = vd;
+                }
+                // ───────────────────────────────────────────────────────────
+                var buyBtn = document.getElementById('lgx-buy-btn');
+                var lgxGkBtn = null;
+                var validation = document.getElementById('lgx-validation');
+                var priceEl = document.querySelector('[data-block-type="price"] sale-price');
+                var priceTextNode = null;
+                var initialPriceText = '';
+                if (priceEl) {
+                  Array.from(priceEl.childNodes).forEach(function(n) {
+                    if (n.nodeType === 3 && n.textContent.trim()) { priceTextNode = n; }
+                  });
+                  initialPriceText = priceTextNode ? priceTextNode.textContent.trim() : '';
+                }
+                function setPriceText(text) {
+                  if (priceTextNode) { priceTextNode.textContent = text; }
+                }
+
+                function getQty(card) {
+                  return parseInt(card.querySelector('.lgx-qty-val').textContent) || 0;
+                }
+                function setQtyDisplay(card, n) {
+                  card.querySelector('.lgx-qty-val').textContent = n;
+                }
+                function getTotal() {
+                  return cards.reduce(function(s, c) { return s + getQty(c); }, 0);
+                }
+
+                function formatMoney(shopifyPriceUnits) {
+                  if (window.Shopify && window.Shopify.formatMoney) {
+                    try { return Shopify.formatMoney(shopifyPriceUnits); } catch(e) {}
+                  }
+                  var amount = shopifyPriceUnits / 100;
+                  return 'Rs. ' + amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+
+                function update() {
+                  var total = getTotal();
+
+                  cards.forEach(function(card) {
+                    var qty = getQty(card);
+                    var inv = parseInt(card.dataset.inventory) || 0;
+                    card.classList.toggle('lgx-card--selected', qty > 0);
+                    var plusBtn = card.querySelector('.lgx-plus');
+                    plusBtn.style.display = qty >= 1 ? 'none' : '';
+                    plusBtn.disabled = (total >= MAX) || (qty >= 1) || (inv <= 0);
+                    card.querySelector('.lgx-minus').disabled = qty <= 0;
+                  });
+
+                  if (summaryCount) summaryCount.textContent = total;
+                  if (buyBtn) buyBtn.disabled = (total !== MAX);
+                  if (lgxGkBtn) {
+                    lgxGkBtn.disabled = (total !== MAX);
+                    lgxGkBtn.classList.toggle('disabled', total !== MAX);
+                    lgxGkBtn.setAttribute('data-lgx-state', total === MAX ? 'on' : 'off');
+                  }
+
+                  if (validation) {
+                    var rem = MAX - total;
+                    if (total === 0) {
+                      validation.textContent = MSG_ZERO;
+                      validation.className = 'lgx-validation';
+                    } else if (rem > 0) {
+                      validation.textContent = 'Select ' + rem + ' more ' + (rem === 1 ? 'piece' : 'pieces') + ' to continue.';
+                      validation.className = 'lgx-validation';
+                    } else {
+                      validation.textContent = '✓ Ready to continue.';
+                      validation.className = 'lgx-validation lgx-validation--ready';
+                    }
+                  }
+
+                  if (ENABLE_PRICE && priceTextNode) {
+                    if (total === 0) {
+                      setPriceText('Starting from ' + formatMoney(minPrice));
+                    } else {
+                      var totalUnits = cards.reduce(function(s, card) {
+                        var q = getQty(card);
+                        return q > 0 ? s + (parseFloat(card.dataset.price) * q) : s;
+                      }, 0);
+                      setPriceText(formatMoney(totalUnits));
+                    }
+                  }
+                }
+
+                grid.addEventListener('click', function(e) {
+                  // Tick icon → deselect (reset qty to 0)
+                  if (e.target.closest('.lgx-tick')) {
+                    var c1 = e.target.closest('.lgx-card');
+                    if (c1 && getQty(c1) > 0) {
+                      setQtyDisplay(c1, 0);
+                      update();
+                    }
+                    return;
+                  }
+
+                  var btn = e.target.closest('.lgx-qty-btn');
+                  var card = e.target.closest('.lgx-card');
+
+                  if (card && !btn) {
+                    if (card.classList.contains('lgx-card--soldout')) return;
+                    cards.forEach(function(c) { c.classList.remove('lgx-card--active'); });
+                    card.classList.add('lgx-card--active');
+                    lgxLastCard = card;
+                    lgxSyncVariant();
+                    return;
+                  }
+
+                  if (!btn || btn.disabled || !card) return;
+                  var qty = getQty(card);
+                  var inv = parseInt(card.dataset.inventory) || 0;
+                  var total = getTotal();
+                  // Max 1 per player: + only works when qty is 0
+                  if (btn.dataset.action === 'plus' && qty === 0 && total < MAX && inv > 0) {
+                    setQtyDisplay(card, 1);
+                  } else if (btn.dataset.action === 'minus' && qty > 0) {
+                    setQtyDisplay(card, 0);
+                  } else { return; }
+                  update();
+                });
+
+                if (buyBtn) {
+                  buyBtn.addEventListener('click', function() {
+                    if (buyBtn.disabled) return;
+                    var items = [];
+                    cards.forEach(function(card) {
+                      var q = getQty(card);
+                      if (q > 0) items.push({ id: parseInt(card.dataset.variantId), quantity: q });
+                    });
+                    if (!items.length) return;
+                    buyBtn.textContent = 'Processing...';
+                    buyBtn.disabled = true;
+                    fetch('/cart/add.js', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                      body: JSON.stringify({ items: items })
+                    }).then(function(r) {
+                      if (r.ok) { window.location.href = '/checkout'; }
+                      else {
+                        return r.json().then(function(d) { throw new Error(d.description || 'Could not proceed to checkout.'); });
+                      }
+                    }).catch(function(err) {
+                      buyBtn.textContent = 'BUY NOW';
+                      buyBtn.disabled = false;
+                      alert(err.message || 'Could not proceed. Please try again.');
+                    });
+                  });
+                }
+
+                update();
+
+                // ── GoKwik Buy Now bridge ──
+                window.addEventListener('load', function() {
+                  var gkBtn = document.getElementById('gokwik-buy-now');
+                  if (!gkBtn) return;
+                  // Clone strips GoKwik's pre-attached event listeners so only our handler fires
+                  var clone = gkBtn.cloneNode(true);
+                  clone.removeAttribute('onclick');
+                  gkBtn.parentNode.replaceChild(clone, gkBtn);
+                  lgxGkBtn = clone;
+                  var _initDisabled = getTotal() < MAX;
+                  lgxGkBtn.disabled = _initDisabled;
+                  lgxGkBtn.classList.toggle('disabled', _initDisabled);
+                  lgxGkBtn.setAttribute('data-lgx-state', _initDisabled ? 'off' : 'on');
+
+                  lgxGkBtn.addEventListener('click', function(e) {
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    var total = getTotal();
+                    if (total < MAX) { return; }
+                    var items = [];
+                    cards.forEach(function(card) {
+                      var q = getQty(card);
+                      if (q > 0) items.push({ id: parseInt(card.dataset.variantId), quantity: q });
+                    });
+                    if (!items.length) return;
+                    lgxGkBtn.disabled = true;
+                    lgxGkBtn.setAttribute('data-lgx-state', 'off');
+                    fetch('/cart/add.js', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                      body: JSON.stringify({ items: items })
+                    }).then(function(r) {
+                      if (r.ok) {
+                        lgxGkBtn.disabled = false;
+                        lgxGkBtn.classList.remove('disabled');
+                        lgxGkBtn.setAttribute('data-lgx-state', 'on');
+                        if (typeof onCheckoutClick === 'function') {
+                          onCheckoutClick(lgxGkBtn);
+                        } else {
+                          window.location.href = '/checkout';
+                        }
+                      } else {
+                        return r.json().then(function(d) { throw new Error(d.description || 'Could not proceed to checkout.'); });
+                      }
+                    }).catch(function(err) {
+                      var shouldDisable = getTotal() < MAX;
+                      lgxGkBtn.disabled = shouldDisable;
+                      lgxGkBtn.classList.toggle('disabled', shouldDisable);
+                      lgxGkBtn.setAttribute('data-lgx-state', shouldDisable ? 'off' : 'on');
+                      alert(err.message || 'Could not proceed. Please try again.');
+                    });
+                  });
+                });
+
+                // ── Gallery sync: MutationObserver tracks last-selected player ──
+                if (lgxProductForm && lgxIdInput) {
+                  var lgxMO = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(m) {
+                      if (m.type !== 'attributes') return;
+                      var card = m.target;
+                      var wasSelected = (m.oldValue || '').indexOf('lgx-card--selected') !== -1;
+                      var isNowSelected = card.classList.contains('lgx-card--selected');
+
+                      if (isNowSelected && !wasSelected) {
+                        // Card just became selected → it is now the active (gallery) player
+                        cards.forEach(function(c) { c.classList.remove('lgx-card--active'); });
+                        card.classList.add('lgx-card--active');
+                        lgxLastCard = card;
+                        lgxSyncVariant();
+                      } else if (!isNowSelected && wasSelected && lgxLastCard === card) {
+                        // The active card was deselected → shift gallery to another selected card
+                        lgxLastCard = null;
+                        for (var _i2 = 0; _i2 < cards.length; _i2++) {
+                          if (cards[_i2].classList.contains('lgx-card--selected')) {
+                            lgxLastCard = cards[_i2];
+                            break;
+                          }
+                        }
+                        if (lgxLastCard) {
+                          cards.forEach(function(c) { c.classList.remove('lgx-card--active'); });
+                          lgxLastCard.classList.add('lgx-card--active');
+                          lgxSyncVariant();
+                        } else {
+                          card.classList.remove('lgx-card--active');
+                        }
+                      }
+                    });
+                  });
+                  cards.forEach(function(c) { lgxMO.observe(c, { attributes: true, attributeFilter: ['class'], attributeOldValue: true }); });
+                }
+              }
+              
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initLgxGrid);
+              } else {
+                initLgxGrid();
+              }
+            })();
+            </script>
+            {%- endunless -%}
+
+          {%- when 'share_buttons' -%}
+            <share-button>
+              <button class="h-stack gap-2 justify-{{ alignment }} share-buttons--native" hidden>
+                <span class="subheading">{{- 'general.social.share' | t -}}</span>
+                {%- render 'icon' with 'share' -%}
+              </button>
+
+              <div class="h-stack gap-6 justify-{{ alignment }}">
+                <span class="subheading">{{- 'general.social.share' | t -}}</span>
+                {%- render 'share-buttons', url: product.url, title: product.title, description: product.description -%}
+              </div>
+            </share-button>
+        {%- endcase -%}
+      {%- endcapture -%}
+
+      {%- if allow_block_group and inside_block_group_context == false -%}
+        {%- assign inside_block_group_context = true -%}
+        <div class="product-info__block-group {{ block_group_class }}" data-group-type="{{ block_group_name }}">
+      {%- endif -%}
+
+      {%- liquid
+        assign block_types_allowing_partial_rerender = 'sku,badges,price,payment_terms,volume_pricing,variant_picker,inventory,buy_buttons,pickup_availability,liquid' | split: ','
+        assign allow_partial_rerender = false
+
+        if block_types_allowing_partial_rerender contains block.type
+          assign allow_partial_rerender = true
+        endif
+      -%}
+
+      <div class="product-info__block-item" data-block-id="{{ block.id }}" data-block-type="{{ block.type | replace: '_', '-' }}" {% if allow_partial_rerender %}data-block-allow-rerender{% endif %} {% unless block.type == '@app' or block.type == 'accordion' %}{{ block.shopify_attributes }}{% endunless %}>
+        {{- block_content -}}
+      </div>
+
+      {%- if inside_block_group_context and allow_block_group == false -%}
+        {%- assign inside_block_group_context = false -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if context == 'quick_buy' -%}
+      <a href="{{ product.url }}" class="link sm-max:hidden">{{ 'product.general.view_details' | t }}</a>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%}
+    IMPLEMENTATION NOTE: under rare circumstances, merchant may want to show selectors to allow variant selection, but hide
+    the add to cart button. This is however problematic as product info is changed based on the form, so we create a default
+    one if no buy buttons exists
+  {%- endcomment -%}
+
+  {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+
+  {%- unless buy_buttons_block != blank or product == blank -%}
+    {%- form 'product', product, id: product_form_id, hidden: true -%}
+      <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    {%- endform -%}
+  {%- endunless -%}
+</safe-sticky>

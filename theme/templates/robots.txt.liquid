@@ -1,0 +1,47 @@
+{% comment %}
+  Custom robots.txt — extends Shopify defaults with additional Disallow rules.
+  Fixes "Crawled - currently not indexed" issues in Google Search Console.
+  This file has NO effect on UI rendering — it only controls what Googlebot crawls.
+{% endcomment %}
+
+{% for group in robots.default_groups %}
+{{ group.user_agent }}
+{% for rule in group.rules %}
+{{ rule }}
+{% endfor %}
+
+{% comment %} Block JS/CSS asset files — Google was crawling theme JS files {% endcomment %}
+Disallow: /cdn/shop/
+
+{% comment %} Block Shopify internal JSON endpoints {% endcomment %}
+Disallow: /browsing_context_suggestions.json
+
+{% comment %} Block vendor-filtered collection (thin/duplicate) — including all query params {% endcomment %}
+Disallow: /collections/vendors
+
+{% comment %} Block collection-scoped product URLs — duplicates of /products/xxx {% endcomment %}
+Disallow: /collections/*/products/
+
+{% comment %} Block RSS/Atom feeds — not indexable content {% endcomment %}
+Disallow: /*.atom$
+
+{% comment %} Block geo+currency parameter URLs — duplicates of product pages {% endcomment %}
+Disallow: /*?country=
+
+{% comment %} Block password page {% endcomment %}
+Disallow: /password
+
+{% comment %} Block product variant URLs — canonical already points to base product {% endcomment %}
+Disallow: /*?variant=
+
+{% comment %} Block paginated URLs — ?page=1 canonicalises to base URL, creates duplicates {% endcomment %}
+Disallow: /*?page=
+
+{% comment %} Block /index.php — bots hit this, Shopify returns 200 with canonical to / {% endcomment %}
+Disallow: /index.php
+
+{% for sitemap in robots.sitemaps %}
+Sitemap: {{ sitemap }}
+{% endfor %}
+
+{% endfor %}

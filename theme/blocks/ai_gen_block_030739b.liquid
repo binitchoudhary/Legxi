@@ -1,0 +1,1045 @@
+{% doc %}
+  @prompt
+    carousel slides that shows details on hover. I should be able to add or remove slides. Add 2 buttons on hover on each slide.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-carousel-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+  }
+
+  .ai-carousel-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.slide_spacing }}px;
+    transition: transform 0.5s ease;
+    will-change: transform;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }} {
+    flex: 0 0 calc((100% - ({{ block.settings.slides_per_view | minus: 1 }} * {{ block.settings.slide_spacing }}px)) / {{ block.settings.slides_per_view }});
+    position: relative;
+    border-radius: {{ block.settings.slide_border_radius }}px;
+    overflow: hidden;
+    background-color: {{ block.settings.slide_background }};
+    cursor: pointer;
+  }
+
+  .ai-carousel-slide-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.slide_height }}px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }}:hover .ai-carousel-slide-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-carousel-slide-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.slide_height }}px;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-carousel-slide-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-carousel-slide-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: {{ block.settings.overlay_color }};
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .ai-carousel-slide-{{ ai_gen_id }}:hover .ai-carousel-slide-overlay-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-carousel-slide-title-{{ ai_gen_id }} {
+    color: {{ block.settings.overlay_text_color }};
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    text-transform: {{ block.settings.title_transform }};
+  }
+
+  .ai-carousel-slide-description-{{ ai_gen_id }} {
+    color: {{ block.settings.overlay_text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    margin: 0 0 20px;
+    line-height: 1.4;
+  }
+
+  .ai-carousel-slide-buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ai-carousel-slide-button-{{ ai_gen_id }} {
+    padding: 12px 24px;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-transform: {{ block.settings.button_text_transform }};
+  }
+
+  .ai-carousel-slide-button-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_primary_bg }};
+    color: {{ block.settings.button_primary_text }};
+    border: 2px solid {{ block.settings.button_primary_bg }};
+  }
+
+  .ai-carousel-slide-button-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_primary_hover_bg }};
+    border-color: {{ block.settings.button_primary_hover_bg }};
+    color: {{ block.settings.button_primary_hover_text }};
+  }
+
+  .ai-carousel-slide-button-secondary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_secondary_bg }};
+    color: {{ block.settings.button_secondary_text }};
+    border: 2px solid {{ block.settings.button_secondary_border }};
+  }
+
+  .ai-carousel-slide-button-secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_secondary_hover_bg }};
+    border-color: {{ block.settings.button_secondary_hover_border }};
+    color: {{ block.settings.button_secondary_hover_text }};
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: {{ block.settings.nav_button_bg }};
+    color: {{ block.settings.nav_button_color }};
+    border: none;
+    width: {{ block.settings.nav_button_size }}px;
+    height: {{ block.settings.nav_button_size }}px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_bg }};
+    color: {{ block.settings.nav_button_hover_color }};
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }}:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .ai-carousel-nav-prev-{{ ai_gen_id }} {
+    left: {{ block.settings.nav_button_offset }}px;
+  }
+
+  .ai-carousel-nav-next-{{ ai_gen_id }} {
+    right: {{ block.settings.nav_button_offset }}px;
+  }
+
+  .ai-carousel-nav-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ai-carousel-dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .ai-carousel-dot-{{ ai_gen_id }} {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: {{ block.settings.dot_color }};
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .ai-carousel-dot-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.dot_active_color }};
+    transform: scale(1.2);
+  }
+
+  .ai-carousel-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-carousel-slide-{{ ai_gen_id }} {
+      flex: 0 0 calc((100% - ({{ block.settings.slides_per_view_mobile | minus: 1 }} * {{ block.settings.slide_spacing }}px)) / {{ block.settings.slides_per_view_mobile }});
+    }
+
+    .ai-carousel-slide-height-{{ ai_gen_id }} {
+      height: {{ block.settings.slide_height | times: 0.8 }}px;
+    }
+
+    .ai-carousel-nav-{{ ai_gen_id }} {
+      width: {{ block.settings.nav_button_size | times: 0.8 }}px;
+      height: {{ block.settings.nav_button_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<carousel-slider-{{ ai_gen_id }} class="ai-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-carousel-wrapper-{{ ai_gen_id }}">
+    <div class="ai-carousel-track-{{ ai_gen_id }}">
+      {% for i in (1..5) %}
+        {% liquid
+          assign slide_image_key = 'slide_' | append: i | append: '_image'
+          assign slide_title_key = 'slide_' | append: i | append: '_title'
+          assign slide_description_key = 'slide_' | append: i | append: '_description'
+          assign button_1_text_key = 'slide_' | append: i | append: '_button_1_text'
+          assign button_1_link_key = 'slide_' | append: i | append: '_button_1_link'
+          assign button_2_text_key = 'slide_' | append: i | append: '_button_2_text'
+          assign button_2_link_key = 'slide_' | append: i | append: '_button_2_link'
+
+          assign slide_image = block.settings[slide_image_key]
+          assign slide_title = block.settings[slide_title_key]
+          assign slide_description = block.settings[slide_description_key]
+          assign button_1_text = block.settings[button_1_text_key]
+          assign button_1_link = block.settings[button_1_link_key]
+          assign button_2_text = block.settings[button_2_text_key]
+          assign button_2_link = block.settings[button_2_link_key]
+        %}
+
+        {% if slide_image != blank or slide_title != blank or forloop.index <= 3 %}
+          <div class="ai-carousel-slide-{{ ai_gen_id }}" data-slide-index="{{ forloop.index0 }}">
+            {% if slide_image %}
+              <img
+                src="{{ slide_image | image_url: width: 800 }}"
+                alt="{{ slide_image.alt | escape }}"
+                class="ai-carousel-slide-image-{{ ai_gen_id }}"
+                loading="lazy"
+                width="{{ slide_image.width }}"
+                height="{{ slide_image.height }}"
+              >
+            {% else %}
+              <div class="ai-carousel-slide-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+                {% if forloop.first %}
+                  <div class="ai-carousel-empty-state-{{ ai_gen_id }}">
+                    Add an image to get started
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            <div class="ai-carousel-slide-overlay-{{ ai_gen_id }}">
+              {% if slide_title != blank %}
+                <h3 class="ai-carousel-slide-title-{{ ai_gen_id }}">{{ slide_title }}</h3>
+              {% endif %}
+
+              {% if slide_description != blank %}
+                <p class="ai-carousel-slide-description-{{ ai_gen_id }}">{{ slide_description }}</p>
+              {% endif %}
+
+              <div class="ai-carousel-slide-buttons-{{ ai_gen_id }}">
+                {% if button_1_text != blank %}
+                  <a
+                    href="{{ button_1_link }}"
+                    class="ai-carousel-slide-button-{{ ai_gen_id }} ai-carousel-slide-button-primary-{{ ai_gen_id }}"
+                  >
+                    {{ button_1_text }}
+                  </a>
+                {% endif %}
+
+                {% if button_2_text != blank %}
+                  <a
+                    href="{{ button_2_link }}"
+                    class="ai-carousel-slide-button-{{ ai_gen_id }} ai-carousel-slide-button-secondary-{{ ai_gen_id }}"
+                  >
+                    {{ button_2_text }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if block.settings.show_navigation %}
+      <button
+        class="ai-carousel-nav-{{ ai_gen_id }} ai-carousel-nav-prev-{{ ai_gen_id }}"
+        aria-label="Previous slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        class="ai-carousel-nav-{{ ai_gen_id }} ai-carousel-nav-next-{{ ai_gen_id }}"
+        aria-label="Next slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+
+  {% if block.settings.show_dots %}
+    <div class="ai-carousel-dots-{{ ai_gen_id }}"></div>
+  {% endif %}
+</carousel-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CarouselSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+        this.slidesPerView = {{ block.settings.slides_per_view }};
+        this.slidesPerViewMobile = {{ block.settings.slides_per_view_mobile }};
+        this.autoplay = {{ block.settings.autoplay }};
+        this.autoplayDelay = {{ block.settings.autoplay_delay }} * 1000;
+        this.autoplayTimer = null;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-carousel-track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.ai-carousel-slide-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-carousel-nav-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-carousel-nav-next-{{ ai_gen_id }}');
+        this.dotsContainer = this.querySelector('.ai-carousel-dots-{{ ai_gen_id }}');
+
+        if (this.slides.length === 0) return;
+
+        this.updateSlidesPerView();
+        this.setupNavigation();
+        this.setupDots();
+        this.updateCarousel();
+
+        window.addEventListener('resize', () => {
+          this.updateSlidesPerView();
+          this.updateCarousel();
+        });
+
+        if (this.autoplay) {
+          this.startAutoplay();
+          this.addEventListener('mouseenter', () => this.stopAutoplay());
+          this.addEventListener('mouseleave', () => this.startAutoplay());
+        }
+      }
+
+      updateSlidesPerView() {
+        this.slidesPerView = window.innerWidth <= 749 ? this.slidesPerViewMobile : {{ block.settings.slides_per_view }};
+      }
+
+      setupNavigation() {
+        if (this.prevButton) {
+          this.prevButton.addEventListener('click', () => this.prev());
+        }
+        if (this.nextButton) {
+          this.nextButton.addEventListener('click', () => this.next());
+        }
+      }
+
+      setupDots() {
+        if (!this.dotsContainer) return;
+
+        const totalDots = Math.ceil(this.slides.length / this.slidesPerView);
+        this.dotsContainer.innerHTML = '';
+
+        for (let i = 0; i < totalDots; i++) {
+          const dot = document.createElement('button');
+          dot.classList.add('ai-carousel-dot-{{ ai_gen_id }}');
+          dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          dot.addEventListener('click', () => this.goToSlide(i * this.slidesPerView));
+          this.dotsContainer.appendChild(dot);
+        }
+      }
+
+      updateCarousel() {
+        const slideWidth = this.slides[0].offsetWidth;
+        const gap = {{ block.settings.slide_spacing }};
+        const offset = -(this.currentIndex * (slideWidth + gap));
+
+        this.track.style.transform = 'translateX(' + offset + 'px)';
+
+        if (this.prevButton) {
+          this.prevButton.disabled = this.currentIndex === 0;
+        }
+
+        if (this.nextButton) {
+          const maxIndex = this.slides.length - this.slidesPerView;
+          this.nextButton.disabled = this.currentIndex >= maxIndex;
+        }
+
+        this.updateDots();
+      }
+
+      updateDots() {
+        if (!this.dotsContainer) return;
+
+        const dots = this.dotsContainer.querySelectorAll('.ai-carousel-dot-{{ ai_gen_id }}');
+        const activeDotIndex = Math.floor(this.currentIndex / this.slidesPerView);
+
+        dots.forEach((dot, index) => {
+          if (index === activeDotIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      prev() {
+        if (this.currentIndex > 0) {
+          this.currentIndex = Math.max(0, this.currentIndex - this.slidesPerView);
+          this.updateCarousel();
+        }
+      }
+
+      next() {
+        const maxIndex = this.slides.length - this.slidesPerView;
+        if (this.currentIndex < maxIndex) {
+          this.currentIndex = Math.min(maxIndex, this.currentIndex + this.slidesPerView);
+          this.updateCarousel();
+        }
+      }
+
+      goToSlide(index) {
+        this.currentIndex = Math.min(index, this.slides.length - this.slidesPerView);
+        this.updateCarousel();
+      }
+
+      startAutoplay() {
+        if (!this.autoplay) return;
+        this.stopAutoplay();
+        this.autoplayTimer = setInterval(() => {
+          const maxIndex = this.slides.length - this.slidesPerView;
+          if (this.currentIndex >= maxIndex) {
+            this.currentIndex = 0;
+          } else {
+            this.currentIndex++;
+          }
+          this.updateCarousel();
+        }, this.autoplayDelay);
+      }
+
+      stopAutoplay() {
+        if (this.autoplayTimer) {
+          clearInterval(this.autoplayTimer);
+          this.autoplayTimer = null;
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+    }
+
+    customElements.define('carousel-slider-{{ ai_gen_id }}', CarouselSlider{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Carousel hover details",
+  "tag": null,
+  "class": "carousel-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "label": "Slides per view (desktop)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "label": "Slides per view (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "slide_spacing",
+      "label": "Space between slides",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "slide_height",
+      "label": "Slide height",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "slide_border_radius",
+      "label": "Slide border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Slide style"
+    },
+    {
+      "type": "color",
+      "id": "slide_background",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_text_color",
+      "label": "Overlay text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Text style"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title casing",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "button_text_transform",
+      "label": "Text casing",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_bg",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_text",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_hover_bg",
+      "label": "Hover background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_hover_text",
+      "label": "Hover text",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_border",
+      "label": "Border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_bg",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_text",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_border",
+      "label": "Hover border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "nav_button_size",
+      "label": "Navigation button size",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "nav_button_offset",
+      "label": "Navigation button offset",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "nav_button_bg",
+      "label": "Navigation background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Navigation icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_bg",
+      "label": "Navigation hover background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_color",
+      "label": "Navigation hover icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dots",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active dot color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay delay",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_title",
+      "label": "Title",
+      "default": "Slide 1"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_1_description",
+      "label": "Description",
+      "default": "Add a description for this slide"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_1_text",
+      "label": "Button 1 text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_button_2_text",
+      "label": "Button 2 text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_title",
+      "label": "Title",
+      "default": "Slide 2"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_2_description",
+      "label": "Description",
+      "default": "Add a description for this slide"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_1_text",
+      "label": "Button 1 text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_button_2_text",
+      "label": "Button 2 text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_title",
+      "label": "Title",
+      "default": "Slide 3"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_3_description",
+      "label": "Description",
+      "default": "Add a description for this slide"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_button_1_text",
+      "label": "Button 1 text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_button_2_text",
+      "label": "Button 2 text",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_4_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slide_4_button_1_text",
+      "label": "Button 1 text"
+    },
+    {
+      "type": "url",
+      "id": "slide_4_button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_4_button_2_text",
+      "label": "Button 2 text"
+    },
+    {
+      "type": "url",
+      "id": "slide_4_button_2_link",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_5_title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_5_description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "slide_5_button_1_text",
+      "label": "Button 1 text"
+    },
+    {
+      "type": "url",
+      "id": "slide_5_button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_5_button_2_text",
+      "label": "Button 2 text"
+    },
+    {
+      "type": "url",
+      "id": "slide_5_button_2_link",
+      "label": "Button 2 link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carousel hover details"
+    }
+  ]
+}
+{% endschema %}

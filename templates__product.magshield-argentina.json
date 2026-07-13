@@ -1,0 +1,625 @@
+﻿{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_badges_NibqA6": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 6,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "500",
+            "badge_border_radius": 20,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "LICENSED ARGENTINA COLLECTIBLE",
+            "badge_1_show": true,
+            "badge_1_bg": "#e0eef9",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#f1f1f1",
+            "badge_2_text": "SET OF THREE",
+            "badge_2_show": true,
+            "badge_2_bg": "#eaeaea",
+            "badge_2_text_color": "#000000",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "text_4DjpJk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The First of Its Kind Football Collectible for Your iPhone.<strong><br\/>Carry the Champions:<\/strong> A Collectible That Becomes Part of Your Everyday Carry<\/p>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "sku_cPAfKw": {
+          "type": "sku",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "modal_eN7jfw": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_j4pEmy": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_2c7353ad-9e57-4d61-ac82-70be95c7a917.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f5fbff",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_5898d2e2-5c72-4760-9e7a-e37dd63d75b8.png",
+            "offer_2_icon_width": 20,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f5fbff",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_f2d168e0-fd2e-43d4-a19d-8c1a71da5ab3.png",
+            "offer_3_icon_width": 20,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f5fbff",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "modal_EyikEh": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "SPECIFICATIONS",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "",
+            "modal_content": "<p><strong>Material:<\/strong> Stainless Steel<br\/><strong>Finish:<\/strong> Soft Matte Metallic Finish<br\/><strong>Attachment:<\/strong> Magnetic<br\/><strong>Compatibility: <\/strong>iPhone and magnetic-compatible phone cases<br\/><strong>Collection:<\/strong> Argentina Edition<br\/><strong>Quantity:<\/strong> Set of 3 MagShields<br\/><\/p>",
+            "modal_size": "sm"
+          }
+        }
+      },
+      "block_order": [
+        "custom_badges_NibqA6",
+        "title",
+        "text_4DjpJk",
+        "price",
+        "rating",
+        "variant_picker",
+        "payment_terms",
+        "sku_cPAfKw",
+        "buy_buttons",
+        "modal_eN7jfw",
+        "offers_j4pEmy",
+        "modal_EyikEh"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}",
+        ".product {gap: 1rem;}",
+        ".product-title {padding: 0 !important;}",
+        ".product-info__block-item {margin: 15px 0;}",
+        "sale-price {margin-bottom: 10px; margin-top: 5px; font-weight: bold;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "grid_half_highlight_first",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "numbers",
+        "enable_media_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "specifications_CP4tEq": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_jCyfCg": {
+          "type": "attribute",
+          "settings": {
+            "icon": "picto-secure",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "24K GOLD",
+            "content": "<p>Write some content.<\/p>"
+          }
+        },
+        "attribute_QY7AUP": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/sign-icon_d49da9e7-9569-4221-9082-cf2866a49ae4.png",
+            "title": "HAND SIGNED",
+            "content": "<p>Write some content.<\/p>"
+          }
+        },
+        "attribute_JpjUwQ": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "LEGXI COA",
+            "content": "<p>Certificate of Authentication<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_jCyfCg",
+        "attribute_QY7AUP",
+        "attribute_JpjUwQ"
+      ],
+      "disabled": true,
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "FEATURES",
+        "title": "Specifications",
+        "heading_size": "h4",
+        "content": "<p>The Argentine Icons 24K Signature Series honours both - a limited edition tribute to the players who carried a nation’s dream and delivered it to the world. <\/p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "media_blocks_LGBMUA": {
+      "type": "media-blocks",
+      "blocks": {
+        "image_with_text_QCkfd9": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/Artboard-1_1.webp",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "middle_center",
+            "subheading": "",
+            "subheading_position": "middle_center",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "middle_center",
+            "scrolling_title": false,
+            "scrolling_title_separator": "none",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "middle_center",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        },
+        "image_with_text_Pt3gt6": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/how_it_works.webp",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "middle_center",
+            "subheading": "",
+            "subheading_position": "middle_center",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "middle_center",
+            "scrolling_title": false,
+            "scrolling_title_separator": "none",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "middle_center",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_QCkfd9",
+        "image_with_text_Pt3gt6"
+      ],
+      "name": "t:sections.media_blocks.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": false,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h4",
+        "text_alignment": "center",
+        "scrolling_title": false,
+        "scrolling_title_separator": "circle",
+        "stack_on_mobile": true,
+        "add_horizontal_spacing": false,
+        "add_border": false,
+        "column_spacing": "none",
+        "items_per_row": 2,
+        "block_size": "auto"
+      }
+    },
+    "text_with_media_ikUQBL": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_bmtjDE": {
+          "type": "subheading",
+          "settings": {
+            "text": "A JOURNEY THAT INSPIRES",
+            "position": "top_left"
+          }
+        },
+        "heading_y3jzKP": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>Lionel Messi  “A Napkin. A Signature. History.”<\/strong>",
+            "heading_tag": "h3",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_NT7QmM": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Age 13, a paper napkin carried the first signature of belief in Lionel Messi’s future.<br\/> This collectible transforms that beginning into a design language of legacy.<\/p><p>The textured Argentina relief map traces the nation that shaped him, while Rosario stands marked as the birthplace of a player who changed football forever. The golden football element represents football immortality, balanced against a minimalist white composition inspired by modern museum presentation.<\/p><p>Finished with Messi’s signature and individually numbered in a strictly limited edition. A collectible designed for the era that witnessed greatness in real time.<\/p>",
+            "position": "top_left"
+          }
+        },
+        "button_Yb7jzA": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "text": "Button text",
+            "url": "",
+            "position": "bottom_left",
+            "style": "solid",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_bmtjDE",
+        "heading_y3jzKP",
+        "richtext_NT7QmM",
+        "button_Yb7jzA"
+      ],
+      "disabled": true,
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "",
+        "content_position": "end",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify:\/\/shop_images\/Artboard-6_96bc37e3-3a09-46c2-a425-a8698d228cbb.png",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our shop",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Discover our products",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Related products",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "stack_products": true,
+        "recommendations_count": 4,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4,
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "1781112044f505a227": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_B4mKFU": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_B4mKFU"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "faq_QdmdQY": {
+      "type": "faq",
+      "blocks": {
+        "question_pTNYMY": {
+          "type": "question",
+          "settings": {
+            "question": "What is a LEGXI MagShield?",
+            "answer": "<p>LEGXI MagShield is a premium stainless steel football collectible designed to magnetically attach to your iPhone or compatible magnetic phone case. It allows you to carry iconic football moments with you every day.<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_jgXHYU": {
+          "type": "question",
+          "settings": {
+            "question": "Is this an officially licensed product?",
+            "answer": "<p>Yes. The Argentina Edition is created under LEGXI's official licensing partnership with Argentina Football Association.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_Yy9gTR": {
+          "type": "question",
+          "settings": {
+            "question": "What is included in the Argentina Edition?",
+            "answer": "<p>The Argentina Edition includes a complete set of three MagShields:<\/p><p>•⁠  <strong>⁠Lionel Messi<\/strong> #10<br\/>•⁠  ⁠<strong>Emiliano Martínez<\/strong> #23<br\/>•⁠  ⁠<strong>Julián Álvarez<\/strong> #9<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_k9DDUQ": {
+          "type": "question",
+          "settings": {
+            "question": "How does MagShield attach to my phone?",
+            "answer": "<p>Each MagShield features a built-in magnetic attachment system that securely connects to MagSafe-compatible iPhones and magnetic phone cases. Simply place the MagShield on the back of your device and it attaches instantly<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_miCXWW": {
+          "type": "question",
+          "settings": {
+            "question": "Will MagShield work with all phones?",
+            "answer": "<p>MagShield works best with MagSafe-compatible iPhones and magnetic phone cases. For non-magnetic devices, a compatible magnetic case or ring may be required<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_RtJgEN": {
+          "type": "question",
+          "settings": {
+            "question": "Can I switch between different MagShields?",
+            "answer": "<p>Yes.<br\/>You can easily remove one MagShield and replace it with another in seconds<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_VG3k3L": {
+          "type": "question",
+          "settings": {
+            "question": "What makes MagShield different from regular phone accessories?",
+            "answer": "<p>MagShield is not a sticker, skin, phone case, or pop grip.<br\/>It is a premium stainless steel football collectible designed specifically for your phone, creating an entirely new way to collect, display, and carry sporting icons<br\/><\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_k9FUyg": {
+          "type": "question",
+          "settings": {
+            "question": "Is this a collectible or an accessory?",
+            "answer": "<p>Both. MagShield is designed as a collectible and an everyday carry item, combining premium craftsmanship with practical magnetic attachment<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_pTNYMY",
+        "question_jgXHYU",
+        "question_Yy9gTR",
+        "question_k9DDUQ",
+        "question_miCXWW",
+        "question_RtJgEN",
+        "question_VG3k3L",
+        "question_k9FUyg"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "layout": "stacked",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently asked questions",
+        "title_tag": "h3",
+        "content": "",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specifications_CP4tEq",
+    "media_blocks_LGBMUA",
+    "text_with_media_ikUQBL",
+    "scrolling_content_EPB3cB",
+    "related-products",
+    "1781112044f505a227",
+    "faq_QdmdQY"
+  ]
+}
+

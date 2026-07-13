@@ -1,0 +1,127 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement_bar_PLQGUY": {
+      "type": "announcement-bar",
+      "blocks": {
+        "message_hEkw9m": {
+          "type": "message",
+          "settings": {
+            "text": "AFA hand signed memorabilia  •  Collection Coming Soon"
+          }
+        },
+        "message_TcAzpP": {
+          "type": "message",
+          "settings": {
+            "text": "LEGXI • FOR THE CHOSEN"
+          }
+        }
+      },
+      "block_order": [
+        "message_hEkw9m",
+        "message_TcAzpP"
+      ],
+      "name": "t:sections.announcement_bar.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "enable_sticky": true,
+        "autoplay": true,
+        "cycle_speed": 3
+      }
+    },
+    "countdown-condensed": {
+      "type": "countdown-condensed",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-5",
+        "heading": "End of season soon",
+        "layout": "split",
+        "expiration_date": "2030-07-03 12:00",
+        "expiration_behavior": "leave",
+        "show_inline_timer": true,
+        "button_text": "Last chance",
+        "button_url": "shopify:\/\/collections\/all",
+        "button_style": "link",
+        "connect_button_with_heading": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "mega_menu_eq348r": {
+          "type": "mega_menu",
+          "settings": {
+            "menu_item": "",
+            "mega_menu_justify_content": "justify-between",
+            "stretch_promo_blocks": false,
+            "promo_column_gap": "0px",
+            "promo_text_alignment": "left",
+            "promo_heading_tag": "subheading",
+            "promo_text_color": "#ffffff",
+            "promo_1_product": "",
+            "promo_1_heading": "",
+            "promo_1_text": "",
+            "promo_1_link": "",
+            "promo_2_product": "",
+            "promo_2_heading": "",
+            "promo_2_text": "",
+            "promo_2_link": "",
+            "promo_3_product": "",
+            "promo_3_heading": "",
+            "promo_3_text": "",
+            "promo_3_link": "",
+            "promo_4_product": "",
+            "promo_4_heading": "",
+            "promo_4_text": "",
+            "promo_4_link": "",
+            "promo_5_product": "",
+            "promo_5_heading": "",
+            "promo_5_text": "",
+            "promo_5_link": "",
+            "promo_6_product": "",
+            "promo_6_heading": "",
+            "promo_6_text": "",
+            "promo_6_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_eq348r"
+      ],
+      "custom_css": [
+        ".h-stack .subheading {display: none;}",
+        ".h-stack svg.icon {display: none;}",
+        ".h-stack {pointer-events: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "enable_sticky": false,
+        "hide_on_scroll": true,
+        "mobile_layout": "logo_center_navigation_split",
+        "desktop_layout": "logo_left_navigation_center",
+        "logo": "shopify:\/\/shop_images\/logo-dark.png",
+        "logo_max_width": 70,
+        "logo_mobile_max_width": 70,
+        "menu": "main-menu",
+        "drawer_menu": "main-menu",
+        "secondary_menu": "",
+        "desktop_dropdown_menu_style": "below",
+        "menu_open_trigger": "click",
+        "desktop_icon_size": 18,
+        "drawer_show_nested_menu_indicator": true,
+        "show_country_selector": true,
+        "show_country_name": false,
+        "show_country_flag": false,
+        "show_locale_selector": true,
+        "transparent_header_text_color": "#ffffff",
+        "transparent_logo": "shopify:\/\/shop_images\/logo-transparent-header.png"
+      }
+    }
+  },
+  "order": [
+    "announcement_bar_PLQGUY",
+    "countdown-condensed",
+    "header"
+  ]
+}

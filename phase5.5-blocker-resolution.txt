@@ -1,0 +1,244 @@
+================================================================================
+  PHASE 5.5 — BLOCKER RESOLUTION REPORT
+  Generated: 2026-07-04
+  READ ONLY — No Shopify writes. No note changes.
+================================================================================
+
+OBJECTIVE
+─────────
+Resolve every CRITICAL and HIGH blocker identified in Phase 5 before
+production sync is permitted to run.
+
+================================================================================
+  SUMMARY TABLE
+================================================================================
+
+  Blocker               Order   Severity   Auto?   Resolution
+  ──────────────────────────────────────────────────────────────────────────────
+  DATA_LOSS+DATA_CONFLICT #1504  CRITICAL   No      Add 2 worksheet rows (#932,
+                                                    #938) to 2011 tab. Then safe.
+  TYPO_BLOCKED            #1498  HIGH       No      NAMDE=NAMDU proven (same
+                                                    variant). Correct note line
+                                                    with approval.
+  WRONG_PRODUCT (AS02)    #1318  HIGH       Yes     Note line confirmed valid.
+                                                    Sync keeps it. Resolved.
+  WRONG_PRODUCT (2011)    #1411  HIGH       Yes     Confirmed valid. Resolved.
+  WRONG_PRODUCT (2011)    #1420  HIGH       Yes     Confirmed valid. Resolved.
+  WRONG_PRODUCT (2011)    #1446  HIGH       Yes     Confirmed valid. Resolved.
+
+================================================================================
+  OUTSTANDING BLOCKERS — 2 REMAIN (action required before sync)
+================================================================================
+
+  [1] CRITICAL — Order #1504
+      Add 2 rows to the "THE 2011 WORLD CUP CHAMPIONS EDITION" worksheet tab:
+        - Order #1504 | Edition #932
+        - Order #1504 | Edition #938
+      Do NOT touch order #1504's note until these rows exist.
+
+  [2] HIGH — Order #1498
+      Approve correcting note line:
+        FROM:  THE 18 - EE SALA CUP NAMDE|#081
+        TO:    THE 18 - EE SALA CUP NAMDU|#081
+      Product identity proven (same Shopify variant ID). Write requires
+      explicit approval. Once corrected, 5 bundle component lines unblocked.
+
+================================================================================
+  CRITICAL — ORDER #1504 (SHREYASKUMAR Chaudhari)
+================================================================================
+
+WHY BLOCKED
+───────────
+Phase 4 planned to LEGACY_REMOVE both:
+  "2011 WORLD CUP CHAMPIONS EDITION|#932"
+  "2011 WORLD CUP CHAMPIONS EDITION|#938"
+and add "THE 2011 WORLD CUP CHAMPIONS EDITION|#110".
+
+Editions #932 and #938 do not exist anywhere in the worksheet. Removing them
+destroys certificate records with no recovery path from project data alone.
+
+SOURCE OF TRUTH ANALYSIS
+─────────────────────────
+Shopify line items for #1504:
+  - THE 18 - EE SALA CUP NAMDU        qty=1  (bundle parent)
+  - 2011 WORLD CUP CHAMPIONS EDITION  qty=2  (SEPARATE standalone purchase)
+
+This order is a DOUBLE PURCHASE:
+
+  Source          Product                          Qty  Edition  Worksheeted?
+  ─────────────────────────────────────────────────────────────────────────────
+  Bundle (THE 18) 2011 as bundle component          1    #110    YES
+  Standalone      2011 WORLD CUP CHAMPIONS EDITION  2    #932    NO
+                                                         #938    NO
+
+The worksheet correctly covers the bundle component (edition #110).
+It does NOT cover the qty=2 standalone purchase.
+Editions #932 and #938 are from the pre-worksheet certificate assignment
+system — the note is the only record of these two certificates.
+
+AUTOMATIC RESOLUTION POSSIBLE? NO
+──────────────────────────────────
+The worksheet is incomplete for this order. Two rows are missing.
+
+MANUAL ACTION REQUIRED
+──────────────────────
+1. Open the "THE 2011 WORLD CUP CHAMPIONS EDITION" worksheet tab.
+2. Add two new rows for order #1504:
+     - Order #1504 | Edition #932
+     - Order #1504 | Edition #938
+3. After worksheet update, the sync will safely:
+     - Convert legacy lines to tab-name format (format change only, no data loss)
+     - Add the bundle component line: THE 2011 WORLD CUP CHAMPIONS EDITION|#110
+4. Final note for #1504 will have 3 lines for 2011: #110 (bundle), #932, #938 (standalone)
+
+DO NOT remove #932 or #938 from the note until the worksheet rows exist.
+
+================================================================================
+  HIGH — ORDER #1498 (Akshay Kumar) — NAMDE vs NAMDU
+================================================================================
+
+WHY BLOCKED
+───────────
+Shopify line item title is "THE 18 - EE SALA CUP NAMDE".
+Canonical product and worksheet tab are named "NAMDU".
+System could not confirm same product — 5 bundle lines BLOCKED.
+
+ARE NAMDE AND NAMDU THE SAME PRODUCT?
+──────────────────────────────────────
+YES. Proven conclusively from Shopify variant IDs:
+
+  Order   Line item title                    variantId
+  ──────────────────────────────────────────────────────────────
+  #1498   THE 18 - EE SALA CUP NAMDE        47787134746798
+  #1499   THE 18 - EE SALA CUP NAMDU        47787134746798
+  #1502   THE 18 - EE SALA CUP NAMDU        47787134746798
+  #1503   THE 18 - EE SALA CUP NAMDU        47787134746798
+
+Same variant ID = same physical product.
+One product exists in Shopify: id=9094858703022, title="THE 18 - EE SALA CUP NAMDU".
+NAMDE is a title typo captured in the order line item at time of purchase.
+#1498 is the only order affected. All subsequent orders show NAMDU.
+
+#1498 Akshay Kumar DID purchase THE 18 - EE SALA CUP NAMDU.
+Worksheet correctly assigns edition #081 to this order across all 5 bundle tabs.
+
+AUTOMATIC RESOLUTION POSSIBLE? PARTIAL
+───────────────────────────────────────
+NAMDE = NAMDU is proven from data.
+Shopify line item title is an immutable snapshot — cannot be changed retroactively.
+The note must be corrected at the note level (write operation).
+
+RECOMMENDED NORMALIZATION (requires approval)
+──────────────────────────────────────────────
+Replace in order #1498 note:
+  FROM:  THE 18 - EE SALA CUP NAMDE|#081
+  TO:    THE 18 - EE SALA CUP NAMDU|#081
+
+Edition #081 is preserved. Product identity is proven. This is a format/typo
+correction only.
+
+Once corrected, all 5 bundle component lines are unblocked for #1498:
+  - World T20 Champions Edition - 2026|#081
+  - 2007 : The Birth of India's T20 Era|#081
+  - THE 2011 WORLD CUP CHAMPIONS EDITION|#081
+  - Hand Signed Ball | AS02|#081
+
+================================================================================
+  HIGH — ORDER #1318 (Mihir Kotak) — Hand Signed Ball | AS02|#017
+================================================================================
+
+WHY CLASSIFIED WRONG_PRODUCT
+──────────────────────────────
+ground-truth.mjs confirmedDirect for #1318 only includes
+"God of Cricket : 100 Centuries Edition". It did not detect
+"Hand Signed Ball | AS02" as confirmed because the line item uses
+the old product title and the confirmedDirect logic only checks
+the current Shopify product title.
+
+WHY THE CLASSIFICATION IS INCORRECT
+──────────────────────────────────────
+Shopify line items for #1318:
+  - God of Cricket : 100 Centuries Edition   qty=1  variantId=47217734680750
+  - Hand Signed Ball | AS02                  qty=1  variantId=46767325806766
+  - GOC Edition Number #100                  qty=1  (edition add-on)
+  - AS02 Ball Edition Number #017            qty=1  (EXPLICIT edition proof)
+
+"Hand Signed Ball | AS02" IS in the line items (old product title = tab name).
+"AS02 Ball Edition Number #017" explicitly confirms edition #017 from Shopify itself.
+
+Purchase: CONFIRMED. Edition: DOUBLY CONFIRMED.
+Worksheet: Missing row for #1318 in "Hand Signed Ball | AS02" tab.
+Note line format: TAB_NAME — correct.
+
+STATUS: RESOLVED
+────────────────
+The note line "Hand Signed Ball | AS02|#017" is CORRECT and VALID.
+Phase 4 EXTRA_FLAG action = keep as-is. This is already correct behaviour.
+No sync risk. Note line will not be touched.
+
+MANUAL ACTION (for worksheet completeness — not required for sync):
+  Add row: Order #1318 | Edition #017 | to "Hand Signed Ball | AS02" worksheet tab.
+
+================================================================================
+  HIGH — ORDERS #1411, #1420, #1446 — THE 2011 WORLD CUP CHAMPIONS EDITION
+================================================================================
+
+WHY CLASSIFIED WRONG_PRODUCT
+──────────────────────────────
+Same root cause as #1318. confirmedDirect does not detect old-title purchases.
+The 2011 product was renamed from "THE 2011 WORLD CUP CHAMPIONS EDITION" to
+"2011 WORLD CUP CHAMPIONS EDITION" (removed "THE"). Old-title orders are not
+caught by the confirmedDirect check.
+
+SHOPIFY CONFIRMATION
+──────────────────────
+  Order   Customer              Edition  Shopify line item                      variantId
+  ──────────────────────────────────────────────────────────────────────────────────────────
+  #1411   AKSHAR PATEL          #964     THE 2011 WORLD CUP CHAMPIONS EDITION   47440566321326
+  #1420   Jagjit Singh          #866     THE 2011 WORLD CUP CHAMPIONS EDITION   47440566321326
+  #1446   Siddharth Saudatti    #941     THE 2011 WORLD CUP CHAMPIONS EDITION   47571688685742
+
+New-title orders (e.g. #1482, #1484, #1492) use variantId=47440566321326 — same.
+All variants are on the same product. Purchases: CONFIRMED.
+
+ABOUT THE HIGH EDITION NUMBERS (#866, #941, #964)
+──────────────────────────────────────────────────
+These editions are from a pre-worksheet certificate assignment system.
+27 orders total have the old 2011 title — all absent from the current worksheet
+— all with editions in the 800-960+ range (plus a few low numbers).
+These 27 orders were assigned certificates before the current worksheet was set up.
+The note lines represent real, historical, valid certificates.
+
+STATUS: RESOLVED
+────────────────
+All 3 note lines are CORRECT and VALID.
+Phase 4 EXTRA_FLAG action = keep as-is. This is already correct behaviour.
+No sync risk. These lines will not be touched by sync.
+
+MANUAL ACTION (for worksheet completeness — not required for sync):
+  All 3 orders are part of a 27-order cohort of pre-worksheet 2011 purchases.
+  The full cohort worksheet reconciliation is a separate task outside this sync.
+
+================================================================================
+  ROOT CAUSE NOTE — confirmedDirect bug in ground-truth.mjs
+================================================================================
+
+The WRONG_PRODUCT classification for #1318, #1411, #1420, #1446 stems from a
+limitation in ground-truth.mjs: the confirmedDirect field is built by matching
+line item titles against the CURRENT Shopify product title only. Old-title
+purchases (where the line item title = pre-rename product title = tab name) are
+not captured in confirmedDirect.
+
+This does not affect the correctness of Phase 2 or Phase 4 for WORKSHEETED rows
+(Phase 2 uses its own oldNameDirect check). It only affects the extraInNote
+classification for note lines that correspond to confirmed but un-worksheeted
+purchases.
+
+Impact: limited to EXTRA_FLAG classification. Since EXTRA_FLAG lines are kept
+as-is and not removed, the sync behaviour is already correct for these orders.
+A fix to ground-truth.mjs would reclassify these from EXTRA_FLAG (WRONG_PRODUCT)
+to EXTRA_KEEP (UNTRACKED_CERT), but this does not change what the sync does.
+
+================================================================================
+  END OF PHASE 5.5 REPORT
+================================================================================

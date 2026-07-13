@@ -1,0 +1,801 @@
+{
+  "sections": {
+    "video_6jgTt8": {
+      "type": "video",
+      "blocks": {
+        "subheading_JazmxU": {
+          "type": "subheading",
+          "settings": {
+            "text": "LEGXI × AFA",
+            "position": "middle_center"
+          }
+        },
+        "heading_ACjPNF": {
+          "type": "heading",
+          "settings": {
+            "text": "CERTIFIED HAND-SIGNED ARGENTINE COLLECTIBLES",
+            "mobile_heading_tag": "h1",
+            "desktop_heading_tag": "sm:h1",
+            "position": "middle_center",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "play_button_dzYtjf": {
+          "type": "play_button",
+          "settings": {
+            "position": "middle_center",
+            "show_play_cursor": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_JazmxU",
+        "heading_ACjPNF",
+        "play_button_dzYtjf"
+      ],
+      "name": "t:sections.video.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "show_controls": false,
+        "video_size": "md",
+        "mobile_video_size": "md",
+        "video": "shopify:\/\/files\/videos\/AFA Desktop Banner_3200X1600 (4).mp4",
+        "mobile_video": "shopify:\/\/files\/videos\/AFA Phone Banner_1800X1920 (1).mp4",
+        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+      }
+    },
+    "ownership_highlights_BwcGPi": {
+      "type": "ownership-highlights",
+      "blocks": {
+        "feature_item_kJE6hE": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "TOTAL",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "84 Pieces",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_XwWU9N": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PERSONALLY SIGNED BY",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Lionel Messi & others",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_XftpVd": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "CRAFTMANSHIP",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Hand Finished",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_B9xdxi": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PROVENANCE",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Official Argentine Collection",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_dJ4E6f": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "ONE LAST CHANCE",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Last World Cup of numeric Legends",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_7XrAFG": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "FOREVER",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Legacy worth owning",
+            "title_color": "",
+            "title_font_size_desktop": 32,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_kJE6hE",
+        "feature_item_XwWU9N",
+        "feature_item_XftpVd",
+        "feature_item_B9xdxi",
+        "feature_item_dJ4E6f",
+        "feature_item_7XrAFG"
+      ],
+      "name": "Ownership Highlights",
+      "settings": {
+        "section_heading": "ESSENCE OF OWNERSHIP",
+        "section_subheading": "",
+        "heading_alignment": "center",
+        "heading_color": "",
+        "heading_font_size_desktop": 16,
+        "heading_font_size_mobile": 13,
+        "heading_font_weight": "600",
+        "color_scheme": "scheme-2",
+        "bg_color": "",
+        "container_width": "page",
+        "content_max_width": 1200,
+        "grid_gap": 64,
+        "pt_desktop": 120,
+        "pb_desktop": 120,
+        "pt_mobile": 60,
+        "pb_mobile": 60,
+        "enable_hover": true,
+        "enable_dividers": false
+      }
+    },
+    "rich_text_DJj4PE": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_egRKEV": {
+          "type": "heading",
+          "settings": {
+            "text": "THE CHOSEN COLLECTION",
+            "heading_tag": "h2",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_egRKEV"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "image_with_text_overlay_hCN9VE": {
+      "type": "image-with-text-overlay",
+      "disabled": true,
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/Untitled-3_1.png",
+        "mobile_image": "shopify:\/\/shop_images\/Untitled-2_1.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "featured_product_list_Fnj9Bw": {
+      "type": "featured-product-list",
+      "name": "t:sections.featured_product_list.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "product_list": [
+          "argentine-icons-24k-signature-series"
+        ],
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 2,
+        "intro_color_scheme": "",
+        "intro_image": "shopify:\/\/shop_images\/magnific_use-img1-and-place-all-th_Kje4cLUkqp.png",
+        "intro_image_overlay": "#1c1c1c4f",
+        "intro_title": "Hand-Signed Artworks | 55 Collectibles",
+        "intro_title_tag": "h5",
+        "intro_content": "",
+        "intro_button_text": "",
+        "intro_button_link": "",
+        "intro_button_style": "outline"
+      }
+    },
+    "custom_liquid_8YGEBf": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "rich_text_NEpGKc": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_FPWDjq": {
+          "type": "heading",
+          "settings": {
+            "text": "LEGXI GOAT COLLECTOR TRIO SET",
+            "heading_tag": "h2",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_FPWDjq"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "featured_product_list_nQpN9F": {
+      "type": "featured-product-list",
+      "name": "t:sections.featured_product_list.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "product_list": [
+          "legxi-champions-trinity-set-1"
+        ],
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 2,
+        "intro_color_scheme": "",
+        "intro_image": "shopify:\/\/shop_images\/magnific_use-the-attached-collecti_wPEJvyQ7EI.png",
+        "intro_image_overlay": "#1c1c1c70",
+        "intro_title": "Hand-Signed Memorabilia | 9 Collectibles",
+        "intro_title_tag": "h5",
+        "intro_content": "",
+        "intro_button_text": "",
+        "intro_button_link": "",
+        "intro_button_style": "outline"
+      }
+    },
+    "custom_liquid_NGBjAj": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "products_with_image_A4Ctk9": {
+      "type": "products-with-image",
+      "blocks": {
+        "heading_xYnWAM": {
+          "type": "heading",
+          "settings": {
+            "text": "Products with image",
+            "heading_tag": "h4",
+            "position": "bottom_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_xYnWAM"
+      ],
+      "disabled": true,
+      "name": "t:sections.products_with_image.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "products": [
+          "legxi-champions-trinity-set-1"
+        ],
+        "desktop_product_list_position": "start",
+        "image": "shopify:\/\/shop_images\/magnific_use-the-attached-collecti_wPEJvyQ7EI.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "desktop_product_layout": "grid",
+        "mobile_product_layout": "carousel",
+        "mobile_products_per_row": "2"
+      }
+    },
+    "image_with_text_overlay_eQhiEQ": {
+      "type": "image-with-text-overlay",
+      "disabled": true,
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/banner-main.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "before_after_EaWNMk": {
+      "type": "before-after",
+      "blocks": {
+        "before_XVWPKh": {
+          "type": "before",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify:\/\/shop_images\/Banner-before.jpg",
+            "text": "",
+            "text_size": "h7",
+            "text_position": "start"
+          }
+        },
+        "after_xDwkUH": {
+          "type": "after",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify:\/\/shop_images\/banner-main.jpg",
+            "text": "",
+            "text_size": "h7",
+            "text_position": "start"
+          }
+        }
+      },
+      "block_order": [
+        "before_XVWPKh",
+        "after_xDwkUH"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2 {font-size: 52px; letter-spacing: 8px; color: #43a1d5;}",
+        "p {letter-spacing: 3px; color: rgba(255, 255, 255, 0.7);}",
+        ".before-after__label,.before-after__cursor-icon {display: none;}"
+      ],
+      "name": "t:sections.before_after.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "stacked",
+        "add_comparison_spacing": false,
+        "subheading": "",
+        "title": "",
+        "title_tag": "h7",
+        "content": "",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid",
+        "cursor_direction": "horizontal",
+        "cursor_initial_position": 34,
+        "cursor_background": "#ffffff",
+        "cursor_arrows_color": "#43a1d5"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_title": false,
+        "content_width": "md"
+      }
+    },
+    "scrolling_content_CYx4cp": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_tBF9ng": {
+          "type": "text",
+          "settings": {
+            "text": "JOIN THE <em>EXCLUSIVE<\/em> COLLECTORS LIST",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_KPNnYe": {
+          "type": "text",
+          "settings": {
+            "text": "LAUNCHING <em>SOON<\/em>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_tBF9ng",
+        "text_KPNnYe"
+      ],
+      "disabled": true,
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": -2,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 2.5,
+        "section_vertical_spacing_mobile": 20,
+        "section_vertical_spacing_desktop": 30,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 60
+      }
+    },
+    "17811035112a0a9eb8": {
+      "type": "_blocks",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "featured_collections_xxWYFR": {
+      "type": "featured-collections",
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "custom_bg": "",
+        "custom_text": "",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": false,
+        "show_scrolling_bar": true
+      }
+    },
+    "featured_collections_dfqQex": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_qgGwCK": {
+          "type": "collection",
+          "settings": {
+            "collection": "afa-signed-collectibles",
+            "products_count": 6,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_qgGwCK"
+      ],
+      "disabled": true,
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "custom_bg": "",
+        "custom_text": "",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "rich_text_YdwKcE": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_c9qdtt": {
+          "type": "heading",
+          "settings": {
+            "text": "AFA GLORY 2022 & 2026 SIGNATURE SERIES",
+            "heading_tag": "h2",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_c9qdtt"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "image_with_text_overlay_aMPf7R": {
+      "type": "image-with-text-overlay",
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/AFA_Banner_3200X1600_7de3717a-95bd-40d7-91fb-7666bd662a4f.webp",
+        "mobile_image": "shopify:\/\/shop_images\/Phone_AFA_Banner_2.webp",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "dual_product_carousel_Jx4Tb6": {
+      "type": "dual-product-carousel",
+      "name": "Product Carousel",
+      "settings": {
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "product_list": [
+          "campeones-world-cup-2022-edition",
+          "la-scaloneta-squad-edition"
+        ],
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 2
+      }
+    },
+    "countdown_Vnq4iU": {
+      "type": "countdown",
+      "disabled": true,
+      "custom_css": [
+        "h2 {font-size: 36px; letter-spacing: 4px; color: #0598d5;}",
+        ".countdown__item {border: 1px solid rgba(67, 161, 213, 0.4); padding: 16px 24px; border-radius: 8px; background: rgba(117, 170, 219, 0.05);}",
+        ".button {background: #43a1d5; color: #000; border: none; letter-spacing: 2px; font-weight: 700;}",
+        ".button:hover {background: #fff; color: #000;}",
+        "h2:hover {color: #fff;}",
+        ".countdown__timer:hover {transform: translateY(-6px); border-color: rgba(67, 161, 213, 0.9); transition: all 0.3s ease;}",
+        "@media (max-width: 480px) {h2 {font-size: 18px; }}"
+      ],
+      "name": "t:sections.countdown_timer.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "image_position": "split",
+        "image_size": "md",
+        "add_image_spacing": false,
+        "subheading": "",
+        "title": "<strong>The Wait Is Almost Over<\/strong>",
+        "heading_tag": "h7",
+        "content": "",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid",
+        "expiration_date": "2026-06-11",
+        "expiration_behavior": "hide",
+        "timer_size": "h4",
+        "show_timer_borders": false,
+        "animate_timer_numbers": true,
+        "caption_text": "",
+        "caption_scrolling": false,
+        "caption_text_color": ""
+      }
+    },
+    "custom_liquid_X8hpHe": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "1775425429d867f4d6": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_pQkke6": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "980079",
+            "text_color": "#ffffff",
+            "button_background_color": "#0d3f4b",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_pQkke6"
+      ],
+      "custom_css": [
+        ".prose {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": true
+      }
+    },
+    "blocks_ggqj7q": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8811cc2_CiawmT": {
+          "type": "ai_gen_block_8811cc2",
+          "settings": {
+            "button_text": "Apply for Ownership",
+            "button_link": "#ATUYxdFhlYjlGOEFVe__forms_inline_pQkke6",
+            "horizontal_offset": 30,
+            "vertical_offset": 30,
+            "horizontal_offset_mobile": 15,
+            "vertical_offset_mobile": 20,
+            "button_background": "#5297ab",
+            "button_text_color": "#ffffff",
+            "button_hover_background": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "font_size": 12,
+            "font_size_mobile": 11,
+            "text_transform": "uppercase",
+            "letter_spacing": 0,
+            "border_radius": 0,
+            "padding_horizontal": 30,
+            "padding_vertical": 15,
+            "padding_horizontal_mobile": 20,
+            "padding_vertical_mobile": 12
+          },
+          "blocks": {}
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8811cc2_CiawmT"
+      ],
+      "name": "Fixed waitlist button",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    }
+  },
+  "order": [
+    "video_6jgTt8",
+    "rich_text_DJj4PE",
+    "image_with_text_overlay_hCN9VE",
+    "featured_product_list_Fnj9Bw",
+    "custom_liquid_8YGEBf",
+    "rich_text_NEpGKc",
+    "featured_product_list_nQpN9F",
+    "custom_liquid_NGBjAj",
+    "products_with_image_A4Ctk9",
+    "image_with_text_overlay_eQhiEQ",
+    "before_after_EaWNMk",
+    "main",
+    "scrolling_content_CYx4cp",
+    "17811035112a0a9eb8",
+    "featured_collections_xxWYFR",
+    "featured_collections_dfqQex",
+    "rich_text_YdwKcE",
+    "image_with_text_overlay_aMPf7R",
+    "dual_product_carousel_Jx4Tb6",
+    "countdown_Vnq4iU",
+    "custom_liquid_X8hpHe",
+    "ownership_highlights_BwcGPi",
+    "1775425429d867f4d6",
+    "blocks_ggqj7q"
+  ]
+}

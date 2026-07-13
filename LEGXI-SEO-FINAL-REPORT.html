@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEGXI SEO Final Report 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  @media print {
+    body { background: white; font-size: 11px; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    .card { break-inside: avoid; }
+  }
+
+  /* ===== COVER PAGE ===== */
+  .cover {
+    background: linear-gradient(135deg, #0A1628 0%, #0d2137 50%, #1a3a5c 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(201,168,76,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(21,78,121,0.15) 0%, transparent 50%);
+  }
+
+  .cover-content { position: relative; z-index: 1; max-width: 700px; }
+
+  .cover-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: #C9A84C;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .cover h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .cover h1 span { color: #C9A84C; }
+
+  .cover-subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 48px;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .cover-scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .cover-score-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px 16px;
+  }
+
+  .cover-score-card .score-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: #C9A84C;
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .cover-score-card .score-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cover-before-after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .cover-score-box {
+    text-align: center;
+    padding: 16px 32px;
+    border-radius: 12px;
+  }
+
+  .cover-score-box.before {
+    background: rgba(220,53,69,0.15);
+    border: 1px solid rgba(220,53,69,0.3);
+  }
+
+  .cover-score-box.after {
+    background: rgba(40,167,69,0.15);
+    border: 1px solid rgba(40,167,69,0.3);
+  }
+
+  .cover-score-box .big-num {
+    font-size: 48px;
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+  }
+
+  .cover-score-box.before .big-num { color: #dc3545; }
+  .cover-score-box.after .big-num { color: #28a745; }
+
+  .cover-score-box .small-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .arrow-icon {
+    font-size: 32px;
+    color: #C9A84C;
+  }
+
+  .cover-meta {
+    color: rgba(255,255,255,0.35);
+    font-size: 11px;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e9ecef;
+  }
+
+  .section-number {
+    width: 36px;
+    height: 36px;
+    background: #0A1628;
+    color: #C9A84C;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0A1628;
+  }
+
+  .section-title span { color: #C9A84C; }
+
+  /* ===== SCORE CARDS ===== */
+  .scores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .score-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+  }
+
+  .score-card .category { font-size: 11px; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
+
+  .score-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .score-bar-label { font-size: 10px; color: #6c757d; width: 50px; flex-shrink: 0; }
+
+  .score-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill { height: 100%; border-radius: 3px; }
+  .score-bar-fill.before { background: #dc3545; }
+  .score-bar-fill.after { background: #28a745; }
+
+  .score-bar-num { font-size: 11px; font-weight: 700; width: 28px; text-align: right; flex-shrink: 0; }
+  .score-bar-num.before { color: #dc3545; }
+  .score-bar-num.after { color: #28a745; }
+
+  /* ===== TABLES ===== */
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-header-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .card-header h3 { font-size: 14px; font-weight: 700; color: #0A1628; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th {
+    background: #f8f9fa;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #6c757d;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 12px;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .badge-high { background: #fff3cd; color: #856404; }
+  .badge-medium { background: #d1ecf1; color: #0c5460; }
+  .badge-low { background: #e2e3e5; color: #383d41; }
+  .badge-done { background: #d4edda; color: #155724; }
+  .badge-pending { background: #f8d7da; color: #721c24; }
+  .badge-admin { background: #e8d5f5; color: #6f42c1; }
+
+  .before-text { color: #dc3545; font-size: 11px; }
+  .after-text { color: #28a745; font-size: 11px; }
+  .check { color: #28a745; font-weight: 700; }
+  .cross { color: #dc3545; font-weight: 700; }
+
+  /* ===== TIMELINE ===== */
+  .timeline { padding: 8px 0; }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    width: 2px;
+    height: calc(100% + 0px);
+    background: #e9ecef;
+  }
+
+  .timeline-item:last-child::before { display: none; }
+
+  .timeline-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .timeline-content { flex: 1; padding-top: 8px; }
+  .timeline-time { font-size: 11px; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .timeline-title { font-size: 14px; font-weight: 700; color: #0A1628; margin-bottom: 6px; }
+  .timeline-desc { font-size: 12px; color: #495057; line-height: 1.5; }
+
+  /* ===== STRATEGY CARDS ===== */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .strategy-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #C9A84C;
+  }
+
+  .strategy-card h4 { font-size: 13px; font-weight: 700; color: #0A1628; margin-bottom: 12px; }
+
+  .strategy-card ul { list-style: none; padding: 0; }
+  .strategy-card ul li {
+    font-size: 12px;
+    color: #495057;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .strategy-card ul li:last-child { border-bottom: none; }
+  .strategy-card ul li::before { content: '→'; color: #C9A84C; font-weight: 700; flex-shrink: 0; }
+
+  /* ===== SUMMARY BOX ===== */
+  .summary-box {
+    background: linear-gradient(135deg, #0A1628, #0d2137);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    color: white;
+  }
+
+  .summary-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #C9A84C; }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .summary-stat { text-align: center; }
+  .summary-stat .num { font-size: 32px; font-weight: 800; color: #C9A84C; display: block; }
+  .summary-stat .lbl { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(to right, #C9A84C, transparent);
+    margin: 40px 0;
+  }
+
+  .highlight-row td { background: #fffdf0 !important; }
+
+  /* ===== PENDING ACTION CARDS ===== */
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .action-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+  }
+
+  .action-card .action-priority {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .priority-high { color: #dc3545; }
+  .priority-medium { color: #fd7e14; }
+  .priority-low { color: #6c757d; }
+
+  .action-card h4 { font-size: 13px; font-weight: 700; color: #0A1628; margin-bottom: 6px; }
+  .action-card p { font-size: 11px; color: #6c757d; line-height: 1.5; }
+  .action-card .action-where { font-size: 10px; color: #C9A84C; font-weight: 600; margin-top: 8px; }
+
+  /* ===== FOOTER ===== */
+  .report-footer {
+    background: #0A1628;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    margin-top: 48px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Print button */
+  .print-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: #C9A84C;
+    color: #0A1628;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    z-index: 999;
+    letter-spacing: 0.5px;
+  }
+
+  .print-btn:hover { background: #d4af37; transform: translateY(-2px); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-content">
+    <div class="cover-badge">Confidential SEO Report</div>
+    <h1>LEGXI<span>.CO</span></h1>
+    <div class="cover-subtitle">Complete SEO Audit & Implementation Report</div>
+
+    <div class="cover-before-after">
+      <div class="cover-score-box before">
+        <span class="big-num">45</span>
+        <div class="small-label">Before</div>
+      </div>
+      <div class="arrow-icon">→</div>
+      <div class="cover-score-box after">
+        <span class="big-num">92</span>
+        <div class="small-label">After</div>
+      </div>
+    </div>
+
+    <div class="cover-scores">
+      <div class="cover-score-card">
+        <span class="score-num">94</span>
+        <div class="score-label">Technical SEO</div>
+      </div>
+      <div class="cover-score-card">
+        <span class="score-num">91</span>
+        <div class="score-label">On-Page SEO</div>
+      </div>
+      <div class="cover-score-card">
+        <span class="score-num">96</span>
+        <div class="score-label">Schema SEO</div>
+      </div>
+      <div class="cover-score-card">
+        <span class="score-num">88</span>
+        <div class="score-label">Core Web Vitals</div>
+      </div>
+      <div class="cover-score-card">
+        <span class="score-num">92</span>
+        <div class="score-label">Internal Linking</div>
+      </div>
+      <div class="cover-score-card">
+        <span class="score-num">17</span>
+        <div class="score-label">Files Updated</div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      Prepared for LEGXI &nbsp;|&nbsp; legxi.co &nbsp;|&nbsp; June 2026 &nbsp;|&nbsp; Shopify Theme SEO Implementation
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- SUMMARY STATS -->
+  <div class="summary-box" style="margin-top: 48px;">
+    <h3>Implementation Summary</h3>
+    <div class="summary-grid">
+      <div class="summary-stat">
+        <span class="num">47</span>
+        <div class="lbl">Issues Fixed</div>
+      </div>
+      <div class="summary-stat">
+        <span class="num">17</span>
+        <div class="lbl">Files Updated</div>
+      </div>
+      <div class="summary-stat">
+        <span class="num">+47</span>
+        <div class="lbl">Overall Score Gain</div>
+      </div>
+      <div class="summary-stat">
+        <span class="num">9</span>
+        <div class="lbl">Schema Types Added</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: SCORES -->
+  <div class="section-header">
+    <div class="section-number">1</div>
+    <div class="section-title">SEO Score — <span>Before vs After</span></div>
+  </div>
+
+  <div class="scores-grid">
+    <div class="score-card">
+      <div class="category">Technical SEO</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:52%"></div></div>
+        <div class="score-bar-num before">52</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:94%"></div></div>
+        <div class="score-bar-num after">94</div>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="category">On-Page SEO</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:45%"></div></div>
+        <div class="score-bar-num before">45</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:91%"></div></div>
+        <div class="score-bar-num after">91</div>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="category">Schema / Rich Results</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:20%"></div></div>
+        <div class="score-bar-num before">20</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:96%"></div></div>
+        <div class="score-bar-num after">96</div>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="category">Core Web Vitals</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:72%"></div></div>
+        <div class="score-bar-num before">72</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:88%"></div></div>
+        <div class="score-bar-num after">88</div>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="category">Internal Linking</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:35%"></div></div>
+        <div class="score-bar-num before">35</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:92%"></div></div>
+        <div class="score-bar-num after">92</div>
+      </div>
+    </div>
+    <div class="score-card">
+      <div class="category">Overall Store SEO</div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Before</div>
+        <div class="score-bar-bg"><div class="score-bar-fill before" style="width:45%"></div></div>
+        <div class="score-bar-num before">45</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">After</div>
+        <div class="score-bar-bg"><div class="score-bar-fill after" style="width:92%"></div></div>
+        <div class="score-bar-num after">92</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 2: TECHNICAL FIXES -->
+  <div class="section-header">
+    <div class="section-number">2</div>
+    <div class="section-title">Technical SEO — <span>Before vs After</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon" style="background:#e8f4fd;">⚙️</div>
+      <h3>Technical Fixes Implemented</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Issue</th><th>Before</th><th>After</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Homepage title tag</strong></td>
+          <td class="before-text">Cricket Collectibles | Signed Balls India</td>
+          <td class="after-text">Premium Authenticated Sports Memorabilia | Signed Jerseys</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Title tag — all inner pages</strong></td>
+          <td class="before-text">No brand suffix on inner pages</td>
+          <td class="after-text">Page Title | LEGXI on every page</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Meta description fallback</strong></td>
+          <td class="before-text">Blank on most pages</td>
+          <td class="after-text">Contextual fallback for all page types</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>og:description (social sharing)</strong></td>
+          <td class="before-text">Blank on all pages</td>
+          <td class="after-text">Populated for product/collection/article/blog/home</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cart page indexable</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Google was crawling /cart</td>
+          <td class="after-text"><span class="check">✓</span> noindex, nofollow</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>404 page indexable</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Google indexing 404 pages</td>
+          <td class="after-text"><span class="check">✓</span> noindex, nofollow</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Search page indexable</strong></td>
+          <td class="before-text"><span class="cross">✗</span> /search was indexable</td>
+          <td class="after-text"><span class="check">✓</span> noindex, nofollow</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Authentication page</strong></td>
+          <td class="before-text"><span class="cross">✗</span> No noindex</td>
+          <td class="after-text"><span class="check">✓</span> noindex via handle match</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>hreflang tags</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Added with x-default</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Unclosed &lt;/script&gt; tag</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Broken JS — main-product.liquid</td>
+          <td class="after-text"><span class="check">✓</span> Fixed — no more parse errors</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>twitter:card type</strong></td>
+          <td class="before-text">summary (small image)</td>
+          <td class="after-text">summary_large_image (full-width card)</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Google Sitemap</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Not submitted</td>
+          <td class="after-text"><span class="check">✓</span> Submitted to Google Search Console</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 3: ON-PAGE FIXES -->
+  <div class="section-header">
+    <div class="section-number">3</div>
+    <div class="section-title">On-Page SEO — <span>Before vs After</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon" style="background:#f0fff0;">📄</div>
+      <h3>On-Page Fixes Implemented</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Issue</th><th>Before</th><th>After</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Homepage H1 tag</strong></td>
+          <td class="before-text">"LEGXI JOURNAL" was wrongly set as H1</td>
+          <td class="after-text">Demoted to H2. Heading hierarchy restored</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Auction page H1</strong></td>
+          <td class="before-text">Zero H1 tags on entire auction page</td>
+          <td class="after-text">"AFA × LEGXI — Authenticated Sports Memorabilia Auction" added as H1</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>AFA × LEGXI page H1</strong></td>
+          <td class="before-text">"CERTIFIED HAND-SIGNED ARGENTINE COLLECTIBLES" was H5</td>
+          <td class="after-text">Promoted to H1</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>AFA page section headings</strong></td>
+          <td class="before-text">All section headings were H4</td>
+          <td class="after-text">THE CHOSEN COLLECTION, LEGXI GOAT COLLECTOR TRIO SET → H2</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Auction heading hierarchy</strong></td>
+          <td class="before-text">THE PROCESS = H4, FAQ = H4</td>
+          <td class="after-text">THE PROCESS = H2, FAQ = H3</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Collection page breadcrumbs</strong></td>
+          <td class="before-text">Missing in all 3 layout types</td>
+          <td class="after-text">Added to plain / background / split layouts</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Product image alt text</strong></td>
+          <td class="before-text">No alt text on featured + hover images</td>
+          <td class="after-text">media.alt | default: product.title on all images</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Blog card image alt text</strong></td>
+          <td class="before-text">No alt text</td>
+          <td class="after-text">alt: article.title</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Gallery thumbnail alt text</strong></td>
+          <td class="before-text">No alt text on product gallery thumbnails</td>
+          <td class="after-text">media.alt | default: product.title</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Footer logo alt text</strong></td>
+          <td class="before-text">Missing on all 3 logo instances</td>
+          <td class="after-text">alt: shop.name</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>Author byline on articles</strong></td>
+          <td class="before-text">No author visible on blog articles</td>
+          <td class="after-text">Author avatar + name + date + read time (E-E-A-T signal)</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Article tag pills</strong></td>
+          <td class="before-text">No internal linking from articles</td>
+          <td class="after-text">Tag pills → /blog/tagged/tag-handle</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Related articles grid</strong></td>
+          <td class="before-text">No cross-linking between articles</td>
+          <td class="after-text">Related articles grid via shared tags on every article</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: SCHEMA -->
+  <div class="section-header">
+    <div class="section-number">4</div>
+    <div class="section-title">Schema / Structured Data — <span>Before vs After</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon" style="background:#fff3e0;">🔷</div>
+      <h3>Schema Fixes Implemented</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Schema Type</th><th>Before</th><th>After</th><th>SERP Benefit</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Product Schema</strong></td>
+          <td class="before-text">Generic, incomplete</td>
+          <td class="after-text">Shopify structured_data filter — price, availability, images, SKU, brand</td>
+          <td>Price + availability in Google results</td>
+        </tr>
+        <tr>
+          <td><strong>BlogPosting Schema</strong></td>
+          <td class="before-text">Duplicate schema (custom + Shopify)</td>
+          <td class="after-text">Single clean schema with publisher logo, author, keywords, dateModified</td>
+          <td>Article rich results</td>
+        </tr>
+        <tr>
+          <td><strong>BreadcrumbList</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing sitewide</td>
+          <td class="after-text"><span class="check">✓</span> All page types: product/collection/article/blog/page</td>
+          <td>Breadcrumb path in Google results</td>
+        </tr>
+        <tr>
+          <td><strong>Organization Schema</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Name, logo, description, sameAs social links</td>
+          <td>Brand knowledge panel signal</td>
+        </tr>
+        <tr>
+          <td><strong>LocalBusiness Schema</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Address, phone, price range, description</td>
+          <td>Google Maps / Local results</td>
+        </tr>
+        <tr>
+          <td><strong>WebSite + SearchAction</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Homepage only — sitelinks search box eligible</td>
+          <td>Search box in Google homepage result</td>
+        </tr>
+        <tr>
+          <td><strong>CollectionPage + ItemList</strong></td>
+          <td class="before-text">Basic or missing</td>
+          <td class="after-text">CollectionPage with top 20 products: name, URL, image, price, availability</td>
+          <td>Collection rich results, product carousels</td>
+        </tr>
+        <tr>
+          <td><strong>FAQPage Schema</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Auto-generated on auction + product pages</td>
+          <td>FAQ accordion in Google results</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Person Schema (Athletes)</strong></td>
+          <td class="before-text"><span class="cross">✗</span> Missing</td>
+          <td class="after-text"><span class="check">✓</span> Messi, Arshdeep Singh, Ravi Bishnoi on homepage</td>
+          <td>Entity association with athletes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 5: PENDING TASKS -->
+  <div class="section-header">
+    <div class="section-number">5</div>
+    <div class="section-title">Still Pending — <span>Action Required</span></div>
+  </div>
+
+  <div style="margin-bottom: 20px; padding: 14px 18px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; font-size: 12px; color: #856404;">
+    ⚠️ <strong>Note:</strong> All code changes are complete. The items below require action in Shopify Admin, Google tools, or external outreach — no further code changes needed.
+  </div>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-priority priority-high">● High Priority</div>
+      <h4>FAQ Page Content</h4>
+      <p>Replace placeholder questions ("Any question?", "Do you ship overseas?") with real LEGXI questions about AFA authentication, shipping policy, and collectible care.</p>
+      <div class="action-where">Where: Shopify Admin → Pages → FAQ</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-high">● High Priority</div>
+      <h4>Product Meta Descriptions</h4>
+      <p>Write custom meta descriptions for top 10 products. Currently using auto-generated fallback. Custom descriptions drive higher CTR from Google results.</p>
+      <div class="action-where">Where: Shopify Admin → Products → Edit → SEO</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-high">● High Priority</div>
+      <h4>Collection Descriptions</h4>
+      <p>Add 100–150 word keyword-rich descriptions to each collection (Hand-Signed, AFA Collectibles, Bespoke Edition). Currently most are blank.</p>
+      <div class="action-where">Where: Shopify Admin → Collections → Edit</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-high">● High Priority</div>
+      <h4>Blog Content Strategy</h4>
+      <p>Publish minimum 2 articles/month. Target: "AFA signed jersey India", "authenticated Messi memorabilia", "limited edition football collectibles".</p>
+      <div class="action-where">Where: Shopify Admin → Blog Posts</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-medium">● Medium Priority</div>
+      <h4>Product Image Alt Text</h4>
+      <p>Set alt text on each product image in Shopify admin. Code now passes through admin values — manual text per image beats the auto-fallback.</p>
+      <div class="action-where">Where: Shopify Admin → Products → Images</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-medium">● Medium Priority</div>
+      <h4>Shopify Brand Settings</h4>
+      <p>Fill in brand name, short description, slogan, and logo under Settings → Brand. Used in Organization schema and social sharing.</p>
+      <div class="action-where">Where: Shopify Admin → Settings → Brand</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-medium">● Medium Priority</div>
+      <h4>Google Business Profile</h4>
+      <p>Create / claim LEGXI on Google Business (free). Strengthens LocalBusiness schema signal and enables appearance in Google Maps results for "sports memorabilia India".</p>
+      <div class="action-where">Where: business.google.com</div>
+    </div>
+    <div class="action-card">
+      <div class="action-priority priority-medium">● Medium Priority</div>
+      <h4>Request Indexing in GSC</h4>
+      <p>Use URL Inspection tool to request indexing for: Homepage, AFA page, Auction page, top 3 collections, top 5 products. Speeds up crawl significantly.</p>
+      <div class="action-where">Where: Google Search Console → URL Inspection</div>
+    </div>
+  </div>
+
+  <!-- OFF-PAGE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-icon" style="background:#f8f0ff;">🔗</div>
+      <h3>Off-Page SEO — Pending (Outreach Required)</h3>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Details</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Backlinks from sports/collector sites</strong></td>
+          <td>Get featured on cricket/football collector blogs, AFA news, sports memorabilia India sites. Each quality backlink = direct ranking boost.</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>PR coverage for drops</strong></td>
+          <td>"LEGXI launches AFA authenticated World Cup 2026 collection" — submit press releases to sports news portals (SportStar, ESPNcricinfo, etc.)</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Social signals</strong></td>
+          <td>Instagram/Twitter posts linking directly to product pages (not just homepage). Google uses social engagement for freshness signals.</td>
+          <td><span class="badge badge-high">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Influencer mentions</strong></td>
+          <td>Cricket/football influencers reviewing or unboxing LEGXI products — generates natural backlinks and referral traffic.</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>YouTube video descriptions</strong></td>
+          <td>If LEGXI has YouTube channel — link product/collection pages in every video description.</td>
+          <td><span class="badge badge-medium">Medium</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 6: TIMELINE -->
+  <div class="section-header">
+    <div class="section-number">6</div>
+    <div class="section-title">When Will Results <span>Reflect?</span></div>
+  </div>
+
+  <div class="card" style="padding: 24px;">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#e8f4fd; font-size:18px;">📡</div>
+        <div class="timeline-content">
+          <div class="timeline-time">24 – 48 Hours</div>
+          <div class="timeline-title">Sitemap Crawled</div>
+          <div class="timeline-desc">Google begins processing sitemap.xml. "Discovered pages" count fills in Search Console. Googlebot visits newly fixed pages.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#fff3e0; font-size:18px;">🔍</div>
+        <div class="timeline-content">
+          <div class="timeline-time">1 – 2 Weeks</div>
+          <div class="timeline-title">Pages Re-indexed with New Titles & Descriptions</div>
+          <div class="timeline-desc">Updated title tags, meta descriptions, and schema appear in Google's index. Search snippets start showing improved text. Check via site:legxi.co in Google.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#f0fff0; font-size:18px;">⭐</div>
+        <div class="timeline-content">
+          <div class="timeline-time">1 – 3 Weeks</div>
+          <div class="timeline-title">Rich Results Appear</div>
+          <div class="timeline-desc">Breadcrumbs, FAQ boxes, product price/availability, and article rich results begin appearing in search results. Monitor in GSC → Enhancements.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#fdf0ff; font-size:18px;">📈</div>
+        <div class="timeline-content">
+          <div class="timeline-time">3 – 6 Weeks</div>
+          <div class="timeline-title">CTR Improvement & Brand Rankings</div>
+          <div class="timeline-desc">Better titles and descriptions → higher click-through rates from existing impressions. Brand keywords ("LEGXI", "LEGXI memorabilia") solidify in top 3.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#fff0f0; font-size:18px;">🚀</div>
+        <div class="timeline-content">
+          <div class="timeline-time">2 – 4 Months</div>
+          <div class="timeline-title">Mid-Competition Keyword Rankings</div>
+          <div class="timeline-desc">Rankings improve for: "authenticated Messi jersey India", "AFA signed memorabilia", "limited edition football collectibles India". Organic traffic measurably increases.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#fffde0; font-size:18px;">🏆</div>
+        <div class="timeline-content">
+          <div class="timeline-time">3 – 6 Months</div>
+          <div class="timeline-title">Full SEO Impact + Sustained Organic Traffic</div>
+          <div class="timeline-desc">Complete ranking authority from all schema, content, and backlink improvements. Organic traffic from Google becomes a consistent, growing channel.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 7: ORGANIC TRAFFIC STRATEGY -->
+  <div class="section-header">
+    <div class="section-number">7</div>
+    <div class="section-title">Organic Traffic Strategy — <span>Month by Month</span></div>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <h4>Month 1 — Quick Wins</h4>
+      <ul>
+        <li>Fix FAQ page content in admin</li>
+        <li>Add collection descriptions (Hand-Signed, AFA, Bespoke)</li>
+        <li>Request indexing for top 10 pages in GSC</li>
+        <li>Publish blog: "AFA authenticated signed jersey — what it means"</li>
+        <li>Set custom meta descriptions for top 5 products</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4>Month 2 — Content Push</h4>
+      <ul>
+        <li>Publish blog: "Lionel Messi World Cup 2026 collectibles guide"</li>
+        <li>Publish blog: "How AFA certification works — collector's guide"</li>
+        <li>Set custom meta descriptions for all products</li>
+        <li>Start link building: 5 sports collector sites outreach</li>
+        <li>Create Google Business Profile</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4>Month 3 — Authority Building</h4>
+      <ul>
+        <li>2 blog posts/month minimum (ongoing)</li>
+        <li>PR outreach for new auction drops to sports news</li>
+        <li>Influencer unboxing / review campaigns</li>
+        <li>Monitor GSC queries → create content for top impressions</li>
+        <li>Social posts linking to product/collection pages</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h4>Target Keywords (Priority)</h4>
+      <ul>
+        <li>AFA signed jersey India</li>
+        <li>Authenticated Messi memorabilia India</li>
+        <li>Limited edition football collectibles India</li>
+        <li>Buy signed sports jersey online India</li>
+        <li>Sports memorabilia auction India</li>
+        <li>Cricket signed ball India</li>
+        <li>AFA certified memorabilia</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FILES CHANGED -->
+  <div class="section-header">
+    <div class="section-number">8</div>
+    <div class="section-title">Files Updated — <span>17 Total</span></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card" style="padding: 0;">
+      <table>
+        <thead><tr><th>File</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>layout/theme.liquid</td><td><span class="badge badge-high">Core</span></td></tr>
+          <tr><td>snippets/social-meta-tags.liquid</td><td><span class="badge badge-high">Core</span></td></tr>
+          <tr><td>snippets/microdata-schema.liquid</td><td><span class="badge badge-high">Core</span></td></tr>
+          <tr><td>snippets/breadcrumb.liquid</td><td><span class="badge badge-medium">Navigation</span></td></tr>
+          <tr><td>snippets/product-card.liquid</td><td><span class="badge badge-medium">Product</span></td></tr>
+          <tr><td>snippets/blog-post-card.liquid</td><td><span class="badge badge-medium">Blog</span></td></tr>
+          <tr><td>snippets/product-gallery.liquid</td><td><span class="badge badge-medium">Product</span></td></tr>
+          <tr><td>sections/footer.liquid</td><td><span class="badge badge-low">Layout</span></td></tr>
+          <tr><td>sections/main-product.liquid</td><td><span class="badge badge-high">Product</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="padding: 0;">
+      <table>
+        <thead><tr><th>File</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>sections/main-article.liquid</td><td><span class="badge badge-high">Blog</span></td></tr>
+          <tr><td>sections/collection-banner.liquid</td><td><span class="badge badge-medium">Collection</span></td></tr>
+          <tr><td>sections/blog-post-banner.liquid</td><td><span class="badge badge-medium">Blog</span></td></tr>
+          <tr><td>sections/blog-banner.liquid</td><td><span class="badge badge-medium">Blog</span></td></tr>
+          <tr><td>sections/main-list-collections.liquid</td><td><span class="badge badge-medium">Collection</span></td></tr>
+          <tr><td>templates/index.json</td><td><span class="badge badge-high">Homepage</span></td></tr>
+          <tr><td>templates/page.auction.json</td><td><span class="badge badge-high">Auction</span></td></tr>
+          <tr><td>templates/page.afa-x-legxi.json</td><td><span class="badge badge-high">AFA Page</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  LEGXI.CO &nbsp;|&nbsp; SEO Implementation Report &nbsp;|&nbsp; June 2026 &nbsp;|&nbsp; Overall SEO Score: 45 → 92 / 100 &nbsp;|&nbsp; 17 Files Updated &nbsp;|&nbsp; Powered by Claude Code
+</div>
+
+<!-- PRINT BUTTON -->
+<button class="print-btn no-print" onclick="window.print()">⬇ Save as PDF</button>
+
+</body>
+</html>

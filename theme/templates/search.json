@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-search",
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_sort_by": true,
+        "products_per_page": 24,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_filter_values_count": true,
+        "open_filters_by_default": false,
+        "swatch_selector_size": "lg",
+        "show_category": true,
+        "show_date": true,
+        "show_excerpt": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

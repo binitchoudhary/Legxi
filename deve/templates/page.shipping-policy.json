@@ -1,0 +1,172 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_title": true,
+        "content_width": "md"
+      }
+    },
+    "rich_text_y74y7L": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading_r39ijT": {
+          "type": "subheading",
+          "disabled": true,
+          "settings": {
+            "text": "Subheading"
+          }
+        },
+        "heading_QL6KP7": {
+          "type": "heading",
+          "settings": {
+            "text": "Shipping, Returns & Refunds",
+            "heading_tag": "h3",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_THDPB4": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p><strong>Shipping, Returns & Refund Policy</strong><br/><br/>At LEGXI, every collectible represents a piece of sporting legacy. Each item is carefully prepared, inspected, and securely packed before it leaves our facility. Due to the limited edition and collectible nature of our products, certain policies apply to shipping, returns, and refunds.</p><p><strong>Shipping Policy<br/></strong><br/><strong>Order Processing & Dispatch</strong><br/><br/>Most LEGXI products are limited edition collectibles and may involve customization or edition allocation.<br/>Therefore, all orders are processed and dispatched within 7–10 business days from the date of purchase.<br/><br/>This processing period includes:<br/><br/>• Edition allocation and documentation<br/>• Quality inspection<br/>• Protective packaging of collectibles<br/>• Preparation of signed memorabilia where applicable<br/><br/>Once the order is dispatched, customers will receive a shipping confirmation along with tracking details via email or SMS.</p><p><strong>Domestic Shipping (India)</strong><br/><br/>After dispatch, orders within India are typically delivered within 3–5 business days, depending on the delivery location and courier partner.<br/>Delivery timelines may vary due to logistical conditions, regional restrictions, or public holidays.</p><p><strong>International Shipping</strong><br/></p><p>International orders are generally delivered within 6–10 business days after dispatch.<br/>Delivery timelines may vary depending on destination country, customs clearance procedures, and local logistics conditions.<br/>Please note:<br/>• International shipments may be subject to import duties, customs clearance charges, VAT, or other local taxes imposed by the destination country.<br/> • These charges are not included in the product price or shipping charges displayed on our website.<br/> • All such charges, if applicable, must be borne entirely by the customer.<br/> • LEGXI Originals Private Limited shall not be responsible or liable for any customs duties, taxes, or clearance charges imposed by local authorities.<br/>Customers are advised to check with their local customs office or relevant authorities regarding applicable import duties and taxes before placing an order.<br/><br/><strong>Order Tracking</strong><br/><br/>All shipments include tracking information which will be shared with customers once the order is dispatched.</p><p><strong>Delivery Attempts</strong><br/><br/>Courier partners typically attempt delivery 2–3 times.<br/>If delivery fails due to customer unavailability, incorrect address, or refusal to accept the shipment, the order may be returned to us. In such cases, additional shipping charges may apply for reshipping the order.</p><p><strong>Returns Policy</strong><br/><br/>Due to the limited edition and collectible nature of LEGXI products, returns are accepted only under specific circumstances.<br/><strong><br/>Eligible Return Cases</strong><br/><br/>Returns are accepted only in the following situations: <br/>Wrong Product Delivered<br/>If the item delivered is different from the order placed. <br/>Damaged Product<br/>If the product arrives physically damaged during transit.</p><p><strong>Return Request Timeline</strong><br/><br/>Customers must notify us within 48 hours of receiving the order.<br/>Requests can be submitted via:<br/><br/>Email: reach@legxi.co<br/>WhatsApp: +91 93157 04239<br/><br/>Requests raised beyond 48 hours of delivery may not be eligible for return.</p><p><strong>Return Conditions</strong><br/></p><p>For a return request to be approved:<br/>• The product must be unused.<br/>• The product must be returned in its original packaging.<br/>• All certificates, authenticity documents, tags, and accessories must be included.<br/>• The item must remain in the same condition as delivered.<br/>Products that show signs of use, tampering, or damage not caused during shipping may not be eligible for return.<br/>Return Pickup<br/>Once the return request is verified, our team will arrange a pickup from the delivery address.<br/>After the item reaches our facility, it will undergo a quality inspection process.</p><p><br/><strong>Refund Policy</strong><br/>If the return is approved after inspection, customers may choose one of the following options:<br/>• Replacement of the product (subject to availability)<br/>• Full refund<br/>Refunds will be processed to the original payment method within 5–7 business days after approval.<br/>Actual credit timelines may vary depending on the bank or payment provider.<br/>Non-Returnable Items<br/>The following items are not eligible for return or refund, except in cases of damage during delivery or incorrect product received:<br/>• Limited edition collectibles<br/>• Hand-signed memorabilia<br/>• Customized or personalized products<br/>• Items purchased during exclusive drops or special launches<br/>Contact<br/><br/>For any shipping, return, or refund related queries, please contact:<br/><br/>Email: reach@legxi.co<br/><br/>LEGXI Originals Private Limited<br/>GSTIN: 06AAGCL6430N1Z8<br/><br/>FIRST FLOOR, TR-174<br/>ALT F ORCHID BUSINESS PARK<br/>Gurugram, Haryana – 122018 India</p>"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_r39ijT",
+        "heading_QL6KP7",
+        "richtext_THDPB4"
+      ],
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "image_with_text_overlay_TXirzp": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_NgwCmw": {
+          "type": "subheading",
+          "settings": {
+            "text": "FOR BOARDROOMS & BEYOND"
+          },
+          "blocks": {}
+        },
+        "heading_LKN78G": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>CORPORATE ENQUIRY</strong>",
+            "heading_size": "h3",
+            "html_tag": "h1",
+            "indent": "none",
+            "highlight_effect": "underline_pencil",
+            "highlight_accent_color": "#ffffff",
+            "highlight_text_color": ""
+          },
+          "blocks": {}
+        },
+        "rich_text_HCYfwa": {
+          "type": "rich-text",
+          "settings": {
+            "text": "<p>Bespoke collections. Built for businesses that understand greatness.</p>",
+            "content_width": "xs"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_NgwCmw",
+        "heading_LKN78G",
+        "rich_text_HCYfwa"
+      ],
+      "disabled": true,
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "allow_transparent_header": false,
+        "image_size": "sm",
+        "image": "shopify://shop_images/1_61aba6d5-78e8-4979-a738-b5e478a2c85d.png",
+        "mobile_image": "shopify://shop_images/magnific_same-image-as-11_DBZnkAtpcl.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "1775425429d867f4d6": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_pQkke6": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "disabled": true,
+          "settings": {
+            "form_id": "932041",
+            "text_color": "#ffffff",
+            "button_background_color": "#0598d5",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.</p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_pQkke6"
+      ],
+      "custom_css": [
+        ".prose {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_y74y7L",
+    "image_with_text_overlay_TXirzp",
+    "1775425429d867f4d6"
+  ]
+}

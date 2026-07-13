@@ -1,0 +1,206 @@
+{%- comment -%}
+Product FAQ — common buyer questions on all product pages.
+Outputs FAQPage JSON-LD for Google rich snippets. Content applies sitewide.
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #f7f6f4;
+    padding: 64px 0 72px;
+    color: #2a2a2a;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 20px;
+    color: #1c1c1c;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-item {
+    border-top: 1px solid rgba(0,0,0,0.11);
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-item:last-of-type {
+    border-bottom: 1px solid rgba(0,0,0,0.11);
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-item summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 17px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #1c1c1c;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-item summary::-webkit-details-marker { display: none; }
+  #shopify-section-{{ section.id }} .lgx-pfaq-icon {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.22s ease;
+    opacity: 0.35;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-item[open] .lgx-pfaq-icon { transform: rotate(45deg); }
+  #shopify-section-{{ section.id }} .lgx-pfaq-body {
+    padding: 2px 0 20px;
+    font-size: 0.9rem;
+    line-height: 1.78;
+    color: #555;
+  }
+  #shopify-section-{{ section.id }} .lgx-pfaq-body p { margin-bottom: 10px; }
+  #shopify-section-{{ section.id }} .lgx-pfaq-body a {
+    color: #1e616c;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
+
+<div>
+  <div class="lgx-pfaq-inner">
+    <p class="lgx-pfaq-heading">Frequently Asked Questions</p>
+
+    <div class="lgx-pfaq-list">
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>Is this item officially authenticated by LEGXI?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Yes. Every LEGXI collectible is obtained through a managed, witnessed signing session — no third-party intermediaries. Each item is issued a tamper-proof Certificate of Authenticity (COA) documenting the athlete, event, signing date, and unique edition number. This is not a reproduction or auto-signed item; it is an original hand-signed collectible.</p>
+        </div>
+      </details>
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>What is included with my purchase?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Your purchase includes the collectible item itself, a tamper-proof Certificate of Authenticity card with a unique verification code, and secure collector-grade packaging designed to protect the item during shipping. Some editions also include additional provenance documentation specific to the signing session.</p>
+        </div>
+      </details>
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>How do I verify the authenticity of my LEGXI collectible?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Visit the <a href="/pages/authentication">LEGXI Authentication Portal</a> and enter the unique code printed on your Certificate of Authenticity. The portal confirms the athlete, signing event, date, and the number of items authenticated in that session — giving you complete, verifiable provenance at any time.</p>
+        </div>
+      </details>
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>Does LEGXI ship across India?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Yes. LEGXI ships to all major cities and states across India. Every order is fully insured and packaged in collector-grade materials to preserve the condition and value of the item during transit. Tracking details are provided once your order is dispatched.</p>
+        </div>
+      </details>
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>Can I return or exchange a signed collectible?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Due to the one-of-a-kind nature of hand-signed collectibles, all sales are final. If your item arrives damaged or in a condition inconsistent with the listing, please contact LEGXI within 48 hours of delivery with photographs and we will resolve the issue promptly.</p>
+        </div>
+      </details>
+
+      <details class="lgx-pfaq-item">
+        <summary>
+          <span>Can I transfer ownership of my LEGXI collectible?</span>
+          <span class="lgx-pfaq-icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="lgx-pfaq-body">
+          <p>Yes. LEGXI's Ownership Transfer System allows you to register a verified transfer of ownership for any collectible. This maintains an unbroken, auditable chain of custody and preserves the full provenance record — protecting the long-term value of the item for you and any future owner.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this item officially authenticated by LEGXI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every LEGXI collectible is obtained through a managed, witnessed signing session — no third-party intermediaries. Each item is issued a tamper-proof Certificate of Authenticity (COA) documenting the athlete, event, signing date, and unique edition number. This is not a reproduction or auto-signed item; it is an original hand-signed collectible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is included with my purchase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your purchase includes the collectible item itself, a tamper-proof Certificate of Authenticity card with a unique verification code, and secure collector-grade packaging designed to protect the item during shipping. Some editions also include additional provenance documentation specific to the signing session."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I verify the authenticity of my LEGXI collectible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Visit the LEGXI Authentication Portal at legxi.co/pages/authentication and enter the unique code printed on your Certificate of Authenticity. The portal confirms the athlete, signing event, date, and the number of items authenticated in that session."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does LEGXI ship across India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. LEGXI ships to all major cities and states across India. Every order is fully insured and packaged in collector-grade materials to preserve the condition and value of the item during transit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I return or exchange a signed collectible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Due to the one-of-a-kind nature of hand-signed collectibles, all sales are final. If your item arrives damaged or in a condition inconsistent with the listing, please contact LEGXI within 48 hours of delivery with photographs and we will resolve the issue promptly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I transfer ownership of my LEGXI collectible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. LEGXI's Ownership Transfer System allows you to register a verified transfer of ownership for any collectible. This maintains an unbroken, auditable chain of custody and preserves the full provenance record — protecting the long-term value of the item for you and any future owner."
+      }
+    }
+  ]
+}
+</script>
+
+{%- schema -%}
+{
+  "name": "Product FAQ",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product FAQ"
+    }
+  ]
+}
+{%- endschema -%}

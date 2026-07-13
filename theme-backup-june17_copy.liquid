@@ -1,0 +1,2160 @@
+﻿{%- comment -%}
+  SIXXER — Certificate Authentication Portal  v3
+  Shopify OS2 · Firebase Phone OTP · Storefront API · jsPDF
+{%- endcomment -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,400&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"></noscript>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN SYSTEM & CSS ISOLATION FOR SHOPIFY
+   Strategy: 
+   1. Strip section wrapper padding/max-width
+   2. Neutralize specific Stretch theme variables and inheritance
+   3. Force our component classes to higher specificity
+══════════════════════════════════════════════ */
+
+/* ── SHOPIFY SECTION WRAPPER OVERRIDES ── */
+.shopify-section:has(#sa-root),
+.shopify-section > .section-{{ section.id }}:has(#sa-root) {
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+.shopify-section:has(#sa-root) .page-width,
+.shopify-section:has(#sa-root) .container,
+.shopify-section:has(#sa-root) .wrapper,
+.shopify-section:has(#sa-root) [class*="page-width"],
+.shopify-section:has(#sa-root) [class*="container"],
+.shopify-section:has(#sa-root) .section__wrapper {
+  max-width: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+/* Hide header, footer, announcement bar on auth page — auth is standalone */
+body:has(#sa-root) .shopify-section:not(:has(#sa-root)) {
+  display: none !important;
+}
+html:has(#sa-root),
+body:has(#sa-root) {
+  overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #0d0d0d !important;
+}
+
+/* ── BASE RESET (safely targets only what's inside sa-root) ── */
+#sa-root *, #sa-root *::before, #sa-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#sa-root h1, #sa-root h2, #sa-root h3,
+#sa-root h4, #sa-root h5, #sa-root h6 {
+  font-style: normal;
+  text-decoration: none;
+  --heading-font-family: inherit;
+  --heading-text-transform: none;
+  --heading-letter-spacing: 0;
+  --heading-line-height: inherit;
+}
+
+#sa-root p, #sa-root span, #sa-root label {
+  --text-font-family: inherit;
+  --text-transform: none;
+  --text-letter-spacing: 0;
+}
+#sa-root span { display: inline; }
+#sa-root strong, #sa-root b { font-weight: bold; }
+#sa-root em, #sa-root i { font-style: italic; }
+
+#sa-root button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: none; border: none; padding: 0; margin: 0;
+  cursor: pointer;
+  border-radius: 0;
+  display: inline;
+  width: auto;
+  text-decoration: none;
+  box-shadow: none;
+  min-height: unset;
+  max-height: unset;
+  min-width: unset;
+  max-width: unset;
+  --button-font: inherit;
+  --button-text-transform: none;
+  --button-letter-spacing: 0;
+  --button-border-radius: 0;
+}
+
+#sa-root input, #sa-root textarea {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: none; border: none; outline: none;
+  padding: 0; margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  width: auto;
+  min-height: unset;
+  max-height: unset;
+  --input-border-radius: 0;
+}
+
+#sa-root a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#sa-root img {
+  max-width: 100%;
+  height: auto;
+  border: none;
+  outline: none;
+}
+#sa-root svg {
+  overflow: visible;
+}
+
+/* ── ROOT CONTAINER ── */
+#sa-root {
+  isolation: isolate;
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #080808 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent;
+  text-align: left;
+  
+  --font:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --script:  'Great Vibes', cursive;
+  --serif:   'Playfair Display', Georgia, serif;
+  --ink:     #080808;
+  --bone:    #F4F2EF;
+  --white:   #FFFFFF;
+  --ash:     #E8E6E3;
+  --smoke:   #C8C8C8;
+  --slate:   #828282;
+  --fog:     #B4B4B4;
+  --coal:    #060606;
+  --onyx:    #101010;
+  --graphite:#181818;
+  --ember:   #222222;
+  --gold:    #C49A18;
+  --gold-lt: #D4B030;
+  --gold-dk: #8A6A08;
+  --gold-dim:rgba(196,154,24,0.12);
+  --red:     #DC2626;
+  --e1: 0 1px 3px rgba(0,0,0,0.05),0 1px 2px rgba(0,0,0,0.04);
+  --e2: 0 4px 12px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.05);
+  --e3: 0 10px 30px rgba(0,0,0,0.10),0 4px 10px rgba(0,0,0,0.06);
+  --e4: 0 20px 60px rgba(0,0,0,0.14),0 8px 20px rgba(0,0,0,0.08);
+  --e5: 0 40px 100px rgba(0,0,0,0.20),0 16px 40px rgba(0,0,0,0.10);
+  --eg: 0 8px 40px rgba(196,154,24,0.28),0 2px 8px rgba(196,154,24,0.18);
+  --swift:  cubic-bezier(0.22, 1, 0.36, 1);
+  --smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ANIMATIONS */
+@keyframes sa-fadeUp  { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes sa-fadeOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-14px)} }
+@keyframes sa-pop     { 0%{opacity:0;transform:scale(0.35) rotate(-10deg)} 65%{transform:scale(1.08) rotate(1deg)} 100%{opacity:1;transform:scale(1) rotate(0)} }
+@keyframes sa-shake   { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 60%{transform:translateX(8px)} }
+@keyframes sa-spin    { to{transform:rotate(360deg)} }
+@keyframes sa-pulse   { 0%,100%{box-shadow:0 0 0 0 rgba(196,154,24,0.25)} 50%{box-shadow:0 0 0 16px rgba(196,154,24,0)} }
+@keyframes sa-slideUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+/* SCREEN SYSTEM */
+#sa-root .sa-screen { display:none; width:100%; position:relative; overflow-x:hidden; }
+#sa-root .sa-screen.is-active  { display:block; animation:sa-fadeUp .55s var(--swift) both; }
+#sa-root .sa-screen.is-leaving { display:block; animation:sa-fadeOut .28s var(--smooth) both; }
+
+/* BG PATTERNS */
+#sa-root .sa-dots::after {
+  content:''; position:absolute; top:0; right:0; bottom:0; left:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+#sa-root .sa-grid::after {
+  content:''; position:absolute; top:0; right:0; bottom:0; left:0; pointer-events:none; z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
+  background-size:52px 52px;
+}
+#sa-root .sa-rel { position:relative; z-index:1; }
+
+/* BACK BUTTON */
+#sa-root .sa-back {
+  display:inline-flex; align-items:center; gap:10px;
+  background:none; border:none; cursor:pointer;
+  font-family:var(--font); font-size:10px; font-weight:700;
+  letter-spacing:2.5px; text-transform:uppercase;
+  padding:6px 0; margin-bottom:44px;
+  transition:color .2s, gap .25s var(--swift);
+}
+#sa-root .sa-back svg { width:16px; height:16px; flex-shrink:0; transition:transform .25s var(--swift); }
+#sa-root .sa-back:hover svg { transform:translateX(-5px); }
+#sa-root .sa-back--lt { color:rgba(255,255,255,0.5); } #sa-root .sa-back--lt:hover { color:#fff; }
+#sa-root .sa-back--dk { color:rgba(255,255,255,0.35); } #sa-root .sa-back--dk:hover { color:var(--gold); }
+#sa-root .sa-shake { animation:sa-shake .45s var(--smooth) !important; }
+
+/* ──────────────────────────────────────────
+   S1 — EDITION SELECTION
+────────────────────────────────────────── */
+#sa-root .sa-edition-wrap {
+  background:#000; min-height:100vh; min-height:100dvh; position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:60px 32px 60px; overflow:hidden;
+}
+#sa-root .sa-edition__hd { text-align:center; margin-bottom:64px; position:relative; z-index:1; }
+#sa-root .sa-edition__eye {
+  font-size:9px; font-weight:700; letter-spacing:6px; text-transform:uppercase;
+  color:var(--gold); margin-bottom:20px; animation:sa-fadeUp .6s var(--swift) .05s both;
+}
+#sa-root .sa-edition__h1 {
+  font-size:clamp(36px,6vw,72px); font-weight:100; letter-spacing:10px;
+  text-transform:uppercase; color:#fff; line-height:1.0;
+  animation:sa-fadeUp .6s var(--swift) .12s both;
+}
+#sa-root .sa-edition__h1 strong { display:block; font-weight:900; letter-spacing:6px; }
+#sa-root .sa-edition__sub {
+  font-size:10px; font-weight:600; letter-spacing:5px; text-transform:uppercase;
+  color:rgba(255,255,255,0.45); margin-top:20px; animation:sa-fadeUp .6s var(--swift) .2s both;
+}
+#sa-root .sa-edition__grid {
+  display:grid; grid-template-columns:1fr; gap:24px;
+  width:100%; max-width:1060px; position:relative; z-index:1;
+}
+@media(min-width:720px){ #sa-root .sa-edition__grid{grid-template-columns:1fr 1fr;} }
+
+#sa-root .sa-ecard {
+  position:relative; border-radius:22px; overflow:hidden; cursor:pointer;
+  min-height:400px; transition:transform .6s var(--swift),box-shadow .4s var(--smooth);
+}
+#sa-root .sa-ecard:nth-child(1){animation:sa-fadeUp .7s var(--swift) .15s both;}
+#sa-root .sa-ecard:nth-child(2){animation:sa-fadeUp .7s var(--swift) .28s both;}
+#sa-root .sa-ecard:hover{transform:translateY(-12px);}
+#sa-root .sa-ecard--a{background:var(--white);box-shadow:var(--e3);}
+#sa-root .sa-ecard--a:hover{box-shadow:var(--e5);}
+#sa-root .sa-ecard--s{background:var(--onyx);box-shadow:var(--e3);}
+#sa-root .sa-ecard--s:hover{box-shadow:0 40px 100px rgba(0,0,0,0.35),0 0 60px rgba(196,154,24,0.12);}
+#sa-root .sa-ecard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:5;}
+#sa-root .sa-ecard--a::before{background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--gold-lt) 60%,transparent);}
+#sa-root .sa-ecard--s::before{background:linear-gradient(90deg,transparent,var(--gold) 40%,var(--gold-lt) 60%,transparent);}
+#sa-root .sa-ecard__shim{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.04) 50%,transparent 70%);opacity:0;transition:opacity .3s;}
+#sa-root .sa-ecard:hover .sa-ecard__shim{opacity:1;}
+#sa-root .sa-ecard__inner{display:flex;height:100%;min-height:400px;}
+#sa-root .sa-ecard__text{flex:1;padding:52px 44px;display:flex;flex-direction:column;justify-content:center;z-index:2;min-width:0;}
+#sa-root .sa-ecard__media{flex:0 0 44%;position:relative;overflow:hidden;}
+#sa-root .sa-ecard__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--smooth);}
+#sa-root .sa-ecard:hover .sa-ecard__media img{transform:scale(1.06);}
+#sa-root .sa-ecard__ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+#sa-root .sa-ecard--a .sa-ecard__ph{background:#E8E6E2;}
+#sa-root .sa-ecard--s .sa-ecard__ph{background:var(--graphite);}
+#sa-root .sa-ecard__ph svg{width:56px;height:56px;opacity:.16;}
+#sa-root .sa-ecard__script{font-family:var(--script);font-size:clamp(52px,7vw,80px);line-height:.92;margin-bottom:8px;}
+#sa-root .sa-ecard--a .sa-ecard__script{color:var(--ink);}
+#sa-root .sa-ecard--s .sa-ecard__script{color:var(--gold);}
+#sa-root .sa-ecard__type{font-size:clamp(16px,2.4vw,24px);font-weight:900;text-transform:uppercase;letter-spacing:3px;margin-bottom:18px;}
+#sa-root .sa-ecard--a .sa-ecard__type{color:var(--ink);}
+#sa-root .sa-ecard--s .sa-ecard__type{color:var(--white);}
+#sa-root .sa-ecard__desc{font-size:12.5px;line-height:1.8;max-width:220px;}
+#sa-root .sa-ecard--a .sa-ecard__desc{color:var(--slate);}
+#sa-root .sa-ecard--s .sa-ecard__desc{color:rgba(255,255,255,0.45);}
+#sa-root .sa-ecard__cta{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-top:28px;}
+#sa-root .sa-ecard--a .sa-ecard__cta{color:var(--ink);}
+#sa-root .sa-ecard--s .sa-ecard__cta{color:var(--gold);}
+#sa-root .sa-ecard__cta svg{width:14px;height:14px;transition:transform .25s var(--swift);}
+#sa-root .sa-ecard:hover .sa-ecard__cta svg{transform:translateX(5px);}
+@media(max-width:600px){
+  #sa-root .sa-ecard__inner{flex-direction:column-reverse;min-height:auto;}
+  #sa-root .sa-ecard__media{flex:0 0 200px;}
+  #sa-root .sa-ecard__text{padding:32px 28px;}
+}
+
+/* ──────────────────────────────────────────
+   S2 — PHONE INPUT
+────────────────────────────────────────── */
+#sa-root .sa-phone-wrap{
+  background:#000;min-height:100vh;min-height:100dvh;
+  display:flex;align-items:center;justify-content:center;padding:32px 20px;
+  position:relative;overflow-x:hidden;
+}
+#sa-root .sa-phone__inner{width:100%;max-width:480px;position:relative;z-index:1;}
+#sa-root .sa-phone__brand{text-align:center;margin-bottom:28px;}
+#sa-root .sa-phone__name{display:block;font-size:clamp(22px,4vw,32px);font-weight:900;letter-spacing:clamp(8px,2vw,16px);text-transform:uppercase;color:#fff;animation:sa-fadeUp .7s var(--swift) .05s both;}
+#sa-root .sa-phone__tag{display:block;font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:10px;animation:sa-fadeUp .7s var(--swift) .15s both;}
+#sa-root .sa-phone__card{background:var(--white);border-radius:22px;padding:clamp(28px,4vh,48px) clamp(24px,4vw,48px) clamp(24px,3.5vh,40px);box-shadow:var(--e4);position:relative;overflow:hidden;animation:sa-fadeUp .7s var(--swift) .22s both;}
+#sa-root .sa-phone__card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold-lt) 50%,var(--gold) 70%,transparent);}
+#sa-root .sa-phone__icon{width:clamp(48px,6vh,64px);height:clamp(48px,6vh,64px);background:var(--bone);border:1.5px solid var(--ash);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto clamp(14px,2.2vh,22px);}
+#sa-root .sa-phone__icon svg{width:clamp(20px,2.8vh,26px);height:clamp(20px,2.8vh,26px);color:var(--ink);}
+#sa-root .sa-phone__h{font-size:clamp(16px,2.2vh,22px);font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink);text-align:center;margin-bottom:clamp(6px,1vh,12px);}
+#sa-root .sa-phone__sub{font-size:clamp(13px,1.7vh,14.5px);color:var(--slate);text-align:center;line-height:1.7;margin-bottom:clamp(8px,1.4vh,14px);}
+#sa-root .sa-phone__badge{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--gold-dim);border:1px solid rgba(196,154,24,0.25);border-radius:20px;padding:6px 16px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:0 auto clamp(14px,2.2vh,24px);width:fit-content;}
+#sa-root .sa-phone__badge svg{width:12px;height:12px;}
+#sa-root .sa-field__lbl{display:block;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--fog);margin-bottom:clamp(8px,1.2vh,12px);}
+#sa-root .sa-phone__row{display:flex;gap:10px;margin-bottom:clamp(6px,1vh,10px);}
+#sa-root .sa-cc-btn{flex:0 0 90px;height:clamp(46px,5.5vh,54px);display:flex;align-items:center;justify-content:center;gap:6px;background:var(--bone);border:1.5px solid var(--ash);border-radius:13px;font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;transition:border-color .2s;}
+#sa-root .sa-cc-btn:hover{border-color:var(--ink);}
+#sa-root .sa-phone__input{flex:1;min-width:0;height:clamp(46px,5.5vh,54px);padding:0 14px;font-family:var(--font);font-size:18px;font-weight:600;letter-spacing:2.5px;color:var(--ink);background:var(--bone);border:1.5px solid var(--ash);border-radius:13px;outline:none;-moz-appearance:textfield;transition:border-color .2s,background .2s,box-shadow .2s;}
+#sa-root .sa-phone__input::-webkit-inner-spin-button, #sa-root .sa-phone__input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;}
+#sa-root .sa-phone__input::placeholder{color:var(--ash);font-weight:400;letter-spacing:1.5px;}
+#sa-root .sa-phone__input:focus{border-color:var(--ink);background:var(--white);box-shadow:0 0 0 4px rgba(8,8,8,0.05);}
+#sa-root .sa-phone__input.err{border-color:var(--red)!important;animation:sa-shake .45s var(--smooth);}
+#sa-root .sa-phone__hint{font-size:12px;color:var(--fog);margin-bottom:clamp(14px,2vh,22px);}
+#sa-root .sa-cta-btn{width:100%;height:clamp(46px,5.5vh,54px);font-family:var(--font);font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:var(--white);background:var(--ink);border:none;border-radius:13px;cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .25s,transform .2s,box-shadow .25s;}
+#sa-root .sa-cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.05),transparent);}
+#sa-root .sa-cta-btn:hover{background:#1c1c1c;transform:translateY(-2px);box-shadow:var(--e3);}
+#sa-root .sa-cta-btn:active{transform:translateY(0);}
+#sa-root .sa-cta-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+#sa-root .sa-cta-btn--gold{background:var(--gold);}
+#sa-root .sa-cta-btn--gold:hover{background:var(--gold-lt);box-shadow:var(--eg);}
+#sa-root .sa-spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.25);border-top-color:#fff;border-radius:50%;animation:sa-spin .7s linear infinite;display:none;flex-shrink:0;}
+#sa-root .sa-cta-btn.loading .btn-text{display:none;}
+#sa-root .sa-cta-btn.loading .sa-spinner{display:block;}
+#sa-root .sa-phone__legal{margin-top:clamp(12px,1.8vh,20px);font-size:12px;color:var(--fog);text-align:center;line-height:1.75;}
+#sa-root .sa-phone__legal a{color:var(--slate);font-weight:600;text-decoration:none;border-bottom:1px solid var(--ash);}
+@media(max-width:500px){
+  #sa-root .sa-phone__inner{max-width:100%;}
+  #sa-root .sa-phone__name{letter-spacing:6px;}
+  #sa-root .sa-phone__input{font-size:16px;letter-spacing:1.5px;padding:0 12px;}
+  #sa-root .sa-cc-btn{flex:0 0 82px;font-size:13px;}
+  #sa-root .sa-phone__row{gap:8px;}
+}
+
+/* ──────────────────────────────────────────
+   S3 — OTP VERIFICATION
+────────────────────────────────────────── */
+#sa-root .sa-otp-wrap{background:#000;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:32px 20px;position:relative;overflow-x:hidden;}
+#sa-root .sa-otp__inner{width:100%;max-width:460px;position:relative;z-index:1;}
+#sa-root .sa-otp__brand{text-align:center;margin-bottom:44px;}
+#sa-root .sa-otp__name{display:block;font-size:32px;font-weight:900;letter-spacing:16px;text-transform:uppercase;color:#fff;}
+#sa-root .sa-otp__tag{display:block;font-size:9px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:10px;}
+#sa-root .sa-otp__card{background:var(--white);border-radius:24px;padding:60px 56px 52px;box-shadow:var(--e4);position:relative;overflow:hidden;animation:sa-fadeUp .7s var(--swift) .1s both;}
+#sa-root .sa-otp__card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold-lt) 50%,var(--gold) 70%,transparent);}
+#sa-root .sa-otp__icon{width:72px;height:72px;background:var(--gold-dim);border:1.5px solid rgba(196,154,24,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;animation:sa-pulse 2s ease-in-out infinite;}
+#sa-root .sa-otp__icon svg{width:30px;height:30px;color:var(--gold);}
+#sa-root .sa-otp__h{font-size:22px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink);text-align:center;margin-bottom:10px;}
+#sa-root .sa-otp__sub{font-size:13.5px;color:var(--slate);text-align:center;line-height:1.75;margin-bottom:36px;}
+#sa-root .sa-otp__sub strong{color:var(--ink);font-weight:700;}
+#sa-root .sa-otp__boxes{display:flex;gap:10px;justify-content:center;margin-bottom:28px;}
+#sa-root .sa-otp-box{width:52px;height:60px;font-family:var(--font);font-size:24px;font-weight:700;text-align:center;color:var(--ink);background:var(--bone);border:2px solid var(--ash);border-radius:12px;outline:none;caret-color:var(--gold);transition:border-color .2s,background .2s,transform .15s,box-shadow .2s;}
+#sa-root .sa-otp-box:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 4px rgba(196,154,24,0.12);transform:scale(1.05);}
+#sa-root .sa-otp-box.err{border-color:var(--red);animation:sa-shake .45s var(--smooth);}
+#sa-root .sa-otp-box:not(:placeholder-shown):not(:focus){border-color:var(--smoke);background:var(--white);}
+#sa-root .sa-otp__resend{text-align:center;margin-bottom:28px;font-size:12px;color:var(--fog);}
+#sa-root .sa-resend-btn{color:var(--gold);font-weight:700;font-size:12px;background:none;border:none;cursor:pointer;font-family:inherit;transition:color .2s;text-decoration:underline;}
+#sa-root .sa-resend-btn:hover{color:var(--gold-lt);}
+#sa-root .sa-resend-btn:disabled{color:var(--fog);cursor:default;text-decoration:none;}
+#sa-root .sa-otp__footer{margin-top:20px;text-align:center;font-size:11px;color:var(--fog);}
+#sa-root .sa-otp__footer a{color:var(--slate);font-weight:600;text-decoration:none;border-bottom:1px solid var(--ash);cursor:pointer;}
+@media(max-width:500px){
+  #sa-root .sa-otp__card{padding:40px 28px 36px;}
+  #sa-root .sa-otp-box{width:44px;height:52px;font-size:20px;}
+  #sa-root .sa-otp__boxes{gap:8px;}
+}
+
+/* ──────────────────────────────────────────
+   S4 — PRODUCT LISTING
+────────────────────────────────────────── */
+#sa-root .sa-products-wrap{background:#000;min-height:100vh;padding:60px 24px 100px;position:relative;}
+#sa-root .sa-products__hd{max-width:1000px;margin:0 auto 56px;position:relative;z-index:1;}
+#sa-root .sa-products__eye{font-size:9px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+#sa-root .sa-products__name{font-size:clamp(24px,4vw,44px);font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:4px;animation:sa-fadeUp .6s var(--swift) .05s both;}
+#sa-root .sa-products__sub{font-size:13px;color:rgba(255,255,255,0.5);}
+#sa-root .sa-products__count{display:inline-block;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;background:var(--gold-dim);border:1px solid rgba(196,154,24,0.2);border-radius:20px;padding:6px 14px;color:var(--gold);margin-top:14px;}
+#sa-root .sa-products__back{max-width:1000px;margin:0 auto 8px;position:relative;z-index:1;}
+#sa-root .sa-pgrid{display:grid;grid-template-columns:1fr;gap:20px;max-width:1000px;margin:0 auto;position:relative;z-index:1;}
+@media(min-width:580px){ #sa-root .sa-pgrid{grid-template-columns:repeat(2,1fr);} }
+@media(min-width:860px){ #sa-root .sa-pgrid{grid-template-columns:repeat(3,1fr);} }
+#sa-root .sa-pcard{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 40px rgba(0,0,0,0.5);display:flex;flex-direction:column;transition:transform .45s var(--swift),box-shadow .35s var(--smooth),border-color .25s;}
+#sa-root .sa-pcard:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.7),0 0 40px rgba(196,154,24,0.08);border-color:rgba(196,154,24,0.2);}
+#sa-root .sa-pcard__media{position:relative;aspect-ratio:4/3;overflow:hidden;}
+#sa-root .sa-pcard__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--smooth);}
+#sa-root .sa-pcard:hover .sa-pcard__media img{transform:scale(1.04);}
+#sa-root .sa-pcard__ph{width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;}
+#sa-root .sa-pcard--a .sa-pcard__ph{background:#EBEBEB;}
+#sa-root .sa-pcard--s .sa-pcard__ph{background:#1C1C1C;}
+#sa-root .sa-pcard__tag{position:absolute;top:12px;left:12px;font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;border-radius:20px;padding:4px 12px;}
+#sa-root .sa-pcard__tag--a{background:rgba(8,8,8,0.85);color:var(--white);}
+#sa-root .sa-pcard__tag--s{background:var(--gold);color:var(--coal);}
+#sa-root .sa-pcard__body{padding:24px;flex:1;display:flex;flex-direction:column;}
+#sa-root .sa-pcard__kind{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--fog);margin-bottom:8px;}
+#sa-root .sa-pcard__name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.45;margin-bottom:10px;flex:1;}
+#sa-root .sa-pcard__ed{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.5px;border-radius:20px;padding:4px 12px;margin-bottom:18px;}
+#sa-root .sa-pcard__ed--a{background:rgba(8,8,8,0.07);color:var(--ink);}
+#sa-root .sa-pcard__ed--s{background:var(--gold-dim);color:var(--gold-dk);}
+#sa-root .sa-pcard__actions{display:flex;gap:8px;}
+#sa-root .sa-pcard__btn{flex:1;height:40px;font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;border-radius:10px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s,transform .15s;}
+#sa-root .sa-pcard__btn:hover{transform:translateY(-1px);}
+#sa-root .sa-pcard__btn:active{transform:translateY(0);}
+#sa-root .sa-pcard__btn svg{width:14px;height:14px;flex-shrink:0;}
+#sa-root .sa-pcard__btn--cert{background:var(--ink);color:var(--white);}
+#sa-root .sa-pcard__btn--cert:hover{background:#1c1c1c;}
+#sa-root .sa-pcard--s .sa-pcard__btn--cert{background:var(--gold);color:var(--coal);}
+#sa-root .sa-pcard--s .sa-pcard__btn--cert:hover{background:var(--gold-lt);}
+#sa-root .sa-pcard__btn--pdf{background:var(--bone);color:var(--ink);border:1.5px solid var(--ash);}
+#sa-root .sa-pcard__btn--pdf:hover{background:var(--ash);}
+#sa-root .sa-empty{grid-column:1/-1;text-align:center;padding:80px 24px;color:rgba(255,255,255,0.45);font-size:14px;line-height:2;}
+#sa-root .sa-empty h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:12px;}
+
+/* ──────────────────────────────────────────
+   S5 — ARTISAN CERTIFICATE (LIGHT)
+────────────────────────────────────────── */
+#sa-root .sa-cert-a-wrap{background:#000;min-height:100vh;padding:56px 32px 100px;position:relative;}
+/* ──────────────────────────────────────────
+   S6 — SIGNED CERTIFICATE (DARK)
+────────────────────────────────────────── */
+#sa-root .sa-cert-s-wrap{background:var(--onyx);min-height:100vh;padding:56px 32px 100px;position:relative;}
+
+#sa-root .sa-cert__body{max-width:720px;margin:0 auto;}
+#sa-root .sa-badge{display:flex;align-items:center;gap:20px;margin-bottom:44px;animation:sa-fadeUp .6s var(--swift) .1s both;}
+#sa-root .sa-badge__icon{flex-shrink:0;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:sa-pop .7s var(--swift) .2s both;}
+#sa-root .sa-cert-a-wrap .sa-badge__icon{background:var(--gold);}
+#sa-root .sa-cert-s-wrap .sa-badge__icon{background:var(--gold);}
+#sa-root .sa-badge__icon svg{width:34px;height:34px;}
+#sa-root .sa-badge__sub{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px;}
+#sa-root .sa-cert-a-wrap .sa-badge__sub{color:rgba(255,255,255,0.5);}
+#sa-root .sa-cert-s-wrap .sa-badge__sub{color:rgba(255,255,255,0.45);}
+#sa-root .sa-badge__title{font-family:var(--script);font-size:clamp(44px,7vw,72px);line-height:.9;}
+#sa-root .sa-cert-a-wrap .sa-badge__title{color:var(--gold);}
+#sa-root .sa-cert-s-wrap .sa-badge__title{color:var(--gold);}
+
+#sa-root .sa-cert__info{border-radius:16px;margin-bottom:32px;padding:28px 32px;animation:sa-fadeUp .5s var(--swift) .25s both;}
+#sa-root .sa-cert-a-wrap .sa-cert__info{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
+#sa-root .sa-cert-s-wrap .sa-cert__info{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
+#sa-root .sa-cert__rows{margin-bottom:24px;}
+#sa-root .sa-cert__row{font-size:12px;font-weight:500;display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 0;}
+#sa-root .sa-cert-a-wrap .sa-cert__row{color:rgba(255,255,255,0.45);border-bottom:1px solid rgba(255,255,255,0.07);}
+#sa-root .sa-cert-s-wrap .sa-cert__row{color:rgba(255,255,255,0.38);border-bottom:1px solid rgba(255,255,255,0.06);}
+#sa-root .sa-cert__row:last-child{border-bottom:none;}
+#sa-root .sa-cert__row-key{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;flex-shrink:0;}
+#sa-root .sa-cert__row-val{font-size:14px;font-weight:700;text-align:right;}
+#sa-root .sa-cert-a-wrap .sa-cert__row-val{color:#fff;}
+#sa-root .sa-cert-s-wrap .sa-cert__row-val{color:var(--white);}
+
+#sa-root .sa-cert__pdfs{display:flex;gap:10px;}
+#sa-root .sa-cert__pdf{flex:1;height:44px;font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;}
+#sa-root .sa-cert__pdf:hover{transform:translateY(-1px);}
+#sa-root .sa-cert__pdf svg{width:16px;height:16px;}
+#sa-root .sa-cert__pdf:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+#sa-root .sa-cert-a-wrap .sa-cert__pdf{background:rgba(255,255,255,0.07);color:#fff;border:1px solid rgba(255,255,255,0.12);}
+#sa-root .sa-cert-a-wrap .sa-cert__pdf:hover{background:rgba(255,255,255,0.13);box-shadow:none;}
+#sa-root .sa-cert-s-wrap .sa-cert__pdf{background:rgba(255,255,255,0.06);color:var(--white);border:1px solid rgba(255,255,255,0.1);}
+#sa-root .sa-cert-s-wrap .sa-cert__pdf:hover{background:rgba(255,255,255,0.1);}
+
+#sa-root .sa-cert__product{border-radius:16px;overflow:hidden;margin-top:32px;animation:sa-fadeUp .5s var(--swift) .35s both;}
+#sa-root .sa-cert-a-wrap .sa-cert__product{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
+#sa-root .sa-cert-s-wrap .sa-cert__product{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);}
+#sa-root .sa-cert__product-inner{display:flex;min-height:260px;}
+#sa-root .sa-cert__pimg{flex:0 0 280px;position:relative;overflow:hidden;}
+#sa-root .sa-cert__pimg img{width:100%;height:100%;object-fit:cover;display:block;}
+#sa-root .sa-cert__pimg-ph{width:100%;height:100%;min-height:260px;display:flex;align-items:center;justify-content:center;}
+#sa-root .sa-cert-a-wrap .sa-cert__pimg-ph{background:rgba(255,255,255,0.05);}
+#sa-root .sa-cert-s-wrap .sa-cert__pimg-ph{background:rgba(255,255,255,0.03);}
+#sa-root .sa-cert__pinfo{flex:1;padding:32px;}
+#sa-root .sa-cert__pname{font-size:18px;font-weight:800;letter-spacing:0.5px;margin-bottom:12px;}
+#sa-root .sa-cert-a-wrap .sa-cert__pname{color:#fff;}
+#sa-root .sa-cert-s-wrap .sa-cert__pname{color:var(--white);}
+#sa-root .sa-cert__pill{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:1.5px;border-radius:20px;padding:4px 14px;margin-bottom:20px;}
+#sa-root .sa-cert-a-wrap .sa-cert__pill{background:var(--gold-dim);color:var(--gold);}
+#sa-root .sa-cert-s-wrap .sa-cert__pill{background:var(--gold-dim);color:var(--gold);}
+#sa-root .sa-cert__dlabel{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;}
+#sa-root .sa-cert-a-wrap .sa-cert__dlabel{color:rgba(255,255,255,0.35);}
+#sa-root .sa-cert-s-wrap .sa-cert__dlabel{color:rgba(255,255,255,0.3);}
+#sa-root .sa-cert__desc{font-size:13px;line-height:1.75;}
+#sa-root .sa-cert-a-wrap .sa-cert__desc{color:rgba(255,255,255,0.55);}
+#sa-root .sa-cert-s-wrap .sa-cert__desc{color:rgba(255,255,255,0.55);}
+@media(max-width:640px){
+  #sa-root .sa-cert__product-inner{flex-direction:column;}
+  #sa-root .sa-cert__pimg{flex:0 0 200px;}
+}
+
+/* COA (Signed) */
+#sa-root .sa-coa-wrap{margin-top:32px;animation:sa-fadeUp .5s var(--swift) .45s both;}
+#sa-root .sa-coa-lbl{font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.3);text-align:center;margin-bottom:16px;}
+#sa-root .sa-coa-frame{border-radius:16px;overflow:hidden;border:1px solid rgba(196,154,24,0.2);}
+#sa-root .sa-coa-frame img{width:100%;display:block;}
+#sa-root .sa-coa-card{background:var(--graphite);padding:48px 40px;text-align:center;}
+#sa-root .sa-coa-card__deco{font-size:9px;letter-spacing:6px;color:rgba(196,154,24,0.4);margin-bottom:12px;}
+#sa-root .sa-coa-card__orn{font-size:13px;color:var(--gold);margin-bottom:20px;}
+#sa-root .sa-coa-card__title{font-family:var(--script);font-size:clamp(36px,5vw,52px);color:var(--gold);line-height:1.0;margin-bottom:20px;}
+#sa-root .sa-coa-card__rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(196,154,24,0.5),transparent);margin:0 auto 20px;}
+#sa-root .sa-coa-card__body{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.6);max-width:480px;margin:0 auto 28px;}
+#sa-root .sa-coa-card__foot{display:flex;gap:40px;justify-content:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;}
+#sa-root .sa-coa-card__field{text-align:center;}
+#sa-root .sa-coa-card__val{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:4px;}
+#sa-root .sa-coa-card__key{font-size:8.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.3);}
+
+/* ──────────────────────────────────────────
+   LOADING + TOAST
+────────────────────────────────────────── */
+#sa-root .sa-loading{position:fixed;inset:0;z-index:9999;background:rgba(244,242,239,0.92);backdrop-filter:blur(8px) saturate(1.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;pointer-events:none;transition:opacity .25s var(--smooth);}
+#sa-root .sa-loading.on{opacity:1;pointer-events:all;}
+#sa-root .sa-loading__ring{width:48px;height:48px;border-radius:50%;border:3px solid rgba(196,154,24,0.15);border-top-color:var(--gold);animation:sa-spin .9s linear infinite;}
+#sa-root .sa-loading__txt{font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--slate);}
+#sa-root .sa-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);z-index:10000;max-width:380px;width:calc(100% - 48px);padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;text-align:center;pointer-events:none;opacity:0;transition:opacity .3s,transform .3s var(--swift);}
+#sa-root .sa-toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+#sa-root .sa-toast--ok{background:var(--onyx);color:var(--white);}
+#sa-root .sa-toast--err{background:#DC2626;color:#fff;}
+#sa-root .sa-toast--info{background:var(--gold);color:var(--coal);}
+
+/* ── ERROR MODAL ── */
+#sa-root .sa-err-modal{position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,0.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .28s var(--smooth);}
+#sa-root .sa-err-modal.on{opacity:1;pointer-events:all;}
+#sa-root .sa-err-modal__card{background:var(--white);border-radius:20px;padding:44px 32px 32px;max-width:380px;width:100%;text-align:center;position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.32);animation:sa-fadeUp .35s var(--swift) both;}
+#sa-root .sa-err-modal.on .sa-err-modal__card{animation:sa-fadeUp .35s var(--swift) both;}
+#sa-root .sa-err-modal__card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--red) 25%,#ef4444 75%,transparent);}
+#sa-root .sa-err-modal__close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:var(--bone);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--slate);font-size:14px;line-height:1;transition:background .2s,color .2s;font-family:inherit;}
+#sa-root .sa-err-modal__close:hover{background:var(--ash);color:var(--ink);}
+#sa-root .sa-err-modal__icon{width:52px;height:52px;background:#fee2e2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+#sa-root .sa-err-modal__icon svg{width:24px;height:24px;color:var(--red);}
+#sa-root .sa-err-modal__title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:0.3px;}
+#sa-root .sa-err-modal__body{font-size:13px;line-height:1.75;color:var(--slate);margin-bottom:18px;}
+#sa-root .sa-err-modal__contact{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--bone);border:1.5px solid var(--ash);border-radius:10px;padding:10px 20px;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:22px;width:100%;text-decoration:none;transition:background .2s,border-color .2s,color .2s;cursor:pointer;}
+#sa-root .sa-err-modal__contact:hover{background:var(--ash);border-color:var(--smoke);color:var(--ink);}
+#sa-root .sa-err-modal__contact svg{flex-shrink:0;opacity:0.5;}
+#sa-root .sa-err-modal__btn{width:100%;height:46px;font-family:var(--font);font-size:10.5px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--white);background:var(--ink);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;box-shadow:var(--e2);}
+#sa-root .sa-err-modal__btn:hover{background:#222;transform:translateY(-1px);}
+
+/* ── PURCHASE DATE ON PRODUCT CARDS ── */
+#sa-root .sa-pcard__date{font-size:11px;color:var(--fog);margin-bottom:14px;margin-top:-4px;letter-spacing:0.3px;}
+</style>
+
+
+<!-- ════════════════════════════════════════════
+     ROOT CONTAINER
+════════════════════════════════════════════ -->
+<div id="sa-root">
+
+  <!-- ── SCREEN 1: EDITION SELECTION ── -->
+  <div class="sa-screen sa-dots" id="sa-s-edition" data-screen="edition">
+    <div class="sa-edition-wrap">
+      <div class="sa-edition__hd sa-rel">
+        <p class="sa-edition__eye">{{ section.settings.brand_name | default: 'Sixxer' }} — Authentication</p>
+        <h1 class="sa-edition__h1">
+          {{ section.settings.ed_title_lt | default: 'Select Your' }}
+          <strong>{{ section.settings.ed_title_bd | default: 'Edition' }}</strong>
+        </h1>
+        <p class="sa-edition__sub">{{ section.settings.ed_sub | default: 'Choose the edition you own to verify your collectible' }}</p>
+      </div>
+
+      <div class="sa-edition__grid">
+        <!-- Artisan -->
+        <div class="sa-ecard sa-ecard--a" data-edition="artisan" role="button" tabindex="0" aria-label="Select Artisan Edition">
+          <div class="sa-ecard__shim"></div>
+          <div class="sa-ecard__inner">
+            <div class="sa-ecard__text">
+              <span class="sa-ecard__script">{{ section.settings.artisan_script | default: 'Artisan' }}</span>
+              <span class="sa-ecard__type">{{ section.settings.artisan_type | default: 'Editions' }}</span>
+              <p class="sa-ecard__desc">{{ section.settings.artisan_desc | default: 'Created through art, compassion and detailing. Not just ordinary artboards — each belongs to a moment history will remember.' }}</p>
+              <span class="sa-ecard__cta">
+                Select Edition
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+            <div class="sa-ecard__media">
+              <picture>
+                <source media="(max-width:600px)" srcset="https://cdn.shopify.com/s/files/1/0706/8876/8174/files/artisan_mobile.png?v=1781516448">
+                <img src="https://cdn.shopify.com/s/files/1/0706/8876/8174/files/artisan_desktop.png?v=1781516448" alt="Artisan Edition" loading="lazy">
+              </picture>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signed -->
+        <div class="sa-ecard sa-ecard--s" data-edition="signed" role="button" tabindex="0" aria-label="Select Signed Edition">
+          <div class="sa-ecard__shim"></div>
+          <div class="sa-ecard__inner">
+            <div class="sa-ecard__text">
+              <span class="sa-ecard__script">{{ section.settings.signed_script | default: 'Signed' }}</span>
+              <span class="sa-ecard__type">{{ section.settings.signed_type | default: 'Editions' }}</span>
+              <p class="sa-ecard__desc">{{ section.settings.signed_desc | default: 'Rare signed memorabilia — from the hands of legends. Authenticated and certified by Sixxer.' }}</p>
+              <span class="sa-ecard__cta">
+                Select Edition
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </span>
+            </div>
+            <div class="sa-ecard__media">
+              <picture>
+                <source media="(max-width:600px)" srcset="https://cdn.shopify.com/s/files/1/0706/8876/8174/files/signed_mobile.png?v=1781516448">
+                <img src="https://cdn.shopify.com/s/files/1/0706/8876/8174/files/signed_desktop.png?v=1781516449" alt="Signed Edition" loading="lazy">
+              </picture>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 2: PHONE INPUT ── -->
+  <div class="sa-screen sa-dots is-active" id="sa-s-phone" data-screen="phone">
+    <div class="sa-phone-wrap">
+      <div class="sa-phone__inner">
+        <div class="sa-phone__brand">
+          <span class="sa-phone__name">{{ section.settings.brand_name | default: 'Sixxer' }}</span>
+          <span class="sa-phone__tag">{{ section.settings.brand_tagline | default: 'Certificate Authentication' }}</span>
+        </div>
+        <div class="sa-phone__card">
+          <div class="sa-phone__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h2 class="sa-phone__h">{{ section.settings.login_title | default: 'Verify Your Number' }}</h2>
+          <p class="sa-phone__sub">{{ section.settings.login_sub | default: 'Enter your registered mobile number. We will send a one-time verification code.' }}</p>
+          <div class="sa-phone__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Secured &amp; Encrypted
+          </div>
+          <label class="sa-field__lbl" for="sa-phone-input">Mobile Number</label>
+          <div class="sa-phone__row">
+            <button class="sa-cc-btn" id="sa-cc-btn" type="button" aria-label="Country code">
+              🇮🇳 +91
+            </button>
+            <input
+              class="sa-phone__input"
+              id="sa-phone-input"
+              type="tel"
+              inputmode="numeric"
+              maxlength="10"
+              placeholder="0000 000 000"
+              autocomplete="tel-national"
+            >
+          </div>
+          <p class="sa-phone__hint">Standard SMS rates may apply.</p>
+          <button class="sa-cta-btn" id="sa-send-otp" type="button">
+            <span class="btn-text">Send Verification Code</span>
+            <div class="sa-spinner" aria-hidden="true"></div>
+          </button>
+          <p class="sa-phone__legal">By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 3: OTP VERIFICATION ── -->
+  <div class="sa-screen sa-dots" id="sa-s-otp" data-screen="otp">
+    <div class="sa-otp-wrap">
+      <div class="sa-otp__inner">
+        <div class="sa-otp__brand">
+          <span class="sa-otp__name">{{ section.settings.brand_name | default: 'Sixxer' }}</span>
+          <span class="sa-otp__tag">{{ section.settings.brand_tagline | default: 'Certificate Authentication' }}</span>
+        </div>
+        <div class="sa-otp__card">
+          <div class="sa-otp__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h2 class="sa-otp__h">Enter Verification Code</h2>
+          <p class="sa-otp__sub">We sent a 6-digit code to <strong id="sa-otp-phone">your number</strong>. Enter it below to authenticate.</p>
+          <div class="sa-otp__boxes" role="group" aria-label="One-time password">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" autocomplete="one-time-code" aria-label="Digit 1">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" aria-label="Digit 2">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" aria-label="Digit 3">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" aria-label="Digit 4">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" aria-label="Digit 5">
+            <input class="sa-otp-box" type="tel" inputmode="numeric" maxlength="1" placeholder="·" aria-label="Digit 6">
+          </div>
+          <div class="sa-otp__resend">
+            <span id="sa-resend-row">
+              Resend code in <strong id="sa-resend-count">30</strong>s
+            </span>
+            <button class="sa-resend-btn" id="sa-resend-btn" type="button" style="display:none;">Resend Code</button>
+          </div>
+          <button class="sa-cta-btn sa-cta-btn--gold" id="sa-verify-otp" type="button">
+            <span class="btn-text">Verify &amp; Continue</span>
+            <div class="sa-spinner" aria-hidden="true"></div>
+          </button>
+          <div class="sa-otp__footer">
+            Wrong number?
+            <a id="sa-otp-back" data-goto="phone">Go back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 4: PRODUCT LISTING ── -->
+  <div class="sa-screen sa-dots" id="sa-s-products" data-screen="products">
+    <div class="sa-products-wrap">
+      <div class="sa-products__back sa-rel">
+        <button class="sa-back sa-back--lt" id="sa-products-back" type="button" style="margin-bottom:0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          <span id="sa-products-back-label">Switch Edition</span>
+        </button>
+      </div>
+      <div class="sa-products__hd sa-rel">
+        <p class="sa-products__eye" id="sa-products-eye">Welcome Back</p>
+        <h2 class="sa-products__name" id="sa-cust-name">Your Collection</h2>
+        <p class="sa-products__sub" id="sa-products-sub">Your verified collectibles are ready.</p>
+        <span class="sa-products__count" id="sa-item-count">— Items</span>
+      </div>
+      <div class="sa-pgrid sa-rel" id="sa-pgrid">
+        <!-- Dynamically populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 5: ARTISAN CERTIFICATE ── -->
+  <div class="sa-screen sa-dots" id="sa-s-cert-a" data-screen="cert-artisan">
+    <div class="sa-cert-a-wrap">
+      <div class="sa-cert__body">
+        <button class="sa-back sa-back--lt" data-goto="products" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to My Editions
+        </button>
+
+        <div class="sa-badge">
+          <div class="sa-badge__icon">
+            <svg viewBox="0 0 56 56"><path d="M28 4L6 14v14c0 12.7 9.3 24.6 22 27.4C40.7 52.6 50 40.7 50 28V14L28 4z" fill="#fff"/><path d="M19 28.5l6.5 6.5 11-13" stroke="#080808" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <div class="sa-badge__copy">
+            <p class="sa-badge__sub">Sixxer! Your product</p>
+            <h2 class="sa-badge__title">Is Verified</h2>
+          </div>
+        </div>
+
+        <div class="sa-cert__info">
+          <div class="sa-cert__rows">
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Collector's Name</span><span class="sa-cert__row-val sa-cert__collector">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Product</span><span class="sa-cert__row-val sa-cert__product-name">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Edition Number</span><span class="sa-cert__row-val sa-cert__edition">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Order Number</span><span class="sa-cert__row-val sa-cert__order">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Purchase Date</span><span class="sa-cert__row-val sa-cert__date">—</span></div>
+          </div>
+          <div class="sa-cert__pdfs">
+            <button class="sa-cert__pdf" data-cert-view type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/><line x1="9" y1="11" x2="13" y2="11"/></svg>
+              <span>View PDF</span>
+            </button>
+            <button class="sa-cert__pdf" data-cert-pdf type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sa-cert__product">
+          <div class="sa-cert__product-inner">
+            <div class="sa-cert__pimg">
+              <img src="" alt="" style="display:none;" id="sa-cert-a-img">
+              <div class="sa-cert__pimg-ph" id="sa-cert-a-ph">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#d0d0d0" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+            </div>
+            <div class="sa-cert__pinfo">
+              <h3 class="sa-cert__pname sa-cert__product-name2">—</h3>
+              <span class="sa-cert__pill sa-cert__edition2">—</span>
+              <p class="sa-cert__dlabel">Product Description</p>
+              <p class="sa-cert__desc sa-cert__desc-txt">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 6: SIGNED CERTIFICATE ── -->
+  <div class="sa-screen sa-grid" id="sa-s-cert-s" data-screen="cert-signed">
+    <div class="sa-cert-s-wrap">
+      <div class="sa-cert__body">
+        <button class="sa-back sa-back--dk" data-goto="products" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to My Editions
+        </button>
+
+        <div class="sa-badge">
+          <div class="sa-badge__icon">
+            <svg viewBox="0 0 56 56"><path d="M28 4L6 14v14c0 12.7 9.3 24.6 22 27.4C40.7 52.6 50 40.7 50 28V14L28 4z" fill="#C49A18"/><path d="M19 28.5l6.5 6.5 11-13" stroke="#060606" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          </div>
+          <div class="sa-badge__copy">
+            <p class="sa-badge__sub">Sixxer! Your product</p>
+            <h2 class="sa-badge__title">Is Verified</h2>
+          </div>
+        </div>
+
+        <div class="sa-cert__info">
+          <div class="sa-cert__rows">
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Collector's Name</span><span class="sa-cert__row-val sa-cert__collector">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Product</span><span class="sa-cert__row-val sa-cert__product-name">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Edition Number</span><span class="sa-cert__row-val sa-cert__edition">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Serial Number</span><span class="sa-cert__row-val sa-cert__serial">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Order Number</span><span class="sa-cert__row-val sa-cert__order">—</span></div>
+            <div class="sa-cert__row"><span class="sa-cert__row-key">Purchase Date</span><span class="sa-cert__row-val sa-cert__date">—</span></div>
+          </div>
+          <div class="sa-cert__pdfs">
+            <button class="sa-cert__pdf" data-cert-view type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+              <span>View PDF</span>
+            </button>
+            <button class="sa-cert__pdf" data-cert-pdf type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sa-cert__product">
+          <div class="sa-cert__product-inner">
+            <div class="sa-cert__pimg">
+              <img src="" alt="" style="display:none;" id="sa-cert-s-img">
+              <div class="sa-cert__pimg-ph" id="sa-cert-s-ph">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </div>
+            </div>
+            <div class="sa-cert__pinfo">
+              <h3 class="sa-cert__pname sa-cert__product-name2">—</h3>
+              <span class="sa-cert__pill sa-cert__edition2">—</span>
+              <p class="sa-cert__dlabel">Product Description</p>
+              <p class="sa-cert__desc sa-cert__desc-txt">—</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- COA -->
+        <div class="sa-coa-wrap">
+          <p class="sa-coa-lbl">Certificate of Authenticity</p>
+          <div class="sa-coa-frame">
+            {%- if section.settings.coa_img != blank -%}
+              <img src="{{ section.settings.coa_img | image_url: width: 800 }}" alt="Certificate of Authenticity">
+            {%- else -%}
+              <div class="sa-coa-card">
+                <p class="sa-coa-card__deco">&gt;&gt;&gt;&gt;&gt;&gt;&nbsp;&nbsp;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+                <p class="sa-coa-card__orn">— ✦ —</p>
+                <div class="sa-coa-card__title">Certificate of<br>Authenticity</div>
+                <div class="sa-coa-card__rule"></div>
+                <p class="sa-coa-card__body sa-coa__body">This certifies that the accompanying item has been personally autographed and is a numbered limited edition collectible piece.</p>
+                <div class="sa-coa-card__foot">
+                  <div class="sa-coa-card__field">
+                    <div class="sa-coa-card__val sa-coa__serial">—</div>
+                    <div class="sa-coa-card__key">Serial No.</div>
+                  </div>
+                  <div class="sa-coa-card__field">
+                    <div class="sa-coa-card__val sa-coa__month">—</div>
+                    <div class="sa-coa-card__key">Month of Signing</div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ERROR MODAL -->
+  <div class="sa-err-modal" id="sa-err-modal" role="dialog" aria-modal="true" aria-labelledby="sa-err-title">
+    <div class="sa-err-modal__card">
+      <button class="sa-err-modal__close" id="sa-err-close" aria-label="Close">✕</button>
+      <div class="sa-err-modal__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h3 class="sa-err-modal__title" id="sa-err-title">No Order Found</h3>
+      <p class="sa-err-modal__body">We couldn't find any order linked to this number. Make sure you're using the same number used at checkout.</p>
+      <a class="sa-err-modal__contact" href="tel:+919315704239">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35a2 2 0 0 1 2-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 93157 04239
+      </a>
+      <button class="sa-err-modal__btn" id="sa-err-try-btn" type="button">Try Another Number</button>
+    </div>
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="sa-loading" id="sa-loading" role="alert" aria-live="polite">
+    <div class="sa-loading__ring"></div>
+    <p class="sa-loading__txt" id="sa-loading-txt">Please wait…</p>
+  </div>
+
+  <!-- TOAST -->
+  <div class="sa-toast" id="sa-toast" role="status" aria-live="polite"></div>
+
+</div><!-- /#sa-root -->
+
+<!-- Recaptcha mount -->
+<div id="sa-recaptcha" style="position:fixed;bottom:0;right:0;z-index:9998;"></div>
+
+<!-- Config (Liquid → JS) -->
+<script>
+window.SixxerCfg = {
+  firebase: {
+    apiKey:            '{{ section.settings.firebase_api_key | escape }}',
+    authDomain:        '{{ section.settings.firebase_auth_domain | escape }}',
+    projectId:         '{{ section.settings.firebase_project_id | escape }}',
+    appId:             '{{ section.settings.firebase_app_id | escape }}',
+    messagingSenderId: '{{ section.settings.firebase_messaging_sender_id | escape }}'
+  },
+  shopify: {
+    storefrontToken: '{{ section.settings.storefront_token | escape }}',
+    appProxyUrl:     '{{ section.settings.app_proxy_url | default: "" | escape }}',
+    domain:          '{{ shop.permanent_domain | escape }}',
+    transferApiUrl:  '{{ section.settings.transfer_api_url | default: "" | escape }}'
+  }
+};
+</script>
+
+<!-- Firebase Compat SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<script>
+/* ==========================================================
+   SIXXER AUTH — MAIN APPLICATION
+   Flow: Edition → Phone → OTP → Products → Certificate
+   Auth: Firebase Phone OTP → Shopify App Proxy → Storefront API
+   PDF: jsPDF only (pure drawing — no html2canvas)
+========================================================== */
+(function () {
+  'use strict';
+
+  var root = document.getElementById('sa-root');
+  if (!root) return;
+
+  var cfg = window.SixxerCfg || {};
+
+  /* ── STATE ── */
+  var S = {
+    edition:            null,
+    countryCode:        '+91',
+    phone:              null,
+    confirmResult:      null,
+    fbUser:             null,
+    custToken:          null,
+    customer:           null,
+    orders:             [],
+    allOrders:          [],
+    availableEditions:  [],
+    activeCert:         null,
+    resendTimer:        null,
+    resendSecs:         30,
+    currentScreen:      'phone'
+  };
+
+  /* ── SCREEN NAVIGATION ── */
+  function go(id) {
+    if (id === S.currentScreen) return;
+    var from = root.querySelector('[data-screen="' + S.currentScreen + '"]');
+    var to   = root.querySelector('[data-screen="' + id + '"]');
+    if (!to) return;
+    if (from) {
+      from.classList.add('is-leaving');
+      from.classList.remove('is-active');
+      setTimeout(function () { from.classList.remove('is-leaving'); }, 300);
+    }
+    setTimeout(function () {
+      to.classList.add('is-active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 150);
+    S.currentScreen = id;
+  }
+
+  /* ── FIREBASE ── */
+  var fbAuth, rcVerifier;
+
+  function initFirebase() {
+    if (!cfg.firebase || !cfg.firebase.apiKey) return false;
+    try {
+      var app = firebase.initializeApp(cfg.firebase);
+      fbAuth = firebase.auth();
+      return true;
+    } catch (e) {
+      console.warn('Firebase init:', e.message);
+      return false;
+    }
+  }
+
+  /* ── PRE-OTP ORDER CHECK ── */
+  function checkOrdersExist(phone) {
+    var proxyUrl = cfg.shopify && cfg.shopify.appProxyUrl;
+    if (!proxyUrl) return Promise.resolve(true);
+    return fetch(proxyUrl + '/customer-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber: phone, ordersFirst: 20, lineItemsFirst: 20 })
+    })
+    .then(function (r) { if (!r.ok) throw new Error('Backend ' + r.status); return r.json(); })
+    .then(function (data) {
+      var customers = data && data.customers && data.customers.edges;
+      if (!customers || customers.length === 0) return false;
+      for (var ci = 0; ci < customers.length; ci++) {
+        var orders = customers[ci].node.orders && customers[ci].node.orders.edges;
+        if (!orders || orders.length === 0) continue;
+        for (var i = 0; i < orders.length; i++) {
+          var order = orders[i].node;
+          if (order.cancelledAt) continue;
+          var lineItems = order.lineItems && order.lineItems.edges || [];
+          if (lineItems.length === 0) continue;
+          for (var j = 0; j < lineItems.length; j++) {
+            var ed = detectEdition(lineItems[j].node);
+            if (ed === 'artisan' || ed === 'signed') return true;
+          }
+        }
+      }
+      return false;
+    });
+  }
+
+  function showOrderError() {
+    var el = root.querySelector('#sa-err-modal');
+    if (el) el.classList.add('on');
+  }
+  function hideOrderError() {
+    var el = root.querySelector('#sa-err-modal');
+    if (el) el.classList.remove('on');
+  }
+
+  /* ── OTP SEND ── */
+  function handleSend() {
+    var inputEl = root.querySelector('#sa-phone-input');
+    var raw = (inputEl.value || '').replace(/\D/g, '');
+    if (raw.length < 10) {
+      inputEl.classList.add('err');
+      toast('Enter a valid 10-digit mobile number.', 'err');
+      setTimeout(function () { inputEl.classList.remove('err'); }, 700);
+      return;
+    }
+    S.phone = S.countryCode + raw;
+    hideOrderError();
+    showLoad('Checking your account…');
+    setBtn('sa-send-otp', true);
+
+    checkOrdersExist(S.phone)
+      .then(function (hasOrders) {
+        if (!hasOrders) {
+          hideLoad();
+          setBtn('sa-send-otp', false);
+          showOrderError();
+          return;
+        }
+        var phoneDisplay = root.querySelector('#sa-otp-phone');
+        if (phoneDisplay) phoneDisplay.textContent = S.phone;
+        sendOTP();
+      })
+      .catch(function () {
+        hideLoad();
+        setBtn('sa-send-otp', false);
+        toast('Unable to verify. Please try again.', 'err');
+      });
+  }
+
+  function sendOTP() {
+    showLoad('Sending verification code…');
+    setBtn('sa-send-otp', true);
+
+    if (!fbAuth) {
+      hideLoad();
+      setBtn('sa-send-otp', false);
+      go('otp');
+      startResend();
+      toast('Demo mode — enter any 6-digit code', 'info');
+      return;
+    }
+
+    if (!rcVerifier) {
+      rcVerifier = new firebase.auth.RecaptchaVerifier('sa-recaptcha', { size: 'invisible', callback: function(){} });
+    }
+
+    fbAuth.signInWithPhoneNumber(S.phone, rcVerifier)
+      .then(function (res) {
+        S.confirmResult = res;
+        hideLoad();
+        setBtn('sa-send-otp', false);
+        go('otp');
+        startResend();
+        toast('Code sent!', 'ok');
+      })
+      .catch(function (err) {
+        hideLoad();
+        setBtn('sa-send-otp', false);
+        toast(fbErr(err.code), 'err');
+        if (rcVerifier) { rcVerifier.clear(); rcVerifier = null; }
+      });
+  }
+
+  /* ── OTP BOXES ── */
+  function initBoxes() {
+    var boxes = Array.from(root.querySelectorAll('.sa-otp-box'));
+    boxes.forEach(function (box, i) {
+      box.addEventListener('input', function () {
+        var v = this.value.replace(/\D/g, '');
+        this.value = v.slice(-1);
+        if (v && i < boxes.length - 1) boxes[i + 1].focus();
+      });
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace' && !this.value && i > 0) { boxes[i - 1].focus(); }
+        if (e.key === 'ArrowLeft'  && i > 0)               { boxes[i - 1].focus(); }
+        if (e.key === 'ArrowRight' && i < boxes.length - 1){ boxes[i + 1].focus(); }
+      });
+      box.addEventListener('paste', function (e) {
+        e.preventDefault();
+        var txt = (e.clipboardData || window.clipboardData).getData('text');
+        var digits = txt.replace(/\D/g, '').slice(0, 6);
+        digits.split('').forEach(function (d, j) { if (boxes[j]) boxes[j].value = d; });
+        var last = Math.min(digits.length, boxes.length - 1);
+        if (boxes[last]) boxes[last].focus();
+      });
+      box.addEventListener('focus', function () { this.select(); });
+    });
+  }
+
+  function getOTP() {
+    return Array.from(root.querySelectorAll('.sa-otp-box')).map(function (b) { return b.value; }).join('');
+  }
+
+  /* ── OTP VERIFY ── */
+  function handleVerify() {
+    var code = getOTP();
+    if (code.length !== 6) {
+      root.querySelectorAll('.sa-otp-box').forEach(function (b) { b.classList.add('err'); setTimeout(function(){b.classList.remove('err');},600); });
+      toast('Enter all 6 digits.', 'err');
+      return;
+    }
+
+    showLoad('Verifying code…');
+    setBtn('sa-verify-otp', true);
+
+    if (!S.confirmResult) {
+      // Demo mode
+      hideLoad();
+      setBtn('sa-verify-otp', false);
+      S.customer = { name: 'Raghav Kumar', phone: S.phone };
+      var dOrders = demoOrders();
+      S.allOrders = dOrders;
+      S.orders    = dOrders;
+      S.availableEditions = detectAvailableEditions(dOrders);
+      if (S.availableEditions.length === 1) {
+        S.edition = S.availableEditions[0];
+        renderProducts();
+        go('products');
+      } else {
+        updateEditionCards(S.availableEditions);
+        go('edition');
+      }
+      return;
+    }
+
+    S.confirmResult.confirm(code)
+      .then(function (result) {
+        S.fbUser = result.user;
+        showLoad('Loading your collection…');
+        return fetchOrders().then(filterByOwnership);
+      })
+      .then(function (orders) {
+        S.allOrders = orders;
+        S.orders = orders;
+        hideLoad();
+        setBtn('sa-verify-otp', false);
+        var editions = detectAvailableEditions(orders);
+        S.availableEditions = editions;
+        if (editions.length === 0) {
+          showOrderError();
+          go('phone');
+          return;
+        }
+        if (editions.length === 1) {
+          S.edition = editions[0];
+          renderProducts();
+          go('products');
+        } else {
+          updateEditionCards(editions);
+          go('edition');
+        }
+      })
+      .catch(function (err) {
+        hideLoad();
+        setBtn('sa-verify-otp', false);
+        root.querySelectorAll('.sa-otp-box').forEach(function (b) { b.value = ''; b.classList.add('err'); setTimeout(function(){b.classList.remove('err');},600); });
+        var first = root.querySelector('.sa-otp-box');
+        if (first) first.focus();
+        toast(fbErr(err.code || err.message), 'err');
+      });
+  }
+
+  /* ── SHOPIFY: GET CUSTOMER TOKEN (DEPRECATED) ── */
+  function getCustomerToken(phone, idToken) {
+    return Promise.resolve({ customerAccessToken: 'bypass' });
+  }
+
+  /* ── OWNERSHIP REGISTRY INTEGRATION ──
+     After OTP, filter out certs transferred away from this user.
+     Uses transfer-api. Fails silently if URL not configured.
+  ── */
+  function filterByOwnership(orders) {
+    var apiUrl = cfg.shopify && cfg.shopify.transferApiUrl;
+    if (!apiUrl || !S.fbUser) return Promise.resolve(orders);
+
+    return S.fbUser.getIdToken(false)
+      .then(function (tok) {
+        return fetch(apiUrl + '/transfer/lookup', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + tok, 'Content-Type': 'application/json' }
+        });
+      })
+      .then(function (r) { return r.ok ? r.json() : { certificates: [] }; })
+      .then(function (data) {
+        var ownershipRecords = data.certificates || [];
+        // Build set of cert IDs where this user is NO LONGER the current owner
+        // (i.e., registry record exists AND current_owner_phone ≠ this user's phone)
+        // The /transfer/lookup already returns only certs WHERE current owner = this user,
+        // so we need a separate check for certs they lost ownership of.
+        // For simplicity: if a registry record exists for a cert and current_owner_phone
+        // does NOT match this phone → that order is filtered out.
+        var normalPhone = (S.phone || '').replace(/\D/g, '');
+        var transferredAway = new Set();
+        ownershipRecords.forEach(function (rec) {
+          if (!rec.certificate_id) return;
+          var rp = (rec.current_owner_phone || '').replace(/\D/g, '');
+          if (rp && rp !== normalPhone) {
+            transferredAway.add(rec.certificate_id);
+          }
+        });
+
+        if (transferredAway.size === 0) return orders;
+
+        return orders.filter(function (order) {
+          var lineItems = order.lineItems && order.lineItems.edges || [];
+          var allTransferred = lineItems.every(function (e) {
+            var li = e.node;
+            var edType = detectEdition(li);
+            if (!edType) return false;
+            var edNum = extractEditionNumber(order, li);
+            if (!edNum) return false;
+            var slug = ((li.title || li.variant && li.variant.product && li.variant.product.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''));
+            var certId = slug + '--' + edNum.replace('#', '');
+            return transferredAway.has(certId);
+          });
+          return !allTransferred;
+        });
+      })
+      .catch(function () { return orders; }); // Fail silently — never break existing flow
+  }
+
+  /* ── BACKEND: FETCH ORDERS ── */
+  function fetchOrders() {
+    var proxyUrl = cfg.shopify && cfg.shopify.appProxyUrl;
+    if (!proxyUrl) return Promise.resolve(demoOrders());
+
+    return fetch(proxyUrl + '/customer-products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phoneNumber: S.phone, ordersFirst: 20, lineItemsFirst: 20 })
+    })
+    .then(function (r) { if (!r.ok) throw new Error('Backend API ' + r.status); return r.json(); })
+    .then(function (data) {
+      var customers = data && data.customers && data.customers.edges;
+      if (!customers || customers.length === 0) {
+        S.customer = { name: 'Guest', phone: S.phone, email: '' };
+        return [];
+      }
+      // Use first customer with a name for display; collect orders from ALL matched customers
+      var displayNode = customers[0].node;
+      for (var ci = 0; ci < customers.length; ci++) {
+        var n = customers[ci].node;
+        if ((n.firstName || n.lastName) && !(displayNode.firstName || displayNode.lastName)) {
+          displayNode = n;
+        }
+      }
+      S.customer = {
+        name: ((displayNode.firstName || '') + ' ' + (displayNode.lastName || '')).trim() || 'Valued Collector',
+        phone: S.phone,
+        email: displayNode.email || ''
+      };
+      var seenOrderIds = {};
+      var validOrders = [];
+      for (var ci = 0; ci < customers.length; ci++) {
+        var ordersEdges = customers[ci].node.orders && customers[ci].node.orders.edges || [];
+        for (var i = 0; i < ordersEdges.length; i++) {
+          var order = ordersEdges[i].node;
+          if (order.cancelledAt) continue;
+          if (seenOrderIds[order.id]) continue;
+          var lineItems = order.lineItems && order.lineItems.edges || [];
+          if (lineItems.length === 0) continue;
+          var hasEligible = false;
+          for (var j = 0; j < lineItems.length; j++) {
+            var ed = detectEdition(lineItems[j].node);
+            if (ed === 'artisan' || ed === 'signed') { hasEligible = true; break; }
+          }
+          if (hasEligible) { seenOrderIds[order.id] = true; validOrders.push(order); }
+        }
+      }
+      return validOrders;
+    });
+  }
+
+  /* ── EDITION TYPE DETECTION ── */
+  function detectEdition(li) {
+    // 1. Product metafield custom.edition_type (highest priority)
+    // Backend (Admin API) returns singular metafield object; fallback handles legacy array format
+    var prod0 = li.product || (li.variant && li.variant.product) || {};
+    var mfSingle = prod0.metafield;
+    var allMfs = mfSingle ? [mfSingle] : (prod0.metafields || []);
+    for (var m = 0; m < allMfs.length; m++) {
+      var mf = allMfs[m];
+      if (mf && mf.key === 'edition_type') {
+        var mv = (mf.value || '').toLowerCase().trim();
+        if (mv === 'artisan') return 'artisan';
+        if (mv === 'signed')  return 'signed';
+      }
+    }
+    // 2. Fallback: variant options, title, SKU, tags, attributes
+    var opts   = (li.variant && li.variant.selectedOptions || []).map(function(o){ return o.name.toLowerCase()+' '+o.value.toLowerCase(); }).join(' ');
+    var vtitle = ((li.variant && li.variant.title) || '').toLowerCase();
+    var ptitle = (li.title || '').toLowerCase();
+    var sku    = ((li.variant && li.variant.sku) || '').toLowerCase();
+    var tags   = ((li.product && li.product.tags) || (li.variant && li.variant.product && li.variant.product.tags) || []).join(' ').toLowerCase();
+    var attrs  = (li.customAttributes || []).map(function(a){ return a.key.toLowerCase()+' '+a.value.toLowerCase(); }).join(' ');
+    var all    = [opts, vtitle, ptitle, sku, tags, attrs].join(' ');
+    if (/artisan/.test(all)) return 'artisan';
+    if (/signed/.test(all))  return 'signed';
+    return null;
+  }
+
+  /* ── DETECT AVAILABLE EDITIONS FROM ALL ORDERS ── */
+  function detectAvailableEditions(orders) {
+    var found = {};
+    (orders || []).forEach(function (order) {
+      var edges = order.lineItems && order.lineItems.edges || [];
+      edges.forEach(function (e) {
+        var t = detectEdition(e.node);
+        if (t) found[t] = true;
+      });
+    });
+    return Object.keys(found);
+  }
+
+  /* ── SHOW/HIDE EDITION CARDS BASED ON WHAT CUSTOMER OWNS ── */
+  function updateEditionCards(editions) {
+    var artisanCard = root.querySelector('[data-edition="artisan"]');
+    var signedCard  = root.querySelector('[data-edition="signed"]');
+    if (artisanCard) artisanCard.style.display = editions.indexOf('artisan') >= 0 ? '' : 'none';
+    if (signedCard)  signedCard.style.display  = editions.indexOf('signed')  >= 0 ? '' : 'none';
+  }
+
+  function normalizeEdition(val) {
+    if (!val) return null;
+    var str = String(val).trim();
+    // "64 / 256" or "64/256" → take first number (the individual edition number)
+    var slashM = str.match(/^(\d+)\s*[\/]\s*\d+/);
+    if (slashM) return '#' + String(parseInt(slashM[1], 10)).padStart(3, '0');
+    // "#064" or "064" or "64"
+    var numM = str.match(/#?(\d+)/);
+    if (numM) return '#' + String(parseInt(numM[1], 10)).padStart(3, '0');
+    // No digits found → NOT a valid edition number (e.g. "SYSTEM ASSIGNED (AUTO)")
+    return null;
+  }
+
+  /**
+   * normalizeTitle(title)
+   *
+   * Normalises a product title for fuzzy comparison.
+   * - lowercase
+   * - trim + collapse whitespace
+   * - strip line breaks
+   * - normalise ALL unicode dashes (en-dash, em-dash, minus, etc.) to ASCII hyphen
+   * - normalise ALL apostrophe variants (curly, backtick, etc.) to straight '
+   * - remove duplicate punctuation
+   */
+  function normalizeTitle(title) {
+    if (!title) return '';
+    return String(title)
+      .toLowerCase()
+      .replace(/[\r\n\t]+/g, ' ')                           // strip line breaks / tabs
+      .replace(/[\u2018\u2019\u201A\u201B\u0060\u00B4]/g, "'")  // all apostrophe variants → '
+      .replace(/[\u201C\u201D\u201E\u201F]/g, '"')               // all quote variants → "
+      .replace(/[\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g, '-')  // all dashes → -
+      .replace(/\s+/g, ' ')                                  // collapse spaces
+      .trim();
+  }
+
+  /**
+   * parseOrderNote(note)
+   *
+   * Parses an order note and returns edition number information.
+   *
+   * Single-product formats accepted:
+   *   "Edition #050"  →  { type: 'single', value: '#050' }
+   *   "Edition 050"   →  { type: 'single', value: '#050' }
+   *   "#050"          →  { type: 'single', value: '#050' }
+   *
+   * Multi-product format (pipe-delimited, one per line):
+   *   "Product A|Edition #010\nProduct B|Edition #045"
+   *   → { type: 'multi', map: { <normalizedTitle>: '#010', ... } }
+   *
+   * Returns null if no recognisable edition data.
+   */
+  function parseOrderNote(note) {
+    if (!note) return null;
+    var raw = note.trim();
+
+    // Detect multi-product: at least one line contains a '|' delimiter
+    var lines = raw.split(/[\r\n]+/);
+    var pipeLines = lines.filter(function (l) { return l.indexOf('|') !== -1; });
+
+    if (pipeLines.length > 0) {
+      // Multi-product mode — build a map: normalizedTitle → editionString
+      var map = {};
+      pipeLines.forEach(function (line) {
+        var pipeIdx = line.indexOf('|');
+        if (pipeIdx === -1) return;
+        var rawTitle   = line.substring(0, pipeIdx);
+        var editionRaw = line.substring(pipeIdx + 1).trim();
+
+        var nTitle = normalizeTitle(rawTitle);
+        if (!nTitle) return;
+
+        // Extract numeric portion: "Edition #010", "Edition 010", "#010", "010"
+        var m = editionRaw.match(/(?:edition)?[\s#]*(\d+)/i);
+        if (m) {
+          var edVal = normalizeEdition(m[1]);
+          if (edVal) {
+            map[nTitle] = edVal;
+            console.log('[parseOrderNote] Mapped: "' + nTitle + '" → ' + edVal);
+          }
+        }
+      });
+      if (Object.keys(map).length > 0) return { type: 'multi', map: map };
+    }
+
+    // Single-product mode
+    var sm = raw.match(/edition[\s#:]*(\d+)/i)
+           || raw.match(/#(\d+)/i)
+           || raw.match(/(\d+)\s*\/\s*\d+/);
+    if (sm) {
+      var sVal = normalizeEdition(sm[1]);
+      if (sVal) return { type: 'single', value: sVal };
+    }
+
+    return null;
+  }
+
+  /**
+   * extractEditionNumber(order, lineItem)
+   *
+   * Returns the edition number string (e.g. "#010") for a specific line item, or null.
+   *
+   * Priority:
+   *   1. Line Item Property "Edition Number" (customAttributes)
+   *   2. Product Variant Title (numeric pattern only)
+   *   3. Order note — multi-product: matched by product title; single: used as-is
+   *   4. SKU (numeric pattern)
+   *
+   * Every returned value is validated to contain digits. Non-numeric values
+   * like "SYSTEM ASSIGNED (AUTO)" are rejected.
+   */
+  function extractEditionNumber(order, li) {
+    var result;
+
+    // 1. Line item custom attributes — exact "Edition Number" key first, then loose match
+    var liAttrs = li.customAttributes || [];
+    for (var a = 0; a < liAttrs.length; a++) {
+      if (/^edition\s*number$/i.test(liAttrs[a].key.trim())) {
+        result = normalizeEdition(liAttrs[a].value);
+        if (result) {
+          console.log('[extractEditionNumber] P1-exact attr: "' + liAttrs[a].value + '" → ' + result);
+          return result;
+        }
+      }
+    }
+    for (var b = 0; b < liAttrs.length; b++) {
+      if (/edition|number|serial|no\b/i.test(liAttrs[b].key)) {
+        result = normalizeEdition(liAttrs[b].value);
+        if (result) {
+          console.log('[extractEditionNumber] P1-loose attr: "' + liAttrs[b].value + '" → ' + result);
+          return result;
+        }
+      }
+    }
+
+    // 2. Variant title (numeric pattern only — e.g. "64 / 256" or "#064")
+    //    Variant selectedOptions and raw title are checked but ONLY if they contain digits.
+    var vtitle = (li.variant && li.variant.title) || '';
+    if (vtitle && !/default/i.test(vtitle)) {
+      var vtM = vtitle.match(/(\d+)\s*[\/]\s*\d+/) || vtitle.match(/#(\d+)/);
+      if (vtM) {
+        result = normalizeEdition(vtM[1]);
+        if (result) {
+          console.log('[extractEditionNumber] P2 variant title: "' + vtitle + '" → ' + result);
+          return result;
+        }
+      }
+    }
+
+    // 3. Order note (parsed) — this is the primary source for multi-product orders
+    var parsed = parseOrderNote(order.note);
+    if (parsed) {
+      if (parsed.type === 'single') {
+        console.log('[extractEditionNumber] P3 single note → ' + parsed.value);
+        return parsed.value;
+      }
+      if (parsed.type === 'multi') {
+        // Normalise the line item title using normalizeTitle for robust matching
+        var prod   = li.product || (li.variant && li.variant.product) || {};
+        var nLi    = normalizeTitle(li.title);
+        var nProd  = normalizeTitle(prod.title);
+
+        console.log('[extractEditionNumber] P3 multi-note matching:');
+        console.log('  LINE ITEM TITLE (raw):  "' + (li.title || '') + '"');
+        console.log('  LINE ITEM TITLE (norm): "' + nLi + '"');
+        console.log('  PRODUCT TITLE (raw):    "' + (prod.title || '') + '"');
+        console.log('  PRODUCT TITLE (norm):   "' + nProd + '"');
+
+        var noteKeys = Object.keys(parsed.map);
+        for (var k = 0; k < noteKeys.length; k++) {
+          console.log('  NOTE KEY [' + k + ']: "' + noteKeys[k] + '" → ' + parsed.map[noteKeys[k]]);
+        }
+
+        // Exact match on normalised titles
+        if (parsed.map[nLi]) {
+          console.log('  MATCH: exact on lineItem title → ' + parsed.map[nLi]);
+          return parsed.map[nLi];
+        }
+        if (nProd && parsed.map[nProd]) {
+          console.log('  MATCH: exact on product title → ' + parsed.map[nProd]);
+          return parsed.map[nProd];
+        }
+
+        // Partial / substring match
+        for (var j = 0; j < noteKeys.length; j++) {
+          var nk = noteKeys[j];
+          if (nLi.indexOf(nk) !== -1   || nk.indexOf(nLi) !== -1 ||
+              (nProd && (nProd.indexOf(nk) !== -1 || nk.indexOf(nProd) !== -1))) {
+            console.log('  MATCH: partial "' + nk + '" → ' + parsed.map[nk]);
+            return parsed.map[nk];
+          }
+        }
+
+        console.log('  NO MATCH found for this line item in multi-product note.');
+        // No match — do NOT fall back to another product's edition
+        return null;
+      }
+    }
+
+    // 4. SKU fallback
+    var sku  = (li.variant && li.variant.sku) || '';
+    var skuM = sku.match(/(\d+)[-\/](\d+)/);
+    if (skuM) {
+      result = normalizeEdition(skuM[1]);
+      if (result) {
+        console.log('[extractEditionNumber] P4 SKU: "' + sku + '" → ' + result);
+        return result;
+      }
+    }
+
+    console.log('[extractEditionNumber] No edition found for: "' + (li.title || '') + '"');
+    return null;
+  }
+
+  function getSignMonth(li, order) {
+    var attrs = [].concat(order.customAttributes || [], li.customAttributes || []);
+    for (var i = 0; i < attrs.length; i++) {
+      if (/month|sign|date/i.test(attrs[i].key)) return attrs[i].value;
+    }
+    var m = (order.note || '').match(/(?:signed|month|sign date)[\s:]*([A-Za-z]+(?:\s+\d{4})?)/i);
+    if (m) return m[1];
+    if (order.processedAt) return new Date(order.processedAt).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+    return null;
+  }
+
+  function getSerial(li, order) {
+    var attrs = [].concat(li.customAttributes || [], order.customAttributes || []);
+    for (var i = 0; i < attrs.length; i++) {
+      if (/serial|cert|coa/i.test(attrs[i].key)) return attrs[i].value;
+    }
+    var en = extractEditionNumber(order, li);   // use new helper (forward-ref OK — hoisted at call time)
+    return en ? en.replace(/\//g,'-') : (order.name || '').replace('#','');
+  }
+
+  function getCollector(order) {
+    var attrs = order.customAttributes || [];
+    for (var i = 0; i < attrs.length; i++) {
+      if (/name|collector|buyer/i.test(attrs[i].key)) return attrs[i].value;
+    }
+    var m = (order.note || '').match(/(?:name|collector)[\s:]+([A-Za-z\s]+?)(?:\.|,|$)/i);
+    if (m) return m[1].trim();
+    return S.customer && S.customer.name || null;
+  }
+
+  function buildCert(order, li) {
+    var prod = li.product || (li.variant && li.variant.product) || {};
+    return {
+      editionType: detectEdition(li),
+      collector:   getCollector(order) || (S.customer && S.customer.name) || 'Valued Collector',
+      productName: prod.title || li.title,
+      editionNum:  extractEditionNumber(order, li),   // uses new priority-chain helper
+      serial:      getSerial(li, order),
+      signMonth:   getSignMonth(li, order),
+      orderNum:    order.name,
+      orderDate:   order.processedAt || order.createdAt,
+      desc:        prod.description || '',
+      imgUrl:      (li.variant && li.variant.image && li.variant.image.url)
+                || (prod.images && prod.images.edges && prod.images.edges[0]
+                    && prod.images.edges[0].node && prod.images.edges[0].node.url)
+                || null
+    };
+  }
+
+  /* ── RENDER PRODUCTS ── */
+  function renderProducts() {
+    var grid    = root.querySelector('#sa-pgrid');
+    var nameEl  = root.querySelector('#sa-cust-name');
+    var eyeEl   = root.querySelector('#sa-products-eye');
+    var subEl   = root.querySelector('#sa-products-sub');
+    var countEl = root.querySelector('#sa-item-count');
+    var backBtn = root.querySelector('#sa-products-back');
+    var backLbl = root.querySelector('#sa-products-back-label');
+    if (!grid) return;
+
+    // Dynamic heading
+    var edLabel = S.edition === 'artisan' ? 'Artisan Editions' : S.edition === 'signed' ? 'Signed Editions' : 'Your Collection';
+    if (nameEl) nameEl.textContent = edLabel;
+    if (eyeEl)  eyeEl.textContent  = 'Welcome back' + (S.customer && S.customer.name ? ', ' + S.customer.name : '');
+    if (subEl)  subEl.textContent  = 'Your verified collectibles are listed below.';
+
+    // Dynamic back button
+    if (backBtn && backLbl) {
+      if (S.availableEditions.length > 1) {
+        backLbl.textContent = 'Switch Edition';
+        backBtn.onclick = function () { go('edition'); };
+      } else {
+        backLbl.textContent = 'Sign Out';
+        backBtn.onclick = function () {
+          S.edition = null; S.orders = []; S.allOrders = []; S.availableEditions = [];
+          S.customer = null; S.fbUser = null; S.confirmResult = null; S.phone = null;
+          hideOrderError();
+          var inp = root.querySelector('#sa-phone-input');
+          if (inp) inp.value = '';
+          go('phone');
+        };
+      }
+    }
+
+    var items = [];
+    (S.orders || []).forEach(function (order) {
+      var edges = order.lineItems && order.lineItems.edges || [];
+      edges.forEach(function (e) {
+        var li = e.node;
+        var ed = detectEdition(li);
+        if (!S.edition || ed === S.edition) items.push({ order: order, li: li, ed: ed });
+      });
+    });
+
+    if (countEl) countEl.textContent = items.length + (items.length === 1 ? ' Item' : ' Items');
+
+    if (!items.length) {
+      grid.innerHTML = '<div class="sa-empty"><h3>No items found</h3><p>No ' + (S.edition || '') + ' edition collectibles found for your account.</p></div>';
+      return;
+    }
+
+    grid.innerHTML = items.map(function (item, idx) { return cardHTML(item, idx); }).join('');
+
+    grid.querySelectorAll('[data-cert-idx]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(this.dataset.certIdx, 10);
+        if (items[idx]) openCert(items[idx]);
+      });
+    });
+
+    grid.querySelectorAll('[data-pdf-idx]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(this.dataset.pdfIdx, 10);
+        if (items[idx]) { S.activeCert = buildCert(items[idx].order, items[idx].li); makePDF(S.activeCert, this, false); }
+      });
+    });
+  }
+
+  function cardHTML(item, idx) {
+    var cert = buildCert(item.order, item.li);
+    var isA  = item.ed === 'artisan';
+    var tag  = isA ? 'sa-pcard--a' : 'sa-pcard--s';
+    var tagLabel = isA ? 'Artisan' : (item.ed === 'signed' ? 'Signed' : 'Collectible');
+    var tagCls   = isA ? 'sa-pcard__tag--a' : 'sa-pcard__tag--s';
+    var imgHtml  = cert.imgUrl
+      ? '<img src="' + xss(cert.imgUrl) + '" alt="' + xss(cert.productName) + '" loading="lazy">'
+      : '<div class="sa-pcard__ph"><svg viewBox="0 0 24 24" fill="none" stroke="' + (isA ? '#ccc' : '#555') + '" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>';
+    var edPill = cert.editionNum
+      ? '<span class="sa-pcard__ed sa-pcard__ed--' + (item.ed || 'a') + '">Edition ' + xss(cert.editionNum) + '</span>'
+      : '';
+    var dateStr = cert.orderDate
+      ? new Date(cert.orderDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+      : '';
+    var dateLine = dateStr ? '<p class="sa-pcard__date">' + xss(dateStr) + '</p>' : '';
+    return [
+      '<div class="sa-pcard ' + tag + '">',
+        '<div class="sa-pcard__media">',
+          imgHtml,
+          '<span class="sa-pcard__tag ' + tagCls + '">' + tagLabel + '</span>',
+        '</div>',
+        '<div class="sa-pcard__body">',
+          '<span class="sa-pcard__kind">' + (isA ? 'Limited Edition Print' : 'Hand-Signed Collectible') + '</span>',
+          '<h3 class="sa-pcard__name">' + xss(cert.productName) + '</h3>',
+          edPill,
+          dateLine,
+          '<div class="sa-pcard__actions">',
+            '<button class="sa-pcard__btn sa-pcard__btn--cert" data-cert-idx="' + idx + '" type="button">',
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+              'View Certificate',
+            '</button>',
+            '<button class="sa-pcard__btn sa-pcard__btn--pdf" data-pdf-idx="' + idx + '" type="button">',
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+              'Download PDF',
+            '</button>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }
+
+  /* ── OPEN CERTIFICATE ── */
+  function openCert(item) {
+    var cert = buildCert(item.order, item.li);
+    S.activeCert = cert;
+    var screenId = cert.editionType === 'signed' ? 'cert-signed' : 'cert-artisan';
+    var screen = root.querySelector('[data-screen="' + screenId + '"]');
+    if (!screen) return;
+
+    /* Populate fields */
+    function fill(sel, val) {
+      screen.querySelectorAll(sel).forEach(function(el){ el.textContent = val || '—'; });
+    }
+    fill('.sa-cert__collector',    cert.collector);
+    fill('.sa-cert__product-name', cert.productName);
+    fill('.sa-cert__product-name2',cert.productName);
+    fill('.sa-cert__edition',      cert.editionNum ? 'Edition ' + cert.editionNum : '—');
+    fill('.sa-cert__edition2',     cert.editionNum ? 'Edition ' + cert.editionNum : '—');
+    fill('.sa-cert__serial',       cert.serial || '—');
+    fill('.sa-cert__order',        cert.orderNum || '—');
+    fill('.sa-cert__date',         cert.orderDate ? new Date(cert.orderDate).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—');
+    fill('.sa-cert__desc-txt',     cert.desc || '');
+
+    /* COA fields */
+    fill('.sa-coa__serial',        cert.serial || '—');
+    fill('.sa-coa__month',         cert.signMonth || '—');
+    if (cert.productName) {
+      screen.querySelectorAll('.sa-coa__body').forEach(function(el){
+        el.textContent = 'This certifies that the accompanying item — ' + cert.productName + ' — has been personally autographed and is a numbered limited edition piece.' + (cert.serial ? ' Serial: ' + cert.serial + '.' : '');
+      });
+    }
+
+    /* Product image */
+    var imgEl = screen.querySelector('.sa-cert__pimg img');
+    var phEl  = screen.querySelector('.sa-cert__pimg-ph');
+    if (imgEl && phEl) {
+      if (cert.imgUrl) { imgEl.src = cert.imgUrl; imgEl.removeAttribute('style'); phEl.style.display = 'none'; }
+      else             { imgEl.style.display = 'none'; phEl.removeAttribute('style'); }
+    }
+
+    /* Wire PDF/View buttons */
+    screen.querySelectorAll('[data-cert-pdf]').forEach(function (btn) {
+      btn.onclick = function () { makePDF(cert, btn, false); };
+    });
+    screen.querySelectorAll('[data-cert-view]').forEach(function (btn) {
+      btn.onclick = function () { makePDF(cert, btn, true); };
+    });
+
+    go(screenId);
+  }
+
+  /* ── PDF GENERATION (pure jsPDF — no html2canvas to avoid Shopify theme conflicts) ── */
+  function makePDF(cert, btn, viewOnly) {
+    var jspdf = window.jspdf;
+    if (!jspdf) { toast('PDF library loading, please try again.', 'info'); return; }
+
+    if (btn) btn.disabled = true;
+    showLoad('Generating certificate…');
+
+    setTimeout(function () {
+      try {
+        var pdf  = new jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        var dark = cert.editionType === 'signed';
+        var W = 210, H = 297, M = 18;
+
+        // Background
+        if (dark) { pdf.setFillColor(16, 16, 16); pdf.rect(0, 0, W, H, 'F'); }
+
+        var cInk  = dark ? [255,255,255] : [8,8,8];
+        var cMute = dark ? [140,140,140] : [120,120,120];
+        var cGold = [196,154,24];
+        var cBox  = dark ? [28,28,28] : [244,242,239];
+        var cSep  = dark ? [48,48,48] : [218,216,213];
+
+        function ink()  { pdf.setTextColor.apply(pdf, cInk);  }
+        function mute() { pdf.setTextColor.apply(pdf, cMute); }
+        function gold() { pdf.setTextColor.apply(pdf, cGold); }
+
+        var y = M + 2;
+
+        // ── Brand
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(22);
+        ink();
+        pdf.text('LEGXI', W/2, y, { align: 'center' }); y += 7;
+
+        pdf.setFontSize(7);
+        mute();
+        pdf.text('CERTIFICATE OF AUTHENTICITY', W/2, y, { align: 'center' }); y += 5;
+
+        pdf.setDrawColor.apply(pdf, cGold);
+        pdf.setLineWidth(0.5);
+        pdf.line(W/2 - 18, y, W/2 + 18, y); y += 12;
+
+        // ── "Is Verified"
+        pdf.setFontSize(20);
+        pdf.setFont('helvetica', 'bold');
+        dark ? gold() : ink();
+        pdf.text('Is Verified', W/2, y, { align: 'center' }); y += 7;
+
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(9);
+        mute();
+        pdf.text('This product has been authenticated and verified by LEGXI.', W/2, y, { align: 'center' }); y += 14;
+
+        // ── Info rows
+        var rows = [
+          ["Collector's Name", cert.collector || '—'],
+          ['Product',          cert.productName || '—'],
+          cert.editionNum  ? ['Edition Number',        'Edition ' + cert.editionNum] : null,
+          cert.serial      ? ['Serial / Certificate',  cert.serial]                  : null,
+          cert.orderNum    ? ['Order Number',           cert.orderNum]                : null,
+          cert.orderDate   ? ['Purchase Date',          new Date(cert.orderDate).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})] : null,
+          (dark && cert.signMonth) ? ['Month of Signing', cert.signMonth] : null,
+        ].filter(Boolean);
+
+        var rowH  = 13;
+        var boxH  = 8 + rows.length * rowH + 4;
+        pdf.setFillColor.apply(pdf, cBox);
+        pdf.roundedRect(M, y, W - M*2, boxH, 2, 2, 'F');
+
+        var ry = y + 9;
+        rows.forEach(function (r, i) {
+          pdf.setFont('helvetica', 'bold');
+          pdf.setFontSize(7);
+          mute();
+          pdf.text(String(r[0]).toUpperCase(), M + 7, ry);
+
+          pdf.setFont('helvetica', 'bold');
+          pdf.setFontSize(10);
+          ink();
+          var val = String(r[1] || '—');
+          var split = pdf.splitTextToSize(val, (W - M*2) - 70);
+          pdf.text(split[0] + (split.length > 1 ? '…' : ''), W - M - 7, ry + 3.5, { align: 'right' });
+
+          ry += rowH;
+          if (i < rows.length - 1) {
+            pdf.setDrawColor.apply(pdf, cSep);
+            pdf.setLineWidth(0.2);
+            pdf.line(M + 7, ry - 3, W - M - 7, ry - 3);
+          }
+        });
+
+        y += boxH + 10;
+
+        // ── Description
+        if (cert.desc && y < H - 50) {
+          pdf.setFont('helvetica', 'bold');
+          pdf.setFontSize(7);
+          mute();
+          pdf.text('ABOUT THIS PIECE', M, y); y += 5;
+
+          pdf.setFont('helvetica', 'normal');
+          pdf.setFontSize(9);
+          mute();
+          var descLines = pdf.splitTextToSize(cert.desc.slice(0, 600), W - M*2);
+          var maxL = Math.min(descLines.length, 7);
+          pdf.text(descLines.slice(0, maxL), M, y);
+          y += maxL * 4.5 + 6;
+        }
+
+        // ── Footer
+        pdf.setDrawColor.apply(pdf, cSep);
+        pdf.setLineWidth(0.3);
+        pdf.line(M, H - 14, W - M, H - 14);
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(7);
+        pdf.setTextColor.apply(pdf, dark ? [70,70,70] : [180,180,180]);
+        pdf.text('© ' + new Date().getFullYear() + ' LEGXI. All rights reserved. Non-transferable document.', W/2, H - 8, { align: 'center' });
+
+        // ── Output
+        hideLoad();
+        if (btn) btn.disabled = false;
+
+        if (viewOnly) {
+          var blob = pdf.output('blob');
+          var url  = URL.createObjectURL(blob);
+          window.open(url, '_blank');
+          toast('Certificate opened in new tab.', 'ok');
+        } else {
+          var fname = 'legxi-cert-' + (cert.orderNum || 'cert').replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.pdf';
+          pdf.save(fname);
+          toast('Certificate downloaded!', 'ok');
+        }
+      } catch (err) {
+        console.error('[PDF]', err);
+        hideLoad();
+        if (btn) btn.disabled = false;
+        toast('PDF generation failed. Try again.', 'err');
+      }
+    }, 100);
+  }
+
+  /* ── RESEND TIMER ── */
+  function startResend() {
+    S.resendSecs = 30;
+    var row = root.querySelector('#sa-resend-row');
+    var cnt = root.querySelector('#sa-resend-count');
+    var btn = root.querySelector('#sa-resend-btn');
+    if (row) row.style.display = '';
+    if (btn) { btn.style.display = 'none'; btn.disabled = true; }
+    clearInterval(S.resendTimer);
+    S.resendTimer = setInterval(function () {
+      S.resendSecs--;
+      if (cnt) cnt.textContent = S.resendSecs;
+      if (S.resendSecs <= 0) {
+        clearInterval(S.resendTimer);
+        if (row) row.style.display = 'none';
+        if (btn) { btn.style.display = ''; btn.disabled = false; }
+      }
+    }, 1000);
+  }
+
+  /* ── HELPERS ── */
+  function xss(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":"&#39;" }[c];
+    });
+  }
+
+  function setBtn(id, loading) {
+    var btn = root.querySelector('#' + id);
+    if (!btn) return;
+    btn.disabled = loading;
+    if (loading) btn.classList.add('loading'); else btn.classList.remove('loading');
+  }
+
+  var loadTxt = root.querySelector('#sa-loading-txt');
+  function showLoad(msg) {
+    if (loadTxt) loadTxt.textContent = msg || 'Please wait…';
+    var el = root.querySelector('#sa-loading');
+    if (el) el.classList.add('on');
+  }
+  function hideLoad() {
+    var el = root.querySelector('#sa-loading');
+    if (el) el.classList.remove('on');
+  }
+
+  var toastTimer;
+  function toast(msg, type) {
+    var el = root.querySelector('#sa-toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'sa-toast sa-toast--' + (type === 'err' ? 'err' : type === 'info' ? 'info' : 'ok') + ' on';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove('on'); }, 3500);
+  }
+
+  function fbErr(code) {
+    var m = {
+      'auth/invalid-phone-number':    'Invalid phone number format.',
+      'auth/too-many-requests':       'Too many attempts. Try again later.',
+      'auth/invalid-verification-code':'Incorrect code. Please try again.',
+      'auth/code-expired':            'Code expired. Please resend.',
+      'auth/quota-exceeded':          'SMS quota exceeded.',
+      'auth/captcha-check-failed':    'Security check failed. Refresh and retry.'
+    };
+    return m[code] || 'An error occurred. Please try again.';
+  }
+
+  /* ── DEMO ORDERS ── */
+  function demoOrders() {
+    return [
+      {
+        id:'gid://1', name:'#1001', processedAt:'2025-02-14T10:30:00Z',
+        note:'Collector: Raghav Kumar. Edition: 64/256. Signed: February 2025.',
+        customAttributes:[{key:'collector_name',value:'Raghav Kumar'},{key:'signing_month',value:'February 2025'}],
+        lineItems:{edges:[{node:{
+          title:'World Champions 2026 – T20 Edition', quantity:1,
+          customAttributes:[{key:'Edition Number',value:'64/256'},{key:'Edition Type',value:'Artisan'}],
+          variant:{id:'v1',title:'Artisan Edition',sku:'ART-064-256',image:null,
+            product:{id:'p1',title:'World Champions 2026 – T20 Edition',description:"A commemorative limited-edition art print celebrating India's historic T20 World Championship victory. Each piece is individually numbered and hand-verified.",tags:['artisan'],metafield:{namespace:'custom',key:'edition_type',value:'artisan'},images:{edges:[]}},
+            selectedOptions:[{name:'Edition Type',value:'Artisan'},{name:'Edition Number',value:'64 / 256'}]}
+        }}]}
+      },
+      {
+        id:'gid://2', name:'#1002', processedAt:'2025-03-05T14:00:00Z',
+        note:'Collector: Raghav Kumar. Serial: 029/200. Signed: March 2025.',
+        customAttributes:[{key:'collector_name',value:'Raghav Kumar'},{key:'signing_month',value:'March 2025'}],
+        lineItems:{edges:[{node:{
+          title:'Arshdeep Singh : Official Hand-Signed Leather Ball', quantity:1,
+          customAttributes:[{key:'Edition Number',value:'29/200'},{key:'Edition Type',value:'Signed'}],
+          variant:{id:'v2',title:'Signed Edition',sku:'SGN-029-200',image:null,
+            product:{id:'p2',title:'Arshdeep Singh : Official Hand-Signed Leather Ball',description:'An official hand-signed cricket ball personally autographed by Arshdeep Singh. One of only 200 exclusive pieces available worldwide.',tags:['signed'],metafield:{namespace:'custom',key:'edition_type',value:'signed'},images:{edges:[]}},
+            selectedOptions:[{name:'Edition Type',value:'Signed'},{name:'Edition Number',value:'29 / 200'}]}
+        }}]}
+      },
+      {
+        // Single-product order — edition from order note (single format)
+        id:'gid://3', name:'#1003', processedAt:'2025-04-10T09:00:00Z',
+        note:'Edition #012',
+        customAttributes:[],
+        lineItems:{edges:[{node:{
+          title:'India vs Australia — Test Series 2025 Art Print', quantity:1,
+          customAttributes:[],
+          variant:{id:'v3',title:'Default Title',sku:'ART-012-128',image:null,
+            product:{id:'p3',title:'India vs Australia — Test Series 2025 Art Print',description:'A stunning art print commemorating the epic India vs Australia Test Series 2025. Hand-printed on premium cotton rag paper.',tags:['artisan'],metafield:{namespace:'custom',key:'edition_type',value:'artisan'},images:{edges:[]}},
+            selectedOptions:[{name:'Edition Type',value:'Artisan'}]}
+        }}]}
+      },
+      {
+        // Multi-product order — each product gets its OWN edition number from pipe-delimited note
+        id:'gid://4', name:'#1004', processedAt:'2025-05-01T11:00:00Z',
+        note:'World Champions 2026 – T20 Edition|Edition #010\nArshdeep Singh : Official Hand-Signed Leather Ball|Edition #045\nIndia vs Australia — Test Series 2025 Art Print|Edition #256',
+        customAttributes:[{key:'collector_name',value:'Raghav Kumar'}],
+        lineItems:{edges:[
+          {node:{
+            title:'World Champions 2026 – T20 Edition', quantity:1,
+            customAttributes:[],
+            variant:{id:'v4a',title:'Artisan Edition',sku:'ART-010',image:null,
+              product:{id:'p1',title:'World Champions 2026 – T20 Edition',description:'Multi-product order demo — Artisan print.',tags:['artisan'],metafield:{namespace:'custom',key:'edition_type',value:'artisan'},images:{edges:[]}},
+              selectedOptions:[{name:'Edition Type',value:'Artisan'}]}
+          }},
+          {node:{
+            title:'Arshdeep Singh : Official Hand-Signed Leather Ball', quantity:1,
+            customAttributes:[],
+            variant:{id:'v4b',title:'Signed Edition',sku:'SGN-045',image:null,
+              product:{id:'p2',title:'Arshdeep Singh : Official Hand-Signed Leather Ball',description:'Multi-product order demo — Signed ball.',tags:['signed'],metafield:{namespace:'custom',key:'edition_type',value:'signed'},images:{edges:[]}},
+              selectedOptions:[{name:'Edition Type',value:'Signed'}]}
+          }},
+          {node:{
+            title:'India vs Australia — Test Series 2025 Art Print', quantity:1,
+            customAttributes:[],
+            variant:{id:'v4c',title:'Artisan Edition',sku:'ART-256',image:null,
+              product:{id:'p3',title:'India vs Australia — Test Series 2025 Art Print',description:'Multi-product order demo — Test series print.',tags:['artisan'],metafield:{namespace:'custom',key:'edition_type',value:'artisan'},images:{edges:[]}},
+              selectedOptions:[{name:'Edition Type',value:'Artisan'}]}
+          }}
+        ]}
+      }
+    ];
+  }
+
+  /* ── INIT ── */
+  function init() {
+    initFirebase();
+    initBoxes();
+
+    /* Edition cards — now shown post-auth; clicking goes to products */
+    root.querySelectorAll('[data-edition]').forEach(function (el) {
+      function selectEdition() {
+        S.edition = el.dataset.edition;
+        S.orders  = S.allOrders;
+        renderProducts();
+        go('products');
+      }
+      el.addEventListener('click', selectEdition);
+      el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectEdition(); } });
+    });
+
+    /* Send OTP */
+    var sendBtn = root.querySelector('#sa-send-otp');
+    if (sendBtn) sendBtn.addEventListener('click', handleSend);
+    var phoneInp = root.querySelector('#sa-phone-input');
+    if (phoneInp) phoneInp.addEventListener('keydown', function (e) { if (e.key === 'Enter') handleSend(); });
+
+    /* Verify OTP */
+    var verBtn = root.querySelector('#sa-verify-otp');
+    if (verBtn) verBtn.addEventListener('click', handleVerify);
+
+    /* Also verify on Enter in last box */
+    var lastBox = root.querySelectorAll('.sa-otp-box');
+    if (lastBox.length) {
+      lastBox[lastBox.length - 1].addEventListener('keydown', function (e) { if (e.key === 'Enter') handleVerify(); });
+    }
+
+    /* Resend */
+    var resendBtn = root.querySelector('#sa-resend-btn');
+    if (resendBtn) resendBtn.addEventListener('click', function () {
+      root.querySelectorAll('.sa-otp-box').forEach(function (b) { b.value = ''; });
+      var first = root.querySelector('.sa-otp-box');
+      if (first) first.focus();
+      sendOTP();
+    });
+
+    /* All data-goto buttons */
+    root.querySelectorAll('[data-goto]').forEach(function (el) {
+      el.addEventListener('click', function () { go(el.dataset.goto); });
+    });
+
+    /* Error modal close */
+    function closeErrModal() { hideOrderError(); }
+    var errClose = root.querySelector('#sa-err-close');
+    var errTryBtn = root.querySelector('#sa-err-try-btn');
+    var errModal = root.querySelector('#sa-err-modal');
+    if (errClose) errClose.addEventListener('click', closeErrModal);
+    if (errTryBtn) errTryBtn.addEventListener('click', closeErrModal);
+    if (errModal) errModal.addEventListener('click', function(e) { if (e.target === errModal) closeErrModal(); });
+
+    /* First screen is active by default via HTML class (no-JS fallback) */
+  }
+
+  init();
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Certificate Auth",
+  "settings": [
+    { "type": "header", "content": "Firebase Phone Auth" },
+    { "type": "text",   "id": "firebase_api_key",            "label": "API Key" },
+    { "type": "text",   "id": "firebase_auth_domain",        "label": "Auth Domain",           "placeholder": "your-app.firebaseapp.com" },
+    { "type": "text",   "id": "firebase_project_id",         "label": "Project ID" },
+    { "type": "text",   "id": "firebase_app_id",             "label": "App ID" },
+    { "type": "text",   "id": "firebase_messaging_sender_id","label": "Messaging Sender ID" },
+    { "type": "header", "content": "Shopify API" },
+    { "type": "text",   "id": "storefront_token",  "label": "Storefront Access Token", "info": "Public Storefront API token from Shopify admin" },
+    { "type": "text",   "id": "app_proxy_url",     "label": "App Proxy Base URL", "placeholder": "/apps/sixxer-auth", "info": "Your backend endpoint. POST /auth receives {phone, firebase_id_token} → returns {customerAccessToken}" },
+    { "type": "text",   "id": "transfer_api_url",  "label": "Transfer API Base URL (optional)", "placeholder": "https://your-transfer-api.vercel.app", "info": "If set, the portal will hide certificates that have been transferred away from this owner. Leave blank to disable ownership filtering." },
+    { "type": "header", "content": "Brand" },
+    { "type": "text",   "id": "brand_name",     "label": "Brand Name",    "default": "Sixxer" },
+    { "type": "text",   "id": "brand_tagline",  "label": "Tagline",       "default": "Certificate Authentication" },
+    { "type": "header", "content": "Edition Selection Screen" },
+    { "type": "text",   "id": "ed_title_lt",    "label": "Heading (thin)",  "default": "Select Your" },
+    { "type": "text",   "id": "ed_title_bd",    "label": "Heading (bold)",  "default": "Edition" },
+    { "type": "text",   "id": "ed_sub",         "label": "Subheading",      "default": "Choose the edition you own to verify your collectible" },
+    { "type": "header", "content": "Artisan Edition Card" },
+    { "type": "text",     "id": "artisan_script", "label": "Script Label",  "default": "Artisan" },
+    { "type": "text",     "id": "artisan_type",   "label": "Type Label",    "default": "Editions" },
+    { "type": "textarea", "id": "artisan_desc",   "label": "Description",   "default": "Created through art, compassion and detailing. Not just ordinary artboards — each belongs to a moment history will remember." },
+    { "type": "image_picker", "id": "artisan_img","label": "Card Image" },
+    { "type": "header", "content": "Signed Edition Card" },
+    { "type": "text",     "id": "signed_script",  "label": "Script Label",  "default": "Signed" },
+    { "type": "text",     "id": "signed_type",    "label": "Type Label",    "default": "Editions" },
+    { "type": "textarea", "id": "signed_desc",    "label": "Description",   "default": "Rare signed memorabilia — from the hands of legends. Authenticated and certified by Sixxer." },
+    { "type": "image_picker", "id": "signed_img", "label": "Card Image" },
+    { "type": "header", "content": "Phone Screen" },
+    { "type": "text",   "id": "login_title",   "label": "Heading", "default": "Verify Your Number" },
+    { "type": "text",   "id": "login_sub",     "label": "Subtext", "default": "Enter your registered mobile number. We will send a one-time verification code." },
+    { "type": "header", "content": "Certificate" },
+    { "type": "image_picker", "id": "coa_img", "label": "Default COA Image", "info": "Optional: upload your COA image. If blank, a styled text card is shown." }
+  ],
+  "presets": [{ "name": "Certificate Auth" }]
+}
+{% endschema %}
+

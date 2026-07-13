@@ -1,0 +1,879 @@
+﻿
+  STEP 1: Reading all worksheet tabs...
+  ✔  "THE 18 - EE SALA CUP NAMDU"  →  26 row(s)
+  ✔  "World T20 Champions Edition - 2026"  →  26 row(s)
+  ✔  "Ravi Bishnoi: Official Hand-Signed Ball"  →  18 row(s)
+  ✔  "2007 : The Birth of India's T20 Era"  →  26 row(s)
+  ✔  "THE 2011 WORLD CUP CHAMPIONS EDITION"  →  26 row(s)
+  ✔  "1983 World Cup Edition : Become the Belief"  →  18 row(s)
+  ✔  "God of Cricket : 100 Centuries Edition"  →  71 row(s)
+  ✔  "Hand Signed Ball | AS02"  →  26 row(s)
+  ✔  "Arshdeep Singh Hand Signed 24 Carat Gold Edition"  →  1 row(s)
+  ✔  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork"  →  1 row(s)
+  ✔  "AS02 Player Edition Cap : Arshdeep Singh"  →  2 row(s)
+  Total worksheet rows: 241
+
+  STEP 2: Fetching ALL Shopify orders (paginated)...
+  Page 1: +250  (total: 250)
+  Page 2: +250  (total: 500)
+  Page 3: +142  (total: 642)
+  Done — 642 total orders fetched.
+
+  STEP 3: Fetching Shopify product catalog...
+  Done — 24 products in catalog.
+
+  STEP 4: Building canonical ground truth...
+  Done — 368 LEGXI orders in ground truth.
+
+════════════════════════════════════════════════════════════════════════
+  LEGXI GROUND TRUTH SUMMARY  —  Phase 1
+  Generated : 2026-07-04 06:37:00 UTC
+════════════════════════════════════════════════════════════════════════
+
+  SCOPE
+────────────────────────────────────────────────────────────────────────
+  Total Shopify orders scanned      :  642
+  LEGXI-related orders identified   :  368
+  Orders not found in Shopify       :    0
+  Total worksheet rows (all tabs)   :  241
+
+  SHOPIFY PRODUCT CATALOG  (24 products)
+────────────────────────────────────────────────────────────────────────
+  LEGXI products found in catalog   : 11
+    [active]  1983 WC : Become the Belief  →  tab: "1983 World Cup Edition : Become the Belief"
+    [active]  2007 : The Birth of India’s T20 Era
+    [active]  2011 WORLD CUP CHAMPIONS EDITION  →  tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    [active]  Arshdeep Singh : Official Hand-Signed Leather Ball  →  tab: "Hand Signed Ball | AS02"
+    [active]  Arshdeep Singh Hand Signed 24 kt Gold Edition  →  tab: "Arshdeep Singh Hand Signed 24 Carat Gold Edition"
+    [active]  AS02 Player Edition Cap : Arshdeep Singh
+    [unlisted]  God of Cricket : 100 Centuries Edition
+    [active]  Ravi Bishnoi: Official Hand-Signed Ball
+    [draft]  Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    [active]  THE 18 - EE SALA CUP NAMDU
+    [active]  World Champions 2026 - T20 Edition  →  tab: "World T20 Champions Edition - 2026"
+  Other products (not in worksheet) : 13
+    [unlisted]  24K GOLD PLATED STUD - SIGNED BY MESSI
+    [active]  Argentine Icons 24K Signature Series
+    [active]  Campeónes World Cup 2022 Edition
+    [draft]  Demo
+    [active]  La Scaloneta 2026 Edition
+    [active]  LEGXI Argentina Heritage Minis
+    [active]  LEGXI Brazil Heritage Minis
+    [active]  LEGXI France Heritage Minis
+    [active]  LEGXI GOAT COLLECTOR TRIO SET
+    [active]  LEGXI MagShield - Argentina
+    [active]  LEGXI Portugal Heritage Minis
+    [active]  Make Your Wall Legendary
+    [draft]  Match-Worn ICC T20 World Cup 2026 Jersey
+
+  BUNDLE ANALYSIS
+────────────────────────────────────────────────────────────────────────
+  Bundle parent : "THE 18 - EE SALA CUP NAMDU"
+  Bundle orders : 22
+  Bundle children (4):
+    "World Champions 2026 - T20 Edition"  →  tab: "World T20 Champions Edition - 2026"
+    "2007 : The Birth of India's T20 Era"  →  tab: "2007 : The Birth of India's T20 Era"
+    "2011 WORLD CUP CHAMPIONS EDITION"  →  tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    "Arshdeep Singh : Official Hand-Signed Leather Ball"  →  tab: "Hand Signed Ball | AS02"
+  Order numbers : 1499, 1500, 1502, 1503, 1504, 1505, 1506, 1509, 1515, 1516, 1517, 1519, 1520, 1521, 1522, 1523, 1525, 1526, 1528, 1540, 1545, 1559
+
+  WORKSHEET COVERAGE
+────────────────────────────────────────────────────────────────────────
+  Tab Name                                           Rows  Orders  Direct  Bundle  WsOnly
+  ─────────────────────────────────────────────────────────────────────────────────────
+  THE 18 - EE SALA CUP NAMDU                           26      22      21       0       1
+  World T20 Champions Edition - 2026                   26      22       1      20       1
+  Ravi Bishnoi: Official Hand-Signed Ball              18      18      18       0       0
+  2007 : The Birth of India's T20 Era                  26      22       0      21       1
+  THE 2011 WORLD CUP CHAMPIONS EDITION                 26      22       1      20       1
+  1983 World Cup Edition : Become the Belief           18      18       4       0      14
+  God of Cricket : 100 Centuries Edition               71      70      70       0       0
+  Hand Signed Ball | AS02                              26      22       0      21       1
+  Arshdeep Singh Hand Signed 24 Carat Gold Edition      1       1       0       0       1
+  Shreyas Iyer Hand-Signed White Gold-Plated Artwork    1       1       1       0       0
+  AS02 Player Edition Cap : Arshdeep Singh              2       2       2       0       0
+  (Direct = confirmed by Shopify line item; Bundle = inferred via bundle parent; WsOnly = worksheet row with no Shopify confirmation)
+
+  CONFIDENCE BREAKDOWN
+────────────────────────────────────────────────────────────────────────
+  HIGH   (direct Shopify line item)         : 214
+  MEDIUM (bundle parent inference)          :  22
+  LOW    (worksheet only / not in Shopify)  : 132
+  Total                                     : 368
+
+  NOTE HEALTH
+────────────────────────────────────────────────────────────────────────
+  Orders with all expected lines present    : 209
+  Orders with missing expected lines        :  32
+  Orders with duplicate note lines          :   1
+  Orders with legacy-format lines           :   3
+  Orders with wrong-product lines           : 126
+  Orders with untracked-cert lines          : 103
+  Orders with unknown-product lines         :   3
+
+  EXTRA NOTE LINES  (lines in notes beyond expected worksheet lines)
+────────────────────────────────────────────────────────────────────────
+
+  LEGACY_FORMAT  (4 line(s) across 3 order(s))
+    #1496  "1983 WC : Become the Belief|#062"
+         ↳ maps to tab: "1983 World Cup Edition : Become the Belief"
+    #1504  "2011 WORLD CUP CHAMPIONS EDITION|#932"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1504  "2011 WORLD CUP CHAMPIONS EDITION|#938"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1508  "1983 WC : Become the Belief|#069"
+         ↳ maps to tab: "1983 World Cup Edition : Become the Belief"
+
+  WRONG_PRODUCT  (127 line(s) across 126 order(s))
+    #1113  "Hand Signed Ball | AS02|#010"
+    #1149  "Hand Signed Ball | AS02|#141"
+    #1153  "Hand Signed Ball | AS02|#163"
+    #1154  "Hand Signed Ball | AS02|#090"
+    #1156  "Hand Signed Ball | AS02|#174"
+    #1157  "Hand Signed Ball | AS02|#137"
+    #1158  "Hand Signed Ball | AS02|#026"
+    #1159  "Hand Signed Ball | AS02|#119"
+    #1161  "Hand Signed Ball | AS02|#138"
+    #1162  "Hand Signed Ball | AS02|#185"
+    #1164  "Hand Signed Ball | AS02|#047"
+    #1166  "Hand Signed Ball | AS02|#140"
+    #1167  "Hand Signed Ball | AS02|#040"
+    #1168  "Hand Signed Ball | AS02|#037"
+    #1169  "Hand Signed Ball | AS02|#183"
+    #1170  "Hand Signed Ball | AS02|#039"
+    #1171  "Hand Signed Ball | AS02|#136"
+    #1173  "Hand Signed Ball | AS02|#020"
+    #1174  "Hand Signed Ball | AS02|#175"
+    #1176  "Hand Signed Ball | AS02|#045"
+    #1177  "Hand Signed Ball | AS02|#148"
+    #1178  "Hand Signed Ball | AS02|#180"
+    #1179  "Hand Signed Ball | AS02|#187"
+    #1181  "Hand Signed Ball | AS02|#189"
+    #1182  "Hand Signed Ball | AS02|#115"
+    #1183  "Hand Signed Ball | AS02|#113"
+    #1184  "Hand Signed Ball | AS02|#132"
+    #1185  "Hand Signed Ball | AS02|#190"
+    #1186  "Hand Signed Ball | AS02|#154"
+    #1190  "Hand Signed Ball | AS02|#146"
+    #1192  "Hand Signed Ball | AS02|#001"
+    #1193  "Hand Signed Ball | AS02|#158"
+    #1194  "Hand Signed Ball | AS02|#152"
+    #1195  "Hand Signed Ball | AS02|#193"
+    #1196  "Hand Signed Ball | AS02|#025"
+    #1197  "Hand Signed Ball | AS02|#073"
+    #1198  "Hand Signed Ball | AS02|#159"
+    #1200  "Hand Signed Ball | AS02|#117"
+    #1201  "Hand Signed Ball | AS02|#192"
+    #1202  "Hand Signed Ball | AS02|#135"
+    #1203  "Hand Signed Ball | AS02|#079"
+    #1204  "Hand Signed Ball | AS02|#127"
+    #1205  "Hand Signed Ball | AS02|#191"
+    #1206  "Hand Signed Ball | AS02|#164"
+    #1207  "Hand Signed Ball | AS02|#171"
+    #1210  "Hand Signed Ball | AS02|#200"
+    #1211  "Hand Signed Ball | AS02|#142"
+    #1221  "Hand Signed Ball | AS02|#070"
+    #1230  "Hand Signed Ball | AS02|#195"
+    #1243  "Hand Signed Ball | AS02|#144"
+    #1253  "Hand Signed Ball | AS02|#068"
+    #1254  "Hand Signed Ball | AS02|#165"
+    #1255  "Hand Signed Ball | AS02|#108"
+    #1257  "Hand Signed Ball | AS02|#172"
+    #1258  "Hand Signed Ball | AS02|#014"
+    #1260  "Hand Signed Ball | AS02|#178"
+    #1261  "Hand Signed Ball | AS02|#128"
+    #1262  "Hand Signed Ball | AS02|#054"
+    #1263  "Hand Signed Ball | AS02|#173"
+    #1264  "Hand Signed Ball | AS02|#003"
+    #1265  "Hand Signed Ball | AS02|#106"
+    #1267  "Hand Signed Ball | AS02|#184"
+    #1268  "Hand Signed Ball | AS02|#177"
+    #1269  "Hand Signed Ball | AS02|#124"
+    #1271  "Hand Signed Ball | AS02|#143"
+    #1272  "Hand Signed Ball | AS02|#161"
+    #1273  "Hand Signed Ball | AS02|#151"
+    #1274  "Hand Signed Ball | AS02|#147"
+    #1279  "Hand Signed Ball | AS02|#109"
+    #1280  "Hand Signed Ball | AS02|#056"
+    #1281  "Hand Signed Ball | AS02|#087"
+    #1283  "Hand Signed Ball | AS02|#004"
+    #1284  "Hand Signed Ball | AS02|#153"
+    #1285  "Hand Signed Ball | AS02|#194"
+    #1287  "Hand Signed Ball | AS02|#002"
+    #1288  "Hand Signed Ball | AS02|#116"
+    #1289  "Hand Signed Ball | AS02|#131"
+    #1290  "Hand Signed Ball | AS02|#102"
+    #1292  "Hand Signed Ball | AS02|#071"
+    #1293  "Hand Signed Ball | AS02|#072"
+    #1294  "Hand Signed Ball | AS02|#074"
+    #1295  "Hand Signed Ball | AS02|#118"
+    #1296  "Hand Signed Ball | AS02|#075"
+    #1297  "Hand Signed Ball | AS02|#076"
+    #1301  "Hand Signed Ball | AS02|#077"
+    #1303  "Hand Signed Ball | AS02|#078"
+    #1303  "Hand Signed Ball | AS02|#079"
+    #1304  "Hand Signed Ball | AS02|#024"
+    #1306  "Hand Signed Ball | AS02|#018"
+    #1311  "Hand Signed Ball | AS02|#080"
+    #1312  "Hand Signed Ball | AS02|#081"
+    #1313  "Hand Signed Ball | AS02|#082"
+    #1314  "Hand Signed Ball | AS02|#094"
+    #1315  "Hand Signed Ball | AS02|#095"
+    #1317  "Hand Signed Ball | AS02|#092"
+    #1318  "Hand Signed Ball | AS02|#017"
+    #1319  "Hand Signed Ball | AS02|#134"
+    #1320  "Hand Signed Ball | AS02|#097"
+    #1321  "Hand Signed Ball | AS02|#098"
+    #1358  "THE 2011 WORLD CUP CHAMPIONS EDITION|#841"
+    #1359  "THE 2011 WORLD CUP CHAMPIONS EDITION|#864"
+    #1361  "THE 2011 WORLD CUP CHAMPIONS EDITION|#842"
+    #1363  "THE 2011 WORLD CUP CHAMPIONS EDITION|#957"
+    #1364  "THE 2011 WORLD CUP CHAMPIONS EDITION|#865"
+    #1365  "THE 2011 WORLD CUP CHAMPIONS EDITION|#931"
+    #1366  "THE 2011 WORLD CUP CHAMPIONS EDITION|#958"
+    #1373  "THE 2011 WORLD CUP CHAMPIONS EDITION|#001"
+    #1375  "THE 2011 WORLD CUP CHAMPIONS EDITION|#959"
+    #1377  "THE 2011 WORLD CUP CHAMPIONS EDITION|#961"
+    #1381  "THE 2011 WORLD CUP CHAMPIONS EDITION|#863"
+    #1387  "THE 2011 WORLD CUP CHAMPIONS EDITION|#862"
+    #1389  "THE 2011 WORLD CUP CHAMPIONS EDITION|#956"
+    #1391  "THE 2011 WORLD CUP CHAMPIONS EDITION|#963"
+    #1392  "THE 2011 WORLD CUP CHAMPIONS EDITION|#965"
+    #1395  "THE 2011 WORLD CUP CHAMPIONS EDITION|#911"
+    #1402  "THE 2011 WORLD CUP CHAMPIONS EDITION|#002"
+    #1411  "THE 2011 WORLD CUP CHAMPIONS EDITION|#964"
+    #1412  "THE 2011 WORLD CUP CHAMPIONS EDITION|#844"
+    #1420  "THE 2011 WORLD CUP CHAMPIONS EDITION|#866"
+    #1433  "THE 2011 WORLD CUP CHAMPIONS EDITION|#930"
+    #1442  "World T20 Champions Edition - 2026|#001"
+    #1445  "THE 2011 WORLD CUP CHAMPIONS EDITION|#962"
+    #1446  "THE 2011 WORLD CUP CHAMPIONS EDITION|#941"
+    #1452  "THE 2011 WORLD CUP CHAMPIONS EDITION|#887"
+    #1455  "THE 2011 WORLD CUP CHAMPIONS EDITION|#010"
+    #1472  "THE 2011 WORLD CUP CHAMPIONS EDITION|#2011"
+    #1475  "THE 2011 WORLD CUP CHAMPIONS EDITION|#804"
+
+  UNTRACKED_CERT  (112 line(s) across 103 order(s))
+    #1346  "Arshdeep Singh : Official Hand-Signed Leather Ball|#112"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1348  "Arshdeep Singh : Official Hand-Signed Leather Ball|#110"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1349  "Arshdeep Singh : Official Hand-Signed Leather Ball|#114"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1351  "Arshdeep Singh : Official Hand-Signed Leather Ball|#121"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1352  "Arshdeep Singh : Official Hand-Signed Leather Ball|#122"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1353  "Arshdeep Singh : Official Hand-Signed Leather Ball|#007"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1354  "Arshdeep Singh : Official Hand-Signed Leather Ball|#125"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1355  "Arshdeep Singh : Official Hand-Signed Leather Ball|#061"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1356  "Arshdeep Singh : Official Hand-Signed Leather Ball|#062"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1357  "Arshdeep Singh : Official Hand-Signed Leather Ball|#063"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1360  "Arshdeep Singh : Official Hand-Signed Leather Ball|#064"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1362  "Arshdeep Singh : Official Hand-Signed Leather Ball|#096"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1367  "Arshdeep Singh : Official Hand-Signed Leather Ball|#065"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1368  "Arshdeep Singh : Official Hand-Signed Leather Ball|#120"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1369  "Arshdeep Singh : Official Hand-Signed Leather Ball|#050"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1370  "Arshdeep Singh : Official Hand-Signed Leather Ball|#067"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1371  "Arshdeep Singh : Official Hand-Signed Leather Ball|#011"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1372  "Arshdeep Singh : Official Hand-Signed Leather Ball|#083"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1374  "Arshdeep Singh : Official Hand-Signed Leather Ball|#100"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1376  "Arshdeep Singh : Official Hand-Signed Leather Ball|#006"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1378  "Arshdeep Singh : Official Hand-Signed Leather Ball|#084"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1379  "Arshdeep Singh : Official Hand-Signed Leather Ball|#085"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1380  "Arshdeep Singh : Official Hand-Signed Leather Ball|#086"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1382  "Arshdeep Singh : Official Hand-Signed Leather Ball|#126"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1383  "Arshdeep Singh : Official Hand-Signed Leather Ball|#091"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1385  "Arshdeep Singh : Official Hand-Signed Leather Ball|#066"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1386  "Arshdeep Singh : Official Hand-Signed Leather Ball|#129"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1388  "Arshdeep Singh : Official Hand-Signed Leather Ball|#130"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1390  "Arshdeep Singh : Official Hand-Signed Leather Ball|#005"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1393  "2007 : The Birth of India’s T20 Era|#542"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1394  "Arshdeep Singh : Official Hand-Signed Leather Ball|#101"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1396  "2007 : The Birth of India’s T20 Era|#007"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1397  "Arshdeep Singh : Official Hand-Signed Leather Ball|#155"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1398  "Arshdeep Singh : Official Hand-Signed Leather Ball|#156"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1403  "Arshdeep Singh : Official Hand-Signed Leather Ball|#149"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1404  "Arshdeep Singh : Official Hand-Signed Leather Ball|#167"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1405  "Arshdeep Singh : Official Hand-Signed Leather Ball|#160"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1406  "Arshdeep Singh : Official Hand-Signed Leather Ball|#058"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1407  "Arshdeep Singh : Official Hand-Signed Leather Ball|#059"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1408  "Arshdeep Singh : Official Hand-Signed Leather Ball|#051"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1410  "Arshdeep Singh : Official Hand-Signed Leather Ball|#150"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1413  "Arshdeep Singh : Official Hand-Signed Leather Ball|#052"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1414  "Arshdeep Singh : Official Hand-Signed Leather Ball|#053"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1415  "Arshdeep Singh : Official Hand-Signed Leather Ball|#157"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1416  "Arshdeep Singh : Official Hand-Signed Leather Ball|#169"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1417  "Arshdeep Singh : Official Hand-Signed Leather Ball|#055"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1418  "Arshdeep Singh : Official Hand-Signed Leather Ball|#057"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1419  "Arshdeep Singh : Official Hand-Signed Leather Ball|#166"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1420  "2007 : The Birth of India’s T20 Era|#541"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1420  "Arshdeep Singh : Official Hand-Signed Leather Ball|#027"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1421  "Arshdeep Singh : Official Hand-Signed Leather Ball|#060"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1422  "Arshdeep Singh : Official Hand-Signed Leather Ball|#139"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1425  "Arshdeep Singh : Official Hand-Signed Leather Ball|#176"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1426  "Arshdeep Singh : Official Hand-Signed Leather Ball|#179"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1428  "Arshdeep Singh : Official Hand-Signed Leather Ball|#182"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1429  "Arshdeep Singh : Official Hand-Signed Leather Ball|#186"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1430  "Arshdeep Singh : Official Hand-Signed Leather Ball|#188"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1431  "Arshdeep Singh : Official Hand-Signed Leather Ball|#196"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1432  "Arshdeep Singh : Official Hand-Signed Leather Ball|#197"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1433  "Arshdeep Singh : Official Hand-Signed Leather Ball|#198"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1434  "Arshdeep Singh : Official Hand-Signed Leather Ball|#031"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1435  "Arshdeep Singh : Official Hand-Signed Leather Ball|#032"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1436  "Arshdeep Singh : Official Hand-Signed Leather Ball|#033"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1437  "Arshdeep Singh : Official Hand-Signed Leather Ball|#034"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1438  "Arshdeep Singh : Official Hand-Signed Leather Ball|#008"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1439  "Arshdeep Singh : Official Hand-Signed Leather Ball|#030"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1440  "Arshdeep Singh : Official Hand-Signed Leather Ball|#035"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1444  "Arshdeep Singh : Official Hand-Signed Leather Ball|#036"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1446  "2007 : The Birth of India’s T20 Era|#543"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1447  "Arshdeep Singh : Official Hand-Signed Leather Ball|#038"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1447  "Arshdeep Singh : Official Hand-Signed Leather Ball|#041"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1447  "Arshdeep Singh : Official Hand-Signed Leather Ball|#042"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1448  "Arshdeep Singh : Official Hand-Signed Leather Ball|#048"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1450  "Arshdeep Singh : Official Hand-Signed Leather Ball|#043"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1453  "Arshdeep Singh : Official Hand-Signed Leather Ball|#046"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1460  "Arshdeep Singh : Official Hand-Signed Leather Ball|#049"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1462  "Arshdeep Singh : Official Hand-Signed Leather Ball|#069"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1463  "Arshdeep Singh : Official Hand-Signed Leather Ball|#044"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1465  "Arshdeep Singh : Official Hand-Signed Leather Ball|#023"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1468  "Arshdeep Singh : Official Hand-Signed Leather Ball|#013"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1469  "Arshdeep Singh : Official Hand-Signed Leather Ball|#022"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1470  "Arshdeep Singh : Official Hand-Signed Leather Ball|#111"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1472  "2007 : The Birth of India’s T20 Era|#2007"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1474  "Arshdeep Singh : Official Hand-Signed Leather Ball|#012"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1476  "Arshdeep Singh : Official Hand-Signed Leather Ball|#021"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1476  "Arshdeep Singh : Official Hand-Signed Leather Ball|#028"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1478  "Arshdeep Singh : Official Hand-Signed Leather Ball|#009"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1480  "Arshdeep Singh : Official Hand-Signed Leather Ball|#199"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1481  "Arshdeep Singh : Official Hand-Signed Leather Ball|#029"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1482  "2011 WORLD CUP CHAMPIONS EDITION|#937"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1483  "2007 : The Birth of India’s T20 Era|#405"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1484  "2011 WORLD CUP CHAMPIONS EDITION|#936"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1486  "World Champions 2026 - T20 Edition|#153"
+         ↳ maps to tab: "World T20 Champions Edition - 2026"
+    #1487  "World Champions 2026 - T20 Edition|#144"
+         ↳ maps to tab: "World T20 Champions Edition - 2026"
+    #1488  "World Champions 2026 - T20 Edition|#135"
+         ↳ maps to tab: "World T20 Champions Edition - 2026"
+    #1488  "2007 : The Birth of India’s T20 Era|#414"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+    #1488  "2011 WORLD CUP CHAMPIONS EDITION|#934"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1491  "Arshdeep Singh : Official Hand-Signed Leather Ball|#015"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1492  "2011 WORLD CUP CHAMPIONS EDITION|#943"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1493  "Arshdeep Singh : Official Hand-Signed Leather Ball|#145"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1494  "2011 WORLD CUP CHAMPIONS EDITION|#803"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1495  "2011 WORLD CUP CHAMPIONS EDITION|#110"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1496  "World Champions 2026 - T20 Edition|#162"
+         ↳ maps to tab: "World T20 Champions Edition - 2026"
+    #1496  "2011 WORLD CUP CHAMPIONS EDITION|#933"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1497  "2011 WORLD CUP CHAMPIONS EDITION|#886"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1507  "Arshdeep Singh : Official Hand-Signed Leather Ball|#088"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1513  "Arshdeep Singh : Official Hand-Signed Leather Ball|#123"
+         ↳ maps to tab: "Hand Signed Ball | AS02"
+    #1527  "2011 WORLD CUP CHAMPIONS EDITION|#884"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1547  "2007 : The Birth of India's T20 Era|#010"
+    #1547  "World Champions 2026 - T20 Edition|#011"
+         ↳ maps to tab: "World T20 Champions Edition - 2026"
+    #1547  "2011 WORLD CUP CHAMPIONS EDITION|#012"
+         ↳ maps to tab: "THE 2011 WORLD CUP CHAMPIONS EDITION"
+    #1621  "2007 : The Birth of India’s T20 Era|#41"
+         ↳ maps to tab: "2007 : The Birth of India's T20 Era"
+
+  UNKNOWN_PRODUCT  (4 line(s) across 3 order(s))
+    #1498  "THE 18 - EE SALA CUP NAMDE|#081"
+    #1546  "Edition #050"
+    #1563  "Please make it very special as it’s a gift for my wife"
+    #1563  "We are a big fan of MSD"
+
+  MISSING NOTE LINES BY PRODUCT
+────────────────────────────────────────────────────────────────────────
+
+  "THE 18 - EE SALA CUP NAMDU"  —  1 missing:
+    #1498  THE 18 - EE SALA CUP NAMDU|#081  [LOW]
+
+  "World T20 Champions Edition - 2026"  —  26 missing:
+    #1498  World T20 Champions Edition - 2026|#081  [LOW]
+    #1499  World T20 Champions Edition - 2026|#154  [MEDIUM]
+    #1500  World T20 Champions Edition - 2026|#001  [MEDIUM]
+    #1502  World T20 Champions Edition - 2026|#063  [MEDIUM]
+    #1503  World T20 Champions Edition - 2026|#072  [MEDIUM]
+    #1504  World T20 Champions Edition - 2026|#110  [MEDIUM]
+    #1505  World T20 Champions Edition - 2026|#105  [MEDIUM]
+    #1505  World T20 Champions Edition - 2026|#156  [MEDIUM]
+    #1505  World T20 Champions Edition - 2026|#157  [MEDIUM]
+    #1505  World T20 Champions Edition - 2026|#162  [MEDIUM]
+    #1506  World T20 Champions Edition - 2026|#120  [MEDIUM]
+    #1509  World T20 Champions Edition - 2026|#007  [MEDIUM]
+    #1515  World T20 Champions Edition - 2026|#083  [MEDIUM]
+    #1516  World T20 Champions Edition - 2026|#082  [MEDIUM]
+    #1517  World T20 Champions Edition - 2026|#115  [MEDIUM]
+    #1519  World T20 Champions Edition - 2026|#131  [MEDIUM]
+    #1520  World T20 Champions Edition - 2026|#116  [MEDIUM]
+    #1521  World T20 Champions Edition - 2026|#136  [MEDIUM]
+    #1522  World T20 Champions Edition - 2026|#126  [MEDIUM]
+    #1523  World T20 Champions Edition - 2026|#151  [MEDIUM]
+    #1523  World T20 Champions Edition - 2026|#163  [MEDIUM]
+    #1525  World T20 Champions Edition - 2026|#141  [MEDIUM]
+    #1526  World T20 Champions Edition - 2026|#146  [MEDIUM]
+    #1528  World T20 Champions Edition - 2026|#121  [MEDIUM]
+    #1540  World T20 Champions Edition - 2026|#161  [MEDIUM]
+    #1559  World T20 Champions Edition - 2026|#073  [MEDIUM]
+
+  "Ravi Bishnoi: Official Hand-Signed Ball"  —  3 missing:
+    #1542  Ravi Bishnoi: Official Hand-Signed Ball|#141  [HIGH]
+    #1583  Ravi Bishnoi: Official Hand-Signed Ball|#221  [HIGH]
+    #1636  Ravi Bishnoi: Official Hand-Signed Ball|#134  [HIGH]
+
+  "2007 : The Birth of India's T20 Era"  —  26 missing:
+    #1498  2007 : The Birth of India's T20 Era|#081  [LOW]
+    #1499  2007 : The Birth of India's T20 Era|#154  [MEDIUM]
+    #1500  2007 : The Birth of India's T20 Era|#001  [MEDIUM]
+    #1502  2007 : The Birth of India's T20 Era|#063  [MEDIUM]
+    #1503  2007 : The Birth of India's T20 Era|#072  [MEDIUM]
+    #1504  2007 : The Birth of India's T20 Era|#110  [MEDIUM]
+    #1505  2007 : The Birth of India's T20 Era|#105  [MEDIUM]
+    #1505  2007 : The Birth of India's T20 Era|#156  [MEDIUM]
+    #1505  2007 : The Birth of India's T20 Era|#157  [MEDIUM]
+    #1505  2007 : The Birth of India's T20 Era|#162  [MEDIUM]
+    #1506  2007 : The Birth of India's T20 Era|#120  [MEDIUM]
+    #1509  2007 : The Birth of India's T20 Era|#007  [MEDIUM]
+    #1515  2007 : The Birth of India's T20 Era|#083  [MEDIUM]
+    #1516  2007 : The Birth of India's T20 Era|#082  [MEDIUM]
+    #1517  2007 : The Birth of India's T20 Era|#115  [MEDIUM]
+    #1519  2007 : The Birth of India's T20 Era|#131  [MEDIUM]
+    #1520  2007 : The Birth of India's T20 Era|#116  [MEDIUM]
+    #1521  2007 : The Birth of India's T20 Era|#136  [MEDIUM]
+    #1522  2007 : The Birth of India's T20 Era|#126  [MEDIUM]
+    #1523  2007 : The Birth of India's T20 Era|#151  [MEDIUM]
+    #1523  2007 : The Birth of India's T20 Era|#163  [MEDIUM]
+    #1525  2007 : The Birth of India's T20 Era|#141  [MEDIUM]
+    #1526  2007 : The Birth of India's T20 Era|#146  [MEDIUM]
+    #1528  2007 : The Birth of India's T20 Era|#121  [MEDIUM]
+    #1540  2007 : The Birth of India's T20 Era|#161  [MEDIUM]
+    #1559  2007 : The Birth of India's T20 Era|#073  [MEDIUM]
+
+  "THE 2011 WORLD CUP CHAMPIONS EDITION"  —  26 missing:
+    #1498  THE 2011 WORLD CUP CHAMPIONS EDITION|#081  [LOW]
+    #1499  THE 2011 WORLD CUP CHAMPIONS EDITION|#154  [MEDIUM]
+    #1500  THE 2011 WORLD CUP CHAMPIONS EDITION|#001  [MEDIUM]
+    #1502  THE 2011 WORLD CUP CHAMPIONS EDITION|#063  [MEDIUM]
+    #1503  THE 2011 WORLD CUP CHAMPIONS EDITION|#072  [MEDIUM]
+    #1504  THE 2011 WORLD CUP CHAMPIONS EDITION|#110  [MEDIUM]
+    #1505  THE 2011 WORLD CUP CHAMPIONS EDITION|#105  [MEDIUM]
+    #1505  THE 2011 WORLD CUP CHAMPIONS EDITION|#156  [MEDIUM]
+    #1505  THE 2011 WORLD CUP CHAMPIONS EDITION|#157  [MEDIUM]
+    #1505  THE 2011 WORLD CUP CHAMPIONS EDITION|#162  [MEDIUM]
+    #1506  THE 2011 WORLD CUP CHAMPIONS EDITION|#120  [MEDIUM]
+    #1509  THE 2011 WORLD CUP CHAMPIONS EDITION|#007  [MEDIUM]
+    #1515  THE 2011 WORLD CUP CHAMPIONS EDITION|#083  [MEDIUM]
+    #1516  THE 2011 WORLD CUP CHAMPIONS EDITION|#082  [MEDIUM]
+    #1517  THE 2011 WORLD CUP CHAMPIONS EDITION|#115  [MEDIUM]
+    #1519  THE 2011 WORLD CUP CHAMPIONS EDITION|#131  [MEDIUM]
+    #1520  THE 2011 WORLD CUP CHAMPIONS EDITION|#116  [MEDIUM]
+    #1521  THE 2011 WORLD CUP CHAMPIONS EDITION|#136  [MEDIUM]
+    #1522  THE 2011 WORLD CUP CHAMPIONS EDITION|#126  [MEDIUM]
+    #1523  THE 2011 WORLD CUP CHAMPIONS EDITION|#151  [MEDIUM]
+    #1523  THE 2011 WORLD CUP CHAMPIONS EDITION|#163  [MEDIUM]
+    #1525  THE 2011 WORLD CUP CHAMPIONS EDITION|#141  [MEDIUM]
+    #1526  THE 2011 WORLD CUP CHAMPIONS EDITION|#146  [MEDIUM]
+    #1528  THE 2011 WORLD CUP CHAMPIONS EDITION|#121  [MEDIUM]
+    #1540  THE 2011 WORLD CUP CHAMPIONS EDITION|#161  [MEDIUM]
+    #1559  THE 2011 WORLD CUP CHAMPIONS EDITION|#073  [MEDIUM]
+
+  "1983 World Cup Edition : Become the Belief"  —  4 missing:
+    #1496  1983 World Cup Edition : Become the Belief|#062  [HIGH]
+    #1508  1983 World Cup Edition : Become the Belief|#069  [HIGH]
+    #1549  1983 World Cup Edition : Become the Belief|#070  [HIGH]
+    #1574  1983 World Cup Edition : Become the Belief|#066  [HIGH]
+
+  "God of Cricket : 100 Centuries Edition"  —  3 missing:
+    #1514  God of Cricket : 100 Centuries Edition|#002  [HIGH]
+    #1567  God of Cricket : 100 Centuries Edition|#243  [HIGH]
+    #1575  God of Cricket : 100 Centuries Edition|#240  [HIGH]
+
+  "Hand Signed Ball | AS02"  —  26 missing:
+    #1498  Hand Signed Ball | AS02|#081  [LOW]
+    #1499  Hand Signed Ball | AS02|#154  [MEDIUM]
+    #1500  Hand Signed Ball | AS02|#001  [MEDIUM]
+    #1502  Hand Signed Ball | AS02|#063  [MEDIUM]
+    #1503  Hand Signed Ball | AS02|#072  [MEDIUM]
+    #1504  Hand Signed Ball | AS02|#110  [MEDIUM]
+    #1505  Hand Signed Ball | AS02|#105  [MEDIUM]
+    #1505  Hand Signed Ball | AS02|#156  [MEDIUM]
+    #1505  Hand Signed Ball | AS02|#157  [MEDIUM]
+    #1505  Hand Signed Ball | AS02|#162  [MEDIUM]
+    #1506  Hand Signed Ball | AS02|#120  [MEDIUM]
+    #1509  Hand Signed Ball | AS02|#007  [MEDIUM]
+    #1515  Hand Signed Ball | AS02|#083  [MEDIUM]
+    #1516  Hand Signed Ball | AS02|#082  [MEDIUM]
+    #1517  Hand Signed Ball | AS02|#115  [MEDIUM]
+    #1519  Hand Signed Ball | AS02|#131  [MEDIUM]
+    #1520  Hand Signed Ball | AS02|#116  [MEDIUM]
+    #1521  Hand Signed Ball | AS02|#136  [MEDIUM]
+    #1522  Hand Signed Ball | AS02|#126  [MEDIUM]
+    #1523  Hand Signed Ball | AS02|#151  [MEDIUM]
+    #1523  Hand Signed Ball | AS02|#163  [MEDIUM]
+    #1525  Hand Signed Ball | AS02|#141  [MEDIUM]
+    #1526  Hand Signed Ball | AS02|#146  [MEDIUM]
+    #1528  Hand Signed Ball | AS02|#121  [MEDIUM]
+    #1540  Hand Signed Ball | AS02|#161  [MEDIUM]
+    #1559  Hand Signed Ball | AS02|#073  [MEDIUM]
+
+  DISCREPANCY FLAGS
+────────────────────────────────────────────────────────────────────────
+
+  Orders with LEGXI line items NOT in any worksheet (117):
+    #1148  Selvakumar Yugendran  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1150  Advait Rathi  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1155  JAPJI SINGH  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1165  JAPJI SINGH  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1188  Nitin Arora  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1191  Vstaar wellness Pvt ltd  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1199  Param Eesh Sirpaul  —  has: Shreyas Iyer Hand-Signed White Gold-Plated Artwork
+    #1300  yuvraj Pokhrel  —  has: AS02 Player Edition Cap : Arshdeep Singh
+    #1348  Preetham Nelson D D Costa  —  has: Hand Signed Ball | AS02
+    #1349  Jayesh Kantilal doshi  —  has: Hand Signed Ball | AS02
+    #1351  Pranay Gandhi  —  has: Hand Signed Ball | AS02
+    #1352  Gunbir Singh  —  has: Hand Signed Ball | AS02
+    #1353  Biomedic Healthcare U R Singh  —  has: Hand Signed Ball | AS02
+    #1354  Kunal c Chakraborty  —  has: Hand Signed Ball | AS02
+    #1355  Sid Casyab  —  has: Hand Signed Ball | AS02
+    #1356  Arnab Gazi  —  has: Hand Signed Ball | AS02
+    #1357  Baishakhi Chakraborty  —  has: Hand Signed Ball | AS02
+    #1360  Deepti Reddy  —  has: Hand Signed Ball | AS02
+    #1362  Gurkeerat Singh  —  has: Hand Signed Ball | AS02
+    #1367  saurabh batra  —  has: Hand Signed Ball | AS02
+    #1368  SHUBHAM Sinha  —  has: Hand Signed Ball | AS02
+    #1369  Navneet Puri  —  has: Hand Signed Ball | AS02
+    #1370  Rahul Goyal  —  has: Hand Signed Ball | AS02
+    #1371  Harsh Jha  —  has: Hand Signed Ball | AS02
+    #1372  Farhan Adeni  —  has: Hand Signed Ball | AS02
+    #1374  Akshit Arora  —  has: Hand Signed Ball | AS02
+    #1376  Brij Sharrma  —  has: Hand Signed Ball | AS02
+    #1378  Anand Choudhery  —  has: Hand Signed Ball | AS02
+    #1379  Avinash Gautam  —  has: Hand Signed Ball | AS02
+    #1380  Prasad Salvi  —  has: Hand Signed Ball | AS02
+    #1382  Akshay Gupta  —  has: Hand Signed Ball | AS02
+    #1383  AKSHAR PATEL  —  has: Hand Signed Ball | AS02
+    #1385  JASKARAN Singh  —  has: Hand Signed Ball | AS02
+    #1386  Dr Punpreet Singh Singh  —  has: Hand Signed Ball | AS02
+    #1388  Kehar singh Thakur  —  has: Hand Signed Ball | AS02
+    #1390  Hemang Bhatt  —  has: Hand Signed Ball | AS02
+    #1393  Jay Raval  —  has: 2007 : The Birth of India's T20 Era
+    #1394  Simar Preet Singh  —  has: Hand Signed Ball | AS02
+    #1396  Aasit Vinaykant  —  has: 2007 : The Birth of India's T20 Era
+    #1397  Shankar Viswanathan  —  has: Hand Signed Ball | AS02
+    #1398  Shan Narkhede  —  has: Hand Signed Ball | AS02
+    #1403  RHIDHAAN Mehta Mehta  —  has: Hand Signed Ball | AS02
+    #1404  Bhaskar Singh Bisht  —  has: Hand Signed Ball | AS02
+    #1405  Parin Tailor  —  has: Hand Signed Ball | AS02
+    #1406  Avtej Gill  —  has: Hand Signed Ball | AS02
+    #1407  Gurpreet Singh  —  has: Hand Signed Ball | AS02
+    #1408  Aayush  —  has: Hand Signed Ball | AS02
+    #1410  Jagjeet singh  —  has: Hand Signed Ball | AS02
+    #1413  Karanjot singh  —  has: Hand Signed Ball | AS02
+    #1414  Bhavjot Singh Singh  —  has: Hand Signed Ball | AS02
+    #1415  Shivam Bajaj  —  has: Hand Signed Ball | AS02
+    #1416  Prabhdeep Arora  —  has: Hand Signed Ball | AS02
+    #1417  Pratham Wahi  —  has: Hand Signed Ball | AS02
+    #1418  Virinder Gill  —  has: Hand Signed Ball | AS02
+    #1419  Indrasen Pasale  —  has: Hand Signed Ball | AS02
+    #1421  Prabhjot Minhas  —  has: Hand Signed Ball | AS02
+    #1422  Chirag Chhajer  —  has: Hand Signed Ball | AS02
+    #1425  Jaskirat Exports And Services  —  has: Hand Signed Ball | AS02
+    #1427  gurkirat singh  —  has: Hand Signed Ball | AS02
+    #1428  shubham Maheshwari  —  has: Hand Signed Ball | AS02
+    #1431  Yasheel Doddanavar  —  has: Hand Signed Ball | AS02
+    #1432  Ujval Aggarwal  —  has: Hand Signed Ball | AS02
+    #1433  Ashwani K Agarwalla  —  has: Hand Signed Ball | AS02
+    #1434  Shaurya Sharma  —  has: Hand Signed Ball | AS02
+    #1435  Naval Kastia  —  has: Hand Signed Ball | AS02
+    #1436  Yuvraj Sehgal  —  has: Hand Signed Ball | AS02
+    #1437  APURVA CHEMICALS  —  has: Hand Signed Ball | AS02
+    #1438  Abishek Sundar  —  has: Hand Signed Ball | AS02
+    #1439  Shubham Sharma  —  has: Hand Signed Ball | AS02
+    #1440  Vipul S  —  has: Hand Signed Ball | AS02
+    #1444  Ashutosh Garg  —  has: Hand Signed Ball | AS02
+    #1447  Shonresh Bishwas  —  has: Hand Signed Ball | AS02
+    #1448  arpit jain  —  has: Hand Signed Ball | AS02
+    #1450  Surinder Singh  —  has: Hand Signed Ball | AS02
+    #1453  Pioline Melon  —  has: Hand Signed Ball | AS02
+    #1460  Abhisek Singh  —  has: Hand Signed Ball | AS02
+    #1461  Rubal  —  has: Ravi Bishnoi: Official Hand-Signed Ball
+    #1462  SAdan  —  has: Hand Signed Ball | AS02
+    #1463  Vidit Nishar  —  has: Hand Signed Ball | AS02
+    #1464  Test .  —  has: AS02 Player Edition Cap : Arshdeep Singh
+    #1465  Sarthak Pande  —  has: Hand Signed Ball | AS02
+    #1467  Sehej  —  has: Hand Signed Ball | AS02
+    #1468  Sanchit Kumar Banati  —  has: Hand Signed Ball | AS02
+    #1469  Adarsh B  —  has: Hand Signed Ball | AS02
+    #1470  DEVA R sheth Sheth  —  has: Hand Signed Ball | AS02
+    #1472  NIHAL KIRAN KUMAR  —  has: 2007 : The Birth of India's T20 Era
+    #1474  GHANSHYAM MITTAL  —  has: Hand Signed Ball | AS02
+    #1476  Kishor Balu  —  has: Hand Signed Ball | AS02
+    #1478  Ankit Sahni  —  has: Hand Signed Ball | AS02
+    #1480  Omer Shamim  —  has: Hand Signed Ball | AS02
+    #1481  Raj Jani  —  has: Hand Signed Ball | AS02
+    #1482  Aman Dwivedi  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1483  ANEESH TADKOD  —  has: 2007 : The Birth of India's T20 Era
+    #1484  Anish Shetty  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1486  Shrenik Ghodawat  —  has: World T20 Champions Edition - 2026
+    #1487  Vishal Gada  —  has: World T20 Champions Edition - 2026
+    #1488  Namit Anand  —  has: World T20 Champions Edition - 2026, 2007 : The Birth of India's T20 Era, THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1490  Sanjay  —  has: Ravi Bishnoi: Official Hand-Signed Ball
+    #1491  Rohith AlagarsaMY Alagarsamy  —  has: Hand Signed Ball | AS02
+    #1492  Rohan Ravindran  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1493  SarelJeet Singh  —  has: Hand Signed Ball | AS02
+    #1494  Mehul Shah  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1495  Sneh Thakkae  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1497  Siddharth Saudatti  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1507  Ram goel Goel  —  has: Hand Signed Ball | AS02
+    #1510  Akshit Arora  —  has: Arshdeep Singh Hand Signed 24 Carat Gold Edition
+    #1511  Karamjeet kaur  —  has: Arshdeep Singh Hand Signed 24 Carat Gold Edition
+    #1524  Miraj Shah  —  has: 2007 : The Birth of India's T20 Era
+    #1527  Hussain Kalsekar  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1544  Binit choudhary  —  has: Ravi Bishnoi: Official Hand-Signed Ball
+    #1545  Binit choudhary  —  has: THE 18 - EE SALA CUP NAMDU
+    #1546  Binit choudhary  —  has: AS02 Player Edition Cap : Arshdeep Singh
+    #1547  Binit choudhary  —  has: World T20 Champions Edition - 2026, 2007 : The Birth of India's T20 Era, THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1563  Nishant  —  has: 2007 : The Birth of India's T20 Era
+    #1564  PRASANTA KR DAS  —  has: THE 2011 WORLD CUP CHAMPIONS EDITION
+    #1621  Devendra Singh  —  has: 2007 : The Birth of India's T20 Era
+    #1647  Durgesh  —  has: Ravi Bishnoi: Official Hand-Signed Ball
+  Worksheet orders not found in Shopify           : 0
+
+  Orders with LEGXI notes but no worksheet row and no line item (120):
+    #1113  "Hand Signed Ball | AS02|#010"
+    #1149  "Hand Signed Ball | AS02|#141"
+    #1153  "Hand Signed Ball | AS02|#163"
+    #1154  "Hand Signed Ball | AS02|#090"
+    #1156  "Hand Signed Ball | AS02|#174"
+    #1157  "Hand Signed Ball | AS02|#137"
+    #1158  "Hand Signed Ball | AS02|#026"
+    #1159  "Hand Signed Ball | AS02|#119"
+    #1161  "Hand Signed Ball | AS02|#138"
+    #1162  "Hand Signed Ball | AS02|#185"
+    #1164  "Hand Signed Ball | AS02|#047"
+    #1166  "Hand Signed Ball | AS02|#140"
+    #1167  "Hand Signed Ball | AS02|#040"
+    #1168  "Hand Signed Ball | AS02|#037"
+    #1169  "Hand Signed Ball | AS02|#183"
+    #1170  "Hand Signed Ball | AS02|#039"
+    #1171  "Hand Signed Ball | AS02|#136"
+    #1173  "Hand Signed Ball | AS02|#020"
+    #1174  "Hand Signed Ball | AS02|#175"
+    #1176  "Hand Signed Ball | AS02|#045"
+    #1177  "Hand Signed Ball | AS02|#148"
+    #1178  "Hand Signed Ball | AS02|#180"
+    #1179  "Hand Signed Ball | AS02|#187"
+    #1181  "Hand Signed Ball | AS02|#189"
+    #1182  "Hand Signed Ball | AS02|#115"
+    #1183  "Hand Signed Ball | AS02|#113"
+    #1184  "Hand Signed Ball | AS02|#132"
+    #1185  "Hand Signed Ball | AS02|#190"
+    #1186  "Hand Signed Ball | AS02|#154"
+    #1190  "Hand Signed Ball | AS02|#146"
+    #1192  "Hand Signed Ball | AS02|#001"
+    #1193  "Hand Signed Ball | AS02|#158"
+    #1194  "Hand Signed Ball | AS02|#152"
+    #1195  "Hand Signed Ball | AS02|#193"
+    #1196  "Hand Signed Ball | AS02|#025"
+    #1197  "Hand Signed Ball | AS02|#073"
+    #1198  "Hand Signed Ball | AS02|#159"
+    #1200  "Hand Signed Ball | AS02|#117"
+    #1201  "Hand Signed Ball | AS02|#192"
+    #1202  "Hand Signed Ball | AS02|#135"
+    #1203  "Hand Signed Ball | AS02|#079"
+    #1204  "Hand Signed Ball | AS02|#127"
+    #1205  "Hand Signed Ball | AS02|#191"
+    #1206  "Hand Signed Ball | AS02|#164"
+    #1207  "Hand Signed Ball | AS02|#171"
+    #1210  "Hand Signed Ball | AS02|#200"
+    #1211  "Hand Signed Ball | AS02|#142"
+    #1221  "Hand Signed Ball | AS02|#070"
+    #1230  "Hand Signed Ball | AS02|#195"
+    #1243  "Hand Signed Ball | AS02|#144"
+    #1253  "Hand Signed Ball | AS02|#068"
+    #1254  "Hand Signed Ball | AS02|#165"
+    #1255  "Hand Signed Ball | AS02|#108"
+    #1257  "Hand Signed Ball | AS02|#172"
+    #1258  "Hand Signed Ball | AS02|#014"
+    #1260  "Hand Signed Ball | AS02|#178"
+    #1261  "Hand Signed Ball | AS02|#128"
+    #1262  "Hand Signed Ball | AS02|#054"
+    #1263  "Hand Signed Ball | AS02|#173"
+    #1264  "Hand Signed Ball | AS02|#003"
+    #1265  "Hand Signed Ball | AS02|#106"
+    #1267  "Hand Signed Ball | AS02|#184"
+    #1268  "Hand Signed Ball | AS02|#177"
+    #1269  "Hand Signed Ball | AS02|#124"
+    #1271  "Hand Signed Ball | AS02|#143"
+    #1272  "Hand Signed Ball | AS02|#161"
+    #1273  "Hand Signed Ball | AS02|#151"
+    #1274  "Hand Signed Ball | AS02|#147"
+    #1279  "Hand Signed Ball | AS02|#109"
+    #1280  "Hand Signed Ball | AS02|#056"
+    #1281  "Hand Signed Ball | AS02|#087"
+    #1283  "Hand Signed Ball | AS02|#004"
+    #1284  "Hand Signed Ball | AS02|#153"
+    #1285  "Hand Signed Ball | AS02|#194"
+    #1287  "Hand Signed Ball | AS02|#002"
+    #1288  "Hand Signed Ball | AS02|#116"
+    #1289  "Hand Signed Ball | AS02|#131"
+    #1290  "Hand Signed Ball | AS02|#102"
+    #1292  "Hand Signed Ball | AS02|#071"
+    #1293  "Hand Signed Ball | AS02|#072"
+    #1294  "Hand Signed Ball | AS02|#074"
+    #1295  "Hand Signed Ball | AS02|#118"
+    #1296  "Hand Signed Ball | AS02|#075"
+    #1297  "Hand Signed Ball | AS02|#076"
+    #1301  "Hand Signed Ball | AS02|#077"
+    #1303  "Hand Signed Ball | AS02|#078"
+    #1303  "Hand Signed Ball | AS02|#079"
+    #1304  "Hand Signed Ball | AS02|#024"
+    #1306  "Hand Signed Ball | AS02|#018"
+    #1311  "Hand Signed Ball | AS02|#080"
+    #1312  "Hand Signed Ball | AS02|#081"
+    #1313  "Hand Signed Ball | AS02|#082"
+    #1314  "Hand Signed Ball | AS02|#094"
+    #1315  "Hand Signed Ball | AS02|#095"
+    #1317  "Hand Signed Ball | AS02|#092"
+    #1319  "Hand Signed Ball | AS02|#134"
+    #1320  "Hand Signed Ball | AS02|#097"
+    #1321  "Hand Signed Ball | AS02|#098"
+    #1358  "THE 2011 WORLD CUP CHAMPIONS EDITION|#841"
+    #1359  "THE 2011 WORLD CUP CHAMPIONS EDITION|#864"
+    #1361  "THE 2011 WORLD CUP CHAMPIONS EDITION|#842"
+    #1363  "THE 2011 WORLD CUP CHAMPIONS EDITION|#957"
+    #1364  "THE 2011 WORLD CUP CHAMPIONS EDITION|#865"
+    #1365  "THE 2011 WORLD CUP CHAMPIONS EDITION|#931"
+    #1366  "THE 2011 WORLD CUP CHAMPIONS EDITION|#958"
+    #1373  "THE 2011 WORLD CUP CHAMPIONS EDITION|#001"
+    #1375  "THE 2011 WORLD CUP CHAMPIONS EDITION|#959"
+    #1377  "THE 2011 WORLD CUP CHAMPIONS EDITION|#961"
+    #1381  "THE 2011 WORLD CUP CHAMPIONS EDITION|#863"
+    #1387  "THE 2011 WORLD CUP CHAMPIONS EDITION|#862"
+    #1389  "THE 2011 WORLD CUP CHAMPIONS EDITION|#956"
+    #1391  "THE 2011 WORLD CUP CHAMPIONS EDITION|#963"
+    #1392  "THE 2011 WORLD CUP CHAMPIONS EDITION|#965"
+    #1395  "THE 2011 WORLD CUP CHAMPIONS EDITION|#911"
+    #1402  "THE 2011 WORLD CUP CHAMPIONS EDITION|#002"
+    #1412  "THE 2011 WORLD CUP CHAMPIONS EDITION|#844"
+    #1442  "World T20 Champions Edition - 2026|#001"
+    #1445  "THE 2011 WORLD CUP CHAMPIONS EDITION|#962"
+    #1452  "THE 2011 WORLD CUP CHAMPIONS EDITION|#887"
+    #1455  "THE 2011 WORLD CUP CHAMPIONS EDITION|#010"
+    #1475  "THE 2011 WORLD CUP CHAMPIONS EDITION|#804"
+
+════════════════════════════════════════════════════════════════════════
+  TOTALS
+════════════════════════════════════════════════════════════════════════
+  Expected note lines (all orders)  :  241
+  Already correct (present 1x)      :  125
+  Missing                           :  115
+  Duplicates                        :    1
+  Extra (legacy/wrong/untracked)    :  247
+════════════════════════════════════════════════════════════════════════
+
+  Ground truth written to  ground-truth.json
+  PHASE 1 COMPLETE. No Shopify data was modified.
+

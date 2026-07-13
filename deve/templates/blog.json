@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blog-banner": {
+      "type": "blog-banner",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": true,
+        "title_tag": "h2",
+        "content": ""
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "newsletter_e7FWaF": {
+          "type": "newsletter",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "position": 1,
+            "icon": "envelope",
+            "title": "Newsletter",
+            "content": "<p>Subscribe for inspiring stories, offers, and news.</p>",
+            "button_text": "Subscribe",
+            "privacy_policy_text": "By signing up, I agree with the privacy policy."
+          }
+        }
+      },
+      "block_order": [
+        "newsletter_e7FWaF"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_tags": true,
+        "posts_per_page": 12,
+        "highlight_blog_post_position": 3,
+        "blog_post_card_heading_size": "h6",
+        "show_category": false,
+        "show_date": true,
+        "show_reading_time": true,
+        "show_excerpt": true
+      }
+    }
+  },
+  "order": [
+    "blog-banner",
+    "main"
+  ]
+}

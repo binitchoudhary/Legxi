@@ -1,0 +1,690 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_badges_zyBkyU": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 4,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "limited Signed edition",
+            "badge_1_show": true,
+            "badge_1_bg": "#f0f0f0",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#e0e0e0",
+            "badge_2_text": "200 pieces",
+            "badge_2_show": true,
+            "badge_2_bg": "#dee8e2",
+            "badge_2_text_color": "#237c4c",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": true,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#fce8e8"
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "disabled": true,
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "offers_aRjPzc": {
+          "type": "offers",
+          "disabled": true,
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/timer.png",
+            "offer_1_icon_width": 16,
+            "offer_1_subheading": "<strong>SOLD OUT<\/strong>",
+            "offer_1_content": "( Never Restocked )",
+            "offer_1_background": "#fff4f4",
+            "offer_1_text_color": "#d91717",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "accordion_FTeKrH": {
+          "type": "accordion",
+          "settings": {
+            "title": "Strictly limited to #200 worldwide. Each piece is accompanied by a Certificate of Authenticity.",
+            "content": "<p>An enduring symbol of cricketing greatness. This pristine white leather ball, hand-signed by India’s left-arm ace Arshdeep Singh, is encased in a crystal-clear museum-grade display and rested upon a hand-finished wooden base. A rare collectible that elevates sporting brilliance into timeless legacy, complete with LEGXI’s hallmark of rarity, refinement, and authenticity.<\/p>",
+            "uppercase_title": false,
+            "icon": "none",
+            "page": ""
+          }
+        },
+        "inventory_fRWNWM": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": true,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 200
+          }
+        },
+        "variant_picker_EiVjNH": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "dropdown",
+            "swatch_selector_style": "block_swatch",
+            "swatch_selector_size": "sm",
+            "block_selector_style": "fill",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "one_click_upsell_on_page_MVCHnx": {
+          "type": "shopify:\/\/apps\/one-click-upsell\/blocks\/on-page\/bfe6e378-b73a-4871-b8d3-7d6ede22678e",
+          "settings": {}
+        },
+        "register_interest_JA6ThU": {
+          "type": "register_interest",
+          "settings": {
+            "enable": true,
+            "button_text": "Register Interest",
+            "form_id": "1052309",
+            "show_only_soldout": true
+          }
+        },
+        "buy_buttons_qQTg7a": {
+          "type": "buy_buttons",
+          "disabled": true,
+          "settings": {
+            "show_payment_button": false,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "#d91717",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "modal_7aGxkj": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_7Mg7W6": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_2c7353ad-9e57-4d61-ac82-70be95c7a917.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f5fbff",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_5898d2e2-5c72-4760-9e7a-e37dd63d75b8.png",
+            "offer_2_icon_width": 20,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f5fbff",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_f2d168e0-fd2e-43d4-a19d-8c1a71da5ab3.png",
+            "offer_3_icon_width": 20,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f5fbff",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "complementary_products_rmJeXF": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "EXPLORE COLLECTIONS",
+            "products_count": 3
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Refund",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Shipping",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 9315704239<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_hD7aw4": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Material & dimensions",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #200 pieces worldwide<br\/>Personally signed by Arshdeep Singh<br\/><br\/>Pen Colour: Black<br\/>Comes with: Wooden base and Museum grade glass display frame<br\/><br\/>Size \/ Dimensions: 15 × 15 × 17 cm<br\/><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_Yw9tMe": {
+          "type": "offers",
+          "disabled": true,
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/tag.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "#200 PIECES WORLDWIDE",
+            "offer_1_content": "If you wish to secure a specific edition (e.g. 002\/200) our after-sales team will guide you post-purchase.",
+            "offer_1_background": "#f1fff2",
+            "offer_1_text_color": "#097133",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "custom_badges_zyBkyU",
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "rating",
+        "offers_aRjPzc",
+        "accordion_FTeKrH",
+        "inventory_fRWNWM",
+        "variant_picker_EiVjNH",
+        "one_click_upsell_on_page_MVCHnx",
+        "register_interest_JA6ThU",
+        "buy_buttons_qQTg7a",
+        "modal_7aGxkj",
+        "offers_7Mg7W6",
+        "separator",
+        "complementary_products_rmJeXF",
+        "modal_6G837j",
+        "modal_hD7aw4",
+        "offers_Yw9tMe"
+      ],
+      "custom_css": [
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 54,
+        "content_alignment": "left",
+        "desktop_media_layout": "grid_half_highlight_first",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "text_with_media_7xcW3p": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_zYp3PE": {
+          "type": "subheading",
+          "settings": {
+            "text": "AS02 HAND SIGNED BALL",
+            "position": "top_left"
+          }
+        },
+        "heading_nNjXbd": {
+          "type": "heading",
+          "settings": {
+            "text": "Why is this a Limited Edition?",
+            "heading_tag": "h4",
+            "position": "top_left",
+            "highlight_effect": "none",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_hVrePi": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>This collectible is strictly limited to only 200 pieces worldwide. Each ball is part of a numbered edition, personally hand-signed by Arshdeep Singh, making it a rare and authenticated piece of cricketing history. Being a Limited Edition ensures that your collectible remains exclusive, scarce, and secure in value. Its rarity and authenticity make it an appreciating asset over time a true investor legacy<\/p>",
+            "position": "bottom_left"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_zYp3PE",
+        "heading_nNjXbd",
+        "richtext_hVrePi"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "content_position": "start",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": true,
+        "autoplay_video": true,
+        "primary_video": "shopify:\/\/files\/videos\/sign-square.mp4",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "media_blocks_bDMgbN": {
+      "type": "media-blocks",
+      "blocks": {
+        "image_with_text_LdjBVz": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/Ball.jpg",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "Only #200 Pieces WORLDWIDE",
+            "heading_tag": "h4",
+            "heading_position": "bottom_left",
+            "scrolling_title": true,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        },
+        "image_with_text_ddaaaf": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify:\/\/shop_images\/Certificate_of_Authentication.jpg",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "bottom_left",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "CERTIFICATE OF AUTHETIFICATION",
+            "heading_tag": "h4",
+            "heading_position": "top_center",
+            "scrolling_title": true,
+            "scrolling_title_separator": "circle",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_LdjBVz",
+        "image_with_text_ddaaaf"
+      ],
+      "disabled": true,
+      "name": "t:sections.media_blocks.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h4",
+        "text_alignment": "left",
+        "scrolling_title": false,
+        "scrolling_title_separator": "circle",
+        "stack_on_mobile": true,
+        "add_horizontal_spacing": false,
+        "add_border": true,
+        "column_spacing": "none",
+        "items_per_row": 2,
+        "block_size": "auto"
+      }
+    },
+    "hot_spots_787HJ9": {
+      "type": "hot-spots",
+      "blocks": {
+        "hot_spot_content_item_4Dy4Aq": {
+          "type": "_hot-spot-content-item",
+          "name": "t:sections.hot_spots.blocks.content.name",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 26,
+            "desktop_vertical_position": 39,
+            "mobile_horizontal_position": 50,
+            "mobile_vertical_position": 18,
+            "image": "shopify:\/\/shop_images\/ball-zoomed.jpg",
+            "round_image": false,
+            "title": "<strong>Museum Grade Display Dome<\/strong>",
+            "content": "<p>Hand-signed white leather cricket ball signed by Arshdeep Singh with a hand-finished wooden base (forming the complete display case)<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_M7yNd9": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 62,
+            "desktop_vertical_position": 27,
+            "mobile_horizontal_position": 32,
+            "mobile_vertical_position": 49,
+            "image": "shopify:\/\/shop_images\/packaging-zoom.jpg",
+            "round_image": false,
+            "title": "<strong>Premium Packaging<\/strong>",
+            "content": "<p>Premium LEGXI presentation box with protective foam inserts and ribbon finish<\/p>"
+          },
+          "blocks": {}
+        },
+        "hot_spot_content_item_KCNhzC": {
+          "type": "_hot-spot-content-item",
+          "settings": {
+            "text_alignment": "center",
+            "desktop_horizontal_position": 72,
+            "desktop_vertical_position": 70,
+            "mobile_horizontal_position": 70,
+            "mobile_vertical_position": 70,
+            "image": "shopify:\/\/shop_images\/COA-zoomed.jpg",
+            "round_image": false,
+            "title": "<strong>Certificate of Authenticity<\/strong>",
+            "content": "<p>Metal card with your specied Edition Number engraved on it.<\/p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "hot_spot_content_item_4Dy4Aq",
+        "hot_spot_content_item_M7yNd9",
+        "hot_spot_content_item_KCNhzC"
+      ],
+      "name": "t:sections.hot_spots.name",
+      "settings": {
+        "color_scheme": "",
+        "image": "shopify:\/\/shop_images\/AS02-Ball-in-detail_0ddabcb6-be74-48e7-a507-c5db8fecff1c.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/asball-in-detail-phone.jpg",
+        "hot_spot_background": "#118ee4",
+        "hot_spot_color": "#ffffff",
+        "background_text": "",
+        "background_text_size": "display-m",
+        "lower_scrolling_text_layer": false,
+        "show_scrolling_title": false
+      }
+    },
+    "specifications_N8VjCc": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_F6hwhX": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/sign-icon_d49da9e7-9569-4221-9082-cf2866a49ae4.png",
+            "title": "EACH PIECE HANDSIGNED",
+            "content": "<p>By Arshdeep Singh<\/p>"
+          }
+        },
+        "attribute_LtDCdJ": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "<strong>COLLECTORS EDITION<\/strong>",
+            "content": "<p>Only 200 Pieces Ever Made<\/p>"
+          }
+        },
+        "attribute_38D6Rp": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/frame-icon_1.png",
+            "title": "MUSEUM GRADE DISPLAY CASE",
+            "content": "<p>Crystal-clear Display Case To Showcase The Hand Signed Ball<\/p>"
+          }
+        },
+        "attribute_QbVdrj": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/star-icon_e86cb518-683f-43a4-a20e-fa6f734df243.png",
+            "title": "APPRECIATING ASSET",
+            "content": "<p>Rarity Turned Into Value<\/p>"
+          }
+        },
+        "attribute_kWF3EG": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "CERTIFICATE OF AUTHENTICITY",
+            "content": "<p>Certificate of Authentication with Edition Number<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_F6hwhX",
+        "attribute_LtDCdJ",
+        "attribute_38D6Rp",
+        "attribute_QbVdrj",
+        "attribute_kWF3EG"
+      ],
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "",
+        "title": "Specifications",
+        "heading_size": "h3",
+        "content": "<p>Add specification attributes to help your customers choose the most appropriate product or to share brand values.<\/p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "1761294333278e356b": {
+      "type": "apps",
+      "blocks": {
+        "one_click_upsell_on_page_cross_sell_F3TfnA": {
+          "type": "shopify:\/\/apps\/one-click-upsell\/blocks\/on-page-cross-sell\/bfe6e378-b73a-4871-b8d3-7d6ede22678e",
+          "settings": {}
+        },
+        "judge_me_reviews_review_widget_6K7ArF": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "one_click_upsell_on_page_cross_sell_F3TfnA",
+        "judge_me_reviews_review_widget_6K7ArF"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "faq_U7EXL8": {
+      "type": "faq",
+      "blocks": {
+        "question_fzMaty": {
+          "type": "question",
+          "settings": {
+            "question": "How do I know this collectible is authentic?",
+            "answer": "<p>Every LEGXI Limited Edition Arshdeep Singh Signed Ball is 100% authentic. LEGXI is a certified collectible brand, co-invested by Indian cricketer Arshdeep Singh himself - ensuring credibility and trust. Each ball is personally hand-signed by Arshdeep Singh and comes with a Certificate of Authenticity, verifying its signature, edition number, and collectible value.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_zn6QHg": {
+          "type": "question",
+          "settings": {
+            "question": "Is the frame and wooden base included?",
+            "answer": "<p>Yes. Every collectible comes encased in a crystal-clear museum-grade glass frame and poised on a premium hand-finished wooden base, designed to preserve and showcase your collectible with distinction.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_MHCCNJ": {
+          "type": "question",
+          "settings": {
+            "question": "When will I receive my collectible?",
+            "answer": "<p>Once you secure your collectible, same will be delivered within 7–10 business days in premium LEGXI packaging, complete with authentication and presentation materials.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_bc4eUW": {
+          "type": "question",
+          "settings": {
+            "question": "Can I get unique number?",
+            "answer": "<p>Yes, you can claim a unique edition number for your collectible. Each LEGXI piece is part of a numbered limited edition series, ensuring authenticity and exclusivity.While edition numbers are not assigned on a first-come basis, our expert team will personally connect with you after registration to explain the selection process and assist you in securing your own personal edition number. Once claimed, that number becomes exclusively yours- forever<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_fzMaty",
+        "question_zn6QHg",
+        "question_MHCCNJ",
+        "question_bc4eUW"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "layout": "split",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "We're here to help",
+        "title": "Frequently Asked Questions",
+        "title_tag": "h4",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_with_media_7xcW3p",
+    "media_blocks_bDMgbN",
+    "hot_spots_787HJ9",
+    "specifications_N8VjCc",
+    "1761294333278e356b",
+    "faq_U7EXL8"
+  ]
+}

@@ -1,0 +1,103 @@
+{%- comment -%}
+Promotion badge — reads active promo from theme settings (lgx_active_promo).
+Variables: variant (required), alignment (optional).
+{%- endcomment -%}
+
+{%- if settings.lgx_active_promo != 'none' and settings.lgx_active_promo != blank and variant != blank -%}
+  {%- liquid
+    assign _ap = settings.lgx_active_promo
+
+    if _ap == '1'
+      assign _icon = settings.lgx_promo1_icon
+      assign _text = settings.lgx_promo1_text
+      assign _type = settings.lgx_promo1_type
+      assign _val  = settings.lgx_promo1_discount | times: 1.0
+    elsif _ap == '2'
+      assign _icon = settings.lgx_promo2_icon
+      assign _text = settings.lgx_promo2_text
+      assign _type = settings.lgx_promo2_type
+      assign _val  = settings.lgx_promo2_discount | times: 1.0
+    elsif _ap == '3'
+      assign _icon = settings.lgx_promo3_icon
+      assign _text = settings.lgx_promo3_text
+      assign _type = settings.lgx_promo3_type
+      assign _val  = settings.lgx_promo3_discount | times: 1.0
+    elsif _ap == '4'
+      assign _icon = settings.lgx_promo4_icon
+      assign _text = settings.lgx_promo4_text
+      assign _type = settings.lgx_promo4_type
+      assign _val  = settings.lgx_promo4_discount | times: 1.0
+    endif
+
+    assign _bg    = settings.lgx_promo_bg    | default: '#1a1a1a'
+    assign _color = settings.lgx_promo_color | default: '#ffffff'
+    assign _price = variant.price
+
+    if _type == 'percentage'
+      assign _disc = _price | times: _val | divided_by: 100.0 | round
+    else
+      assign _disc = _val | times: 100 | round
+    endif
+
+    assign _final = _price | minus: _disc
+    if _final < 0
+      assign _final = 0
+    endif
+  -%}
+
+  {%- if _text != blank -%}
+    <style>
+      /* Hide the standard price-list when promo row is shown */
+      .has-lgx-promo > price-list { display: none !important; }
+
+      .lgx-promo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        row-gap: 6px;
+      }
+      .lgx-promo-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 9px 3px 7px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        line-height: 1.5;
+        white-space: nowrap;
+        background: {{ _bg }};
+        color: {{ _color }};
+      }
+    </style>
+
+    <div class="lgx-promo-row">
+      <span class="h6 text-on-sale">
+        {%- if settings.currency_code_enabled -%}
+          {{- _final | money_with_currency -}}
+        {%- else -%}
+          {{- _final | money -}}
+        {%- endif -%}
+      </span>
+
+      <span class="subheading text-subdued" style="text-decoration:line-through;">
+        {%- if settings.currency_code_enabled -%}
+          {{- _price | money_with_currency -}}
+        {%- else -%}
+          {{- _price | money -}}
+        {%- endif -%}
+      </span>
+
+      <div class="lgx-promo-badge">
+        {%- if _icon != blank -%}
+          <span aria-hidden="true">{{ _icon }}</span>
+        {%- else -%}
+          <svg aria-hidden="true" width="11" height="11" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;"><path d="M1 6.5L1 2.5C1 1.67 1.67 1 2.5 1H6.5L11 5.5L6.5 11L1 6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="3.5" cy="3.5" r="0.75" fill="currentColor"/></svg>
+        {%- endif -%}
+        <span>{{ _text | escape }}&nbsp;(-{%- if settings.currency_code_enabled -%}{{- _disc | money_with_currency -}}{%- else -%}{{- _disc | money -}}{%- endif -%})</span>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}

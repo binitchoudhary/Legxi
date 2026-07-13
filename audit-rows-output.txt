@@ -1,0 +1,726 @@
+﻿
+════════════════════════════════════════════════════════════════════════
+  LEGXI ROW-BASED WORKBOOK AUDIT
+  One result per worksheet row. Every row must end in exactly one state.
+  States: SKIP / UPDATE / CLEANUP / INVALID
+════════════════════════════════════════════════════════════════════════
+
+  STEP 1: Reading all worksheets...
+
+  ✔  "THE 18 - EE SALA CUP NAMDU"  →  26 row(s)
+  ✔  "World T20 Champions Edition - 2026"  →  26 row(s)
+  ✔  "Ravi Bishnoi: Official Hand-Signed Ball"  →  18 row(s)
+  ✔  "2007 : The Birth of India's T20 Era"  →  26 row(s)
+  ✔  "THE 2011 WORLD CUP CHAMPIONS EDITION"  →  26 row(s)
+  ✔  "1983 World Cup Edition : Become the Belief"  →  18 row(s)
+  ✔  "God of Cricket : 100 Centuries Edition"  →  71 row(s)
+  ✔  "Hand Signed Ball | AS02"  →  26 row(s)
+  ✔  "Arshdeep Singh Hand Signed 24 Carat Gold Edition"  →  1 row(s)
+  ✔  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork"  →  1 row(s)
+  ✔  "AS02 Player Edition Cap : Arshdeep Singh"  →  2 row(s)
+
+  Total worksheet rows: 241
+
+  STEP 2: 131 unique order numbers — fetching from Shopify...
+  20 fetched...
+  40 fetched...
+  60 fetched...
+  80 fetched...
+  100 fetched...
+  120 fetched...
+  Done — 131 fetched.
+
+════════════════════════════════════════════════════════════════════════
+  STEP 3: ROW-BY-ROW AUDIT
+  Each row validated independently. No order-level grouping.
+════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────
+  "THE 18 - EE SALA CUP NAMDU"  (26 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1500 #001  →  SKIP (correct)
+  ✅  Row 8: #1509 #007  →  SKIP (correct)
+  ✅  Row 64: #1502 #063  →  SKIP (correct)
+  ✅  Row 73: #1503 #072  →  SKIP (correct)
+  ✅  Row 74: #1559 #073  →  SKIP (correct)
+  ⛔  Row 82: #1498 #081  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDE"
+  ✅  Row 83: #1516 #082  →  SKIP (correct)
+  ✅  Row 84: #1515 #083  →  SKIP (correct)
+  ✅  Row 106: #1505 #105  →  SKIP (correct)
+  ✅  Row 111: #1504 #110  →  SKIP (correct)
+  ✅  Row 116: #1517 #115  →  SKIP (correct)
+  ✅  Row 117: #1520 #116  →  SKIP (correct)
+  ✅  Row 121: #1506 #120  →  SKIP (correct)
+  ✅  Row 122: #1528 #121  →  SKIP (correct)
+  ✅  Row 127: #1522 #126  →  SKIP (correct)
+  ✅  Row 132: #1519 #131  →  SKIP (correct)
+  ✅  Row 137: #1521 #136  →  SKIP (correct)
+  ✅  Row 142: #1525 #141  →  SKIP (correct)
+  ✅  Row 147: #1526 #146  →  SKIP (correct)
+  ✅  Row 152: #1523 #151  →  SKIP (correct)
+  ✅  Row 155: #1499 #154  →  SKIP (correct)
+  ✅  Row 157: #1505 #156  →  SKIP (correct)
+  ✅  Row 158: #1505 #157  →  SKIP (correct)
+  ✅  Row 162: #1540 #161  →  SKIP (correct)
+  ✅  Row 163: #1505 #162  →  SKIP (correct)
+  ✅  Row 164: #1523 #163  →  SKIP (correct)
+
+  Tab total 26: SKIP=25  UPDATE=0  CLEANUP=0  INVALID=1
+
+────────────────────────────────────────────────────────────────────────
+  "World T20 Champions Edition - 2026"  (26 rows)
+────────────────────────────────────────────────────────────────────────
+  ⛔  Row 2: #1500 #001  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 8: #1509 #007  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 64: #1502 #063  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 73: #1503 #072  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 74: #1559 #073  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU", "World Champions 2026 - T20 Edition"
+  ⛔  Row 82: #1498 #081  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDE"
+  ⛔  Row 83: #1516 #082  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 84: #1515 #083  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 106: #1505 #105  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 111: #1504 #110  →  INVALID — product not in order
+       Shopify has: "2011 WORLD CUP CHAMPIONS EDITION", "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 116: #1517 #115  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 117: #1520 #116  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 121: #1506 #120  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 122: #1528 #121  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 127: #1522 #126  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 132: #1519 #131  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 137: #1521 #136  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 142: #1525 #141  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 147: #1526 #146  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 152: #1523 #151  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 155: #1499 #154  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 157: #1505 #156  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 158: #1505 #157  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 162: #1540 #161  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 163: #1505 #162  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 164: #1523 #163  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+
+  Tab total 26: SKIP=0  UPDATE=0  CLEANUP=0  INVALID=26
+
+────────────────────────────────────────────────────────────────────────
+  "Ravi Bishnoi: Official Hand-Signed Ball"  (18 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1409 #001  →  SKIP (correct)
+  ✅  Row 8: #1423 #007  →  SKIP (correct)
+  📝  Row 135: #1636 #134  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: Ravi Bishnoi: Official Hand-Signed Ball|#134
+  📝  Row 142: #1542 #141  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: Ravi Bishnoi: Official Hand-Signed Ball|#141
+  ✅  Row 183: #1441 #182  →  SKIP (correct)
+  ✅  Row 184: #1454 #183  →  SKIP (correct)
+  ✅  Row 185: #1501 #184  →  SKIP (correct)
+  ✅  Row 186: #1457 #185  →  SKIP (correct)
+  ✅  Row 187: #1489 #186  →  SKIP (correct)
+  ✅  Row 188: #1485 #187  →  SKIP (correct)
+  ✅  Row 189: #1477 #188  →  SKIP (correct)
+  ✅  Row 192: #1513 #191  →  SKIP (correct)
+  ✅  Row 193: #1512 #192  →  SKIP (correct)
+  ✅  Row 195: #1429 #194  →  SKIP (correct)
+  ✅  Row 196: #1424 #195  →  SKIP (correct)
+  ✅  Row 197: #1430 #196  →  SKIP (correct)
+  ✅  Row 198: #1518 #197  →  SKIP (correct)
+  📝  Row 222: #1583 #221  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: Ravi Bishnoi: Official Hand-Signed Ball|#221
+
+  Tab total 18: SKIP=15  UPDATE=3  CLEANUP=0  INVALID=0
+
+────────────────────────────────────────────────────────────────────────
+  "2007 : The Birth of India's T20 Era"  (26 rows)
+────────────────────────────────────────────────────────────────────────
+  ⛔  Row 2: #1500 #001  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 8: #1509 #007  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 64: #1502 #063  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 73: #1503 #072  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 74: #1559 #073  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU", "World Champions 2026 - T20 Edition"
+  ⛔  Row 82: #1498 #081  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDE"
+  ⛔  Row 83: #1516 #082  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 84: #1515 #083  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 106: #1505 #105  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 111: #1504 #110  →  INVALID — product not in order
+       Shopify has: "2011 WORLD CUP CHAMPIONS EDITION", "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 116: #1517 #115  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 117: #1520 #116  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 121: #1506 #120  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 122: #1528 #121  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 127: #1522 #126  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 132: #1519 #131  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 137: #1521 #136  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 142: #1525 #141  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 147: #1526 #146  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 152: #1523 #151  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 155: #1499 #154  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 157: #1505 #156  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 158: #1505 #157  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 162: #1540 #161  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 163: #1505 #162  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 164: #1523 #163  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+
+  Tab total 26: SKIP=0  UPDATE=0  CLEANUP=0  INVALID=26
+
+────────────────────────────────────────────────────────────────────────
+  "THE 2011 WORLD CUP CHAMPIONS EDITION"  (26 rows)
+────────────────────────────────────────────────────────────────────────
+  ⛔  Row 2: #1500 #001  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 8: #1509 #007  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 64: #1502 #063  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 73: #1503 #072  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 74: #1559 #073  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU", "World Champions 2026 - T20 Edition"
+  ⛔  Row 82: #1498 #081  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDE"
+  ⛔  Row 83: #1516 #082  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 84: #1515 #083  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 106: #1505 #105  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 111: #1504 #110  →  INVALID — product not in order
+       Shopify has: "2011 WORLD CUP CHAMPIONS EDITION", "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 116: #1517 #115  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 117: #1520 #116  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 121: #1506 #120  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 122: #1528 #121  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 127: #1522 #126  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 132: #1519 #131  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 137: #1521 #136  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 142: #1525 #141  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 147: #1526 #146  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 152: #1523 #151  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 155: #1499 #154  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 157: #1505 #156  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 158: #1505 #157  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 162: #1540 #161  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 163: #1505 #162  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 164: #1523 #163  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+
+  Tab total 26: SKIP=0  UPDATE=0  CLEANUP=0  INVALID=26
+
+────────────────────────────────────────────────────────────────────────
+  "1983 World Cup Edition : Become the Belief"  (18 rows)
+────────────────────────────────────────────────────────────────────────
+  🧹  Row 8: #1401 #007  →  CLEANUP — line appears 2x in note
+  ✅  Row 52: #1347 #051  →  SKIP (correct)
+  ✅  Row 54: #1411 #053  →  SKIP (correct)
+  ✅  Row 55: #1426 #054  →  SKIP (correct)
+  ✅  Row 56: #1420 #055  →  SKIP (correct)
+  ✅  Row 58: #1329 #057  →  SKIP (correct)
+  ✅  Row 59: #1330 #058  →  SKIP (correct)
+  ✅  Row 60: #1336 #059  →  SKIP (correct)
+  ✅  Row 61: #1337 #060  →  SKIP (correct)
+  ✅  Row 62: #1341 #061  →  SKIP (correct)
+  ⛔  Row 63: #1496 #062  →  INVALID — product not in order
+       Shopify has: "2011 WORLD CUP CHAMPIONS EDITION", "World Champions 2026 - T20 Edition", "1983 WC : Become the Belief"
+  ✅  Row 64: #1342 #063  →  SKIP (correct)
+  ✅  Row 65: #1346 #064  →  SKIP (correct)
+  ⛔  Row 67: #1574 #066  →  INVALID — product not in order
+       Shopify has: "1983 WC : Become the Belief", "2007 : The Birth of India’s T20 Era", "2011 WORLD CUP CHAMPIONS EDITION"
+  ⛔  Row 70: #1508 #069  →  INVALID — product not in order
+       Shopify has: "1983 WC : Become the Belief"
+  ⛔  Row 71: #1549 #070  →  INVALID — product not in order
+       Shopify has: "1983 WC : Become the Belief", "2007 : The Birth of India’s T20 Era", "2011 WORLD CUP CHAMPIONS EDITION", "World Champions 2026 - T20 Edition"
+  ✅  Row 72: #1446 #071  →  SKIP (correct)
+  ✅  Row 1984: #1350 #1983  →  SKIP (correct)
+
+  Tab total 18: SKIP=13  UPDATE=0  CLEANUP=1  INVALID=4
+
+────────────────────────────────────────────────────────────────────────
+  "God of Cricket : 100 Centuries Edition"  (71 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1215 #001  →  SKIP (correct)
+  📝  Row 3: #1514 #002  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: God of Cricket : 100 Centuries Edition|#002
+  ✅  Row 4: #1332 #003  →  SKIP (correct)
+  ✅  Row 8: #1400 #007  →  SKIP (correct)
+  ✅  Row 11: #1307 #010  →  SKIP (correct)
+  ✅  Row 15: #1282 #014  →  SKIP (correct)
+  ✅  Row 16: #1239 #015  →  SKIP (correct)
+  ✅  Row 101: #1318 #100  →  SKIP (correct)
+  ✅  Row 196: #1225 #195  →  SKIP (correct)
+  ✅  Row 201: #1220 #200  →  SKIP (correct)
+  ✅  Row 231: #1316 #230  →  SKIP (correct)
+  ✅  Row 232: #1277 #231  →  SKIP (correct)
+  ✅  Row 233: #1338 #232  →  SKIP (correct)
+  ✅  Row 234: #1328 #233  →  SKIP (correct)
+  ✅  Row 238: #1340 #237  →  SKIP (correct)
+  ✅  Row 240: #1471 #239  →  SKIP (correct)
+  📝  Row 241: #1575 #240  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: God of Cricket : 100 Centuries Edition|#240
+  ✅  Row 242: #1331 #241  →  SKIP (correct)
+  📝  Row 244: #1567 #243  →  UPDATE — line missing from note
+       Current note: (empty)
+       Expected add: God of Cricket : 100 Centuries Edition|#243
+  ✅  Row 245: #1310 #244  →  SKIP (correct)
+  ✅  Row 246: #1333 #245  →  SKIP (correct)
+  ✅  Row 247: #1278 #246  →  SKIP (correct)
+  ✅  Row 248: #1420 #247  →  SKIP (correct)
+  ✅  Row 249: #1240 #248  →  SKIP (correct)
+  ✅  Row 251: #1249 #250  →  SKIP (correct)
+  ✅  Row 252: #1236 #251  →  SKIP (correct)
+  ✅  Row 253: #1305 #252  →  SKIP (correct)
+  ✅  Row 254: #1227 #253  →  SKIP (correct)
+  ✅  Row 256: #1245 #255  →  SKIP (correct)
+  ✅  Row 257: #1235 #256  →  SKIP (correct)
+  ✅  Row 258: #1277 #257  →  SKIP (correct)
+  ✅  Row 259: #1223 #258  →  SKIP (correct)
+  ✅  Row 261: #1222 #260  →  SKIP (correct)
+  ✅  Row 262: #1238 #261  →  SKIP (correct)
+  ✅  Row 266: #1232 #265  →  SKIP (correct)
+  ✅  Row 267: #1248 #266  →  SKIP (correct)
+  ✅  Row 268: #1309 #267  →  SKIP (correct)
+  ✅  Row 270: #1247 #269  →  SKIP (correct)
+  ✅  Row 271: #1246 #270  →  SKIP (correct)
+  ✅  Row 272: #1251 #271  →  SKIP (correct)
+  ✅  Row 273: #1229 #272  →  SKIP (correct)
+  ✅  Row 274: #1226 #273  →  SKIP (correct)
+  ✅  Row 275: #1219 #274  →  SKIP (correct)
+  ✅  Row 276: #1208 #275  →  SKIP (correct)
+  ✅  Row 277: #1241 #276  →  SKIP (correct)
+  ✅  Row 279: #1291 #278  →  SKIP (correct)
+  ✅  Row 281: #1228 #280  →  SKIP (correct)
+  ✅  Row 282: #1250 #281  →  SKIP (correct)
+  ✅  Row 283: #1218 #282  →  SKIP (correct)
+  ✅  Row 284: #1275 #283  →  SKIP (correct)
+  ✅  Row 285: #1270 #284  →  SKIP (correct)
+  ✅  Row 286: #1213 #285  →  SKIP (correct)
+  ✅  Row 287: #1237 #286  →  SKIP (correct)
+  ✅  Row 288: #1242 #287  →  SKIP (correct)
+  ✅  Row 289: #1209 #288  →  SKIP (correct)
+  ✅  Row 290: #1224 #289  →  SKIP (correct)
+  ✅  Row 292: #1217 #291  →  SKIP (correct)
+  ✅  Row 293: #1231 #292  →  SKIP (correct)
+  ✅  Row 294: #1259 #293  →  SKIP (correct)
+  ✅  Row 295: #1233 #294  →  SKIP (correct)
+  ✅  Row 296: #1216 #295  →  SKIP (correct)
+  ✅  Row 297: #1256 #296  →  SKIP (correct)
+  ✅  Row 298: #1214 #297  →  SKIP (correct)
+  ✅  Row 299: #1212 #298  →  SKIP (correct)
+  ✅  Row 300: #1308 #299  →  SKIP (correct)
+  ✅  Row 301: #1266 #300  →  SKIP (correct)
+  ✅  Row 370: #1234 #369  →  SKIP (correct)
+  ✅  Row 464: #1252 #463  →  SKIP (correct)
+  ✅  Row 556: #1244 #555  →  SKIP (correct)
+  ✅  Row 601: #1276 #600  →  SKIP (correct)
+  ✅  Row 2011: #1339 #2010  →  SKIP (correct)
+
+  Tab total 71: SKIP=68  UPDATE=3  CLEANUP=0  INVALID=0
+
+────────────────────────────────────────────────────────────────────────
+  "Hand Signed Ball | AS02"  (26 rows)
+────────────────────────────────────────────────────────────────────────
+  ⛔  Row 2: #1500 #001  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 8: #1509 #007  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 64: #1502 #063  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 73: #1503 #072  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 74: #1559 #073  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU", "World Champions 2026 - T20 Edition"
+  ⛔  Row 82: #1498 #081  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDE"
+  ⛔  Row 83: #1516 #082  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 84: #1515 #083  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 106: #1505 #105  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 111: #1504 #110  →  INVALID — product not in order
+       Shopify has: "2011 WORLD CUP CHAMPIONS EDITION", "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 116: #1517 #115  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 117: #1520 #116  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 121: #1506 #120  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 122: #1528 #121  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 127: #1522 #126  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 132: #1519 #131  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 137: #1521 #136  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 142: #1525 #141  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 147: #1526 #146  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 152: #1523 #151  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 155: #1499 #154  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 157: #1505 #156  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 158: #1505 #157  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 162: #1540 #161  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 163: #1505 #162  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+  ⛔  Row 164: #1523 #163  →  INVALID — product not in order
+       Shopify has: "THE 18 - EE SALA CUP NAMDU"
+
+  Tab total 26: SKIP=0  UPDATE=0  CLEANUP=0  INVALID=26
+
+────────────────────────────────────────────────────────────────────────
+  "Arshdeep Singh Hand Signed 24 Carat Gold Edition"  (1 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1384 #001  →  SKIP (correct)
+
+  Tab total 1: SKIP=1  UPDATE=0  CLEANUP=0  INVALID=0
+
+────────────────────────────────────────────────────────────────────────
+  "Shreyas Iyer Hand-Signed White Gold-Plated Artwork"  (1 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1152 #001  →  SKIP (correct)
+
+  Tab total 1: SKIP=1  UPDATE=0  CLEANUP=0  INVALID=0
+
+────────────────────────────────────────────────────────────────────────
+  "AS02 Player Edition Cap : Arshdeep Singh"  (2 rows)
+────────────────────────────────────────────────────────────────────────
+  ✅  Row 2: #1322 #001  →  SKIP (correct)
+  ✅  Row 3: #1345 #002  →  SKIP (correct)
+
+  Tab total 2: SKIP=2  UPDATE=0  CLEANUP=0  INVALID=0
+
+════════════════════════════════════════════════════════════════════════
+  STEP 4: WRONG-PRODUCT NOTE LINE CHECK
+  (Existing note lines for known products NOT in this order)
+════════════════════════════════════════════════════════════════════════
+  ⚠️  #1318  —  wrong-product lines in note:
+       REMOVE: Hand Signed Ball | AS02|#017
+  ⚠️  #1411  —  wrong-product lines in note:
+       REMOVE: THE 2011 WORLD CUP CHAMPIONS EDITION|#964
+  ⚠️  #1420  —  wrong-product lines in note:
+       REMOVE: 2007 : The Birth of India’s T20 Era|#541
+       REMOVE: THE 2011 WORLD CUP CHAMPIONS EDITION|#866
+  ⚠️  #1446  —  wrong-product lines in note:
+       REMOVE: 2007 : The Birth of India’s T20 Era|#543
+       REMOVE: THE 2011 WORLD CUP CHAMPIONS EDITION|#941
+
+════════════════════════════════════════════════════════════════════════
+  COVERAGE VALIDATION
+════════════════════════════════════════════════════════════════════════
+  Workbook rows read        : 241
+  Rows classified           : 241  ✅ BALANCED
+  ✅  SKIP    (correct)       : 125
+  📝  UPDATE  (missing line)  : 6
+  🧹  CLEANUP (duplicate)     : 1
+  ⛔  INVALID (data mismatch) : 109
+
+  Equation: 125 + 6 + 1 + 109 = 241 / 241  ✅
+  Shopify orders fetched    : 131
+  Orders not in Shopify     : 0
+════════════════════════════════════════════════════════════════════════
+
+  FINAL ORDER MODIFICATION LIST  (37 orders)
+════════════════════════════════════════════════════════════════════════
+
+  #1318
+    ✂️ REMOVE  Hand Signed Ball | AS02|#017
+    Current note: God of Cricket : 100 Centuries Edition|#100 | Hand Signed Ball | AS02|#017
+
+  #1401
+    🧹 CLEANUP [1983 World Cup Edition : Become the Belief] #007  →  DEDUP: 1983 World Cup Edition : Become the Belief|#007
+    Current note: 1983 World Cup Edition : Become the Belief|#007 | 1983 World Cup Edition : Become the Belief|#007
+
+  #1411
+    ✂️ REMOVE  THE 2011 WORLD CUP CHAMPIONS EDITION|#964
+    Current note: THE 2011 WORLD CUP CHAMPIONS EDITION|#964 | 1983 World Cup Edition : Become the Belief|#053
+
+  #1420
+    ✂️ REMOVE  2007 : The Birth of India’s T20 Era|#541
+    ✂️ REMOVE  THE 2011 WORLD CUP CHAMPIONS EDITION|#866
+    Current note: 2007 : The Birth of India’s T20 Era|#541 | THE 2011 WORLD CUP CHAMPIONS EDITION|#866 | 1983 World Cup Edition : Become the Belief|#055 | God of Cricket : 100 Centuries Edition|#247 | Arshdeep Singh : Official Hand-Signed Leather Ball|#027
+
+  #1446
+    ✂️ REMOVE  2007 : The Birth of India’s T20 Era|#543
+    ✂️ REMOVE  THE 2011 WORLD CUP CHAMPIONS EDITION|#941
+    Current note: 2007 : The Birth of India’s T20 Era|#543 | THE 2011 WORLD CUP CHAMPIONS EDITION|#941 | 1983 World Cup Edition : Become the Belief|#071
+
+  #1496
+    ⛔ INVALID [1983 World Cup Edition : Become the Belief] #062  →  Product "1983 World Cup Edition : Become the Belief" not in order
+
+  #1498
+    ⛔ INVALID [THE 18 - EE SALA CUP NAMDU] #081  →  Product "THE 18 - EE SALA CUP NAMDU" not in order
+    ⛔ INVALID [World T20 Champions Edition - 2026] #081  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #081  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #081  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #081  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1499
+    ⛔ INVALID [World T20 Champions Edition - 2026] #154  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #154  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #154  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #154  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1500
+    ⛔ INVALID [World T20 Champions Edition - 2026] #001  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #001  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #001  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #001  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1502
+    ⛔ INVALID [World T20 Champions Edition - 2026] #063  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #063  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #063  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #063  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1503
+    ⛔ INVALID [World T20 Champions Edition - 2026] #072  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #072  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #072  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #072  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1504
+    ⛔ INVALID [World T20 Champions Edition - 2026] #110  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #110  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #110  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #110  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1505
+    ⛔ INVALID [World T20 Champions Edition - 2026] #105  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [World T20 Champions Edition - 2026] #156  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [World T20 Champions Edition - 2026] #157  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [World T20 Champions Edition - 2026] #162  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #105  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #156  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #157  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #162  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #105  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #156  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #157  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #162  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #105  →  Product "Hand Signed Ball | AS02" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #156  →  Product "Hand Signed Ball | AS02" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #157  →  Product "Hand Signed Ball | AS02" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #162  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1506
+    ⛔ INVALID [World T20 Champions Edition - 2026] #120  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #120  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #120  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #120  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1508
+    ⛔ INVALID [1983 World Cup Edition : Become the Belief] #069  →  Product "1983 World Cup Edition : Become the Belief" not in order
+
+  #1509
+    ⛔ INVALID [World T20 Champions Edition - 2026] #007  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #007  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #007  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #007  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1514
+    📝 UPDATE  [God of Cricket : 100 Centuries Edition] #002  →  ADD: God of Cricket : 100 Centuries Edition|#002
+    Current note: (empty)
+
+  #1515
+    ⛔ INVALID [World T20 Champions Edition - 2026] #083  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #083  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #083  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #083  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1516
+    ⛔ INVALID [World T20 Champions Edition - 2026] #082  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #082  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #082  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #082  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1517
+    ⛔ INVALID [World T20 Champions Edition - 2026] #115  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #115  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #115  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #115  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1519
+    ⛔ INVALID [World T20 Champions Edition - 2026] #131  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #131  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #131  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #131  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1520
+    ⛔ INVALID [World T20 Champions Edition - 2026] #116  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #116  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #116  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #116  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1521
+    ⛔ INVALID [World T20 Champions Edition - 2026] #136  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #136  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #136  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #136  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1522
+    ⛔ INVALID [World T20 Champions Edition - 2026] #126  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #126  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #126  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #126  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1523
+    ⛔ INVALID [World T20 Champions Edition - 2026] #151  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [World T20 Champions Edition - 2026] #163  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #151  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #163  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #151  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #163  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #151  →  Product "Hand Signed Ball | AS02" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #163  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1525
+    ⛔ INVALID [World T20 Champions Edition - 2026] #141  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #141  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #141  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #141  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1526
+    ⛔ INVALID [World T20 Champions Edition - 2026] #146  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #146  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #146  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #146  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1528
+    ⛔ INVALID [World T20 Champions Edition - 2026] #121  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #121  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #121  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #121  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1540
+    ⛔ INVALID [World T20 Champions Edition - 2026] #161  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #161  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #161  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #161  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1542
+    📝 UPDATE  [Ravi Bishnoi: Official Hand-Signed Ball] #141  →  ADD: Ravi Bishnoi: Official Hand-Signed Ball|#141
+    Current note: (empty)
+
+  #1549
+    ⛔ INVALID [1983 World Cup Edition : Become the Belief] #070  →  Product "1983 World Cup Edition : Become the Belief" not in order
+
+  #1559
+    ⛔ INVALID [World T20 Champions Edition - 2026] #073  →  Product "World T20 Champions Edition - 2026" not in order
+    ⛔ INVALID [2007 : The Birth of India's T20 Era] #073  →  Product "2007 : The Birth of India's T20 Era" not in order
+    ⛔ INVALID [THE 2011 WORLD CUP CHAMPIONS EDITION] #073  →  Product "THE 2011 WORLD CUP CHAMPIONS EDITION" not in order
+    ⛔ INVALID [Hand Signed Ball | AS02] #073  →  Product "Hand Signed Ball | AS02" not in order
+
+  #1567
+    📝 UPDATE  [God of Cricket : 100 Centuries Edition] #243  →  ADD: God of Cricket : 100 Centuries Edition|#243
+    Current note: (empty)
+
+  #1574
+    ⛔ INVALID [1983 World Cup Edition : Become the Belief] #066  →  Product "1983 World Cup Edition : Become the Belief" not in order
+
+  #1575
+    📝 UPDATE  [God of Cricket : 100 Centuries Edition] #240  →  ADD: God of Cricket : 100 Centuries Edition|#240
+    Current note: (empty)
+
+  #1583
+    📝 UPDATE  [Ravi Bishnoi: Official Hand-Signed Ball] #221  →  ADD: Ravi Bishnoi: Official Hand-Signed Ball|#221
+    Current note: (empty)
+
+  #1636
+    📝 UPDATE  [Ravi Bishnoi: Official Hand-Signed Ball] #134  →  ADD: Ravi Bishnoi: Official Hand-Signed Ball|#134
+    Current note: (empty)
+
+════════════════════════════════════════════════════════════════════════
+  PER-WORKSHEET SUMMARY
+════════════════════════════════════════════════════════════════════════
+  Worksheet                                           Rows  Skip  Upd  Clean  Inv
+  ─────────────────────────────────────────────────────────────────────────────────────
+  THE 18 - EE SALA CUP NAMDU                           26    25    0      0    1
+  World T20 Champions Edition - 2026                   26     0    0      0   26
+  Ravi Bishnoi: Official Hand-Signed Ball              18    15    3      0    0
+  2007 : The Birth of India's T20 Era                  26     0    0      0   26
+  THE 2011 WORLD CUP CHAMPIONS EDITION                 26     0    0      0   26
+  1983 World Cup Edition : Become the Belief           18    13    0      1    4
+  God of Cricket : 100 Centuries Edition               71    68    3      0    0
+  Hand Signed Ball | AS02                              26     0    0      0   26
+  Arshdeep Singh Hand Signed 24 Carat Gold Edition      1     1    0      0    0
+  Shreyas Iyer Hand-Signed White Gold-Plated Artwork    1     1    0      0    0
+  AS02 Player Edition Cap : Arshdeep Singh              2     2    0      0    0
+
+  CSV saved →  audit_missing_notes.csv  (122 action rows)
+
+  DO NOT SYNC. This is an audit-only pass.
+

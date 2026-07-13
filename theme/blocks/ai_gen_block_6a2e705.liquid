@@ -1,0 +1,399 @@
+{% doc %}
+  @prompt
+    3 slides that shows details on hover
+    
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hover-slides-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+  }
+
+  .ai-hover-slides-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.slide_gap }}px;
+  }
+
+  .ai-hover-slide-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+    aspect-ratio: {{ block.settings.aspect_ratio }};
+    cursor: pointer;
+  }
+
+  .ai-hover-slide-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-hover-slide-{{ ai_gen_id }}:hover .ai-hover-slide-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-hover-slide-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-hover-slide-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .ai-hover-slide-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    background: {{ block.settings.overlay_color }};
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .ai-hover-slide-{{ ai_gen_id }}:hover .ai-hover-slide-overlay-{{ ai_gen_id }} {
+    opacity: 1;
+  }
+
+  .ai-hover-slide-title-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    transform: translateY(20px);
+    transition: transform 0.4s ease 0.1s;
+  }
+
+  .ai-hover-slide-{{ ai_gen_id }}:hover .ai-hover-slide-title-{{ ai_gen_id }} {
+    transform: translateY(0);
+  }
+
+  .ai-hover-slide-description-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.5;
+    margin: 0;
+    transform: translateY(20px);
+    transition: transform 0.4s ease 0.2s;
+  }
+
+  .ai-hover-slide-{{ ai_gen_id }}:hover .ai-hover-slide-description-{{ ai_gen_id }} {
+    transform: translateY(0);
+  }
+
+  .ai-hover-slide-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hover-slides-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.slide_gap | times: 0.75 }}px;
+    }
+
+    .ai-hover-slide-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.85 }}px;
+    }
+
+    .ai-hover-slide-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<hover-slides-{{ ai_gen_id }}
+  class="ai-hover-slides-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-hover-slides-container-{{ ai_gen_id }}">
+    {% for i in (1..3) %}
+      {% liquid
+        assign image_key = 'slide_' | append: i | append: '_image'
+        assign title_key = 'slide_' | append: i | append: '_title'
+        assign description_key = 'slide_' | append: i | append: '_description'
+        assign link_key = 'slide_' | append: i | append: '_link'
+
+        assign slide_image = block.settings[image_key]
+        assign slide_title = block.settings[title_key]
+        assign slide_description = block.settings[description_key]
+        assign slide_link = block.settings[link_key]
+      %}
+
+      {% if slide_link != blank %}
+        <a href="{{ slide_link }}" class="ai-hover-slide-{{ ai_gen_id }}">
+      {% else %}
+        <div class="ai-hover-slide-{{ ai_gen_id }}">
+      {% endif %}
+
+        {% if slide_image %}
+          <img
+            src="{{ slide_image | image_url: width: 800 }}"
+            alt="{{ slide_image.alt | escape }}"
+            loading="lazy"
+            width="{{ slide_image.width }}"
+            height="{{ slide_image.height }}"
+            class="ai-hover-slide-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-hover-slide-placeholder-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+            <div class="ai-hover-slide-empty-state-{{ ai_gen_id }}">
+              Add image for slide {{ i }}
+            </div>
+          </div>
+        {% endif %}
+
+        <div class="ai-hover-slide-overlay-{{ ai_gen_id }}">
+          {% if slide_title != blank %}
+            <h3 class="ai-hover-slide-title-{{ ai_gen_id }}">{{ slide_title }}</h3>
+          {% endif %}
+          {% if slide_description != blank %}
+            <p class="ai-hover-slide-description-{{ ai_gen_id }}">{{ slide_description }}</p>
+          {% endif %}
+        </div>
+
+      {% if slide_link != blank %}
+        </a>
+      {% else %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</hover-slides-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HoverSlides{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.slides = this.querySelectorAll('.ai-hover-slide-{{ ai_gen_id }}');
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        this.slides.forEach((slide) => {
+          if (!slide.hasAttribute('href')) {
+            slide.setAttribute('tabindex', '0');
+            slide.setAttribute('role', 'article');
+          }
+        });
+      }
+    }
+
+    customElements.define('hover-slides-{{ ai_gen_id }}', HoverSlides{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hover detail slides",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "slide_gap",
+      "label": "Gap between slides",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Wide (16:9)"
+        }
+      ],
+      "default": "3 / 4"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Overlay style"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "rgba(0, 0, 0, 0.7)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_1_title",
+      "label": "Title",
+      "default": "Premium Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_1_description",
+      "label": "Description",
+      "default": "Discover our exclusive limited-edition pieces"
+    },
+    {
+      "type": "url",
+      "id": "slide_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_2_title",
+      "label": "Title",
+      "default": "Signed Memorabilia"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_2_description",
+      "label": "Description",
+      "default": "Authentic autographed collectibles from legends"
+    },
+    {
+      "type": "url",
+      "id": "slide_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slide_3_title",
+      "label": "Title",
+      "default": "Rare Finds"
+    },
+    {
+      "type": "textarea",
+      "id": "slide_3_description",
+      "label": "Description",
+      "default": "One-of-a-kind items for serious collectors"
+    },
+    {
+      "type": "url",
+      "id": "slide_3_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hover detail slides"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,347 @@
+{
+  "stopAll": true,
+  "risks": [
+    {
+      "level": "MEDIUM",
+      "category": "MANUAL_REVIEW",
+      "orderNum": "1244",
+      "customer": "CHIDAMBARA M",
+      "finding": "Line requires manual decision before any action: \"God of Cricket : 100 Centuries Edition|#555\"",
+      "detail": "Non-standard edition number: #555 (value > 500 — likely a year, not a serial)",
+      "canProceed": false
+    },
+    {
+      "level": "MEDIUM",
+      "category": "MANUAL_REVIEW",
+      "orderNum": "1276",
+      "customer": "Nishant Ramani",
+      "finding": "Line requires manual decision before any action: \"God of Cricket : 100 Centuries Edition|#600\"",
+      "detail": "Non-standard edition number: #600 (value > 500 — likely a year, not a serial)",
+      "canProceed": false
+    },
+    {
+      "level": "HIGH",
+      "category": "UNCONFIRMED_NOTE_LINE",
+      "orderNum": "1318",
+      "customer": "Mihir Kotak",
+      "finding": "Note contains \"Hand Signed Ball | AS02|#017\" — this product is NOT confirmed by any Shopify line item",
+      "detail": "Product not confirmed for this order (Hand Signed Ball | AS02) — flagged for review. This line exists in the current note and will NOT be touched by the sync — but its presence indicates possible data entry error or manual note corruption. If this is a valid certificate, the Shopify order or worksheet is missing data.",
+      "canProceed": true
+    },
+    {
+      "level": "MEDIUM",
+      "category": "MANUAL_REVIEW",
+      "orderNum": "1339",
+      "customer": "Sachin Bhatia",
+      "finding": "Line requires manual decision before any action: \"God of Cricket : 100 Centuries Edition|#2010\"",
+      "detail": "Non-standard edition number: #2010 (value > 500 — likely a year, not a serial)",
+      "canProceed": false
+    },
+    {
+      "level": "MEDIUM",
+      "category": "MANUAL_REVIEW",
+      "orderNum": "1350",
+      "customer": "Amit Mohite",
+      "finding": "Line requires manual decision before any action: \"1983 World Cup Edition : Become the Belief|#1983\"",
+      "detail": "Non-standard edition number: #1983 (value > 500 — likely a year, not a serial)",
+      "canProceed": false
+    },
+    {
+      "level": "MEDIUM",
+      "category": "MANUAL_REVIEW",
+      "orderNum": "1401",
+      "customer": "Aasit Vinaykant",
+      "finding": "Line requires manual decision before any action: \"1983 World Cup Edition : Become the Belief|#007\"",
+      "detail": "Duplicate note line: \"1983 World Cup Edition : Become the Belief|#007\" appears 2× in note",
+      "canProceed": false
+    },
+    {
+      "level": "HIGH",
+      "category": "UNCONFIRMED_NOTE_LINE",
+      "orderNum": "1411",
+      "customer": "AKSHAR PATEL",
+      "finding": "Note contains \"THE 2011 WORLD CUP CHAMPIONS EDITION|#964\" — this product is NOT confirmed by any Shopify line item",
+      "detail": "Product not confirmed for this order (THE 2011 WORLD CUP CHAMPIONS EDITION) — flagged for review. This line exists in the current note and will NOT be touched by the sync — but its presence indicates possible data entry error or manual note corruption. If this is a valid certificate, the Shopify order or worksheet is missing data.",
+      "canProceed": true
+    },
+    {
+      "level": "HIGH",
+      "category": "UNCONFIRMED_NOTE_LINE",
+      "orderNum": "1420",
+      "customer": "Jagjit Singh",
+      "finding": "Note contains \"THE 2011 WORLD CUP CHAMPIONS EDITION|#866\" — this product is NOT confirmed by any Shopify line item",
+      "detail": "Product not confirmed for this order (THE 2011 WORLD CUP CHAMPIONS EDITION) — flagged for review. This line exists in the current note and will NOT be touched by the sync — but its presence indicates possible data entry error or manual note corruption. If this is a valid certificate, the Shopify order or worksheet is missing data.",
+      "canProceed": true
+    },
+    {
+      "level": "HIGH",
+      "category": "UNCONFIRMED_NOTE_LINE",
+      "orderNum": "1446",
+      "customer": "Siddharth Saudatti",
+      "finding": "Note contains \"THE 2011 WORLD CUP CHAMPIONS EDITION|#941\" — this product is NOT confirmed by any Shopify line item",
+      "detail": "Product not confirmed for this order (THE 2011 WORLD CUP CHAMPIONS EDITION) — flagged for review. This line exists in the current note and will NOT be touched by the sync — but its presence indicates possible data entry error or manual note corruption. If this is a valid certificate, the Shopify order or worksheet is missing data.",
+      "canProceed": true
+    },
+    {
+      "level": "MEDIUM",
+      "category": "REPLACE_ATOMICITY",
+      "orderNum": "1496",
+      "customer": "Krishna Desai",
+      "finding": "REPLACE changes format of \"1983 WC : Become the Belief|#062\" to \"1983 World Cup Edition : Become the Belief|#062\"",
+      "detail": "Edition #062 is preserved. Risk: if the operation fails mid-write, the note could be left without either the old or the new line.",
+      "canProceed": true
+    },
+    {
+      "level": "MEDIUM",
+      "category": "MIXED_FORMAT_AFTER_SYNC",
+      "orderNum": "1496",
+      "customer": "Krishna Desai",
+      "finding": "After REPLACE, note would still contain 2 extra line(s) in Shopify-title format (not touched by sync)",
+      "detail": "Replaced: \"1983 WC : Become the Belief|#062\" → \"1983 World Cup Edition : Become the Belief|#062\". Kept as-is (Shopify-title format): \"World Champions 2026 - T20 Edition|#162\", \"2011 WORLD CUP CHAMPIONS EDITION|#933\". Result: 1983 line would be in tab-name format, T20 and 2011 lines remain in Shopify-title format — inconsistent within the same note.",
+      "canProceed": true
+    },
+    {
+      "level": "HIGH",
+      "category": "TYPO_BLOCKED",
+      "orderNum": "1498",
+      "customer": "Akshay Kumar",
+      "finding": "Shopify line item has a typo — the canonical product name cannot be confirmed. 5 expected note line(s) are blocked from being written.",
+      "detail": "Blocked lines: \"THE 18 - EE SALA CUP NAMDU|#081\", \"World T20 Champions Edition - 2026|#081\", \"2007 : The Birth of India's T20 Era|#081\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#081\", \"Hand Signed Ball | AS02|#081\". Current note has \"THE 18 - EE SALA CUP NAMDE|#081\" (contains the typo). Any write to this order before the typo is corrected in Shopify is unsafe — the note already has the wrong product name, and adding correct-format lines alongside the typo line creates an inconsistent state.",
+      "canProceed": false
+    },
+    {
+      "level": "MEDIUM",
+      "category": "EXTRA_UNKNOWN",
+      "orderNum": "1498",
+      "customer": "Akshay Kumar",
+      "finding": "Note contains unrecognized line: \"THE 18 - EE SALA CUP NAMDE|#081\"",
+      "detail": "Unrecognized prefix — flagged for review. Cannot classify this line — origin unknown.",
+      "canProceed": true
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1499",
+      "customer": "Sabuj Das",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#154\", \"2007 : The Birth of India's T20 Era|#154\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#154\", \"Hand Signed Ball | AS02|#154\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1500",
+      "customer": "Akshit Arora",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#001\", \"2007 : The Birth of India's T20 Era|#001\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#001\", \"Hand Signed Ball | AS02|#001\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1502",
+      "customer": "Hamsaraj Alva",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#063\", \"2007 : The Birth of India's T20 Era|#063\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#063\", \"Hand Signed Ball | AS02|#063\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1503",
+      "customer": "Kunal Kushalappa",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#072\", \"2007 : The Birth of India's T20 Era|#072\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#072\", \"Hand Signed Ball | AS02|#072\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "CRITICAL",
+      "category": "DATA_LOSS",
+      "orderNum": "1504",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "LEGACY_REMOVE deletes \"2011 WORLD CUP CHAMPIONS EDITION|#932\" — edition #932 has NO corresponding expected line in the worksheet — this certificate record would be permanently lost",
+      "detail": "The worksheet for this order has no entry for edition #932. Shopify line item qty=3. Removed line has no replacement — data is not recoverable from project data alone.",
+      "canProceed": false
+    },
+    {
+      "level": "CRITICAL",
+      "category": "DATA_LOSS",
+      "orderNum": "1504",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "LEGACY_REMOVE deletes \"2011 WORLD CUP CHAMPIONS EDITION|#938\" — edition #938 has NO corresponding expected line in the worksheet — this certificate record would be permanently lost",
+      "detail": "The worksheet for this order has no entry for edition #938. Shopify line item qty=3. Removed line has no replacement — data is not recoverable from project data alone.",
+      "canProceed": false
+    },
+    {
+      "level": "CRITICAL",
+      "category": "DATA_CONFLICT",
+      "orderNum": "1504",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "Shopify has qty=2 for \"2011 WORLD CUP CHAMPIONS EDITION\" but worksheet has only 1 row(s) for this order in tab \"THE 2011 WORLD CUP CHAMPIONS EDITION\"",
+      "detail": "Worksheet editions: #110. Current note lines for this product: 2011 WORLD CUP CHAMPIONS EDITION|#932 | 2011 WORLD CUP CHAMPIONS EDITION|#938. The worksheet does not fully account for all purchased units — any write to this order's note risks overwriting or losing certificate data for the un-worksheeted units.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1504",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "3 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#110\", \"2007 : The Birth of India's T20 Era|#110\", \"Hand Signed Ball | AS02|#110\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1505",
+      "customer": "Keshav Choudhary",
+      "finding": "16 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#105\", \"World T20 Champions Edition - 2026|#156\", \"World T20 Champions Edition - 2026|#157\", \"World T20 Champions Edition - 2026|#162\", \"2007 : The Birth of India's T20 Era|#105\", \"2007 : The Birth of India's T20 Era|#156\", \"2007 : The Birth of India's T20 Era|#157\", \"2007 : The Birth of India's T20 Era|#162\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#105\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#156\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#157\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#162\", \"Hand Signed Ball | AS02|#105\", \"Hand Signed Ball | AS02|#156\", \"Hand Signed Ball | AS02|#157\", \"Hand Signed Ball | AS02|#162\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1506",
+      "customer": "Hamsaraj Alva",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#120\", \"2007 : The Birth of India's T20 Era|#120\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#120\", \"Hand Signed Ball | AS02|#120\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "MEDIUM",
+      "category": "REPLACE_ATOMICITY",
+      "orderNum": "1508",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "REPLACE changes format of \"1983 WC : Become the Belief|#069\" to \"1983 World Cup Edition : Become the Belief|#069\"",
+      "detail": "Edition #069 is preserved. Risk: if the operation fails mid-write, the note could be left without either the old or the new line.",
+      "canProceed": true
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1509",
+      "customer": "SHREYASKUMAR Chaudhari",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#007\", \"2007 : The Birth of India's T20 Era|#007\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#007\", \"Hand Signed Ball | AS02|#007\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1515",
+      "customer": "Subrakanth Sutar",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#083\", \"2007 : The Birth of India's T20 Era|#083\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#083\", \"Hand Signed Ball | AS02|#083\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1516",
+      "customer": "Vinay Sandhu",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#082\", \"2007 : The Birth of India's T20 Era|#082\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#082\", \"Hand Signed Ball | AS02|#082\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1517",
+      "customer": "Chetan Rao",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#115\", \"2007 : The Birth of India's T20 Era|#115\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#115\", \"Hand Signed Ball | AS02|#115\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1519",
+      "customer": "kailash kumar",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#131\", \"2007 : The Birth of India's T20 Era|#131\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#131\", \"Hand Signed Ball | AS02|#131\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1520",
+      "customer": "Vasanth Bhatt",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#116\", \"2007 : The Birth of India's T20 Era|#116\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#116\", \"Hand Signed Ball | AS02|#116\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1521",
+      "customer": "Zoheb Curmally",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#136\", \"2007 : The Birth of India's T20 Era|#136\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#136\", \"Hand Signed Ball | AS02|#136\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1522",
+      "customer": "Praneeth Jagarlamudi",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#126\", \"2007 : The Birth of India's T20 Era|#126\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#126\", \"Hand Signed Ball | AS02|#126\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1523",
+      "customer": "Nars SL",
+      "finding": "8 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#151\", \"World T20 Champions Edition - 2026|#163\", \"2007 : The Birth of India's T20 Era|#151\", \"2007 : The Birth of India's T20 Era|#163\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#151\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#163\", \"Hand Signed Ball | AS02|#151\", \"Hand Signed Ball | AS02|#163\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1525",
+      "customer": "Omkar Umadi",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#141\", \"2007 : The Birth of India's T20 Era|#141\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#141\", \"Hand Signed Ball | AS02|#141\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1526",
+      "customer": "Kiran Kumar",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#146\", \"2007 : The Birth of India's T20 Era|#146\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#146\", \"Hand Signed Ball | AS02|#146\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1528",
+      "customer": "Prathik Jayaprakash",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#121\", \"2007 : The Birth of India's T20 Era|#121\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#121\", \"Hand Signed Ball | AS02|#121\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1540",
+      "customer": "Krishna Chaitanya Tirumalasetti",
+      "finding": "4 bundle component note line(s) pending approval",
+      "detail": "Lines: \"World T20 Champions Edition - 2026|#161\", \"2007 : The Birth of India's T20 Era|#161\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#161\", \"Hand Signed Ball | AS02|#161\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    },
+    {
+      "level": "LOW",
+      "category": "BUNDLE_PENDING",
+      "orderNum": "1559",
+      "customer": "AKSHAR PATEL",
+      "finding": "3 bundle component note line(s) pending approval",
+      "detail": "Lines: \"2007 : The Birth of India's T20 Era|#073\", \"THE 2011 WORLD CUP CHAMPIONS EDITION|#073\", \"Hand Signed Ball | AS02|#073\". Cannot write until bundle sub-component note policy is approved.",
+      "canProceed": false
+    }
+  ]
+}

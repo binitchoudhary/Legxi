@@ -1,0 +1,38 @@
+<nav class="breadcrumb" aria-label="Breadcrumb" style="padding: 12px 0 0; font-size: 13px; opacity: 0.75;">
+  <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
+    <li>
+      <a href="{{ shop.url }}" style="text-decoration: none; color: inherit;">{{ 'general.home' | t }}</a>
+    </li>
+
+    {%- if request.page_type == 'product' -%}
+      {%- if collection -%}
+        <li style="opacity: 0.5;">&rsaquo;</li>
+        <li>
+          <a href="{{ collection.url }}" style="text-decoration: none; color: inherit;">{{ collection.title }}</a>
+        </li>
+      {%- endif -%}
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li aria-current="page" style="opacity: 0.6;">{{ product.title | truncatewords: 8 }}</li>
+
+    {%- elsif request.page_type == 'collection' -%}
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li aria-current="page" style="opacity: 0.6;">{{ collection.title }}</li>
+
+    {%- elsif request.page_type == 'article' -%}
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li>
+        <a href="{{ blog.url }}" style="text-decoration: none; color: inherit;">{{ blog.title }}</a>
+      </li>
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li aria-current="page" style="opacity: 0.6;">{{ article.title | truncatewords: 8 }}</li>
+
+    {%- elsif request.page_type == 'blog' -%}
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li aria-current="page" style="opacity: 0.6;">{{ blog.title }}</li>
+
+    {%- elsif request.page_type == 'page' -%}
+      <li style="opacity: 0.5;">&rsaquo;</li>
+      <li aria-current="page" style="opacity: 0.6;">{{ page.title }}</li>
+    {%- endif -%}
+  </ol>
+</nav>

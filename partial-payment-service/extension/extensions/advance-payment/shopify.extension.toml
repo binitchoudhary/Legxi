@@ -1,0 +1,11 @@
+api_version = "2026-10"
+
+[[extensions]]
+name = "Advance Payment"
+handle = "partial-payment-action"
+uid = "ddfb96ea-1975-6d87-40b0-b52c640f5785d067d7e1"
+type = "ui_extension"
+
+[[extensions.targeting]]
+module = "./src/ActionExtension.jsx"
+target = "admin.draft-order-details.action.render"

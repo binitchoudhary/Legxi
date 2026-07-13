@@ -1,0 +1,430 @@
+{
+  "sections": {
+    "image_with_text_overlay_U6pBPL": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_cyQxpK": {
+          "type": "subheading",
+          "settings": {
+            "text": ""
+          },
+          "blocks": {}
+        },
+        "heading_seo_h1": {
+          "type": "heading",
+          "settings": {
+            "text": "AFA × LEGXI — Authenticated Sports Memorabilia Auction",
+            "heading_size": "h4",
+            "html_tag": "h1",
+            "indent": "none",
+            "highlight_effect": "none",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "subheading_cyQxpK",
+        "heading_seo_h1"
+      ],
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/auction-banner-16x9.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/hero-image-phone_jpg.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "legend_collection_K7Vgyp": {
+      "type": "legend_collection",
+      "custom_css": [
+        "#flc-template--20847326822574__legend_collection_K7Vgyp {padding: 40px 0 40px;}"
+      ],
+      "name": "Legends Collection",
+      "settings": {
+        "section_eyebrow": "",
+        "section_title": "",
+        "section_subtitle": "",
+        "product_1": "normal-editions-slot-01",
+        "product_2": "normal-editions-slot-02",
+        "product_3": "normal-editions-slot-03",
+        "product_4": "normal-editions-slot-04",
+        "product_5": "normal-editions-slot-05",
+        "product_6": "normal-editions-slot-06",
+        "product_7": "normal-editions-slot-07",
+        "product_8": "",
+        "product_9": "",
+        "product_10": "",
+        "join_button_text": "Join Now",
+        "enquire_button_text": "Enquire",
+        "default_date": "25 June 2026 | 12:00 pm",
+        "form_title": "Secure Your Seat",
+        "form_subtitle": "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls.",
+        "form_slots": "Slot 1,Slot 2,Slot 3",
+        "form_id": "",
+        "whatsapp_number": "+919315704239",
+        "whatsapp_message": "Hello, I'd like to enquire about a product from the Individual Artwork Collection.",
+        "bg_color": "#1c1c1c",
+        "accent_color": "#154e79",
+        "button_color": "#d5ba6a",
+        "button_text_color": "#000000",
+        "overlay_opacity": 100
+      }
+    },
+    "legend_collection_qrjiNm": {
+      "type": "legend_collection",
+      "custom_css": [
+        "#flc-template--20847326822574__legend_collection_qrjiNm {padding: 0 0 40px;}"
+      ],
+      "name": "Legends Collection",
+      "settings": {
+        "section_eyebrow": "",
+        "section_title": "",
+        "section_subtitle": "Campeónes World Cup 2022 & La Scaloneta Squad Artwork 2026",
+        "product_1": "la-scaloneta-2022-squad-slot-01",
+        "product_2": "la-scaloneta-2022-squad-slot-02",
+        "product_3": "la-scaloneta-2026-squad-slot-01",
+        "product_4": "la-scaloneta-2026-squad-slot-02",
+        "product_5": "",
+        "product_6": "",
+        "product_7": "",
+        "product_8": "",
+        "product_9": "",
+        "product_10": "",
+        "join_button_text": "Join Now",
+        "enquire_button_text": "Enquire",
+        "default_date": "25 June 2026 | 12:00 pm",
+        "form_title": "Secure Your Seat",
+        "form_subtitle": "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls.",
+        "form_slots": "Slot 1,Slot 2,Slot 3",
+        "form_id": "",
+        "whatsapp_number": "+919315704239",
+        "whatsapp_message": "Hello, I'd like to enquire about a product from the Squad Artwork Collection.",
+        "bg_color": "#1c1c1c",
+        "accent_color": "#154e79",
+        "button_color": "#d4af37",
+        "button_text_color": "#000000",
+        "overlay_opacity": 100
+      }
+    },
+    "legend_collection_JkUAUC": {
+      "type": "legend_collection",
+      "name": "Legends Collection",
+      "settings": {
+        "section_eyebrow": "",
+        "section_title": "",
+        "section_subtitle": "Individual Artwork - Premium Editions",
+        "product_1": "jersey-editions",
+        "product_2": "edition-1",
+        "product_3": "",
+        "product_4": "",
+        "product_5": "",
+        "product_6": "",
+        "product_7": "",
+        "product_8": "",
+        "product_9": "",
+        "product_10": "",
+        "join_button_text": "Join Now",
+        "enquire_button_text": "Enquire",
+        "default_date": "25 June 2026 | 12:00 pm",
+        "form_title": "Secure Your Seat",
+        "form_subtitle": "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls.",
+        "form_slots": "Slot 1,Slot 2,Slot 3",
+        "form_id": "",
+        "whatsapp_number": "+919315704239",
+        "whatsapp_message": "Hello, I'd like to enquire about a product from the Individual Artwork Collection.",
+        "bg_color": "#1c1c1c",
+        "accent_color": "#154e79",
+        "button_color": "#d4af37",
+        "button_text_color": "#000000",
+        "overlay_opacity": 100
+      }
+    },
+    "legend_collection_k49ngE": {
+      "type": "legend_collection",
+      "custom_css": [
+        "#flc-template--20847326822574__legend_collection_k49ngE {padding: 0 0 40px;}"
+      ],
+      "name": "Legends Collection",
+      "settings": {
+        "section_eyebrow": "",
+        "section_title": "",
+        "section_subtitle": "Legxi Champions Trinity Set",
+        "product_1": "trinity-set-slot-01",
+        "product_2": "trinity-set-slot-02",
+        "product_3": "trinity-set-slot-03",
+        "product_4": "",
+        "product_5": "",
+        "product_6": "",
+        "product_7": "",
+        "product_8": "",
+        "product_9": "",
+        "product_10": "",
+        "join_button_text": "Join Now",
+        "enquire_button_text": "Enquire",
+        "default_date": "25 June 2026 | 12:00 pm",
+        "form_title": "Secure Your Seat",
+        "form_subtitle": "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls.",
+        "form_slots": "Slot 1,Slot 2,Slot 3",
+        "form_id": "",
+        "whatsapp_number": "+919315704239",
+        "whatsapp_message": "Hello, I'd like to enquire about a product from the Legxi Champions Trinity Set.",
+        "bg_color": "#1c1c1c",
+        "accent_color": "#154e79",
+        "button_color": "#d4af37",
+        "button_text_color": "#000000",
+        "overlay_opacity": 100
+      }
+    },
+    "custom_liquid_4z7t43": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr {{ block.shopify_attributes }}>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": true
+      }
+    },
+    "text_with_icons_r94mwR": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_EYhUaK": {
+          "type": "item",
+          "settings": {
+            "icon": "none",
+            "title": "Register",
+            "heading_tag": "h6",
+            "content": "<p>01. Register Your Seat<br\/>Choose your entry. Access through WhatsApp and a premium live seat. A brief registration is all it takes. You'll receive your confirmation, session time, and everything you need to be ready when the gavel falls.<\/p>"
+          }
+        },
+        "item_rRFTKH": {
+          "type": "item",
+          "settings": {
+            "icon": "none",
+            "title": "Join the Slot",
+            "heading_tag": "h6",
+            "content": "<p>02. Enter the Room<br\/>On auction day, the room opens. Our host walks you through every lot. the story behind the piece, the player, the moment it captures, and the AFA authentication that makes it official. Nothing is rushed. Every item deserves its moment.<\/p>"
+          }
+        },
+        "item_pcxnaM": {
+          "type": "item",
+          "settings": {
+            "icon": "none",
+            "title": "Bid & Secure",
+            "heading_tag": "h6",
+            "content": "<p>03. Bid, Win & Own It<br\/>Place your bid live. If it's yours, it's yours. Winners are confirmed on the spot and contacted immediately after the session. Your piece arrives packaged with care, a dual certificate from AFA and LEGXI, and the knowledge that it belongs to no one else on earth.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_EYhUaK",
+        "item_rRFTKH",
+        "item_pcxnaM"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 750px) {.text-with-icons {display: flex !important; flex-wrap: nowrap !important; justify-content: space-between !important; gap: 60px !important; width: 100% !important; padding: 0 60px !important; align-items: flex-start !important; } .text-with-icons__item {flex: 1 1 30% !important; min-width: 0 !important; max-width: 33% !important; }}",
+        ".text-subdued {text-align: justify;}"
+      ],
+      "name": "t:sections.text_with_icons.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "subheading": "",
+        "title": "THE PROCESS",
+        "content": "",
+        "heading_tag": "h2",
+        "text_alignment": "center",
+        "items_per_row_desktop": 4,
+        "stack_on_mobile": true,
+        "separator_style": "none",
+        "icon_position": "inline",
+        "icon_width": 16,
+        "mobile_icon_width": 16,
+        "item_text_alignment": "left"
+      }
+    },
+    "custom_liquid_Rwge3X": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr {{ block.shopify_attributes }}>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": true
+      }
+    },
+    "faq_P33iqD": {
+      "type": "faq",
+      "blocks": {
+        "question_PUgjRT": {
+          "type": "question",
+          "settings": {
+            "question": "What is LEGXI's AFA auction?",
+            "answer": "<p>It's a curated, live auction of hand-signed cricket memorabilia created in collaboration with the Argentina Football Association (AFA). Each piece is verified, strictly limited, and auctioned live via WhatsApp or Google Meet.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_TYmKRm": {
+          "type": "question",
+          "settings": {
+            "question": "How do I participate?",
+            "answer": "<p>Register your seat through the website. You'll receive a confirmation, your session time, and everything you need before the auction begins.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_8qHPtJ": {
+          "type": "question",
+          "settings": {
+            "question": "How does bidding work?",
+            "answer": "<p>Bids are placed live during the session. Winners are confirmed on the spot and contacted immediately after. There are no second chances. Every lot goes to one person.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_cgQ7Ty": {
+          "type": "question",
+          "settings": {
+            "question": "Is the memorabilia authenticated?",
+            "answer": "<p>Yes. Every piece comes with a dual certificate from both AFA and LEGXI, confirming its authenticity.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        },
+        "question_q3M4Gg": {
+          "type": "question",
+          "settings": {
+            "question": "Can I enquire about a specific lot before bidding?",
+            "answer": "<p>Yes — use the<strong> ENQUIRE<\/strong> button on any slot to get in touch before the auction date.<\/p>",
+            "icon": "none",
+            "icon_width": 24,
+            "mobile_icon_width": 20
+          }
+        }
+      },
+      "block_order": [
+        "question_PUgjRT",
+        "question_TYmKRm",
+        "question_8qHPtJ",
+        "question_cgQ7Ty",
+        "question_q3M4Gg"
+      ],
+      "name": "t:sections.faq.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "stacked",
+        "accordion_style": "border",
+        "question_style": "text",
+        "subheading": "",
+        "title": "ALL YOU NEED TO KNOW",
+        "title_tag": "h3",
+        "content": "<p>Here are the answers to your most frequent questions.<\/p>",
+        "button_text": "",
+        "button_url": "",
+        "button_style": "solid"
+      }
+    },
+    "custom_liquid_dNyYPy": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "liquid": "<hr {{ block.shopify_attributes }}>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": true
+      }
+    },
+    "1775425429d867f4d6": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_eVRLNN": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "1013473",
+            "text_color": "#ffffff",
+            "button_background_color": "#154e79",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "SECURE YOUR SEAT",
+            "content": "<p>Only 25 lots per session. Fill in your details and we'll confirm your spot befor the gavel falls.<\/p>",
+            "button_text": "",
+            "button_link": "tel:1013473",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h4",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_eVRLNN"
+      ],
+      "custom_css": [
+        ".prose {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_title": true,
+        "content_width": "md"
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_U6pBPL",
+    "legend_collection_K7Vgyp",
+    "legend_collection_qrjiNm",
+    "legend_collection_JkUAUC",
+    "legend_collection_k49ngE",
+    "custom_liquid_4z7t43",
+    "text_with_icons_r94mwR",
+    "custom_liquid_Rwge3X",
+    "faq_P33iqD",
+    "custom_liquid_dNyYPy",
+    "1775425429d867f4d6",
+    "main"
+  ]
+}

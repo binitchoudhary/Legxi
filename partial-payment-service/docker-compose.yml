@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  partial-payment-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - DRY_RUN=false
+    env_file:
+      - backend/.env
+    volumes:
+      - sqlite_data:/usr/src/app/data
+      - app_logs:/usr/src/app/logs
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
+  app_logs:

@@ -1,0 +1,122 @@
+<script>
+(function () {
+  var THANK_YOU = '/pages/afa-x-legxi-thank-you';
+  var _done = false;
+  var _polling = false;
+
+  function go() {
+    if (_done) return;
+    _done = true;
+    window.location.href = THANK_YOU;
+  }
+
+  /* ─── DOM SUCCESS POLL ────────────────────────────────────────
+     Takes a fresh baseline, then watches for success indicators.
+     Called after any signal (fetch, click, submit) is detected. */
+  function startPoll() {
+    if (_done || _polling) return;
+    _polling = true;
+
+    /* Baseline: count existing success-ish elements & visible forms NOW */
+    var baseSuccessCount = document.querySelectorAll(
+      '[class*="success"],[class*="Success"],[class*="thank"],[class*="Thank"],[data-success],[role="alert"]'
+    ).length;
+
+    var initialForms = Array.prototype.slice.call(document.querySelectorAll('form'));
+    var visibleFormCount = initialForms.filter(function (f) {
+      return f.offsetParent !== null;
+    }).length;
+
+    var ticks = 0;
+    var timer = setInterval(function () {
+      ticks++;
+      if (_done) { clearInterval(timer); return; }
+      if (ticks > 100) { clearInterval(timer); _polling = false; return; } /* 10s timeout */
+
+      /* 1. New success element appeared */
+      var curSuccessCount = document.querySelectorAll(
+        '[class*="success"],[class*="Success"],[class*="thank"],[class*="Thank"],[data-success],[role="alert"]'
+      ).length;
+      if (curSuccessCount > baseSuccessCount) {
+        clearInterval(timer);
+        go();
+        return;
+      }
+
+      /* 2. A visible form became hidden / was removed */
+      var curVisibleCount = Array.prototype.slice.call(document.querySelectorAll('form')).filter(function (f) {
+        return f.offsetParent !== null;
+      }).length;
+      if (visibleFormCount > 0 && curVisibleCount < visibleFormCount) {
+        clearInterval(timer);
+        go();
+        return;
+      }
+    }, 100);
+  }
+
+  /* ─── 1. FETCH INTERCEPTOR ────────────────────────────────────
+     Shopify Forms calls shop-forms.shopify.com.
+     We intercept the OUTGOING REQUEST (not the response),
+     so CORS / opaque-response issues are irrelevant. */
+  var _origFetch = window.fetch;
+  window.fetch = function (input, init) {
+    var url = (typeof input === 'string' ? input : (input && input.url)) || '';
+    if (/shop-forms|shopify\.com.*form|\/forms\//i.test(url)) {
+      /* A form-related fetch fired — start watching for success DOM */
+      setTimeout(startPoll, 100);
+    }
+    return _origFetch.apply(this, arguments);
+  };
+
+  /* ─── 2. XHR INTERCEPTOR ──────────────────────────────────── */
+  var _origOpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this._afaUrl = (url || '');
+    return _origOpen.apply(this, arguments);
+  };
+  var _origSend = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.send = function () {
+    var url = this._afaUrl || '';
+    if (/shop-forms|shopify\.com.*form|\/forms\//i.test(url)) {
+      setTimeout(startPoll, 100);
+    }
+    return _origSend.apply(this, arguments);
+  };
+
+  /* ─── 3. SUBMIT EVENT (capture phase, fires before app's listener) ── */
+  document.addEventListener('submit', function () {
+    setTimeout(startPoll, 200);
+  }, true);
+
+  /* ─── 4. BUTTON CLICK FALLBACK (capture phase) ──────────────── */
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    for (var i = 0; i < 6; i++) {
+      if (!el || el === document.body) break;
+      var tag = (el.tagName || '').toUpperCase();
+      var type = (el.getAttribute('type') || '').toLowerCase();
+      if (
+        (tag === 'BUTTON' && (type === 'submit' || type === '' || !el.hasAttribute('type'))) ||
+        (tag === 'INPUT' && type === 'submit')
+      ) {
+        setTimeout(startPoll, 250);
+        break;
+      }
+      el = el.parentElement;
+    }
+  }, true);
+
+  /* ─── 5. POSTMESSAGE (iframe-rendered forms) ─────────────────── */
+  window.addEventListener('message', function (e) {
+    try {
+      var d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+      if (!d) return;
+      var s = JSON.stringify(d).toLowerCase();
+      if (s.indexOf('success') > -1 || s.indexOf('submitted') > -1 || s.indexOf('thank') > -1) {
+        go();
+      }
+    } catch (_) {}
+  }, false);
+})();
+</script>

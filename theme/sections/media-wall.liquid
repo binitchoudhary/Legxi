@@ -1,0 +1,1407 @@
+{%- comment -%}
+  Media Wall — v3 (Premium Edition)
+  Infinite auto-scrolling masonry wall. Precisely matches Rotoris "in Action".
+
+  Layout engine:
+    - CSS Grid: grid-template-rows: repeat(2, 1fr), grid-auto-flow: column
+    - Full-height cards: grid-row: span 2
+    - Half-height (paired) cards: grid-row: span 1  ← automatically squares up
+    - All cards: 275px wide, gap 16px — exactly matching Rotoris measurements
+
+  Animation engine:
+    - requestAnimationFrame + translate3d (GPU-only, no repaints)
+    - Seamless infinite loop via DOM cloning
+    - Pause on hover/touch, off-screen IntersectionObserver pause
+
+  Editor mode:
+    - Shopify.designMode → disables animation, shows static scrollable layout
+    - shopify:block:select → auto-scrolls selected card into view + highlights it
+    - Editor label overlay (emoji + label) on every card
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id  = 'media-wall-' | append: section.id
+  assign track_id    = section_id | append: '-track'
+  assign speed       = section.settings.animation_speed | default: 40
+  assign gap_px      = section.settings.card_gap | default: 16
+  assign radius_px   = section.settings.border_radius | default: 16
+  assign card_w      = section.settings.card_width | default: 275
+  assign desktop_h   = section.settings.desktop_height | default: 560
+  assign tablet_h    = section.settings.tablet_height | default: 440
+  assign mobile_h    = section.settings.mobile_height | default: 340
+  assign pause_hover = section.settings.pause_on_hover
+  assign autoplay    = section.settings.enable_autoplay
+-%}
+
+{%- style -%}
+  /* ────────────────────────────────────────────────
+     Scoped CSS Custom Properties
+  ──────────────────────────────────────────────── */
+  #{{ section_id }} {
+    --mw-bg:        {{ section.settings.section_bg }};
+    --mw-gap:       {{ gap_px }}px;
+    --mw-r:         {{ radius_px }}px;
+    --mw-card-w:    {{ card_w }}px;
+    --mw-col-h:     {{ desktop_h }}px;
+    --mw-head-sz:   {{ section.settings.heading_size }}px;
+    --mw-head-wt:   {{ section.settings.heading_weight }};
+    --mw-head-clr:  {{ section.settings.heading_color }};
+    --mw-sub-clr:   {{ section.settings.subheading_color }};
+    --mw-pt:        {{ section.settings.padding_top }}px;
+    --mw-pb:        {{ section.settings.padding_bottom }}px;
+  }
+  @media (max-width: 1024px) {
+    #{{ section_id }} {
+      --mw-col-h:   {{ tablet_h }}px;
+      --mw-card-w:  {{ card_w | times: 0.8 | round }}px;
+      --mw-gap:     12px;
+    }
+  }
+  @media (max-width: 767px) {
+    #{{ section_id }} {
+      --mw-col-h:   {{ mobile_h }}px;
+      --mw-card-w:  {{ card_w | times: 0.6 | round }}px;
+      --mw-gap:     10px;
+      --mw-r:       12px;
+    }
+  }
+
+  /* ────────────────────────────────────────────────
+     Section Shell
+  ──────────────────────────────────────────────── */
+  .mw-section {
+    background: var(--mw-bg);
+    padding-top:    var(--mw-pt);
+    padding-bottom: var(--mw-pb);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ────────────────────────────────────────────────
+     Heading
+  ──────────────────────────────────────────────── */
+  .mw-header {
+    text-align: center;
+    margin-bottom: 44px;
+    padding: 0 20px;
+  }
+  .mw-heading {
+    font-size:   var(--mw-head-sz);
+    font-weight: var(--mw-head-wt);
+    color:       var(--mw-head-clr);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .mw-subheading {
+    font-size: clamp(14px, 1.4vw, 18px);
+    color:     var(--mw-sub-clr);
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+  @media (max-width: 767px) {
+    .mw-header     { margin-bottom: 28px; }
+    .mw-heading    { font-size: clamp(26px, 7.5vw, 40px) !important; }
+    .mw-subheading { font-size: 14px; }
+  }
+
+  /* ────────────────────────────────────────────────
+     Viewport — clips the scrolling track
+     Edge fade masks like Rotoris
+  ──────────────────────────────────────────────── */
+  .mw-viewport {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 6%,
+      #000 94%,
+      transparent 100%
+    );
+  }
+  @media (max-width: 767px) {
+    .mw-viewport {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 3%, #000 97%, transparent 100%);
+      mask-image:         linear-gradient(to right, transparent 0%, #000 3%, #000 97%, transparent 100%);
+    }
+  }
+
+  /* ────────────────────────────────────────────────
+     Track — CSS Grid marquee container
+     grid-auto-flow: column + grid-template-rows: repeat(2, 1fr)
+     This is the EXACT same technique Rotoris uses.
+     Full-height cards span 2 rows.
+     Half-height cards span 1 row (automatically squares).
+  ──────────────────────────────────────────────── */
+  .mw-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-columns: var(--mw-card-w);
+    gap: var(--mw-gap);
+    height: var(--mw-col-h);
+    will-change: transform;
+    align-items: stretch;
+  }
+
+  /* ────────────────────────────────────────────────
+     Card Wrapper — direct child of track grid
+  ──────────────────────────────────────────────── */
+  .mw-card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Full-height: spans both grid rows */
+  .mw-card-wrapper[data-span="2"] {
+    grid-row: span 2;
+  }
+  /* Half-height: spans single row */
+  .mw-card-wrapper[data-span="1"] {
+    grid-row: span 1;
+  }
+
+  /* ────────────────────────────────────────────────
+     Card Element
+  ──────────────────────────────────────────────── */
+  .mw-card {
+    position: relative;
+    border-radius: var(--mw-r);
+    overflow: hidden;
+    background: #111;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    width: 100%;
+    flex: 1 1 auto;
+    transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  /* Subtle inner border to separate from bg */
+  .mw-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 5;
+  }
+  a.mw-card:hover {
+    transform: scale(1.025);
+    z-index: 10;
+  }
+
+  /* ────────────────────────────────────────────────
+     Media (img / video / gif)
+  ──────────────────────────────────────────────── */
+  .mw-card__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .mw-card__media--contain {
+    object-fit: contain;
+  }
+  .mw-card__media--iframe {
+    border: 0;
+    pointer-events: none;
+  }
+
+  /* ────────────────────────────────────────────────
+     Overlay
+  ──────────────────────────────────────────────── */
+  .mw-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* ────────────────────────────────────────────────
+     Text Content
+  ──────────────────────────────────────────────── */
+  .mw-card__content {
+    position: absolute;
+    z-index: 3;
+    padding: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  .mw-card__content--top-left     { top: 0; left: 0; }
+  .mw-card__content--top-center   { top: 0; left: 0; text-align: center; }
+  .mw-card__content--top-right    { top: 0; left: 0; text-align: right; }
+  .mw-card__content--center-left  { top: 50%; left: 0; transform: translateY(-50%); }
+  .mw-card__content--center       { top: 50%; left: 0; transform: translateY(-50%); text-align: center; }
+  .mw-card__content--center-right { top: 50%; left: 0; transform: translateY(-50%); text-align: right; }
+  .mw-card__content--bottom-left  {
+    bottom: 0; left: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+    border-radius: 0 0 var(--mw-r) var(--mw-r);
+  }
+  .mw-card__content--bottom-center {
+    bottom: 0; left: 0; text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+    border-radius: 0 0 var(--mw-r) var(--mw-r);
+  }
+  .mw-card__content--bottom-right {
+    bottom: 0; left: 0; text-align: right;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+    border-radius: 0 0 var(--mw-r) var(--mw-r);
+  }
+  .mw-card__text {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.55);
+  }
+  .mw-card__subtext {
+    display: block;
+    font-size: 11px;
+    opacity: 0.82;
+    line-height: 1.45;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.55);
+  }
+  .mw-card__text--sm { font-size: 11px; }
+  .mw-card__text--lg { font-size: 16px; }
+  .mw-card__text--xl { font-size: 20px; }
+
+  /* ────────────────────────────────────────────────
+     Video Play Badge
+  ──────────────────────────────────────────────── */
+  .mw-card__badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 4;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.52);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .mw-card__badge svg {
+    width: 12px;
+    height: 12px;
+    fill: #fff;
+    display: block;
+    margin-left: 1px;
+  }
+
+  /* ────────────────────────────────────────────────
+     Premium Placeholder
+     Shown when a block has no media uploaded yet.
+  ──────────────────────────────────────────────── */
+  .mw-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1.5px dashed rgba(255,255,255,0.16);
+    border-radius: var(--mw-r);
+    background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .mw-placeholder__icon {
+    width: 34px;
+    height: 34px;
+    opacity: 0.28;
+  }
+  .mw-placeholder__icon path { fill: #ffffff; }
+  .mw-placeholder__type {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .mw-placeholder__pill {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ────────────────────────────────────────────────
+     Theme Editor Mode
+     When Shopify.designMode is true, JS adds
+     .mw-section--editor to the section.
+     - Disables the infinite scroll animation
+     - Makes the viewport horizontally scrollable
+     - Shows editor labels on all cards
+     - Highlights the selected block
+  ──────────────────────────────────────────────── */
+  .mw-section--editor .mw-viewport {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.18) transparent;
+  }
+  .mw-section--editor .mw-viewport::-webkit-scrollbar {
+    height: 4px;
+  }
+  .mw-section--editor .mw-viewport::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .mw-section--editor .mw-viewport::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.18);
+    border-radius: 2px;
+  }
+  .mw-section--editor .mw-track {
+    transform: none !important;
+    /* width: max-content — set inline by JS after grid paint */
+  }
+  /* Don't scale cards on hover in editor (interferes with selection) */
+  .mw-section--editor a.mw-card:hover {
+    transform: none;
+  }
+  /* Selected block highlight ring */
+  .mw-card-wrapper--selected > .mw-card {
+    outline: 2px solid rgba(0, 112, 243, 0.9);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(0, 112, 243, 0.18);
+  }
+
+  /* ────────────────────────────────────────────────
+     Editor Label
+     Only visible in editor mode.
+     Shows emoji + block label on each card.
+  ──────────────────────────────────────────────── */
+  .mw-editor-label {
+    display: none;
+  }
+  .mw-section--editor .mw-editor-label {
+    display: flex;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+    align-items: center;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.76);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 8px 4px 6px;
+    border-radius: 5px;
+    pointer-events: none;
+    max-width: calc(100% - 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+  }
+{%- endstyle -%}
+
+{%- if section.blocks.size > 0 -%}
+
+<section
+  id="{{ section_id }}"
+  class="mw-section"
+  data-speed="{{ speed }}"
+  data-pause="{{ pause_hover }}"
+  data-autoplay="{{ autoplay }}"
+  aria-label="{{ section.settings.heading | default: 'Media Wall' | escape }}"
+>
+
+  {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+    <div class="mw-header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="mw-heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="mw-subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="mw-viewport" role="region" aria-label="Scrolling media gallery">
+    <div class="mw-track" id="{{ track_id }}">
+
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign media_type   = block.settings.media_type   | default: 'image'
+          assign card_type    = block.settings.card_type    | default: 'tall'
+          assign display_mode = block.settings.display_mode | default: 'cover'
+          assign v_align      = block.settings.vertical_align   | default: 'bottom'
+          assign h_align      = block.settings.horizontal_align | default: 'left'
+
+          if v_align == 'center' and h_align == 'center'
+            assign content_pos = 'center'
+          else
+            assign content_pos = v_align | append: '-' | append: h_align
+          endif
+
+          assign span = 2
+          if card_type == 'half'
+            assign span = 1
+          endif
+
+          assign is_no_media = false
+          if media_type == 'none'
+            assign is_no_media = true
+          elsif media_type == 'image' and block.settings.image == blank
+            assign is_no_media = true
+          elsif media_type == 'video' and block.settings.video == blank
+            assign is_no_media = true
+          elsif media_type == 'gif' and block.settings.gif == blank
+            assign is_no_media = true
+          endif
+
+          # The "Video URL" field accepts either a direct .mp4 file link (rendered as a
+          # <video> tag, as before) or a YouTube link (rendered as an embedded iframe,
+          # since YouTube page URLs are never valid <video src> sources). Detect which
+          # one this is and, for YouTube, extract the video ID from any common URL shape:
+          # watch?v=, youtu.be/, shorts/, embed/.
+          assign video_url = block.settings.video
+          assign is_youtube = false
+          assign youtube_id = ''
+          if video_url contains 'youtube.com' or video_url contains 'youtu.be'
+            assign is_youtube = true
+            if video_url contains 'youtu.be/'
+              assign youtube_id = video_url | split: 'youtu.be/' | last
+            elsif video_url contains 'shorts/'
+              assign youtube_id = video_url | split: 'shorts/' | last
+            elsif video_url contains 'embed/'
+              assign youtube_id = video_url | split: 'embed/' | last
+            elsif video_url contains 'v='
+              assign youtube_id = video_url | split: 'v=' | last
+            endif
+            assign youtube_id = youtube_id | split: '?' | first | split: '&' | first | split: '/' | first
+          endif
+
+          assign card_tag = 'div'
+          if block.settings.card_link != blank
+            assign card_tag = 'a'
+          endif
+
+          if block.settings.block_label != blank
+            assign editor_label = block.settings.block_label
+          elsif block.settings.text != blank
+            assign editor_label = block.settings.text
+          else
+            assign editor_label = 'Card ' | append: forloop.index
+          endif
+
+          if media_type == 'video'
+            assign label_emoji = '🎥'
+          elsif media_type == 'gif'
+            assign label_emoji = '🎬'
+          else
+            assign label_emoji = '🖼'
+          endif
+        -%}
+
+        <div
+          class="mw-card-wrapper"
+          data-block-id="{{ block.id }}"
+          data-span="{{ span }}"
+          data-card-type="{{ card_type }}"
+          {{ block.shopify_attributes }}
+        >
+
+          <{{ card_tag }}
+            class="mw-card"
+            {%- if card_tag == 'a' -%}
+              href="{{ block.settings.card_link }}"
+              {%- if block.settings.open_new_tab %} target="_blank" rel="noopener noreferrer"{%- endif -%}
+            {%- endif -%}
+          >
+
+            {%- comment -%}── MEDIA ──{%- endcomment -%}
+
+            {%- if media_type == 'image' and block.settings.image != blank -%}
+              {%- assign img = block.settings.image -%}
+              <img
+                class="mw-card__media{% if display_mode == 'contain' %} mw-card__media--contain{% endif %}"
+                src="{{ img | image_url: width: 600 }}"
+                srcset="
+                  {{ img | image_url: width: 300 }} 300w,
+                  {{ img | image_url: width: 600 }} 600w,
+                  {{ img | image_url: width: 900 }} 900w
+                "
+                sizes="(max-width: 767px) 175px, (max-width: 1024px) 220px, 300px"
+                alt="{{ img.alt | default: editor_label | escape }}"
+                loading="lazy"
+                decoding="async"
+                width="{{ img.width }}"
+                height="{{ img.height }}"
+              >
+
+            {%- elsif media_type == 'video' and block.settings.video != blank and is_youtube and youtube_id != blank -%}
+              {%- capture youtube_params -%}autoplay={% if block.settings.video_autoplay %}1{% else %}0{% endif %}&mute=1&controls=0&modestbranding=1&playsinline=1&rel=0{% if block.settings.video_loop %}&loop=1&playlist={{ youtube_id }}{% endif %}{%- endcapture -%}
+              <iframe
+                class="mw-card__media mw-card__media--iframe{% if display_mode == 'contain' %} mw-card__media--contain{% endif %}"
+                src="https://www.youtube.com/embed/{{ youtube_id }}?{{ youtube_params }}"
+                title="{{ editor_label | escape }}"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                frameborder="0"
+              ></iframe>
+              <div class="mw-card__badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+
+            {%- elsif media_type == 'video' and block.settings.video != blank -%}
+              <video
+                class="mw-card__media{% if display_mode == 'contain' %} mw-card__media--contain{% endif %}"
+                {% if block.settings.video_autoplay %}autoplay{% endif %}
+                muted
+                {% if block.settings.video_loop %}loop{% endif %}
+                playsinline
+                preload="none"
+                {% if block.settings.poster_image != blank %}poster="{{ block.settings.poster_image | image_url: width: 600 }}"{% endif %}
+              ><source src="{{ block.settings.video }}" type="video/mp4"></video>
+              <div class="mw-card__badge" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+
+            {%- elsif media_type == 'gif' and block.settings.gif != blank -%}
+              <img
+                class="mw-card__media{% if display_mode == 'contain' %} mw-card__media--contain{% endif %}"
+                src="{{ block.settings.gif }}"
+                alt="{{ editor_label | escape }}"
+                loading="lazy"
+                decoding="async"
+              >
+
+            {%- else -%}
+              {%- comment -%}── PREMIUM PLACEHOLDER ──{%- endcomment -%}
+              <div class="mw-placeholder">
+                {%- if media_type == 'video' -%}
+                  <svg class="mw-placeholder__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/>
+                  </svg>
+                  <span class="mw-placeholder__type">Upload Video<br>MP4 format</span>
+                {%- elsif media_type == 'gif' -%}
+                  <svg class="mw-placeholder__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                  </svg>
+                  <span class="mw-placeholder__type">Upload GIF</span>
+                {%- else -%}
+                  <svg class="mw-placeholder__icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                  </svg>
+                  <span class="mw-placeholder__type">Upload Image</span>
+                {%- endif -%}
+                <span class="mw-placeholder__pill">{{ card_type | capitalize }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}── OVERLAY ──{%- endcomment -%}
+            {%- if block.settings.overlay_enable -%}
+              <div
+                class="mw-card__overlay"
+                style="background:{{ block.settings.overlay_color }};opacity:{{ block.settings.overlay_opacity | divided_by: 100.0 }};"
+              ></div>
+            {%- elsif block.settings.text != blank or block.settings.subtext != blank -%}
+              <div
+                class="mw-card__overlay"
+                style="background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.04) 55%,transparent 100%);"
+              ></div>
+            {%- endif -%}
+
+            {%- comment -%}── TEXT CONTENT ──{%- endcomment -%}
+            {%- if block.settings.text != blank or block.settings.subtext != blank -%}
+              <div
+                class="mw-card__content mw-card__content--{{ content_pos }}"
+                style="color:{{ block.settings.text_color }};"
+              >
+                {%- if block.settings.text != blank -%}
+                  <span class="mw-card__text mw-card__text--{{ block.settings.text_size }}">
+                    {{- block.settings.text | escape -}}
+                  </span>
+                {%- endif -%}
+                {%- if block.settings.subtext != blank -%}
+                  <span class="mw-card__subtext">{{- block.settings.subtext | escape -}}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}── EDITOR LABEL (hidden outside theme editor) ──{%- endcomment -%}
+            <div class="mw-editor-label" aria-hidden="true">
+              <span>{{ label_emoji }}</span>
+              <span>{{ editor_label | truncate: 28, '…' | escape }}</span>
+            </div>
+
+          </{{ card_tag }}>
+        </div>
+
+      {%- endfor -%}
+
+    </div>{%- comment -%}/.mw-track{%- endcomment -%}
+  </div>{%- comment -%}/.mw-viewport{%- endcomment -%}
+
+</section>
+
+{%- endif -%}
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─────────────────────────────────────────────
+     Media Wall — Engine v3
+     Production-ready infinite marquee.
+     • CSS Grid layout (matches Rotoris exactly)
+     • requestAnimationFrame + translate3d (GPU)
+     • Seamless cloning — zero flicker, zero jump
+     • Theme Editor: static + block:select scroll
+  ───────────────────────────────────────────── */
+
+  var SECTION_ID = {{ section_id | json }};
+  var TRACK_ID   = {{ track_id | json }};
+  var IS_EDITOR  = !!(window.Shopify && window.Shopify.designMode);
+
+  /* ── Boot ── */
+  function boot() {
+    var section = document.getElementById(SECTION_ID);
+    if (!section || section.dataset.mwInit) return;
+    section.dataset.mwInit = '1';
+
+    var track    = document.getElementById(TRACK_ID);
+    if (!track) return;
+    var viewport = track.parentElement;
+
+    var speedSecs  = parseFloat(section.dataset.speed)    || 40;
+    var pauseHover = section.dataset.pause    !== 'false';
+    var autoplay   = section.dataset.autoplay !== 'false';
+
+    if (IS_EDITOR) {
+      /* ── EDITOR MODE: disable scroll, enable block:select ── */
+      section.classList.add('mw-section--editor');
+      initEditor(section, track, viewport);
+    } else if (autoplay) {
+      /* ── LIVE MODE: infinite scroll ── */
+      /* Double rAF: ensures CSS grid has fully painted before we measure */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          runMarquee(section, track, viewport, speedSecs, pauseHover);
+        });
+      });
+    }
+
+    /* Autoplay videos (muted required by browsers) */
+    section.querySelectorAll('video[autoplay]').forEach(function (v) {
+      v.muted = true;
+      v.play().catch(function () {});
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+     initEditor
+     Static layout in Shopify Theme Editor.
+     Removes the infinite scroll. Makes viewport
+     horizontally scrollable. Listens for
+     shopify:block:select to auto-scroll and
+     highlight the correct card.
+  ───────────────────────────────────────────── */
+  function initEditor(section, track, viewport) {
+    /* Make track width explicit so horizontal scroll works */
+    requestAnimationFrame(function () {
+      track.style.width = track.scrollWidth + 'px';
+    });
+
+    function clearHighlights() {
+      track.querySelectorAll('.mw-card-wrapper--selected').forEach(function (el) {
+        el.classList.remove('mw-card-wrapper--selected');
+      });
+    }
+
+    function onBlockSelect(e) {
+      var blockId = e.detail && e.detail.blockId;
+      if (!blockId) return;
+
+      clearHighlights();
+
+      var wrapper = track.querySelector('[data-block-id="' + blockId + '"]');
+      if (!wrapper) return;
+
+      wrapper.classList.add('mw-card-wrapper--selected');
+
+      /* Scroll selected card to center of viewport */
+      var vpRect  = viewport.getBoundingClientRect();
+      var wRect   = wrapper.getBoundingClientRect();
+      var delta   = (wRect.left + wRect.width  / 2) -
+                    (vpRect.left + vpRect.width / 2);
+      viewport.scrollBy({ left: delta, behavior: 'smooth' });
+
+      /* Also make the section visible if scrolled past */
+      section.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function onBlockDeselect(e) {
+      var blockId = e.detail && e.detail.blockId;
+      if (blockId) {
+        var w = track.querySelector('[data-block-id="' + blockId + '"]');
+        if (w) w.classList.remove('mw-card-wrapper--selected');
+      }
+    }
+
+    document.addEventListener('shopify:block:select',   onBlockSelect);
+    document.addEventListener('shopify:block:deselect', onBlockDeselect);
+  }
+
+  /* ─────────────────────────────────────────────
+     runMarquee
+     1. Snapshots the original grid items.
+     2. Clones the full set until track is ≥2.5×
+        the viewport width (guarantees no gap).
+     3. Animates left via translate3d(-Xpx,0,0).
+     4. Wraps position at exactly one original set
+        width (+ one gap unit) — seamless loop.
+  ───────────────────────────────────────────── */
+  function runMarquee(section, track, viewport, speedSecs, pauseHover) {
+    /* Snapshot original wrappers before cloning */
+    var origItems = Array.from(track.querySelectorAll(':scope > .mw-card-wrapper'));
+    if (!origItems.length) return;
+
+    /* Measure the total width of one original set
+       scrollWidth is the natural content width of the grid */
+    var origW = track.scrollWidth;
+    if (origW < 1) return;
+
+    /* Resolve the gap value from computed style */
+    var cs  = getComputedStyle(track);
+    var gap = parseFloat(cs.columnGap || cs.gap || '16') || 16;
+
+    /* Clone the full item set as a flat DOM fragment */
+    function appendCloneSet() {
+      origItems.forEach(function (item) {
+        var clone = item.cloneNode(true);
+        clone.classList.add('mw-card-wrapper--clone');
+        clone.setAttribute('aria-hidden', 'true');
+        /* Strip block-ID from clones so editor events hit only originals */
+        clone.removeAttribute('data-block-id');
+        /* Strip shopify editor attributes */
+        clone.removeAttribute('data-shopify-editor-block');
+        track.appendChild(clone);
+      });
+    }
+
+    /* Minimum 2 full clone sets for invisible wrap */
+    appendCloneSet();
+    appendCloneSet();
+
+    /* Pad until track is comfortably wider than 2.5× viewport */
+    var viewW  = viewport.offsetWidth;
+    var safety = 0;
+    while (track.scrollWidth < viewW * 2.5 + origW && safety < 10) {
+      appendCloneSet();
+      safety++;
+    }
+
+    /* Play videos in all clone sets */
+    track.querySelectorAll('.mw-card-wrapper--clone video').forEach(function (v) {
+      v.muted = true;
+      v.load();
+      if (v.hasAttribute('autoplay')) v.play().catch(function () {});
+    });
+
+    /* Lazy-load ALL videos (including originals) via IntersectionObserver */
+    if ('IntersectionObserver' in window) {
+      var vidIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var v = entry.target;
+          if (!v.dataset.mwLoaded) {
+            v.muted = true;
+            v.load();
+            v.dataset.mwLoaded = '1';
+            if (v.hasAttribute('autoplay')) v.play().catch(function () {});
+          }
+          vidIO.unobserve(v);
+        });
+      }, { rootMargin: '600px' });
+      track.querySelectorAll('video').forEach(function (v) { vidIO.observe(v); });
+    }
+
+    /* ── Animation state ── */
+    /* scrollDist = one full original set width + one inter-set gap */
+    var scrollDist = origW + gap;
+    var pxPerSec   = scrollDist / speedSecs;
+    var pos        = 0;
+    var lastTs     = null;
+    var paused     = false;
+    var running    = true;
+
+    function tick(ts) {
+      if (!running) return;
+      if (!lastTs) lastTs = ts;
+
+      if (!paused) {
+        pos += pxPerSec * ((ts - lastTs) / 1000);
+        /* Seamless wrap: jump back exactly one original set */
+        if (pos >= scrollDist) pos -= scrollDist;
+        /* GPU transform — triggers compositing layer, no paint */
+        track.style.transform = 'translate3d(-' + pos.toFixed(3) + 'px,0,0)';
+      }
+
+      lastTs = ts;
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+
+    /* ── Hover / touch pause ── */
+    if (pauseHover) {
+      viewport.addEventListener('mouseenter', function () { paused = true; });
+      viewport.addEventListener('mouseleave', function () {
+        paused = false;
+        lastTs = null; /* prevent time-jump burst after hover */
+      });
+      viewport.addEventListener('touchstart', function () { paused = true; }, { passive: true });
+      viewport.addEventListener('touchend',   function () {
+        paused = false;
+        lastTs = null;
+      }, { passive: true });
+    }
+
+    /* ── Off-screen pause (saves CPU when not in viewport) ── */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var vis = entries[0].isIntersecting;
+        paused  = !vis;
+        if (vis) lastTs = null;
+      }, { rootMargin: '200px' }).observe(section);
+    }
+
+    /* ── Cleanup on Shopify section:unload ── */
+    document.addEventListener('shopify:section:unload', function onUnload(e) {
+      if (e.target && e.target.id === SECTION_ID) {
+        running = false;
+        document.removeEventListener('shopify:section:unload', onUnload);
+      }
+    });
+  }
+
+  /* ── Bootstrap ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  /* Re-init after Shopify theme editor reloads section */
+  document.addEventListener('shopify:section:load', function (e) {
+    if (e.target && e.target.id === SECTION_ID) {
+      var s = document.getElementById(SECTION_ID);
+      if (s) delete s.dataset.mwInit;
+      setTimeout(boot, 160);
+    }
+  });
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Media Wall",
+  "tag": "section",
+  "class": "media-wall-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "In Action"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "placeholder": "Optional subheading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 52
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 180,
+      "max": 400,
+      "step": 5,
+      "unit": "px",
+      "label": "Card width (desktop)",
+      "info": "All cards share the same width. Rotoris uses 275px.",
+      "default": 275
+    },
+    {
+      "type": "header",
+      "content": "Wall Height"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop height",
+      "info": "Rotoris uses ~560px. Tall cards fill this height. Half cards fill half.",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "tablet_height",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "label": "Tablet height",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile height",
+      "default": 340
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll speed (lower = faster)",
+      "info": "Time in seconds to scroll one full set of cards.",
+      "default": 45
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable auto-scroll",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "media_card",
+      "name": "🎬 Media Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_label",
+          "label": "Card label",
+          "info": "Shown as an overlay label inside the Theme Editor. Helpful for organising many blocks.",
+          "placeholder": "e.g. Messi Arrival, Stadium, Watch Closeup"
+        },
+        {
+          "type": "header",
+          "content": "Card Type"
+        },
+        {
+          "type": "select",
+          "id": "card_type",
+          "label": "Card type",
+          "info": "Tall fills the full section height. Half fills exactly half (square). Two consecutive Half cards stack into one column automatically.",
+          "options": [
+            { "value": "tall", "label": "Tall — full height (like a video card)" },
+            { "value": "half", "label": "Half — half height, pairs with next Half" }
+          ],
+          "default": "tall"
+        },
+        {
+          "type": "header",
+          "content": "Media"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "options": [
+            { "value": "image", "label": "🖼  Image" },
+            { "value": "video", "label": "🎥  Video (MP4)" },
+            { "value": "gif",   "label": "🎬  GIF" },
+            { "value": "none",  "label": "— Placeholder (upload later)" }
+          ],
+          "default": "image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "video",
+          "label": "Video URL (MP4 or YouTube link)",
+          "info": "Paste a direct .mp4 file link, or a YouTube link (any format: watch, youtu.be, or Shorts)."
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_image",
+          "label": "Video poster / thumbnail"
+        },
+        {
+          "type": "url",
+          "id": "gif",
+          "label": "GIF URL"
+        },
+        {
+          "type": "select",
+          "id": "display_mode",
+          "label": "Display mode",
+          "options": [
+            { "value": "cover",   "label": "Cover — fills card (recommended)" },
+            { "value": "contain", "label": "Contain — shows full media" }
+          ],
+          "default": "cover"
+        },
+        {
+          "type": "header",
+          "content": "Video Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "video_autoplay",
+          "label": "Autoplay",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "video_loop",
+          "label": "Loop",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Link"
+        },
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Card link (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "checkbox",
+          "id": "overlay_enable",
+          "label": "Custom overlay",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Overlay opacity",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Sub text"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "label": "Text size",
+          "options": [
+            { "value": "sm", "label": "Small (11px)" },
+            { "value": "md", "label": "Medium (13px)" },
+            { "value": "lg", "label": "Large (16px)" },
+            { "value": "xl", "label": "Extra Large (20px)" }
+          ],
+          "default": "md"
+        },
+        {
+          "type": "select",
+          "id": "vertical_align",
+          "label": "Vertical position",
+          "options": [
+            { "value": "top",    "label": "Top" },
+            { "value": "center", "label": "Center" },
+            { "value": "bottom", "label": "Bottom" }
+          ],
+          "default": "bottom"
+        },
+        {
+          "type": "select",
+          "id": "horizontal_align",
+          "label": "Horizontal position",
+          "options": [
+            { "value": "left",   "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media Wall",
+      "blocks": [
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Hero Video",
+            "card_type": "tall",
+            "media_type": "none",
+            "overlay_enable": true,
+            "overlay_color": "#0a0a0a",
+            "overlay_opacity": 55,
+            "text": "NEXT CHAPTER",
+            "subtext": "Upload your video"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Top",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Bottom",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Feature Video",
+            "card_type": "tall",
+            "media_type": "none",
+            "overlay_enable": true,
+            "overlay_color": "#1a0a2e",
+            "overlay_opacity": 45,
+            "text": "ROTORIS WORLD",
+            "subtext": "PRESENTS"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square A",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square B",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Tall Portrait",
+            "card_type": "tall",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square C",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square D",
+            "card_type": "half",
+            "media_type": "none"
+          }
+        },
+        {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Tall Video 2",
+            "card_type": "tall",
+            "media_type": "none",
+            "overlay_enable": true,
+            "overlay_color": "#0d0d0d",
+            "overlay_opacity": 50
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

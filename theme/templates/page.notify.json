@@ -1,0 +1,72 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "show_title": true,
+        "content_width": "md"
+      }
+    },
+    "slideshow_faHzyi": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow_image_slide_9P4FLU": {
+          "type": "_slideshow-image-slide",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify:\/\/shop_images\/Legxi-User-Manual-signed-bats-1.jpg",
+            "slide_link": "",
+            "content_max_width": 1000,
+            "mobile_content_position": "place-self-center",
+            "desktop_content_position": "sm:place-self-center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          },
+          "blocks": {}
+        },
+        "slideshow_image_slide_ABUUcp": {
+          "type": "_slideshow-image-slide",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify:\/\/shop_images\/Legxi-User-Manual-signed-bats-2.jpg",
+            "slide_link": "",
+            "content_max_width": 1000,
+            "mobile_content_position": "place-self-center",
+            "desktop_content_position": "sm:place-self-center",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          },
+          "blocks": {}
+        },
+        "slideshow-controls": {
+          "type": "_slideshow-controls",
+          "static": true,
+          "settings": {
+            "controls_style": "line",
+            "controls_color": "#ffffff"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "slideshow_image_slide_9P4FLU",
+        "slideshow_image_slide_ABUUcp"
+      ],
+      "name": "t:sections.slideshow.name",
+      "settings": {
+        "allow_transparent_header": true,
+        "image_size": "lg",
+        "transition_type": "curtain",
+        "autoplay": true,
+        "pause_auto_rotate_on_hover": false,
+        "cycle_speed": 6,
+        "background": "#000000"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "slideshow_faHzyi"
+  ]
+}

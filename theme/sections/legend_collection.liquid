@@ -1,0 +1,833 @@
+{% comment %}
+  Legends Collection — Premium Shopify Section (Redesigned)
+  Compatible with Shopify themes
+
+  STRUCTURE (matches reference images):
+   1. Outer card grid → card image + "JOIN NOW" + "ENQUIRE" overlay buttons + title/price strip below
+   2. Click image (or card) → opens Product MODAL (big image left, info + CTAs right)
+   3. "JOIN NOW" (card OR modal) → opens the FORM popup (name / email / phone / slot / submit)
+   4. "ENQUIRE" / WhatsApp → opens WhatsApp chat with prefilled message
+
+  Notes:
+   - Starting bid pulled from custom.starting_bid metafield
+   - Auction date pulled from custom.auction_date metafield (falls back to section default)
+   - Form can either embed a Shopify Forms (Klaviyo-style) inline form via Form ID,
+     OR use the built-in custom form which posts to /contact (customer enquiry).
+{% endcomment %}
+
+{%- liquid
+  assign join_text     = section.settings.join_button_text   | default: 'Join Now'
+  assign enquire_text  = section.settings.enquire_button_text | default: 'Enquire'
+  assign wa_number     = section.settings.whatsapp_number     | strip
+  assign wa_message    = section.settings.whatsapp_message    | url_encode
+  assign wa_link       = 'https://wa.me/' | append: wa_number | append: '?text=' | append: wa_message
+  assign btn_color     = section.settings.button_color
+  assign btn_text_col  = section.settings.button_text_color
+  assign accent        = section.settings.accent_color
+  assign overlay_op    = section.settings.overlay_opacity | divided_by: 100.0
+  assign form_id       = section.settings.form_id | strip
+-%}
+
+<style>
+/* =========================================================
+   ROOT
+========================================================= */
+#lc-{{ section.id }} {
+  --lc-bg:        {{ section.settings.bg_color }};
+  --lc-card-a:    #0e141d;
+  --lc-card-b:    #070a10;
+  --lc-accent:    {{ accent }};
+  --lc-btn:       {{ btn_color }};
+  --lc-btn-text:  {{ btn_text_col }};
+  --lc-white:     #ffffff;
+  --lc-muted:     rgba(255,255,255,0.58);
+  --lc-border:    rgba(255,255,255,0.09);
+  --lc-radius:    4px;
+  --lc-ease:      cubic-bezier(0.22,1,0.36,1);
+  --lc-font:      'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#lc-{{ section.id }} * { box-sizing: border-box; }
+
+#lc-{{ section.id }} {
+  background: var(--lc-bg);
+  padding: 64px 0 76px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--lc-font);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+.lc-header { text-align: center; margin-bottom: 40px; padding: 0 24px; }
+.lc-eyebrow {
+  display: inline-block;
+  font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--lc-accent); margin-bottom: 14px; font-weight: 600;
+}
+.lc-title {
+  font-size: 24px; font-weight: 700; color: var(--lc-white);
+  letter-spacing: 0.04em; line-height: 1.1; margin: 0 0 14px; text-transform: uppercase;
+}
+@media (min-width:769px){ .lc-title{ font-size: 34px; } }
+.lc-subtitle {
+  font-size: 15px; color: rgba(255,255,255,0.75); max-width: 640px;
+  margin: 0 auto; line-height: 1.6;
+}
+
+/* =========================================================
+   GRID / CAROUSEL
+========================================================= */
+.lc-outer { position: relative; padding: 0 60px; }
+@media (max-width:640px){ .lc-outer{ padding: 0 12px; } }
+
+.lc-track-wrap { overflow: hidden; touch-action: pan-y; }
+.lc-track {
+  display: flex; gap: 22px;
+  transition: transform 0.55s var(--lc-ease); will-change: transform;
+}
+.lc-track.is-swiping { transition: none; }
+@media (max-width:480px){ .lc-track{ gap: 12px; } }
+
+/* =========================================================
+   CARD
+========================================================= */
+.lc-card {
+  flex: 0 0 calc(25% - 16.5px);
+  min-width: 130px;
+  background: #000;
+  border: 1px solid var(--lc-border);
+  border-radius: var(--lc-radius);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s var(--lc-ease), box-shadow 0.4s var(--lc-ease), border-color 0.4s var(--lc-ease);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.lc-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0,180,220,0.35);
+  box-shadow: 0 0 36px rgba(0,180,220,0.14), 0 16px 44px rgba(0,0,0,0.7);
+}
+
+/* image area (clickable → modal) */
+.lc-card-media {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #05070b;
+  cursor: pointer;
+}
+.lc-card-img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.7s var(--lc-ease);
+}
+.lc-card:hover .lc-card-img { transform: scale(1.05); }
+
+/* gradient at bottom of media so buttons read */
+.lc-card-media::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.75) 100%);
+  pointer-events:none;
+}
+
+/* rank ribbon */
+.lc-card-rank {
+  position: absolute; top: 0; right: 16px; z-index: 4;
+  width: 34px; padding: 8px 0 14px;
+  background: var(--lc-accent); color: #fff;
+  font-size: 13px; font-weight: 800; text-align: center; line-height: 1;
+  clip-path: polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);
+}
+
+/* button overlay row sitting over bottom of image */
+.lc-card-actions {
+  position: absolute; left: 0; right: 0; bottom: 14px; z-index: 5;
+  display: flex; gap: 8px; padding: 0 14px;
+}
+.lc-card-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; cursor: pointer; border: none; border-radius: 3px;
+  background: #e9e9e9; color: #111; transition: background 0.2s, transform 0.15s;
+  white-space: nowrap; text-decoration: none; min-height: 40px;
+}
+.lc-card-btn:hover { background: #fff; transform: translateY(-1px); }
+.lc-card-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.lc-card-btn--wa svg { fill: #25D366; }
+
+/* info strip under card */
+.lc-card-info { padding: 14px 16px 16px; background: #111418; }
+.lc-card-vendor {
+  display: inline-block; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #fff; font-weight: 700; background: var(--lc-accent);
+  padding: 4px 7px; margin-bottom: 9px;
+}
+.lc-card-title {
+  font-size: 14px; font-weight: 700; color: var(--lc-white);
+  line-height: 1.3; text-transform: uppercase; letter-spacing: 0.02em;
+}
+.lc-card-price {
+  font-size: 14px; font-weight: 600; color: var(--lc-accent); margin-top: 4px;
+}
+.lc-card-price--sold { color: #ff6b6b; }
+.lc-card-sep { height:1px; background: var(--lc-border); margin: 12px 0 10px; }
+.lc-card-date { font-size: 13px; font-weight: 700; color: #fff; }
+
+/* =========================================================
+   GRID ARROWS
+========================================================= */
+.lc-arrow {
+  position: absolute; top: 38%; transform: translateY(-50%);
+  width: 44px; height: 44px; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.16); border-radius: 50%;
+  color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s; z-index: 10;
+  backdrop-filter: blur(8px);
+}
+.lc-arrow:hover { background: var(--lc-accent); border-color: var(--lc-accent); color:#fff; transform: translateY(-50%) scale(1.08); }
+.lc-arrow--prev { left: 6px; } .lc-arrow--next { right: 6px; }
+.lc-arrow svg { width: 18px; height: 18px; }
+.lc-arrow[disabled] { opacity: 0.25; pointer-events: none; }
+
+/* =========================================================
+   OVERLAY (shared by modal + form)
+========================================================= */
+.lc-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,{{ overlay_op }});
+  z-index: 9000; display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.lc-overlay.is-open { opacity: 1; visibility: visible; }
+
+/* =========================================================
+   PRODUCT MODAL
+========================================================= */
+.lc-modal {
+  background: #0a0d12; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; width: 100%; max-width: 1080px; max-height: 92vh;
+  overflow-y: auto; overflow-x: hidden; position: relative;
+  display: grid; grid-template-columns: 46% 54%;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.85);
+  transform: translateY(28px) scale(0.97); opacity: 0;
+  transition: transform 0.4s var(--lc-ease), opacity 0.3s ease;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.25) transparent;
+}
+.lc-overlay.is-open .lc-modal { transform: translateY(0) scale(1); opacity: 1; }
+.lc-modal::-webkit-scrollbar { width: 4px; }
+.lc-modal::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 2px; }
+
+@media (max-width:768px){
+  .lc-modal{ grid-template-columns: 1fr; max-height: 90vh; }
+}
+
+.lc-close {
+  position: absolute; top: 16px; right: 16px; width: 38px; height: 38px;
+  background: #fff; border: none; border-radius: 4px; color: #000;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  z-index: 20; transition: background 0.2s;
+}
+.lc-close:hover { background: #ddd; }
+.lc-close svg { width: 16px; height: 16px; }
+
+/* gallery (left) */
+.lc-gallery { padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+@media (max-width:768px){ .lc-gallery{ padding: 18px 16px 0; } }
+
+.lc-gmain {
+  position: relative; aspect-ratio: 3/4; border-radius: 8px; overflow: hidden;
+  background: #05070b; border: 1px solid var(--lc-border);
+}
+@media (max-width:768px){ .lc-gmain{ aspect-ratio: 4/3; } }
+@media (max-width:480px){ .lc-gmain{ aspect-ratio: 1/1; } }
+.lc-gslides { position: absolute; inset: 0; }
+.lc-gslide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
+.lc-gslide.is-active { opacity: 1; }
+.lc-gslide img { width:100%; height:100%; object-fit: cover; display:block; }
+
+.lc-gnav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: #fff;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5;
+  transition: background 0.2s, border-color 0.2s;
+}
+.lc-gnav:hover { background: var(--lc-accent); border-color: var(--lc-accent); }
+.lc-gnav svg { width: 14px; height: 14px; }
+.lc-gnav--prev { left: 10px; } .lc-gnav--next { right: 10px; }
+.lc-gnav[hidden] { display: none; }
+.lc-gcounter { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: rgba(255,255,255,0.6); z-index: 5; }
+
+.lc-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.lc-thumb {
+  flex: 0 0 58px; height: 58px; border-radius: 4px; overflow: hidden; cursor: pointer;
+  border: 2px solid transparent; opacity: 0.5; transition: border-color 0.2s, opacity 0.2s;
+}
+.lc-thumb:hover { opacity: 0.85; }
+.lc-thumb.is-active { border-color: var(--lc-accent); opacity: 1; }
+.lc-thumb img { width:100%; height:100%; object-fit: cover; display:block; }
+
+/* info (right) */
+.lc-info { padding: 40px 36px 32px; display: flex; flex-direction: column; }
+@media (max-width:768px){ .lc-info{ padding: 22px 18px 26px; } }
+.lc-info-body { flex: 1; }
+.lc-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 30px; padding: 8px 18px; font-size: 10px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #fff; margin-bottom: 22px; font-weight: 600;
+}
+.lc-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lc-accent); animation: lc-pulse 2s ease infinite; }
+@keyframes lc-pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.7);} }
+.lc-info-vendor { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--lc-accent); margin-bottom: 10px; font-weight: 600; }
+.lc-info-title { font-size: clamp(22px,3vw,34px); font-weight: 700; color: #fff; line-height: 1.12; text-transform: uppercase; margin: 0 0 8px; }
+.lc-info-tag { font-size: clamp(16px,2vw,22px); font-weight: 400; color: rgba(255,255,255,0.85); margin: 0 0 22px; }
+.lc-info-bid {
+  margin: 0 0 22px; padding: 16px 20px; background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.lc-info-bid-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--lc-muted); font-weight: 500; }
+.lc-info-bid-price { font-size: 24px; font-weight: 700; color: var(--lc-accent); }
+.lc-info-desc { font-size: 14.5px; line-height: 1.7; color: rgba(255,255,255,0.72); margin-bottom: 22px; }
+.lc-info-desc p { margin: 0 0 12px; } .lc-info-desc p:last-child { margin-bottom: 0; }
+
+/* modal CTA row */
+.lc-cta-row { display: flex; gap: 12px; margin-top: auto; }
+@media (max-width:480px){ .lc-cta-row{ flex-direction: column; } }
+.lc-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 20px; border-radius: 4px; font-size: 12px; letter-spacing: 0.12em;
+  text-transform: uppercase; font-weight: 700; cursor: pointer; text-decoration: none;
+  border: none; transition: transform 0.2s, filter 0.2s, background 0.2s; min-height: 50px;
+}
+.lc-btn:hover { transform: translateY(-2px); }
+.lc-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.lc-btn--join { background: #e9e9e9; color: #111; }
+.lc-btn--join:hover { background: #fff; }
+.lc-btn--wa { background: #fff; color: var(--lc-btn-text); }
+.lc-btn--wa:hover { filter: brightness(1.1); }
+.lc-btn--wa svg { fill: currentColor; }
+
+/* =========================================================
+   FORM POPUP (image 3)
+========================================================= */
+.lc-form-modal {
+  background: #0a0d12; border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; width: 100%; max-width: 520px; max-height: 92vh;
+  overflow-y: auto; position: relative; padding: 44px 40px 36px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.85);
+  transform: translateY(28px) scale(0.97); opacity: 0;
+  transition: transform 0.4s var(--lc-ease), opacity 0.3s ease;
+}
+.lc-overlay.is-open .lc-form-modal { transform: translateY(0) scale(1); opacity: 1; }
+@media (max-width:480px){ .lc-form-modal{ padding: 38px 22px 28px; } }
+
+.lc-form-title { font-size: 26px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.03em; text-align: center; margin: 0 0 10px; }
+.lc-form-sub { font-size: 14px; color: rgba(255,255,255,0.7); text-align: center; line-height: 1.5; margin: 0 0 28px; }
+
+/* fallback custom form */
+.lc-field { margin-bottom: 14px; }
+.lc-field input, .lc-field select {
+  width: 100%; padding: 15px 16px; background: #05070b;
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 4px; color: #fff;
+  font-size: 15px; font-family: var(--lc-font); transition: border-color 0.2s;
+}
+.lc-field input::placeholder { color: rgba(255,255,255,0.4); }
+.lc-field input:focus, .lc-field select:focus { outline: none; border-color: var(--lc-accent); }
+.lc-field select { appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding-right: 40px;
+}
+.lc-field-label { display: block; font-size: 13px; font-weight: 700; color: #fff; margin: 6px 0 8px; }
+.lc-form-submit {
+  width: 100%; padding: 16px; margin-top: 6px; background: var(--lc-btn);
+  color: var(--lc-btn-text); border: none; border-radius: 4px; font-size: 15px;
+  font-weight: 700; cursor: pointer; transition: filter 0.2s; font-family: var(--lc-font);
+}
+.lc-form-submit:hover { filter: brightness(1.1); }
+.lc-form-fine { font-size: 11px; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.5; margin-top: 16px; }
+.lc-form-fine a { color: var(--lc-accent); }
+.lc-form-success { text-align: center; padding: 30px 0; color: #fff; font-size: 16px; display: none; }
+.lc-form-success.show { display: block; }
+
+/* embedded shopify form host */
+.lc-form-embed { min-height: 120px; }
+
+/* =========================================================
+   RESPONSIVE CARDS
+========================================================= */
+@media (max-width:1100px){ .lc-card{ flex: 0 0 calc(33.33% - 15px); } }
+@media (max-width:768px){ .lc-card{ flex: 0 0 calc(50% - 11px); } }
+@media (max-width:480px){
+  .lc-card{ flex: 0 0 calc(50% - 6px); min-width: 0; }
+  .lc-card-actions{ flex-direction: column; gap: 6px; bottom: 10px; padding: 0 10px; }
+  .lc-card-btn{ padding: 9px 4px; font-size: 9.5px; min-height: 34px; }
+  .lc-card-info{ padding: 10px 11px 12px; }
+  .lc-card-title{ font-size: 12px; }
+  .lc-card-vendor{ font-size: 7.5px; padding: 3px 5px; }
+  .lc-card-rank{ width: 26px; right: 10px; font-size: 11px; padding: 6px 0 11px; }
+}
+
+.lc-empty { text-align: center; padding: 60px 24px; color: var(--lc-muted); font-style: italic; }
+</style>
+
+<section id="lc-{{ section.id }}" aria-label="{{ section.settings.section_title | escape }}">
+
+  {%- if section.settings.section_eyebrow != blank or section.settings.section_title != blank or section.settings.section_subtitle != blank -%}
+  <div class="lc-header">
+    {%- if section.settings.section_eyebrow != blank -%}<div class="lc-eyebrow">{{ section.settings.section_eyebrow }}</div>{%- endif -%}
+    {%- if section.settings.section_title != blank -%}<h2 class="lc-title">{{ section.settings.section_title }}</h2>{%- endif -%}
+    {%- if section.settings.section_subtitle != blank -%}<p class="lc-subtitle">{{ section.settings.section_subtitle }}</p>{%- endif -%}
+  </div>
+  {%- endif -%}
+
+  {%- liquid
+    assign lc_count = 0
+    for i in (1..10)
+      assign key = 'product_' | append: i
+      assign prod = section.settings[key]
+      if prod != blank
+        assign lc_count = lc_count | plus: 1
+      endif
+    endfor
+  -%}
+
+  {%- if lc_count == 0 -%}
+    <div class="lc-empty"><p>Add products in the section settings to display your collection.</p></div>
+  {%- else -%}
+  <div class="lc-outer" role="region" aria-label="Products carousel">
+    <button class="lc-arrow lc-arrow--prev" aria-label="Previous" id="lc-prev-{{ section.id }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="lc-track-wrap">
+      <div class="lc-track" id="lc-track-{{ section.id }}">
+        {%- for i in (1..10) -%}
+          {%- assign key = 'product_' | append: i -%}
+          {%- assign prod = section.settings[key] -%}
+          {%- if prod != blank -%}
+            {%- assign rank_meta = prod.metafields.custom.auction_rank -%}
+            {%- assign bid_meta  = prod.metafields.custom.starting_bid -%}
+            {%- assign date_meta = prod.metafields.custom.auction_date -%}
+          <article class="lc-card" data-product-id="{{ prod.id }}">
+
+            {%- if rank_meta != blank -%}<div class="lc-card-rank">#{{ rank_meta.value }}</div>{%- endif -%}
+
+            <div class="lc-card-media" data-lc-open role="button" tabindex="0" aria-label="View {{ prod.title | escape }}">
+              {%- if prod.featured_image -%}
+                <img class="lc-card-img" src="{{ prod.featured_image | image_url: width: 700 }}"
+                     alt="{{ prod.featured_image.alt | default: prod.title | escape }}" width="700" loading="lazy" decoding="async">
+              {%- else -%}
+                <div style="width:100%;height:100%;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                </div>
+              {%- endif -%}
+
+              <div class="lc-card-actions">
+                <button type="button" class="lc-card-btn lc-card-btn--join" data-lc-join>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  {{ join_text }}
+                </button>
+                {%- if wa_number != blank -%}
+                <a class="lc-card-btn lc-card-btn--wa" href="{{ wa_link }}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">
+                  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.2-.2-.5-.5-.5-.6-.5h-.5c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8.3-8 8.3z"/></svg>
+                  {{ enquire_text }}
+                </a>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="lc-card-info">
+              {% comment %} {%- if prod.vendor != blank -%}<span class="lc-card-vendor">{{ prod.vendor }}</span>{%- endif -%} {% endcomment %}
+              <div class="lc-card-title">{{ prod.title }}</div>
+              {%- if bid_meta != blank -%}
+                <div class="lc-card-price">From {{ bid_meta.value | money_without_trailing_zeros }}</div>
+              {%- else -%}
+                <div class="lc-card-price lc-card-price--sold">Sold Out</div>
+              {%- endif -%}
+              {%- if date_meta != blank or section.settings.default_date != blank -%}
+                <div class="lc-card-sep"></div>
+                <div class="lc-card-date">{{ date_meta.value | default: section.settings.default_date }}</div>
+              {%- endif -%}
+            </div>
+
+            <script type="application/json" class="lc-product-data">
+            {
+              "id":          {{ prod.id | json }},
+              "vendor":      {{ prod.vendor | json }},
+              "title":       {{ prod.title | json }},
+              "description": {{ prod.description | json }},
+              "images":      [{% for img in prod.images %}{"src":{{ img | image_url: width: 1200 | json }},"alt":{{ img.alt | default: prod.title | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}],
+              "subtitle":    {{ prod.metafields.custom.subtitle.value | default: '' | json }},
+              "startingBid": {%- if bid_meta != blank -%}{{ bid_meta.value | money_without_trailing_zeros | json }}{%- else -%}""{%- endif -%},
+              "auctionRank": {{ rank_meta.value | default: '' | json }}
+            }
+            </script>
+          </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <button class="lc-arrow lc-arrow--next" aria-label="Next" id="lc-next-{{ section.id }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  {%- endif -%}
+</section>
+
+<!-- ============================ PRODUCT MODAL ============================ -->
+<div class="lc-overlay" id="lc-overlay-{{ section.id }}" role="dialog" aria-modal="true" aria-label="Product detail" tabindex="-1">
+  <div class="lc-modal" id="lc-modal-{{ section.id }}">
+    <button class="lc-close" id="lc-close-{{ section.id }}" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="lc-gallery">
+      <div class="lc-gmain" id="lc-gmain-{{ section.id }}">
+        <div class="lc-gslides" id="lc-slides-{{ section.id }}"></div>
+        <button class="lc-gnav lc-gnav--prev" id="lc-gprev-{{ section.id }}" aria-label="Previous image" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="lc-gnav lc-gnav--next" id="lc-gnext-{{ section.id }}" aria-label="Next image" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="lc-gcounter" id="lc-gcounter-{{ section.id }}"></div>
+      </div>
+      <div class="lc-thumbs" id="lc-thumbs-{{ section.id }}"></div>
+    </div>
+
+    <div class="lc-info">
+      <div class="lc-info-body">
+        {% comment %} <div class="lc-pill"><span class="lc-pill-dot"></span><span>Limited Edition</span></div> {% endcomment %}
+        <div class="lc-info-vendor" id="lc-ivendor-{{ section.id }}"></div>
+        <h2 class="lc-info-title" id="lc-ititle-{{ section.id }}"></h2>
+        <div class="lc-info-tag" id="lc-itag-{{ section.id }}" hidden></div>
+        {% comment %} <div class="lc-info-bid" id="lc-ibid-{{ section.id }}" hidden>
+          <div class="lc-info-bid-label">Starting Bid</div>
+          <div class="lc-info-bid-price" id="lc-ibid-price-{{ section.id }}"></div>
+        </div> {% endcomment %}
+        <div class="lc-info-desc" id="lc-idesc-{{ section.id }}"></div>
+      </div>
+      <div class="lc-cta-row">
+        <button class="lc-btn lc-btn--join" id="lc-mjoin-{{ section.id }}" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          {{ join_text }}
+        </button>
+        {%- if wa_number != blank -%}
+        <a class="lc-btn lc-btn--wa" href="{{ wa_link }}" target="_blank" rel="noopener noreferrer" id="lc-mwa-{{ section.id }}">
+          <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.6-1.6-.9-2.2-.2-.5-.5-.5-.6-.5h-.5c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8.3-8 8.3z"/></svg>
+          {{ enquire_text }}
+        </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ FORM POPUP ============================ -->
+<div class="lc-overlay" id="lc-formoverlay-{{ section.id }}" role="dialog" aria-modal="true" aria-label="Secure your seat" tabindex="-1">
+  <div class="lc-form-modal" id="lc-formmodal-{{ section.id }}">
+    <button class="lc-close" id="lc-formclose-{{ section.id }}" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <h2 class="lc-form-title">{{ section.settings.form_title | default: 'Secure Your Seat' }}</h2>
+    <p class="lc-form-sub">{{ section.settings.form_subtitle | default: "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls." }}</p>
+
+    {%- if form_id != blank -%}
+      {%- comment -%} Shopify Forms (Klaviyo) embedded inline form by ID {%- endcomment -%}
+      <div class="lc-form-embed">
+        <div data-shopify-app-block>
+          {% render 'klaviyo-onsite-form', form_id: form_id %}
+        </div>
+        <noscript>Please enable JavaScript to view the form.</noscript>
+      </div>
+    {%- else -%}
+      {%- comment -%} Built-in custom enquiry form → posts to Shopify contact {%- endcomment -%}
+      {% form 'contact', id: 'lc-contact-form-' | append: section.id %}
+        {%- if form.posted_successfully? -%}
+          <div class="lc-form-success show">Thank you — your spot request has been received. We'll be in touch shortly.</div>
+        {%- else -%}
+        <div class="lc-field">
+          <input type="text" name="contact[first_name]" placeholder="First name" required>
+        </div>
+        <div class="lc-field">
+          <input type="email" name="contact[email]" placeholder="Email" required>
+        </div>
+        <div class="lc-field">
+          <input type="tel" name="contact[phone]" placeholder="Phone (+91 …)" required>
+        </div>
+        {%- assign slots = section.settings.form_slots | default: 'Slot 1,Slot 2,Slot 3' | split: ',' -%}
+        <div class="lc-field">
+          <label class="lc-field-label">Select your slot</label>
+          <select name="contact[slot]" required>
+            <option value="" selected disabled></option>
+            {%- for slot in slots -%}<option value="{{ slot | strip | escape }}">{{ slot | strip }}</option>{%- endfor -%}
+          </select>
+        </div>
+        <input type="hidden" name="contact[product]" id="lc-form-product-{{ section.id }}" value="">
+        <button type="submit" class="lc-form-submit">Submit</button>
+        <p class="lc-form-fine">By signing up, you agree to receive marketing emails and text messages. View our privacy policy and terms of service for more info.</p>
+        {%- endif -%}
+      {% endform %}
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var SID = {{ section.id | json }};
+
+  var overlay  = document.getElementById('lc-overlay-'    + SID);
+  var modal    = document.getElementById('lc-modal-'      + SID);
+  var closeBtn = document.getElementById('lc-close-'      + SID);
+  var track    = document.getElementById('lc-track-'      + SID);
+  var prevBtn  = document.getElementById('lc-prev-'       + SID);
+  var nextBtn  = document.getElementById('lc-next-'       + SID);
+  var slidesEl = document.getElementById('lc-slides-'     + SID);
+  var thumbsEl = document.getElementById('lc-thumbs-'     + SID);
+  var gCounter = document.getElementById('lc-gcounter-'   + SID);
+  var gPrev    = document.getElementById('lc-gprev-'      + SID);
+  var gNext    = document.getElementById('lc-gnext-'      + SID);
+  var iVendor  = document.getElementById('lc-ivendor-'    + SID);
+  var iTitle   = document.getElementById('lc-ititle-'     + SID);
+  var iTag     = document.getElementById('lc-itag-'       + SID);
+  var iDesc    = document.getElementById('lc-idesc-'      + SID);
+  var iBid     = document.getElementById('lc-ibid-'       + SID);
+  var iBidPrice= document.getElementById('lc-ibid-price-' + SID);
+  var mJoin    = document.getElementById('lc-mjoin-'      + SID);
+  var gMain    = document.getElementById('lc-gmain-'      + SID);
+
+  var formOverlay = document.getElementById('lc-formoverlay-' + SID);
+  var formClose   = document.getElementById('lc-formclose-'   + SID);
+  var formProduct = document.getElementById('lc-form-product-'+ SID);
+
+  /* ---------- scroll lock helpers ---------- */
+  function lockScroll() {
+    document.body.dataset.lcScrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + window.scrollY + 'px';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+  }
+  function unlockScroll() {
+    var y = document.body.dataset.lcScrollY || '0';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, parseInt(y, 10));
+  }
+  function anyOpen() {
+    return overlay.classList.contains('is-open') || formOverlay.classList.contains('is-open');
+  }
+
+  /* =================== CAROUSEL =================== */
+  var cards = Array.from(track ? track.querySelectorAll('.lc-card') : []);
+  var current = 0;
+  function getVisible(){ var w=window.innerWidth; if(w<=480)return 2; if(w<=768)return 2; if(w<=1100)return 3; return 4; }
+  function cardWidth(){ if(!cards.length)return 0; var g=window.innerWidth<=480?12:22; return cards[0].offsetWidth+g; }
+  function maxSlide(){ return Math.max(0, cards.length - getVisible()); }
+  function slideTo(idx){
+    var max=maxSlide(); current=Math.max(0,Math.min(idx,max));
+    track.style.transform='translateX(-'+(current*cardWidth())+'px)';
+    var need=max>0;
+    if(prevBtn){ prevBtn.style.display=need?'':'none'; prevBtn.disabled=current===0; }
+    if(nextBtn){ nextBtn.style.display=need?'':'none'; nextBtn.disabled=current>=max; }
+  }
+  if(prevBtn) prevBtn.addEventListener('click',function(){slideTo(current-1);});
+  if(nextBtn) nextBtn.addEventListener('click',function(){slideTo(current+1);});
+  window.addEventListener('resize',function(){slideTo(current);});
+  slideTo(0);
+
+  /* carousel swipe */
+  (function(){
+    if(!track)return; var wrap=track.parentElement;
+    var sx=0,sy=0,drag=false,st=0,locked=false,horiz=false,th=40;
+    function tx(){ return new DOMMatrix(getComputedStyle(track).transform).m41; }
+    wrap.addEventListener('touchstart',function(e){ if(cards.length<=1)return; var t=e.touches[0]; sx=t.clientX; sy=t.clientY; drag=true; locked=false; horiz=false; st=tx(); track.classList.add('is-swiping'); },{passive:true});
+    wrap.addEventListener('touchmove',function(e){ if(!drag)return; var t=e.touches[0]; var dx=t.clientX-sx, dy=t.clientY-sy;
+      if(!locked && (Math.abs(dx)>8||Math.abs(dy)>8)){ locked=true; horiz=Math.abs(dx)>Math.abs(dy); }
+      if(locked&&!horiz){ drag=false; track.classList.remove('is-swiping'); return; }
+      if(locked&&horiz){ e.preventDefault(); var c=st+dx; var mn=-(maxSlide()*cardWidth());
+        if(c>0)c=c*0.3; else if(c<mn)c=mn+(c-mn)*0.3; track.style.transform='translateX('+c+'px)'; }
+    },{passive:false});
+    wrap.addEventListener('touchend',function(e){ if(!drag)return; drag=false; track.classList.remove('is-swiping');
+      var dx=e.changedTouches[0].clientX-sx;
+      if(horiz&&Math.abs(dx)>th){ slideTo(dx<0?current+1:current-1); } else { slideTo(current); }
+    },{passive:true});
+    wrap.addEventListener('touchcancel',function(){ drag=false; track.classList.remove('is-swiping'); slideTo(current); },{passive:true});
+  })();
+
+  /* =================== GALLERY =================== */
+  var gImages=[], gCur=0;
+  function buildGallery(images){
+    slidesEl.innerHTML=''; thumbsEl.innerHTML=''; gImages=images; gCur=0;
+    images.forEach(function(img,idx){
+      var s=document.createElement('div'); s.className='lc-gslide'+(idx===0?' is-active':'');
+      var im=document.createElement('img'); im.src=img.src; im.alt=img.alt||''; im.loading=idx===0?'eager':'lazy'; im.decoding='async';
+      s.appendChild(im); slidesEl.appendChild(s);
+      var t=document.createElement('div'); t.className='lc-thumb'+(idx===0?' is-active':''); t.setAttribute('role','button'); t.setAttribute('tabindex','0');
+      var tim=document.createElement('img'); tim.src=img.src; tim.alt=img.alt||''; tim.loading='lazy';
+      t.appendChild(tim);
+      t.addEventListener('click',goTo.bind(null,idx));
+      t.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault(); goTo(idx);} });
+      thumbsEl.appendChild(t);
+    });
+    updateGUI();
+  }
+  function goTo(idx){
+    if(idx<0||idx>=gImages.length)return;
+    var os=slidesEl.children[gCur], ot=thumbsEl.children[gCur];
+    if(os)os.classList.remove('is-active'); if(ot)ot.classList.remove('is-active');
+    gCur=idx;
+    var ns=slidesEl.children[gCur], nt=thumbsEl.children[gCur];
+    if(ns)ns.classList.add('is-active');
+    if(nt){ nt.classList.add('is-active'); nt.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+    updateGUI();
+  }
+  function updateGUI(){ var n=gImages.length; if(gCounter)gCounter.textContent=n>1?(gCur+1)+' / '+n:''; if(gPrev)gPrev.hidden=n<=1; if(gNext)gNext.hidden=n<=1; }
+  if(gPrev)gPrev.addEventListener('click',function(){goTo((gCur-1+gImages.length)%gImages.length);});
+  if(gNext)gNext.addEventListener('click',function(){goTo((gCur+1)%gImages.length);});
+  if(modal)modal.addEventListener('keydown',function(e){ if(!overlay.classList.contains('is-open'))return;
+    if(e.key==='ArrowLeft')goTo((gCur-1+gImages.length)%gImages.length);
+    if(e.key==='ArrowRight')goTo((gCur+1)%gImages.length); });
+
+  /* gallery swipe */
+  (function(){
+    if(!gMain)return; var sx=0,sy=0,drag=false,th=40;
+    gMain.addEventListener('touchstart',function(e){ if(gImages.length<=1)return; sx=e.touches[0].clientX; sy=e.touches[0].clientY; drag=true; },{passive:true});
+    gMain.addEventListener('touchend',function(e){ if(!drag)return; drag=false; var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+      if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>th){ goTo(dx<0?(gCur+1)%gImages.length:(gCur-1+gImages.length)%gImages.length); } },{passive:true});
+    gMain.addEventListener('touchcancel',function(){ drag=false; },{passive:true});
+  })();
+
+  /* =================== MODAL OPEN/CLOSE =================== */
+  var lastTitle = '';
+  function openModal(card){
+    var raw=card.querySelector('.lc-product-data'); if(!raw)return;
+    var d; try{ d=JSON.parse(raw.textContent); }catch(e){ return; }
+    lastTitle = d.title || '';
+    if(iVendor)iVendor.textContent=d.vendor||'';
+    if(iTitle) iTitle.textContent=d.title||'';
+    if(iTag){ if(d.subtitle){ iTag.textContent=d.subtitle; iTag.hidden=false; } else iTag.hidden=true; }
+    if(iDesc) iDesc.innerHTML=d.description||'';
+    if(iBid&&iBidPrice){ if(d.startingBid){ iBidPrice.textContent=d.startingBid; iBid.hidden=false; } else iBid.hidden=true; }
+    var sold = !d.startingBid;
+    if(mJoin) mJoin.style.display = sold ? 'none' : '';
+    var imgs=(d.images&&d.images.length)?d.images:[{src:'',alt:d.title||''}];
+    buildGallery(imgs);
+    overlay.classList.add('is-open');
+    lockScroll();
+    if(modal)modal.scrollTop=0;
+    if(closeBtn)closeBtn.focus();
+  }
+  function closeModal(){ overlay.classList.remove('is-open'); if(!anyOpen())unlockScroll(); }
+
+  cards.forEach(function(card){
+    var media=card.querySelector('[data-lc-open]');
+    if(media){
+      media.addEventListener('click',function(e){
+        if(e.target.closest('[data-lc-join]')||e.target.closest('.lc-card-btn--wa'))return;
+        openModal(card);
+      });
+      media.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModal(card); } });
+    }
+    var joinB=card.querySelector('[data-lc-join]');
+    if(joinB){
+      joinB.addEventListener('click',function(e){
+        e.stopPropagation();
+        var raw=card.querySelector('.lc-product-data'); var t='';
+        if(raw){ try{ t=JSON.parse(raw.textContent).title||''; }catch(_){} }
+        openForm(t);
+      });
+    }
+  });
+
+  if(closeBtn)closeBtn.addEventListener('click',closeModal);
+  if(overlay)overlay.addEventListener('click',function(e){ if(e.target===overlay)closeModal(); });
+
+  /* =================== FORM POPUP =================== */
+  function openForm(productTitle){
+    if(formProduct) formProduct.value = productTitle || lastTitle || '';
+    formOverlay.classList.add('is-open');
+    lockScroll();
+    var first=formOverlay.querySelector('input,select');
+    if(first)setTimeout(function(){first.focus();},120);
+  }
+  function closeForm(){ formOverlay.classList.remove('is-open'); if(!anyOpen())unlockScroll(); }
+
+  if(mJoin)mJoin.addEventListener('click',function(){ closeModal(); setTimeout(function(){ openForm(lastTitle); }, 250); });
+  if(formClose)formClose.addEventListener('click',closeForm);
+  if(formOverlay)formOverlay.addEventListener('click',function(e){ if(e.target===formOverlay)closeForm(); });
+
+  /* ESC closes whichever is open */
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    if(formOverlay.classList.contains('is-open'))closeForm();
+    else if(overlay.classList.contains('is-open'))closeModal();
+  });
+
+  /* If contact form posted successfully, reopen the form popup to show success */
+  {%- if form.posted_successfully? -%}
+  window.addEventListener('load',function(){ formOverlay.classList.add('is-open'); lockScroll(); });
+  {%- endif -%}
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Legends Collection",
+  "tag": "section",
+  "class": "lc-section",
+  "settings": [
+    { "type": "header", "content": "Section Header" },
+    { "type": "text", "id": "section_eyebrow",  "label": "Eyebrow Label", "default": "LEGXI × Official" },
+    { "type": "text", "id": "section_title",    "label": "Section Title", "default": "Legends Collection" },
+    { "type": "textarea", "id": "section_subtitle", "label": "Subtitle", "default": "Signed, numbered, and created in extremely limited quantities." },
+
+    { "type": "header", "content": "Products (up to 10)" },
+    { "type": "product", "id": "product_1",  "label": "Product 1"  },
+    { "type": "product", "id": "product_2",  "label": "Product 2"  },
+    { "type": "product", "id": "product_3",  "label": "Product 3"  },
+    { "type": "product", "id": "product_4",  "label": "Product 4"  },
+    { "type": "product", "id": "product_5",  "label": "Product 5"  },
+    { "type": "product", "id": "product_6",  "label": "Product 6"  },
+    { "type": "product", "id": "product_7",  "label": "Product 7"  },
+    { "type": "product", "id": "product_8",  "label": "Product 8"  },
+    { "type": "product", "id": "product_9",  "label": "Product 9"  },
+    { "type": "product", "id": "product_10", "label": "Product 10" },
+    { "type": "paragraph", "content": "Per-product metafields (Settings → Custom data → Products): custom.starting_bid (Money), custom.auction_rank (Integer), custom.auction_date (Single line text), custom.subtitle (Single line text)." },
+
+    { "type": "header", "content": "Card / Modal Buttons" },
+    { "type": "text", "id": "join_button_text",    "label": "Join Button Label", "default": "Join Now" },
+    { "type": "text", "id": "enquire_button_text", "label": "Enquire Button Label", "default": "Enquire" },
+    { "type": "text", "id": "default_date", "label": "Default Auction Date (fallback)", "default": "25 June 2026 | 12:00 pm" },
+
+    { "type": "header", "content": "Join Form Popup" },
+    { "type": "text", "id": "form_title",    "label": "Form Title", "default": "Secure Your Seat" },
+    { "type": "textarea", "id": "form_subtitle", "label": "Form Subtitle", "default": "Only 25 lots per session. Fill in your details and we'll confirm your spot before the gavel falls." },
+    { "type": "text", "id": "form_slots", "label": "Slot options (comma separated)", "default": "Slot 1,Slot 2,Slot 3" },
+    { "type": "text", "id": "form_id", "label": "Shopify/Klaviyo Form ID (optional)", "info": "If set, embeds your Forms app inline form (e.g. 1013473) instead of the built-in form. Requires the klaviyo-onsite-form snippet. Leave blank to use the built-in contact form." },
+
+    { "type": "header", "content": "WhatsApp Enquiry" },
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp Number", "info": "Country code, no spaces/symbols. Example: 919876543210", "placeholder": "919876543210" },
+    { "type": "textarea", "id": "whatsapp_message", "label": "Pre-filled Message", "default": "Hello, I'd like to enquire about a product from the Legends Collection." },
+
+    { "type": "header", "content": "Design" },
+    { "type": "color", "id": "bg_color",          "label": "Section Background", "default": "#1c1c1c" },
+    { "type": "color", "id": "accent_color",      "label": "Accent Color (rank/price/vendor)", "default": "#154e79" },
+    { "type": "color", "id": "button_color",      "label": "WhatsApp/Submit Button Color", "default": "#154e79" },
+    { "type": "color", "id": "button_text_color", "label": "Button Text Color", "default": "#ffffff" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay Darkness", "min": 50, "max": 100, "step": 2, "default": 88, "unit": "%" }
+  ],
+  "presets": [
+    { "name": "Legends Collection", "category": "Collection" }
+  ]
+}
+{% endschema %}

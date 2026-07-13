@@ -1,0 +1,128 @@
+{% layout 'theme' %}
+
+<style>
+  .afa-ty-wrap {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #f4f2ef;
+  }
+
+  .afa-ty-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 56px 40px 48px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.10);
+  }
+
+  .afa-ty-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #0d3f4b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+  }
+
+  .afa-ty-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .afa-ty-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0d3f4b;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px;
+  }
+
+  .afa-ty-sub {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 36px;
+  }
+
+  .afa-ty-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 10px;
+  }
+
+  .afa-ty-bar-bg {
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .afa-ty-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0d3f4b, #C49A18);
+    border-radius: 4px;
+  }
+
+  @media (max-width: 480px) {
+    .afa-ty-card { padding: 44px 24px 36px; }
+    .afa-ty-title { font-size: 22px; }
+  }
+</style>
+
+<div class="afa-ty-wrap">
+  <div class="afa-ty-card">
+    <div class="afa-ty-icon">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 18L14 25L29 10" stroke="#C49A18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h1 class="afa-ty-title">Thank You!</h1>
+    <p class="afa-ty-sub">
+      Your submission has been received.<br>
+      Our team will reach out to you shortly.
+    </p>
+    <p class="afa-ty-label">Returning in <span id="afa-ty-num">5</span>s</p>
+    <div class="afa-ty-bar-bg">
+      <div class="afa-ty-bar-fill" id="afa-ty-bar"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var total = 5000;
+    var elapsed = 0;
+    var interval = 100;
+    var numEl = document.getElementById('afa-ty-num');
+    var barEl = document.getElementById('afa-ty-bar');
+
+    requestAnimationFrame(function () {
+      if (barEl) {
+        barEl.style.transition = 'width 5s linear';
+        barEl.style.width = '100%';
+      }
+    });
+
+    var tick = setInterval(function () {
+      elapsed += interval;
+      var remaining = Math.ceil((total - elapsed) / 1000);
+      if (numEl) numEl.textContent = remaining > 0 ? remaining : 0;
+      if (elapsed >= total) {
+        clearInterval(tick);
+        window.location.href = 'https://legxi.co/pages/afa-x-legxi';
+      }
+    }, interval);
+  })();
+</script>

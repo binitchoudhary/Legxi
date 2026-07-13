@@ -1,0 +1,1041 @@
+{% doc %}
+  @prompt
+    auction slot carousel with date as headings. each carousel tile should zoom in as a popup on hover.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-auction-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: 40px 0;
+  }
+
+  .ai-auction-carousel__wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-auction-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.gap }}px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 20px 0;
+  }
+
+  .ai-auction-carousel__track-{{ ai_gen_id }}::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ai-auction-carousel__slot-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.slot_width }}px;
+    position: relative;
+  }
+
+  .ai-auction-carousel__date-heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.date_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.date_color }};
+    margin-bottom: 12px;
+    text-transform: {{ block.settings.date_text_transform }};
+    letter-spacing: 0.5px;
+  }
+
+  .ai-auction-carousel__tile-{{ ai_gen_id }} {
+    position: relative;
+    background-color: {{ block.settings.tile_background }};
+    border-radius: {{ block.settings.tile_border_radius }}px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-auction-carousel__tile-{{ ai_gen_id }}:hover {
+    transform: scale(1.02);
+  }
+
+  .ai-auction-carousel__image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    overflow: hidden;
+  }
+
+  .ai-auction-carousel__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-auction-carousel__image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-auction-carousel__image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-auction-carousel__content-{{ ai_gen_id }} {
+    padding: 16px;
+  }
+
+  .ai-auction-carousel__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .ai-auction-carousel__description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_font_size }}px;
+    color: {{ block.settings.description_color }};
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .ai-auction-carousel__price-{{ ai_gen_id }} {
+    font-size: {{ block.settings.price_font_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+  }
+
+  .ai-auction-carousel__popup-{{ ai_gen_id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, {{ block.settings.popup_overlay_opacity }});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+  }
+
+  .ai-auction-carousel__popup-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-auction-carousel__popup-content-{{ ai_gen_id }} {
+    background-color: {{ block.settings.popup_background }};
+    border-radius: {{ block.settings.popup_border_radius }}px;
+    max-width: {{ block.settings.popup_max_width }}px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+
+  .ai-auction-carousel__popup-{{ ai_gen_id }}.active .ai-auction-carousel__popup-content-{{ ai_gen_id }} {
+    transform: scale(1);
+  }
+
+  .ai-auction-carousel__popup-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: {{ block.settings.close_button_background }};
+    color: {{ block.settings.close_button_color }};
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: transform 0.2s ease;
+  }
+
+  .ai-auction-carousel__popup-close-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .ai-auction-carousel__popup-image-{{ ai_gen_id }} {
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    object-fit: cover;
+  }
+
+  .ai-auction-carousel__popup-body-{{ ai_gen_id }} {
+    padding: 32px;
+  }
+
+  .ai-auction-carousel__popup-date-{{ ai_gen_id }} {
+    font-size: {{ block.settings.date_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.date_color }};
+    margin-bottom: 16px;
+    text-transform: {{ block.settings.date_text_transform }};
+  }
+
+  .ai-auction-carousel__popup-title-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.title_font_size }}px * 1.5);
+    font-weight: 700;
+    color: {{ block.settings.title_color }};
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .ai-auction-carousel__popup-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_font_size }}px;
+    color: {{ block.settings.description_color }};
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .ai-auction-carousel__popup-price-{{ ai_gen_id }} {
+    font-size: calc({{ block.settings.price_font_size }}px * 1.3);
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+    margin-bottom: 24px;
+  }
+
+  .ai-auction-carousel__popup-link-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 14px 32px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-auction-carousel__popup-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+  }
+
+  .ai-auction-carousel__nav-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }} {
+    background-color: {{ block.settings.nav_button_background }};
+    color: {{ block.settings.nav_button_color }};
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_background }};
+  }
+
+  .ai-auction-carousel__nav-button-{{ ai_gen_id }} svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ai-auction-carousel__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-auction-carousel__slot-{{ ai_gen_id }} {
+      flex: 0 0 calc({{ block.settings.slot_width }}px * 0.8);
+    }
+
+    .ai-auction-carousel__popup-body-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+  }
+{% endstyle %}
+
+<auction-carousel-{{ ai_gen_id }} class="ai-auction-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% assign has_slots = false %}
+  {% for i in (1..6) %}
+    {% liquid
+      assign slot_enabled_key = 'slot_' | append: i | append: '_enabled'
+      assign slot_enabled = block.settings[slot_enabled_key]
+      if slot_enabled
+        assign has_slots = true
+        break
+      endif
+    %}
+  {% endfor %}
+
+  {% if has_slots %}
+    <div class="ai-auction-carousel__wrapper-{{ ai_gen_id }}">
+      <div class="ai-auction-carousel__track-{{ ai_gen_id }}">
+        {% for i in (1..6) %}
+          {% liquid
+            assign slot_enabled_key = 'slot_' | append: i | append: '_enabled'
+            assign slot_date_key = 'slot_' | append: i | append: '_date'
+            assign slot_image_key = 'slot_' | append: i | append: '_image'
+            assign slot_title_key = 'slot_' | append: i | append: '_title'
+            assign slot_description_key = 'slot_' | append: i | append: '_description'
+            assign slot_price_key = 'slot_' | append: i | append: '_price'
+            assign slot_link_key = 'slot_' | append: i | append: '_link'
+
+            assign slot_enabled = block.settings[slot_enabled_key]
+            assign slot_date = block.settings[slot_date_key]
+            assign slot_image = block.settings[slot_image_key]
+            assign slot_title = block.settings[slot_title_key]
+            assign slot_description = block.settings[slot_description_key]
+            assign slot_price = block.settings[slot_price_key]
+            assign slot_link = block.settings[slot_link_key]
+          %}
+
+          {% if slot_enabled %}
+            <div class="ai-auction-carousel__slot-{{ ai_gen_id }}" data-slot-index="{{ i }}">
+              <div class="ai-auction-carousel__date-heading-{{ ai_gen_id }}">
+                {{ slot_date }}
+              </div>
+              <div class="ai-auction-carousel__tile-{{ ai_gen_id }}">
+                <div class="ai-auction-carousel__image-wrapper-{{ ai_gen_id }}">
+                  {% if slot_image %}
+                    <img
+                      src="{{ slot_image | image_url: width: 800 }}"
+                      alt="{{ slot_title | escape }}"
+                      class="ai-auction-carousel__image-{{ ai_gen_id }}"
+                      loading="lazy"
+                      width="800"
+                      height="800"
+                    >
+                  {% else %}
+                    <div class="ai-auction-carousel__image-placeholder-{{ ai_gen_id }}">
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="ai-auction-carousel__content-{{ ai_gen_id }}">
+                  {% if slot_title != blank %}
+                    <div class="ai-auction-carousel__title-{{ ai_gen_id }}">{{ slot_title }}</div>
+                  {% endif %}
+                  {% if slot_description != blank %}
+                    <div class="ai-auction-carousel__description-{{ ai_gen_id }}">{{ slot_description }}</div>
+                  {% endif %}
+                  {% if slot_price != blank %}
+                    <div class="ai-auction-carousel__price-{{ ai_gen_id }}">{{ slot_price }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="ai-auction-carousel__nav-{{ ai_gen_id }}">
+        <button class="ai-auction-carousel__nav-button-{{ ai_gen_id }}" data-direction="prev" aria-label="Previous">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="ai-auction-carousel__nav-button-{{ ai_gen_id }}" data-direction="next" aria-label="Next">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="ai-auction-carousel__popup-{{ ai_gen_id }}" role="dialog" aria-modal="true">
+      <div class="ai-auction-carousel__popup-content-{{ ai_gen_id }}">
+        <button class="ai-auction-carousel__popup-close-{{ ai_gen_id }}" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="ai-auction-carousel__popup-image-wrapper-{{ ai_gen_id }}"></div>
+        <div class="ai-auction-carousel__popup-body-{{ ai_gen_id }}">
+          <div class="ai-auction-carousel__popup-date-{{ ai_gen_id }}"></div>
+          <div class="ai-auction-carousel__popup-title-{{ ai_gen_id }}"></div>
+          <div class="ai-auction-carousel__popup-description-{{ ai_gen_id }}"></div>
+          <div class="ai-auction-carousel__popup-price-{{ ai_gen_id }}"></div>
+          <a href="#" class="ai-auction-carousel__popup-link-{{ ai_gen_id }}">{{ block.settings.button_text }}</a>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="ai-auction-carousel__empty-state-{{ ai_gen_id }}">
+      Next, enable auction slots and add content
+    </div>
+  {% endif %}
+</auction-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AuctionCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.track = this.querySelector('.ai-auction-carousel__track-{{ ai_gen_id }}');
+        this.popup = this.querySelector('.ai-auction-carousel__popup-{{ ai_gen_id }}');
+        this.tiles = this.querySelectorAll('.ai-auction-carousel__tile-{{ ai_gen_id }}');
+        this.navButtons = this.querySelectorAll('.ai-auction-carousel__nav-button-{{ ai_gen_id }}');
+        this.closeButton = this.querySelector('.ai-auction-carousel__popup-close-{{ ai_gen_id }}');
+        
+        this.slots = [
+          {% for i in (1..6) %}
+            {% liquid
+              assign slot_enabled_key = 'slot_' | append: i | append: '_enabled'
+              assign slot_date_key = 'slot_' | append: i | append: '_date'
+              assign slot_image_key = 'slot_' | append: i | append: '_image'
+              assign slot_title_key = 'slot_' | append: i | append: '_title'
+              assign slot_description_key = 'slot_' | append: i | append: '_description'
+              assign slot_price_key = 'slot_' | append: i | append: '_price'
+              assign slot_link_key = 'slot_' | append: i | append: '_link'
+
+              assign slot_enabled = block.settings[slot_enabled_key]
+            %}
+            {% if slot_enabled %}
+              {
+                date: {{ block.settings[slot_date_key] | json }},
+                image: {{ block.settings[slot_image_key] | image_url: width: 1200 | json }},
+                title: {{ block.settings[slot_title_key] | json }},
+                description: {{ block.settings[slot_description_key] | json }},
+                price: {{ block.settings[slot_price_key] | json }},
+                link: {{ block.settings[slot_link_key] | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {% endif %}
+          {% endfor %}
+        ];
+      }
+
+      connectedCallback() {
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.tiles.forEach((tile, index) => {
+          tile.addEventListener('click', () => this.openPopup(index));
+        });
+
+        this.navButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const direction = button.getAttribute('data-direction');
+            this.scroll(direction);
+          });
+        });
+
+        if (this.closeButton) {
+          this.closeButton.addEventListener('click', () => this.closePopup());
+        }
+
+        if (this.popup) {
+          this.popup.addEventListener('click', (e) => {
+            if (e.target === this.popup) {
+              this.closePopup();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.popup.classList.contains('active')) {
+            this.closePopup();
+          }
+        });
+      }
+
+      openPopup(index) {
+        const slot = this.slots[index];
+        if (!slot) return;
+
+        const imageWrapper = this.popup.querySelector('.ai-auction-carousel__popup-image-wrapper-{{ ai_gen_id }}');
+        const dateEl = this.popup.querySelector('.ai-auction-carousel__popup-date-{{ ai_gen_id }}');
+        const titleEl = this.popup.querySelector('.ai-auction-carousel__popup-title-{{ ai_gen_id }}');
+        const descriptionEl = this.popup.querySelector('.ai-auction-carousel__popup-description-{{ ai_gen_id }}');
+        const priceEl = this.popup.querySelector('.ai-auction-carousel__popup-price-{{ ai_gen_id }}');
+        const linkEl = this.popup.querySelector('.ai-auction-carousel__popup-link-{{ ai_gen_id }}');
+
+        if (slot.image) {
+          imageWrapper.innerHTML = `<img src="${slot.image}" alt="${slot.title}" class="ai-auction-carousel__popup-image-{{ ai_gen_id }}">`;
+        } else {
+          imageWrapper.innerHTML = '';
+        }
+
+        dateEl.textContent = slot.date || '';
+        titleEl.textContent = slot.title || '';
+        descriptionEl.textContent = slot.description || '';
+        priceEl.textContent = slot.price || '';
+        linkEl.href = slot.link || '#';
+
+        this.popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closePopup() {
+        this.popup.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      scroll(direction) {
+        const scrollAmount = this.track.offsetWidth * 0.8;
+        if (direction === 'next') {
+          this.track.scrollLeft += scrollAmount;
+        } else {
+          this.track.scrollLeft -= scrollAmount;
+        }
+      }
+    }
+
+    customElements.define('auction-carousel-{{ ai_gen_id }}', AuctionCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Auction slot carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "slot_width",
+      "label": "Slot width",
+      "min": 200,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between slots",
+      "min": 10,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "1/1", "label": "Square" },
+        { "value": "4/3", "label": "Landscape" },
+        { "value": "3/4", "label": "Portrait" },
+        { "value": "16/9", "label": "Wide" }
+      ],
+      "default": "3/4"
+    },
+    {
+      "type": "header",
+      "content": "Date heading"
+    },
+    {
+      "type": "range",
+      "id": "date_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "select",
+      "id": "date_text_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Tile style"
+    },
+    {
+      "type": "color",
+      "id": "tile_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "tile_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Description size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "price_font_size",
+      "label": "Price size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "header",
+      "content": "Popup style"
+    },
+    {
+      "type": "range",
+      "id": "popup_overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.8
+    },
+    {
+      "type": "color",
+      "id": "popup_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "popup_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "popup_max_width",
+      "label": "Max width",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "close_button_background",
+      "label": "Close button background",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "close_button_color",
+      "label": "Close button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View auction"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Background",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_background",
+      "label": "Button background",
+      "default": "#1c1c1c"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Button color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_background",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Slot 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_1_enabled",
+      "label": "Enable slot 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "slot_1_date",
+      "label": "Date",
+      "default": "May 30, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_title",
+      "label": "Title",
+      "default": "Auction item 1"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_1_description",
+      "label": "Description",
+      "default": "Limited edition collectible"
+    },
+    {
+      "type": "text",
+      "id": "slot_1_price",
+      "label": "Starting price",
+      "default": "₹10,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_2_enabled",
+      "label": "Enable slot 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "slot_2_date",
+      "label": "Date",
+      "default": "May 31, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_title",
+      "label": "Title",
+      "default": "Auction item 2"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_2_description",
+      "label": "Description",
+      "default": "Signed memorabilia"
+    },
+    {
+      "type": "text",
+      "id": "slot_2_price",
+      "label": "Starting price",
+      "default": "₹15,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_3_enabled",
+      "label": "Enable slot 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "slot_3_date",
+      "label": "Date",
+      "default": "June 1, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_title",
+      "label": "Title",
+      "default": "Auction item 3"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_3_description",
+      "label": "Description",
+      "default": "Premium collectible"
+    },
+    {
+      "type": "text",
+      "id": "slot_3_price",
+      "label": "Starting price",
+      "default": "₹20,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_4_enabled",
+      "label": "Enable slot 4",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "slot_4_date",
+      "label": "Date",
+      "default": "June 2, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_title",
+      "label": "Title",
+      "default": "Auction item 4"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_4_description",
+      "label": "Description",
+      "default": "Exclusive item"
+    },
+    {
+      "type": "text",
+      "id": "slot_4_price",
+      "label": "Starting price",
+      "default": "₹25,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_4_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_5_enabled",
+      "label": "Enable slot 5",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "slot_5_date",
+      "label": "Date",
+      "default": "June 3, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_title",
+      "label": "Title",
+      "default": "Auction item 5"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_5_description",
+      "label": "Description",
+      "default": "Rare collectible"
+    },
+    {
+      "type": "text",
+      "id": "slot_5_price",
+      "label": "Starting price",
+      "default": "₹30,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_5_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slot 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "slot_6_enabled",
+      "label": "Enable slot 6",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "slot_6_date",
+      "label": "Date",
+      "default": "June 4, 2026"
+    },
+    {
+      "type": "image_picker",
+      "id": "slot_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_title",
+      "label": "Title",
+      "default": "Auction item 6"
+    },
+    {
+      "type": "textarea",
+      "id": "slot_6_description",
+      "label": "Description",
+      "default": "Special edition"
+    },
+    {
+      "type": "text",
+      "id": "slot_6_price",
+      "label": "Starting price",
+      "default": "₹35,000"
+    },
+    {
+      "type": "url",
+      "id": "slot_6_link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Auction slot carousel"
+    }
+  ]
+}
+{% endschema %}

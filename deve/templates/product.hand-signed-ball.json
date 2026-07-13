@@ -1,0 +1,396 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h3"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "inventory_n9BeEm": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "modal_6G837j": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "Delivery & Return",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#000000",
+            "modal_title": "Delivery",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.</p><h5>Returns</h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.</p><h5>Help</h5><p>Reach out to us if you have any other questions and/or concerns.</p><p>Email: <a href=\"https://legxi.co/products/reach@legxi.co\">reach@legxi.co</a></p><p>Phone: +91 88475 79634</p>",
+            "modal_size": "sm"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "outline",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "button_Knr8yi": {
+          "type": "button",
+          "settings": {
+            "link": "https://legxi.co/checkouts/cn/hWN4GSVx0XeEgmwZ6bAZnVvG/en-in?preview_theme_id=146608160942",
+            "text": "Pre-Book now",
+            "style": "solid",
+            "stretch": true,
+            "background": "",
+            "text_color": ""
+          }
+        },
+        "offers_ri4j66": {
+          "type": "offers",
+          "settings": {
+            "layout": "stacked",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify://shop_images/shipping.png",
+            "offer_1_icon_width": 20,
+            "offer_1_subheading": "Free Shipping!",
+            "offer_1_content": "only on prepaid orders",
+            "offer_1_background": "#eef3fd",
+            "offer_1_text_color": "#003db5",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "price",
+        "rating",
+        "inventory_n9BeEm",
+        "payment_terms",
+        "separator",
+        "description",
+        "modal_6G837j",
+        "variant_picker",
+        "button_Knr8yi",
+        "offers_ri4j66"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "transparent_header_use_primary_colors": true,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 51,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_over",
+        "mobile_controls": "thumbnails",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "settings": {
+            "text": "Welcome to our shop",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "settings": {
+            "text": "Discover our products",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "media_blocks_FHJYXA": {
+      "type": "media-blocks",
+      "blocks": {
+        "image_with_text_zGBm8U": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "image": "shopify://shop_images/ball-showcase_4e8b5e2b-e299-44c5-ab75-edf5a2fdb19a.jpg",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "middle_center",
+            "subheading": "",
+            "subheading_position": "bottom_left",
+            "title": "Only #200 pieces worldwide",
+            "heading_tag": "h5",
+            "heading_position": "bottom_left",
+            "scrolling_title": false,
+            "scrolling_title_separator": "none",
+            "show_text_vertically": false,
+            "text": "",
+            "text_position": "bottom_left",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        },
+        "image_with_text_MMUbm7": {
+          "type": "image_with_text",
+          "settings": {
+            "change_color_scheme_on_hover": false,
+            "color_scheme": "",
+            "color_scheme_hover": "",
+            "icon": "none",
+            "icon_width": 32,
+            "mobile_icon_width": 24,
+            "icon_position": "middle_center",
+            "subheading": "Media 2",
+            "subheading_position": "middle_center",
+            "title": "",
+            "heading_tag": "h4",
+            "heading_position": "middle_center",
+            "scrolling_title": false,
+            "scrolling_title_separator": "none",
+            "show_text_vertically": false,
+            "text": "<p>Share some content about your store</p>",
+            "text_position": "middle_center",
+            "button_style": "solid",
+            "link_url": "",
+            "link_text": "",
+            "link_position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_zGBm8U",
+        "image_with_text_MMUbm7"
+      ],
+      "name": "t:sections.media_blocks.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "h4",
+        "text_alignment": "left",
+        "scrolling_title": false,
+        "scrolling_title_separator": "circle",
+        "stack_on_mobile": true,
+        "add_horizontal_spacing": false,
+        "add_border": true,
+        "column_spacing": "none",
+        "items_per_row": 2,
+        "block_size": "auto"
+      }
+    },
+    "text_with_media_HF6tih": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_3jwBWY": {
+          "type": "subheading",
+          "settings": {
+            "text": "BESPOKE FEATURES",
+            "position": "top_center"
+          }
+        },
+        "heading_iemj6T": {
+          "type": "heading",
+          "settings": {
+            "text": "AS02 & Punjab <em>Initials</em>",
+            "heading_tag": "h1",
+            "position": "middle_center",
+            "highlight_effect": "marker",
+            "highlight_accent_color": "#b21616",
+            "highlight_text_color": "#ffffff"
+          }
+        },
+        "richtext_EYHnH6": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Use text to showcase product features or to create a unique atmosphere on your store.</p>",
+            "position": "bottom_center"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_3jwBWY",
+        "heading_iemj6T",
+        "richtext_EYHnH6"
+      ],
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_position": "start",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify://shop_images/edition-caution.jpg",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "text_with_icons_FtJgTV": {
+      "type": "text-with-icons",
+      "blocks": {
+        "item_4E7BMT": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-measure",
+            "title": "6-panel design",
+            "heading_tag": "h3",
+            "content": "<p>Ensuring comfort</p>"
+          }
+        },
+        "item_EUXNrD": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-sparkle",
+            "title": "Ivory base",
+            "heading_tag": "h3",
+            "content": "<p>defining elegance</p>"
+          }
+        },
+        "item_mHe9BG": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-checked",
+            "title": "Bold red brim",
+            "heading_tag": "h3",
+            "content": "<p>Radiating confidence</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_4E7BMT",
+        "item_EUXNrD",
+        "item_mHe9BG"
+      ],
+      "name": "t:sections.text_with_icons.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "heading_tag": "display-m",
+        "text_alignment": "center",
+        "items_per_row_desktop": 3,
+        "stack_on_mobile": true,
+        "separator_style": "vertical",
+        "icon_position": "stacked",
+        "icon_width": 40,
+        "mobile_icon_width": 32,
+        "item_text_alignment": "left"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "scrolling_content_EPB3cB",
+    "media_blocks_FHJYXA",
+    "text_with_media_HF6tih",
+    "text_with_icons_FtJgTV"
+  ]
+}

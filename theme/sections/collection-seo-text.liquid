@@ -1,0 +1,150 @@
+{%- comment -%}
+Collection SEO text — handle-specific indexable descriptions below the product grid.
+Renders only for the 5 target collections; outputs nothing for all others.
+{%- endcomment -%}
+
+{%- liquid
+  case collection.handle
+    when 'cricket-signed-collectibles', 'hand-signed-products', 'bespoke-edition', 'afa-signed-collectibles', 'limited-edition-cricket-posters'
+      assign _lgx_render_seo = true
+    else
+      assign _lgx_render_seo = false
+  endcase
+-%}
+
+{%- if _lgx_render_seo -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 64px 0 80px;
+    background: #f7f6f4;
+    color: #2a2a2a;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+    font-size: 0.9375rem;
+    line-height: 1.82;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner h2 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #1c1c1c;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner h3 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 28px 0 12px;
+    color: #1c1c1c;
+    opacity: 0.65;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner p {
+    margin-bottom: 14px;
+    color: #444;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner ul {
+    margin: 12px 0 16px 20px;
+    color: #444;
+  }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner li { margin-bottom: 7px; }
+  #shopify-section-{{ section.id }} .lgx-cseo-inner strong { color: #1c1c1c; font-weight: 600; }
+</style>
+
+<div>
+  <div class="lgx-cseo-inner">
+    {%- case collection.handle -%}
+
+      {%- when 'cricket-signed-collectibles' -%}
+        <h2>About Our Signed Cricket Collectibles</h2>
+        <p>Cricket has a way of freezing time — a perfect cover drive, a match-winning spell, a world-championship celebration that an entire nation watched with held breath. LEGXI's signed cricket collectibles give you a permanent, tangible connection to those moments.</p>
+        <p>Every item in this collection has been signed by the featured cricketer in a managed, witnessed signing session. From championship cricket balls to hand-signed limited-edition framed artwork, each piece carries the weight of real sporting history — not a reproduction, not a facsimile, but an actual artefact touched and signed by the athlete themselves.</p>
+        <h3>What You'll Find Here</h3>
+        <ul>
+          <li><strong>Signed cricket balls</strong> — Official match or commemorative balls, hand-signed and enclosed in display capsules</li>
+          <li><strong>Signed artwork and prints</strong> — High-quality artworks depicting iconic cricket moments, autographed in person by the featured cricketer</li>
+          <li><strong>Signed jerseys</strong> — Authentic team jerseys bearing a hand-inked signature from the player</li>
+        </ul>
+        <p>Every signed cricket collectible from LEGXI ships with a Certificate of Authenticity that includes the cricketer's name, the date of signing, and a unique item reference code verifiable through the LEGXI Authentication Portal.</p>
+        <h3>Why Collect Signed Cricket Memorabilia</h3>
+        <p>Signed cricket memorabilia represents one of India's most enduring collector markets. Limited-edition pieces tied to specific tournaments or personal milestones appreciate significantly over time, particularly those connected to record-breaking individual or team achievements. LEGXI works directly with cricketers and their management teams — every signing session is conducted ethically, with full athlete consent and no third-party intermediaries.</p>
+
+      {%- when 'hand-signed-products' -%}
+        <h2>About Our Hand-Signed Products</h2>
+        <p>The difference between a print and a hand-signed original is not just physical — it is the direct, unbroken human connection between the athlete and the object. Every item in LEGXI's Hand-Signed Products collection carries a live signature, applied by the featured athlete in a controlled, documented signing session.</p>
+        <p>Hand-signing is the gold standard of sports memorabilia authentication. Unlike pre-printed or auto-signed items, a hand-signed product requires the athlete to be physically present and to personally apply their signature. LEGXI's entire hand-signed range has met this standard without exception.</p>
+        <h3>Formats Available</h3>
+        <ul>
+          <li>Signed sports balls — cricket and football</li>
+          <li>Signed framed artwork and custom prints</li>
+          <li>Signed official jerseys and kits</li>
+          <li>Signed bespoke collector pieces</li>
+        </ul>
+        <p>Each hand-signed item is sealed with a tamper-evident Certificate of Authenticity card, photographically documented, and registered in LEGXI's verification database. Buyers can confirm authenticity at any time through the LEGXI Authentication Portal using the unique item code printed on their certificate.</p>
+        <h3>The LEGXI Signing Process</h3>
+        <p>LEGXI arranges exclusive signing sessions directly with athletes or through official partnerships. Items are presented to the athlete, signed individually, and the entire session is documented at every stage. This chain of custody — from blank item to signed collectible to your hands — is the foundation of LEGXI's authentication guarantee. All hand-signed products ship fully insured across India, arriving in collector-ready condition.</p>
+
+      {%- when 'bespoke-edition' -%}
+        <h2>About the Bespoke Edition</h2>
+        <p>Some moments in sport transcend statistics. They become part of culture, part of collective memory, part of who we are as fans. The LEGXI Bespoke Edition collection honours those moments with custom-crafted, one-of-a-kind signed collectibles designed as much for display as for reverence.</p>
+        <p>Each Bespoke Edition piece begins with a concept — a significant match, a career milestone, a cultural crossover — developed in close collaboration with the featured athlete. The final artefact may be a framed mixed-media artwork, a specially crafted display piece, or a hand-finished limited print series. Every piece carries one defining characteristic: the athlete's genuine hand-applied signature.</p>
+        <h3>What Makes Bespoke Edition Unique</h3>
+        <ul>
+          <li><strong>Co-created with the athlete</strong> — each piece's concept is developed with athlete input</li>
+          <li><strong>Extremely limited runs</strong> — typically 25 to 100 pieces per edition, individually numbered</li>
+          <li><strong>Collector-grade materials</strong> — archival paper, museum-quality framing, fade-resistant inks</li>
+          <li><strong>Full provenance documentation</strong> — COA, signing photographs, edition certificate</li>
+        </ul>
+        <p>The LEGXI Bespoke Edition is designed for serious collectors who want something beyond a standard signed item — a complete artistic statement with unimpeachable provenance. LEGXI's Ownership Transfer System means your Bespoke Edition can be registered in your name and re-registered if gifted or resold, maintaining an unbroken, verifiable provenance record for the lifetime of the piece.</p>
+
+      {%- when 'afa-signed-collectibles' -%}
+        <h2>About Our AFA Signed Collectibles</h2>
+        <p>Argentina's football legacy is one of the most celebrated in the world — from Diego Maradona to the current generation that brought the FIFA World Cup home in 2022. LEGXI's AFA Signed Collectibles collection is the only officially licensed range of Argentine Football Association memorabilia available in India.</p>
+        <p>Every piece in this collection is produced under licence from the Argentine Football Association (AFA) and features hand-signed items from squad members of the 2022 FIFA World Cup winning team and current AFA-affiliated athletes. These are not unofficial replicas — they are licensed, authenticated signed collectibles with full AFA provenance.</p>
+        <h3>Highlights of the AFA Collection</h3>
+        <ul>
+          <li><strong>AFA official jerseys</strong> — Replica and match jerseys carrying hand-applied player signatures</li>
+          <li><strong>Signed footballs</strong> — Official-spec footballs signed by squad members</li>
+          <li><strong>World Cup framed prints</strong> — Limited commemorative artworks documenting the 2022 triumph</li>
+          <li><strong>Bespoke AFA editions</strong> — Custom collector pieces developed in partnership with AFA</li>
+        </ul>
+        <p>LEGXI is the exclusive Indian partner for AFA memorabilia, which means every item purchased here carries the backing of the association itself. Certificates of Authenticity are dual-verified — once by LEGXI and once under AFA licensing protocol — giving collectors an unmatched level of confidence.</p>
+        <p>Argentina's current footballing generation is considered one of the greatest in history. Memorabilia from this era — particularly World Cup-linked pieces signed by squad members — carries historic significance that only grows with time. If you are looking for Argentine football memorabilia in India, LEGXI is the definitive source.</p>
+
+      {%- when 'limited-edition-cricket-posters' -%}
+        <h2>About Our Limited Edition Cricket Posters</h2>
+        <p>Cricket's greatest stories deserve to be told in full colour, permanently, and on your wall. LEGXI's Limited Edition Cricket Posters bring together striking sports artwork, meticulous print quality, and athlete authentication to create display pieces that are as collectible as they are beautiful.</p>
+        <p>Each print is produced in a numbered limited edition — typically 50 to 150 copies globally — on archival-grade paper using museum-quality inks designed to resist fading for decades. Every print is then signed by the featured cricketer at a managed LEGXI signing session, transforming a fine-art piece into a certified collectible.</p>
+        <h3>What Defines a LEGXI Cricket Poster</h3>
+        <ul>
+          <li><strong>Numbered edition</strong> — your copy carries its unique edition number (e.g. 37/100)</li>
+          <li><strong>Hand-signed</strong> — the featured cricketer has personally autographed each print</li>
+          <li><strong>Archival quality</strong> — acid-free, UV-resistant materials for lasting display</li>
+          <li><strong>COA included</strong> — Certificate of Authenticity documents print number, cricketer, and signing date</li>
+        </ul>
+        <p>Themes in the collection include iconic match moments, personal milestones, team triumphs, and artistic interpretations of cricket's most dramatic scenes. New prints are released in limited drops tied to significant cricketing events. Once an edition sells out, secondary-market demand for numbered prints with confirmed athlete authentication consistently exceeds original retail — making these pieces strong collector investments as well as striking works of sports art.</p>
+        <p>All prints ship across India rolled in protective tubes or flat-packed in rigid mailers, arriving in display-ready condition.</p>
+
+    {%- endcase -%}
+  </div>
+</div>
+
+{%- endif -%}
+
+{%- schema -%}
+{
+  "name": "Collection SEO Text",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection SEO Text"
+    }
+  ]
+}
+{%- endschema -%}

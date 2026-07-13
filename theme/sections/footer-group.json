@@ -1,0 +1,118 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "trust-icons": {
+      "type": "trust-icons",
+      "blocks": {
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-earth",
+            "icon_width": 24,
+            "mobile_icon_width": 20,
+            "title": "Worldwide delivery",
+            "content": "Get your order delivered anywhere across the globe."
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-shipping-protection",
+            "icon_width": 24,
+            "mobile_icon_width": 20,
+            "title": "100% Secure shipping",
+            "content": "Every order is processed with care and shipped fully insured."
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-checked",
+            "icon_width": 24,
+            "mobile_icon_width": 20,
+            "title": "Certified Collectibles",
+            "content": "All collectible items comes with a certificate of authentication."
+          }
+        },
+        "item-4": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-magnifying-glass",
+            "icon_width": 24,
+            "mobile_icon_width": 20,
+            "title": "Expert Advice",
+            "content": "Connect with us on WhatsApp for bespoke guidance."
+          }
+        }
+      },
+      "block_order": [
+        "item-1",
+        "item-2",
+        "item-3",
+        "item-4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "item_heading_style": "subheading"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "forms_inline_4JfGm3": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "818765",
+            "text_color": "#ffffff",
+            "button_background_color": "#1878b9",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "left",
+            "form_alignment": "flex-start",
+            "padding_top": 0,
+            "padding_bottom": 17,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-1st",
+            "collapse_on_mobile": true,
+            "show_menu_title": false,
+            "menu_title": ""
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "title": "WHAT WE STAND FOR",
+            "content": "<p>Every LEGXI product is officially registered and protected under copyright law. Any unauthorized reproduction, duplication, or commercial use will constitute a legal infringement and may result in strict legal and commercial penalties.<br\/><br\/>BY <strong>LEGXI ORIGINALS PRIVATE LIMITED<\/strong><\/p>",
+            "enable_follow_on_shop": true
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_4JfGm3",
+        "links",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "show_social_media": true,
+        "show_payment_icons": true,
+        "show_country_selector": false,
+        "show_country_name": true,
+        "show_country_flag": true,
+        "show_locale_selector": false
+      }
+    }
+  },
+  "order": [
+    "trust-icons",
+    "footer"
+  ]
+}

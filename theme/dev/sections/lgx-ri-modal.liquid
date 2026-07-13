@@ -1,0 +1,142 @@
+{%- if section.blocks.size > 0 -%}
+
+<div id="lgx-ri-modal-overlay"
+     role="dialog"
+     aria-modal="true"
+     aria-hidden="true"
+     aria-label="{{ section.settings.title | default: 'Register Interest' | escape }}">
+  <div class="lgx-ri-modal__backdrop"></div>
+  <div class="lgx-ri-modal__box">
+    <button class="lgx-ri-modal__close" aria-label="Close">&times;</button>
+    {%- if section.settings.title != blank -%}
+      <p class="lgx-ri-modal__title">{{ section.settings.title }}</p>
+    {%- endif -%}
+    <div class="lgx-ri-modal__content">
+      {%- for block in section.blocks -%}
+        {%- render block -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  #lgx-ri-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+  }
+  #lgx-ri-modal-overlay.lgx-ri-modal--open {
+    display: flex;
+  }
+  .lgx-ri-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+  }
+  .lgx-ri-modal__box {
+    position: relative;
+    background: #fdf8f0;
+    border: 1px solid #c9a96e;
+    border-radius: 6px;
+    padding: 2rem 1.75rem 1.75rem;
+    max-width: 480px;
+    width: calc(100% - 2rem);
+    max-height: 90svh;
+    overflow-y: auto;
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+  .lgx-ri-modal__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #c9a96e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  .lgx-ri-modal__close:hover {
+    background: rgba(201, 169, 110, 0.15);
+  }
+  .lgx-ri-modal__title {
+    font-family: var(--heading-font-family, serif);
+    font-size: 1.1rem;
+    color: #c9a96e;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+    padding-right: 2rem;
+  }
+</style>
+
+<script>
+(function() {
+  var overlay = document.getElementById('lgx-ri-modal-overlay');
+  if (!overlay) return;
+
+  function openModal() {
+    overlay.classList.add('lgx-ri-modal--open');
+    overlay.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('lgx-ri-modal--open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-lgx-ri-form]')) {
+      openModal();
+      return;
+    }
+    if (e.target.matches('.lgx-ri-modal__backdrop') || e.target.closest('.lgx-ri-modal__close')) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+})();
+</script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Register Interest Modal",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Modal Title",
+      "default": "Register Your Interest"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Register Interest Modal"
+    }
+  ]
+}
+{% endschema %}

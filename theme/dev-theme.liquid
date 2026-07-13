@@ -1,0 +1,350 @@
+<!doctype html>
+
+<html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+    <!-- Gokwik theme code start -->
+
+
+<link rel="dns-prefetch" href="https://pdp.gokwik.co/">
+<link rel="dns-prefetch" href="https://sandbox.pdp.gokwik.co">
+<link rel="dns-prefetch" href="https://api.gokwik.co">
+<link rel="dns-prefetch" href="https://t.contentsquare.net">
+<link rel="preconnect" href="https://t.contentsquare.net" crossorigin>
+<link rel="dns-prefetch" href="https://checkout-merchant.snapmint.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+{% render 'gokwik' %}
+<!-- Gokwik theme code End -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0">
+
+    <title>
+      {%- if request.page_type == 'index' -%}
+        {{ shop.name }} &mdash; Premium Authenticated Sports Memorabilia | Signed Jerseys &amp; Collectibles
+      {%- elsif page_title == blank -%}
+        {{ shop.name }}
+      {%- elsif page_title contains shop.name -%}
+        {{ page_title }}{%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{%- endif -%}
+      {%- else -%}
+        {{ page_title }} | {{ shop.name }}{%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{%- endif -%}
+      {%- endif -%}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- elsif request.page_type == 'index' -%}
+      <meta name="description" content="Shop premium authenticated sports memorabilia at LEGXI &mdash; AFA signed jerseys, limited edition collectibles &amp; athlete autographs. Certificate of Authenticity included. Free shipping India.">
+    {%- elsif request.page_type == 'product' -%}
+      <meta name="description" content="{{ product.title | escape }} &mdash; Authenticated limited edition sports collectible by LEGXI. Certificate of Authenticity included. Free insured shipping across India.">
+    {%- elsif request.page_type == 'collection' -%}
+      <meta name="description" content="Shop {{ collection.title | escape }} at LEGXI &mdash; premium authenticated sports memorabilia. Limited edition signed collectibles with Certificate of Authenticity. Free shipping India.">
+    {%- elsif request.page_type == 'article' -%}
+      {%- assign article_seo_desc = article.excerpt | strip_html | truncate: 145 | default: article.title -%}
+      <meta name="description" content="{{ article_seo_desc | escape }} | LEGXI &mdash; Authenticated Sports Memorabilia &amp; Collectibles.">
+    {%- elsif request.page_type == 'blog' -%}
+      <meta name="description" content="{{ blog.title | escape }} &mdash; LEGXI blog covering authenticated sports memorabilia, collector insights, athlete autographs &amp; limited edition collectibles.">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- assign noindex_handles = 'registration-form,giveaway-quiz,data-sharing-opt-out,kp-account,authentication' | split: ',' -%}
+    {%- if request.page_type == 'page' and noindex_handles contains page.handle or request.page_type == 'search' or request.page_type == 'cart' or request.page_type == '404' -%}
+      <meta name="robots" content="noindex, nofollow">
+    {%- else -%}
+      <meta name="robots" content="index, follow">
+    {%- endif -%}
+
+    <link rel="alternate" hreflang="{{ request.locale.iso_code }}" href="{{ canonical_url }}">
+    <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+    {%- endif -%}
+
+    {%- unless settings.heading_font.system? -%}
+      <link rel="preload" href="{{ settings.heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- unless settings.text_font.system? -%}
+      <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Wallpoet&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Wallpoet&display=swap" rel="stylesheet"></noscript>
+
+    {%- render 'social-meta-tags' -%}
+    {%- render 'microdata-schema' -%}
+    {%- render 'css-variables' -%}
+    {%- render 'js-variables' -%}
+
+    {%- if request.page_type == 'gift_card' -%}
+      <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+
+    <script type="importmap">
+      {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+<script async src="https://t.contentsquare.net/uxa/136fa8c9d3f3e.js"></script>
+
+    <link rel="modulepreload" href="{{ 'vendor.min.js' | asset_url }}">
+    <link rel="modulepreload" href="{{ 'theme.js' | asset_url }}">
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+
+    {{ content_for_header }}
+
+    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+  </head>
+
+  {% liquid
+    assign features_class = ''
+
+    if settings.image_hover_animation == 'zoom'
+      assign features_class = features_class | append: 'features--zoom-image '
+    elsif settings.image_hover_animation == 'zoom_filter'
+      assign features_class = features_class | append: 'features--zoom-filter-image '
+    endif
+  %}
+
+  <body class="{{ features_class }}">
+<style>
+@keyframes lgxticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== TOP MOVING BAR (BIGGER) ===== */
+#lgx-ipl-bar {
+  background: #0A1628;
+  border-bottom: 1px solid rgba(201,168,76,.2);
+  height: 42px; /* increased */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+#lgx-ipl-track {
+  display: flex;
+  white-space: nowrap;
+  animation: lgxticker 20s linear infinite;
+}
+
+.lgx-msg {
+  font-family: sans-serif;
+  font-size: 11px; /* increased */
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.95);
+  padding-right: 80px;
+}
+
+.lgx-msg strong {
+  color: #FFD700;
+  font-weight: 600;
+}
+
+.lgx-dot {
+  color: #C9A84C;
+  padding: 0 8px;
+}
+
+/* ===== SECOND BAR ===== */
+#lgx-static-bar {
+  background: #1c1c1c;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 42px; /* updated */
+  left: 0;
+  width: 100%;
+  z-index: 9998;
+
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* ===== HEADER BALANCE (CRITICAL) ===== */
+.shopify-section-header {
+  padding-top: 52px; /* NOT 70+ */
+}
+</style>
+    {%- render 'shadow-dom-templates' -%}
+
+    <loading-bar class="loading-bar" aria-hidden="true"></loading-bar>
+
+    <a href="#main" allow-hash-change class="skip-to-content sr-only">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <span id="header-scroll-tracker" style="position: absolute; width: 1px; height: 1px; top: 200px; left: 0;">
+      {%- comment -%}
+        This allows our theme to track when the user has scrolled a given amount of pixels, without relying on a global scroll listener. This helps
+        to improve performance and reduce reflows.
+      {%- endcomment -%}
+    </span>
+    
+    {%- if request.page_type != 'password' -%}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+    {%- endif -%}
+
+    <main id="main" class="anchor">
+      {{ content_for_layout }}
+    </main>
+
+    {%- if request.page_type != 'password' -%}
+      {%- sections 'footer-group' -%}
+    {%- endif -%}
+
+   <x-toast class="toast">
+      {% comment %}Container for notification messages; DO NOT DELETE{% endcomment %}
+    </x-toast>
+
+{% if template == 'product' %}
+<script>
+(function() {
+  function run() {
+    var picker = document.querySelector('variant-picker');
+    if (!picker) return false;
+
+    var editionFieldset = picker.querySelector('[data-edition-fieldset="true"]');
+    var framingFieldset = null;
+
+    // Find framing fieldset (the one that is NOT edition)
+    var allFieldsets = picker.querySelectorAll('fieldset[data-option-name]');
+    allFieldsets.forEach(function(fs) {
+      var name = fs.getAttribute('data-option-name') || '';
+      if (name.indexOf('edition') === -1) {
+        framingFieldset = fs;
+      }
+    });
+
+    if (!editionFieldset || !framingFieldset) {
+      console.warn('[LEGXI] Fieldsets not found. Retrying...');
+      return false;
+    }
+
+    // Inject notice once
+    if (!document.getElementById('legxi-poster-notice')) {
+      var notice = document.createElement('p');
+      notice.id = 'legxi-poster-notice';
+      notice.style.cssText = [
+        'display:none',
+        'background:#f0f4ff',
+        'border-left:3px solid #004195',
+        'padding:10px 14px',
+        'font-size:12px',
+        'color:#555',
+        'margin-top:8px',
+        'border-radius:4px',
+        'font-family:inherit'
+      ].join(';');
+      notice.textContent = '✦ Edition selection is available only for Framed. Poster orders receive a system-assigned edition number.';
+      editionFieldset.insertAdjacentElement('afterend', notice);
+    }
+
+    function getSelectedFramingValue() {
+      // Read the checked radio input inside the framing fieldset
+      var checkedInput = framingFieldset.querySelector('input[type="radio"]:checked');
+      if (checkedInput) {
+        // Get the label text for this input
+        var label = framingFieldset.querySelector('label[for="' + checkedInput.id + '"]');
+        if (label) return label.textContent.trim().toLowerCase();
+        return checkedInput.value.toLowerCase();
+      }
+      // Fallback: read the displayed button text (dropdown style)
+      var btn = framingFieldset.querySelector('button.select span');
+      return btn ? btn.textContent.trim().toLowerCase() : '';
+    }
+
+    function update() {
+      var val = getSelectedFramingValue();
+      var isPoster = val.indexOf('poster') !== -1;
+      var notice = document.getElementById('legxi-poster-notice');
+
+      editionFieldset.style.display = isPoster ? 'none' : '';
+      if (notice) notice.style.display = isPoster ? 'block' : 'none';
+
+      console.log('[LEGXI] Selected framing: "' + val + '" | hiding edition: ' + isPoster);
+    }
+
+    // Watch for any radio change inside the picker
+    picker.addEventListener('change', function(e) {
+      if (e.target && e.target.name && e.target.name.indexOf('option1') !== -1) {
+        setTimeout(update, 50);
+      }
+    });
+
+    // Also watch button text updates (dropdown popover closes and updates span)
+    new MutationObserver(function() {
+      setTimeout(update, 80);
+    }).observe(framingFieldset, {
+      subtree: true,
+      characterData: true,
+      childList: true
+    });
+
+    update();
+    console.log('[LEGXI] Initialized with data-attribute selectors.');
+    return true;
+  }
+
+  var tries = 0;
+  var timer = setInterval(function() {
+    tries++;
+    if (run() || tries > 20) clearInterval(timer);
+  }, 300);
+})();
+</script>
+{% endif %}
+<!-- Begin Shopify–payment-cart JavaScript -->
+<script type="text/javascript">
+
+  var mid = '9135';
+
+</script>
+<script src="https://checkout-merchant.snapmint.com/js/v1/9135" defer></script>
+<!-- End Shopify-payment JavaScript -->
+
+ 
+    
+  <!-- Smooth scroll speed control -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    (function () {
+      var lenis = new Lenis({
+        duration: 2.8,        // higher = slower (default ~1.2)
+        easing: function (t) { return 1 - Math.pow(1 - t, 4); },
+        smoothWheel: true,
+        smoothTouch: true,
+        touchMultiplier: 1.0,
+        wheelMultiplier: 0.65,
+      });
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    })();
+  </script>
+
+  </body>
+</html>
