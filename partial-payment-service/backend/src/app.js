@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import { requestIdMiddleware } from './middleware/requestId.js';
 import healthRouter from './routes/health.js';
 import partialPaymentRouter from './routes/partialPayment.js';
@@ -33,9 +34,18 @@ app.use(cors({
 app.use(express.json());
 app.use(requestIdMiddleware);
 
+// Rate Limiting (300 requests / 15 minutes)
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 300,
+  message: { error: 'Too many requests, please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 // API Routes
 app.use('/api/v1', healthRouter);
-app.use('/api/v1/partial-payment', partialPaymentRouter);
+app.use('/api/v1/partial-payment', apiLimiter, partialPaymentRouter);
 
 // Basic 404 handler
 app.use((req, res) => {
