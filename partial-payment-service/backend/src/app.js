@@ -8,6 +8,8 @@ import partialPaymentRouter from './routes/partialPayment.js';
 
 // Initialize the Express app
 const app = express();
+app.set('trust proxy', 1);
+
 
 // Global Middleware
 // 1. Security Headers (disables x-powered-by, etc.)
