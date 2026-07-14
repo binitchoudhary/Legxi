@@ -134,9 +134,12 @@ function PartialPaymentAction() {
          throw new Error('Authentication method not found on useApi()');
       }
       
-      // In production, configure BACKEND_URL appropriately.
-      // For local testing, ensure your tunneling solution routes this correctly, or hardcode your dev domain.
-      const BACKEND_URL = 'https://representations-willow-dose-hottest.trycloudflare.com'; // Replace with env var in CI/CD
+      // Use build-time environment variable injected by Shopify CLI
+      const BACKEND_URL = process.env.BACKEND_URL;
+      
+      if (!BACKEND_URL) {
+        throw new Error('BACKEND_URL environment variable is missing.');
+      }
       
       const payload = {
         idempotencyKey: crypto.randomUUID(), // Generates unique ID for idempotency

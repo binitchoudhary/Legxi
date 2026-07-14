@@ -1,4 +1,4 @@
-api_version = "2026-10"
+api_version = "2025-10"
 
 [[extensions]]
 name = "Advance Payment"
@@ -9,3 +9,6 @@ type = "ui_extension"
 [[extensions.targeting]]
 module = "./src/ActionExtension.jsx"
 target = "admin.draft-order-details.action.render"
+
+[build.env]
+BACKEND_URL = "BACKEND_URL"

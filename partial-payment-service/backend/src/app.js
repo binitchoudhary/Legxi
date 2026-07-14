@@ -22,9 +22,12 @@ app.use(cors({
         origin === 'https://extensions.shopifycdn.com') {
       return callback(null, true);
     }
-    return callback(new Error('Not allowed by CORS'));
+    console.error(`[CORS Blocked] Origin not allowed: "${origin}"`);
+    // Instead of throwing an error which causes a 500, we can just return false to let CORS middleware respond with 403.
+    return callback(null, false);
   },
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'Bypass-Tunnel-Reminder']
 }));
 
 app.use(express.json());
@@ -37,6 +40,21 @@ app.use('/api/v1/partial-payment', partialPaymentRouter);
 // Basic 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found', requestId: req.id });
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+  const reqId = req.id || 'unknown';
+  console.error(`[${reqId}] Unhandled Express Error:`, err);
+  
+  // Do not leak stack traces to the client in production
+  const isDev = process.env.NODE_ENV !== 'production';
+  
+  res.status(500).json({ 
+    error: 'Internal Server Error',
+    message: isDev ? err.message : 'An unexpected error occurred while processing your request.',
+    requestId: reqId
+  });
 });
 
 export default app;

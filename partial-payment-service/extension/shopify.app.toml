@@ -1,19 +1,19 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 name = "partial payment"
-client_id = "f511190c774b828e044dcdd2db17ff62"
-application_url = "https://shopify.dev/apps/default-app-home"
+client_id = "9dc10f3d7d9fc440c70685bb0b8ee8df"
+application_url = "https://parade-surgeons-arts-musicians.trycloudflare.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 
 [webhooks]
-api_version = "2026-10"
+api_version = "2025-10"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "write_draft_orders,read_draft_orders,write_orders,read_orders"
 
 [auth]
-redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+redirect_urls = [ "https://parade-surgeons-arts-musicians.trycloudflare.com/api/auth" ]

@@ -14,14 +14,6 @@ export function verifySessionToken(req, res, next) {
 
   const token = authHeader.substring(7);
 
-  // Unconditionally bypass JWT signature validation for testing
-  req.shopify = {
-    shop: ENV.SHOPIFY_STORE,
-    userId: 'mock-user-123',
-    jti: 'mock-jti-123'
-  };
-  return next();
-
   if (ENV.DRY_RUN) {
     req.shopify = {
       shop: ENV.SHOPIFY_STORE,

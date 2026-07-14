@@ -27,7 +27,7 @@ app.listen(PORT, async () => {
     
     // We do not block the server startup entirely, but we await it to complete in the background.
     // Or we can await it if we want strict startup blocking. The user said: "Recovery must happen automatically after restart."
-    await recoveryWorker.runRecovery(5); // Scans attempts older than 5 minutes
+    await recoveryWorker.runRecovery(0); // QA TEST 4: Instantly scan instead of waiting 5 minutes
   } catch (err) {
     log.error({ err: err.message }, 'Failed to run Recovery Worker on startup');
   }
