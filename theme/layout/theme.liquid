@@ -46,12 +46,16 @@
       <meta name="description" content="{{ blog.title | escape }} &mdash; LEGXI blog covering authenticated sports memorabilia, collector insights, athlete autographs &amp; limited edition collectibles.">
     {%- endif -%}
 
-    <link rel="canonical" href="{{ canonical_url }}">
+    {%- assign seo_canonical = canonical_url -%}
+    {%- if request.page_type == 'product' -%}
+      {%- assign seo_canonical = canonical_url | split: '?' | first -%}
+    {%- endif -%}
+    <link rel="canonical" href="{{ seo_canonical }}">
 
 
 
-    <link rel="alternate" hreflang="{{ request.locale.iso_code }}" href="{{ canonical_url }}">
-    <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}">
+    <link rel="alternate" hreflang="{{ request.locale.iso_code }}" href="{{ seo_canonical }}">
+    <link rel="alternate" hreflang="x-default" href="{{ seo_canonical }}">
 
     {%- if settings.favicon -%}
       <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">

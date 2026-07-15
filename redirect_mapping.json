@@ -1,114 +1,46 @@
 [
   {
-    "source": "/products/demo",
-    "target": "/collections/all"
-  },
-  {
     "source": "/products/trinity-set-slot-03",
-    "target": "/products/legxi-champions-trinity-set-1"
-  },
-  {
-    "source": "/products/normal-editions-slot-06",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/products/edition-1",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/transfer/lookup",
-    "target": "/pages/authentication"
+    "target": "/products/legxi-goat-collector-trio-set"
   },
   {
     "source": "/products/rebuild-arshdeep-singh-gratitude-celebration",
-    "target": "/products/arshdeep-singh-exclusive-hand-signed-gold-plated-artwork"
+    "target": "/products/arshdeep-singh-gratitude-celebration"
   },
   {
     "source": "/products/legxi-champions-trinity-set",
-    "target": "/products/legxi-champions-trinity-set-1"
+    "target": "/products/legxi-champions-trinity-set-2"
   },
   {
     "source": "/products/la-scaloneta-2026-squad-slot-02",
-    "target": "/products/campeones-world-cup-2022-edition"
-  },
-  {
-    "source": "/products/legxi-champions-trinity-set-2",
-    "target": "/products/legxi-champions-trinity-set-1"
-  },
-  {
-    "source": "/products/numeric-aura-series",
-    "target": "/collections/all"
+    "target": "/products/la-scaloneta-2026-squad"
   },
   {
     "source": "/products/trinity-set-slot-02",
-    "target": "/products/legxi-champions-trinity-set-1"
-  },
-  {
-    "source": "/products/normal-editions-slot-01",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/products/normal-editions-slot-02",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/products/normal-editions-slot-05",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/products/normal-editions-slot-07",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/products/normal-editions-slot-03",
-    "target": "/collections/all"
+    "target": "/products/legxi-goat-collector-trio-set"
   },
   {
     "source": "/products/la-scaloneta-2022-squad-slot-01",
     "target": "/products/campeones-world-cup-2022-edition"
   },
   {
-    "source": "/transfer/initiate",
-    "target": "/pages/authentication"
-  },
-  {
     "source": "/products/la-scaloneta-2026-squad-slot-01",
-    "target": "/products/campeones-world-cup-2022-edition"
+    "target": "/products/world-t20-champions-edition-2026"
   },
   {
     "source": "/products/rodrigo-de-paul-the-heartbeat-of-argentina",
-    "target": "/products/campeones-world-cup-2022-edition"
+    "target": "/products/argentine-icons-24k-signature-series"
   },
   {
     "source": "/products/julian-alvarez-the-next-era-of-argentina",
-    "target": "/products/campeones-world-cup-2022-edition"
-  },
-  {
-    "source": "/products/jersey-editions",
-    "target": "/collections/all"
+    "target": "/products/argentine-icons-24k-signature-series"
   },
   {
     "source": "/products/lionel-messi-a-napkin-a-signature-history-1",
-    "target": "/products/campeones-world-cup-2022-edition"
+    "target": "/products/argentine-icons-24k-signature-series"
   },
   {
     "source": "/products/triple-legacy-series",
-    "target": "/products/legxi-champions-trinity-set-1"
-  },
-  {
-    "source": "/products/data-engineered-into-design",
-    "target": "/collections/all"
-  },
-  {
-    "source": "/apps/secure-checkout",
-    "target": "/cart"
-  },
-  {
-    "source": "/blogs/news/goc-artwork-making-of-the-edition",
-    "target": "/blogs/news"
-  },
-  {
-    "source": "/collections/vendors",
-    "target": "/collections/all"
+    "target": "/products/legxi-goat-collector-trio-set"
   }
 ]
