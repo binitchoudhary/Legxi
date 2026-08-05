@@ -1,21 +1,26 @@
 'use client';
 
 import * as React from 'react';
+import { useAuthStore } from '@/features/auth/store/authStore';
 
-export const AuthContext = React.createContext<unknown>(null);
+export { useAuthStore as useAuth } from '@/features/auth/store/authStore';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState(null);
-  
-  // BFF Authentication initialization stub
+  const initAuth = useAuthStore((state) => state.initAuth);
+  const status = useAuthStore((state) => state.status);
+
   React.useEffect(() => {
-    // Check HttpOnly session status via Next.js API route
-    // GET /api/auth/session
-  }, []);
+    initAuth();
+  }, [initAuth]);
 
-  return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
-}
+  // Don't render until we know the initial auth status
+  if (status === 'UNKNOWN' || status === 'LOADING') {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center">Loading session...</div>;
+  }
 
-export function useAuth() {
-  return React.useContext(AuthContext);
+  return (
+    <>
+      {children}
+    </>
+  );
 }

@@ -19,6 +19,7 @@ interface AuthState {
   setLoading: () => void;
   setExpired: () => void;
   logout: () => void;
+  initAuth: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -28,5 +29,22 @@ export const useAuthStore = create<AuthState>((set) => ({
   setGuest: () => set({ status: 'GUEST', user: null }),
   setLoading: () => set({ status: 'LOADING' }),
   setExpired: () => set({ status: 'EXPIRED', user: null }),
-  logout: () => set({ status: 'GUEST', user: null }),
+  logout: () => {
+    fetch('/api/auth/logout', { method: 'POST' }).catch(console.error);
+    set({ status: 'GUEST', user: null });
+  },
+  initAuth: async () => {
+    set({ status: 'LOADING' });
+    try {
+      const res = await fetch('/api/auth/session');
+      if (res.ok) {
+        const data = await res.json();
+        set({ status: 'AUTHENTICATED', user: data });
+      } else {
+        set({ status: 'GUEST', user: null });
+      }
+    } catch {
+      set({ status: 'GUEST', user: null });
+    }
+  }
 }));
