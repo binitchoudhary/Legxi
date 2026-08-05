@@ -1,0 +1,628 @@
+openapi: 3.1.0
+info:
+  title: LEGXI Auction Service API
+  version: 1.0.0
+  description: Official Phase 1.3 frozen REST API contract for the LEGXI Live Auction Platform.
+  contact:
+    name: LEGXI Engineering
+servers:
+  - url: /api/v1
+    description: Primary API Version 1
+tags:
+  - name: Health
+    description: System health and readiness probes
+  - name: Auctions
+    description: Public and participant auction retrieval
+  - name: Bids
+    description: Bid placement and retrieval
+  - name: Admin
+    description: Administrative operations for auctions
+paths:
+  /health:
+    get:
+      summary: Health Check
+      description: Returns the liveness and readiness status of the API and its backing services.
+      operationId: getHealth
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Healthy or Degraded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service Down
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /auctions:
+    get:
+      summary: List Auctions
+      description: Retrieves a cursor-paginated list of auctions. Sorted chronologically by endTime ASC.
+      operationId: listAuctions
+      tags:
+        - Auctions
+      parameters:
+        - $ref: '#/components/parameters/RequestIdHeader'
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/TraceIdHeader'
+        - $ref: '#/components/parameters/CursorQuery'
+        - $ref: '#/components/parameters/LimitQuery'
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [DRAFT, ACTIVE, ENDED, SETTLED, CANCELLED]
+          description: Exact match filter for auction status.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionListResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /auctions/{id}:
+    get:
+      summary: Get Auction
+      description: Retrieves details of a specific auction.
+      operationId: getAuction
+      tags:
+        - Auctions
+      parameters:
+        - $ref: '#/components/parameters/RequestIdHeader'
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/TraceIdHeader'
+        - $ref: '#/components/parameters/AuctionIdPath'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /auctions/{id}/bids:
+    get:
+      summary: List Bids for Auction
+      description: Retrieves cursor-paginated bid history for an auction. Sorted by amountPaise DESC.
+      operationId: listAuctionBids
+      tags:
+        - Bids
+      parameters:
+        - $ref: '#/components/parameters/RequestIdHeader'
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/TraceIdHeader'
+        - $ref: '#/components/parameters/AuctionIdPath'
+        - $ref: '#/components/parameters/CursorQuery'
+        - $ref: '#/components/parameters/LimitQuery'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidListResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /bids:
+    post:
+      summary: Place a Bid
+      description: Places a new bid on an auction. Requires delegated authentication.
+      operationId: placeBid
+      tags:
+        - Bids
+      security:
+        - DelegatedAuth: []
+      parameters:
+        - $ref: '#/components/parameters/RequestIdHeader'
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/TraceIdHeader'
+        - $ref: '#/components/parameters/IdempotencyKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaceBidRequest'
+      responses:
+        '201':
+          description: Bid accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /admin/auctions:
+    post:
+      summary: Create Auction
+      description: Creates a new auction. Requires ADMIN role in x-user-context.
+      operationId: createAuction
+      tags:
+        - Admin
+      security:
+        - DelegatedAuth: []
+      parameters:
+        - $ref: '#/components/parameters/RequestIdHeader'
+        - $ref: '#/components/parameters/CorrelationIdHeader'
+        - $ref: '#/components/parameters/TraceIdHeader'
+        - $ref: '#/components/parameters/IdempotencyKeyHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAuctionRequest'
+      responses:
+        '201':
+          description: Auction created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '409':
+          $ref: '#/components/responses/ConflictError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  securitySchemes:
+    DelegatedAuth:
+      type: apiKey
+      in: header
+      name: x-user-context
+      description: JSON stringified payload delegated from the API Gateway. Must include 'userId' and 'roles' array.
+
+  parameters:
+    AuctionIdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9A-HJKMNP-TV-Z]{26}$'
+      description: ULID of the auction
+    CursorQuery:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: '^[0-9A-HJKMNP-TV-Z]{26}$'
+      description: ULID cursor for forward pagination. Exclusive.
+    LimitQuery:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Number of results to return.
+    IdempotencyKeyHeader:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: UUIDv4 used to prevent duplicate processing. Redis TTL is 86400s.
+    RequestIdHeader:
+      name: x-request-id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Gateway generated UUID representing the unique HTTP request.
+    CorrelationIdHeader:
+      name: x-correlation-id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Gateway or Client generated UUID grouping multiple requests in a flow.
+    TraceIdHeader:
+      name: x-trace-id
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Optional distributed tracing ID (e.g. W3C Trace Context). Generated if missing.
+
+  schemas:
+    ResponseMeta:
+      type: object
+      required:
+        - requestId
+        - traceId
+        - version
+      properties:
+        requestId:
+          type: string
+        traceId:
+          type: string
+        version:
+          type: string
+          enum: ["v1"]
+        nextCursor:
+          type: string
+          description: Present only in list endpoints. ULID for the next page.
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - version
+        - timestamp
+        - dependencies
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded, down]
+        version:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        dependencies:
+          type: object
+          required:
+            - database
+            - redis
+          properties:
+            database:
+              type: string
+              enum: [ok, down]
+            redis:
+              type: string
+              enum: [ok, down]
+
+    ErrorPayload:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+
+    Auction:
+      type: object
+      required:
+        - id
+        - shopifyProductId
+        - startTime
+        - endTime
+        - status
+        - startingPricePaise
+        - minIncrementPaise
+        - currentPricePaise
+        - version
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        shopifyProductId:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [DRAFT, ACTIVE, ENDED, SETTLED, CANCELLED]
+        startingPricePaise:
+          type: string
+        reservePricePaise:
+          type: string
+          nullable: true
+        minIncrementPaise:
+          type: string
+        currentPricePaise:
+          type: string
+        winningBidId:
+          type: string
+          nullable: true
+        version:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Bid:
+      type: object
+      required:
+        - id
+        - auctionId
+        - userId
+        - amountPaise
+        - isProxy
+        - status
+        - createdAt
+      properties:
+        id:
+          type: string
+        auctionId:
+          type: string
+        userId:
+          type: string
+        amountPaise:
+          type: string
+        isProxy:
+          type: boolean
+        status:
+          type: string
+          enum: [ACCEPTED, REJECTED, OUTBID, WINNING]
+        createdAt:
+          type: string
+          format: date-time
+
+    AuctionResponse:
+      type: object
+      required:
+        - success
+        - data
+        - meta
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data:
+          $ref: '#/components/schemas/Auction'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+
+    AuctionListResponse:
+      type: object
+      required:
+        - success
+        - data
+        - meta
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Auction'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+
+    BidResponse:
+      type: object
+      required:
+        - success
+        - data
+        - meta
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data:
+          $ref: '#/components/schemas/Bid'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+
+    BidListResponse:
+      type: object
+      required:
+        - success
+        - data
+        - meta
+      properties:
+        success:
+          type: boolean
+          enum: [true]
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bid'
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+
+    PlaceBidRequest:
+      type: object
+      required:
+        - auctionId
+        - amountPaise
+      properties:
+        auctionId:
+          type: string
+          pattern: '^[0-9A-HJKMNP-TV-Z]{26}$'
+        amountPaise:
+          type: string
+          pattern: '^[0-9]+$'
+        isProxy:
+          type: boolean
+          default: false
+
+    CreateAuctionRequest:
+      type: object
+      required:
+        - shopifyProductId
+        - startTime
+        - endTime
+        - startingPricePaise
+        - minIncrementPaise
+      properties:
+        shopifyProductId:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        startingPricePaise:
+          type: string
+          pattern: '^[0-9]+$'
+        reservePricePaise:
+          type: string
+          pattern: '^[0-9]+$'
+        minIncrementPaise:
+          type: string
+          pattern: '^[0-9]+$'
+
+  responses:
+    ValidationError:
+      description: Validation Failed (400)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+    UnauthorizedError:
+      description: Authentication Required (401)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+    ForbiddenError:
+      description: Permission Denied (403)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+    NotFoundError:
+      description: Resource Not Found (404)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+    ConflictError:
+      description: Conflict / Idempotency Collision / Business Logic Rejection (409)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'
+    InternalError:
+      description: Internal Server Error (500)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - success
+              - error
+              - meta
+            properties:
+              success:
+                type: boolean
+                enum: [false]
+              error:
+                $ref: '#/components/schemas/ErrorPayload'
+              meta:
+                $ref: '#/components/schemas/ResponseMeta'

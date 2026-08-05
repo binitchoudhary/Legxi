@@ -3,14 +3,43 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "custom_badges_zj7RrC": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 4,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "FRANCE COLLECTIBLE",
+            "badge_1_show": true,
+            "badge_1_bg": "#ddeee4",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#ddeee4",
+            "badge_2_text": "SET OF THREE",
+            "badge_2_show": true,
+            "badge_2_bg": "#eaeaea",
+            "badge_2_text_color": "#1a1a1a",
+            "badge_2_border": "#e0e0e0",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
         "vendor": {
           "type": "vendor",
+          "disabled": true,
           "settings": {}
         },
         "title": {
           "type": "title",
           "settings": {
-            "heading_tag": "h3"
+            "heading_tag": "h4"
           }
         },
         "badges": {
@@ -53,18 +82,13 @@
             "show_taxes_notice": false
           }
         },
-        "buy_buttons_X9Bk6W": {
-          "type": "buy_buttons",
+        "inventory_HxMUmq": {
+          "type": "inventory",
           "settings": {
-            "show_payment_button": true,
-            "show_gift_card_recipient": true,
-            "show_quantity_selector": true,
-            "add_quantity_selector_spacing": true,
-            "atc_button_style": "solid",
-            "atc_button_background": "",
-            "atc_button_text_color": "",
-            "payment_button_background": "",
-            "payment_button_text_color": ""
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": false,
+            "progress_bar_max_value": 50
           }
         },
         "modal_dkrgmM": {
@@ -79,6 +103,20 @@
             "modal_title": "New to collecting?",
             "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
             "modal_size": "sm"
+          }
+        },
+        "buy_buttons_X9Bk6W": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "outline",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
           }
         },
         "offers_kXpExY": {
@@ -116,6 +154,7 @@
         },
         "modal_6G837j": {
           "type": "modal",
+          "disabled": true,
           "settings": {
             "dialog_type": "modal",
             "button_title": "Delivery & Refund",
@@ -132,13 +171,13 @@
           "type": "modal",
           "settings": {
             "dialog_type": "modal",
-            "button_title": "Details & Specs",
+            "button_title": "Specifications",
             "button_style": "link",
             "stretch_button": false,
             "button_background": "",
             "button_text_color": "#000000",
             "modal_title": "",
-            "modal_content": "<p>Limited pieces only<\/p><p>Comes with:  3D Silicone Jersey Miniatures with Crystal-Clear Epoxy Preservation<br\/><br\/>Size \/ Dimensions: 5 × 3.5 Inches<\/p>",
+            "modal_content": "<p>Limited pieces only<\/p><p>3D Silicone Jersey Miniatures with Crystal-Clear Epoxy Preservation<br\/><br\/>Dimensions: 5 × 3.5 Inches<\/p>",
             "modal_size": "sm"
           }
         },
@@ -173,9 +212,14 @@
             "title": "",
             "products_count": 2
           }
+        },
+        "separator_WGfM4d": {
+          "type": "separator",
+          "settings": {}
         }
       },
       "block_order": [
+        "custom_badges_zj7RrC",
         "vendor",
         "title",
         "badges",
@@ -183,30 +227,36 @@
         "countdown_46gdKY",
         "variant_picker_YfMtFD",
         "price",
-        "buy_buttons_X9Bk6W",
+        "inventory_HxMUmq",
         "modal_dkrgmM",
+        "buy_buttons_X9Bk6W",
         "offers_kXpExY",
         "description",
         "modal_6G837j",
         "modal_hD7aw4",
         "offers_Yw9tMe",
-        "complementary_products_e4WW8w"
+        "complementary_products_e4WW8w",
+        "separator_WGfM4d"
       ],
       "custom_css": [
         ".offer-item .prose p {text-transform: lowercase;}",
         "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
         ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
-        ".warns {color: gray; margin-top: -20px; font-size: 10px;}"
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}",
+        ".product {gap: 1rem;}",
+        ".product-title {padding: 0 !important;}",
+        ".product-info__block-item {margin: 10px 0;}",
+        "sale-price {margin-bottom: 10px;}"
       ],
       "settings": {
         "color_scheme": "",
         "allow_transparent_header": false,
         "transparent_header_use_primary_colors": true,
-        "add_top_spacing": false,
+        "add_top_spacing": true,
         "show_sticky_add_to_cart": true,
         "product_media_size": 51,
         "content_alignment": "left",
-        "desktop_media_layout": "carousel",
+        "desktop_media_layout": "grid_half_highlight_first",
         "desktop_carousel_controls": "thumbnails_under",
         "mobile_controls": "thumbnails",
         "enable_media_autoplay": true,
@@ -249,6 +299,7 @@
         "heading_H46kJG",
         "richtext_9B4K8T"
       ],
+      "disabled": true,
       "name": "t:sections.text_with_media.name",
       "settings": {
         "color_scheme": "scheme-4",
@@ -266,6 +317,17 @@
         "secondary_media_shape": "none"
       }
     },
+    "custom_liquid_9ya4W9": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
     "text_with_icons_FtJgTV": {
       "type": "text-with-icons",
       "blocks": {
@@ -274,7 +336,7 @@
           "settings": {
             "icon": "picto-asterisk",
             "title": "3D JERSEY MINIATURES",
-            "heading_tag": "h4",
+            "heading_tag": "h5",
             "content": "<p>these miniature jerseys preserve sporting history in a format designed for permanence.<\/p>"
           }
         },
@@ -283,7 +345,7 @@
           "settings": {
             "icon": "picto-sparkle",
             "title": "CRYSTAL CLEAR EPOXY PRESERVATION",
-            "heading_tag": "h4",
+            "heading_tag": "h5",
             "content": "<p>Carefully preserved within crystal-clear epoxy and encased for long-term display.<\/p>"
           }
         },
@@ -292,7 +354,7 @@
           "settings": {
             "icon": "picto-ai-spark",
             "title": "DESIGNED FOR COLLECTING",
-            "heading_tag": "h4",
+            "heading_tag": "h5",
             "content": "<p>Designed to capture the spirit of legendary moments of athletes who shaped the game.<\/p>"
           }
         }
@@ -304,19 +366,30 @@
       ],
       "name": "t:sections.text_with_icons.name",
       "settings": {
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-1",
         "subheading": "",
         "title": "",
         "content": "",
-        "heading_tag": "h2",
+        "heading_tag": "h4",
         "text_alignment": "center",
         "items_per_row_desktop": 3,
         "stack_on_mobile": true,
         "separator_style": "vertical",
-        "icon_position": "stacked",
-        "icon_width": 40,
-        "mobile_icon_width": 32,
+        "icon_position": "inline",
+        "icon_width": 16,
+        "mobile_icon_width": 16,
         "item_text_alignment": "left"
+      }
+    },
+    "custom_liquid_Ct6NqD": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
       }
     },
     "hot_spots_ctCYaz": {
@@ -424,7 +497,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",
@@ -454,26 +527,6 @@
           "settings": {
             "question": "<strong>Is this officially associated with France or the world cup?<\/strong>",
             "answer": "<p>No. This is an inspired from France's legacy and made for their fans for the upcoming world cup.<\/p>",
-            "icon": "none",
-            "icon_width": 24,
-            "mobile_icon_width": 20
-          }
-        },
-        "question_4DxtmC": {
-          "type": "question",
-          "settings": {
-            "question": "<strong>Is the edition truly limited?<\/strong>",
-            "answer": "<p> Yes. This edition is strictly limited.<br\/> No reprints, no expansions, no restocks.<\/p>",
-            "icon": "none",
-            "icon_width": 24,
-            "mobile_icon_width": 20
-          }
-        },
-        "question_zn6QHg": {
-          "type": "question",
-          "settings": {
-            "question": "<strong>How is authenticity verified?<\/strong>",
-            "answer": "<p>Each artwork carries a unique edition number, hologram, and QR-linked digital ownership record.<\/p>",
             "icon": "none",
             "icon_width": 24,
             "mobile_icon_width": 20
@@ -512,8 +565,6 @@
       },
       "block_order": [
         "question_fzMaty",
-        "question_4DxtmC",
-        "question_zn6QHg",
         "question_MHCCNJ",
         "question_VfPxee",
         "question_P69VeC"
@@ -537,7 +588,9 @@
   "order": [
     "main",
     "text_with_media_FqXT4R",
+    "custom_liquid_9ya4W9",
     "text_with_icons_FtJgTV",
+    "custom_liquid_Ct6NqD",
     "hot_spots_ctCYaz",
     "1761294333278e356b",
     "faq_U7EXL8"

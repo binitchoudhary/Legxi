@@ -21,14 +21,16 @@ const iconMap: Record<string, React.ElementType> = {
   Settings,
 };
 
+import { useLogout } from '@/features/auth/hooks/useLogout';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const pathname = usePathname();
-  const { user, logout } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const { logout } = useLogout();
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/login';
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (

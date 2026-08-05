@@ -162,18 +162,74 @@
               {%- render 'line-item', line_item: line_item, show_line_price: true, hide_unit_price: true, show_quantity_selector: true -%}
             {%- endfor -%}
 
-            {%- comment -%}HERITAGE MINIS PROMO BANNER{%- endcomment -%}
+            {%- comment -%}OFFERS AND SUGGESTIONS REORGANIZATION{%- endcomment -%}
+            {%- assign royal10_active = true -%}
+            
             {%- assign lgx_hm_count = 0 -%}
             {%- for lgx_item in cart.items -%}
               {%- if lgx_item.product.tags contains 'heritage-minis' -%}
                 {%- assign lgx_hm_count = lgx_hm_count | plus: lgx_item.quantity -%}
               {%- endif -%}
             {%- endfor -%}
-            {%- if lgx_hm_count > 0 -%}
+
+            {%- assign lgx_royal_count = cart.item_count -%}
+            {%- assign lgx_royal_product_id = blank -%}
+            {%- assign lgx_royal_product_type = blank -%}
+            {%- assign lgx_royal_product_vendor = blank -%}
+            {%- assign lgx_royal_product_collection = blank -%}
+
+            {%- for lgx_item in cart.items -%}
+              {%- assign lgx_et = lgx_item.product.metafields.custom.edition_type.value | downcase -%}
+              {%- if lgx_et == 'signed' %}{% continue %}{% endif -%}
+              {%- assign lgx_royal_product_id = lgx_item.product_id -%}
+              {%- assign lgx_royal_product_type = lgx_item.product.type | escape -%}
+              {%- assign lgx_royal_product_vendor = lgx_item.product.vendor | escape -%}
+              {%- assign lgx_min_count = 999999 -%}
+              {%- assign lgx_royal_product_collection = blank -%}
+              {%- for coll in lgx_item.product.collections -%}
+                {%- if coll.products_count > 0 and coll.products_count < lgx_min_count -%}
+                  {%- assign lgx_min_count = coll.products_count -%}
+                  {%- assign lgx_royal_product_collection = coll.handle -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+
+            {%- if lgx_royal_product_id == blank and cart.items.size > 0 -%}
+              {%- assign lgx_royal_product_id = cart.items.last.product_id -%}
+              {%- assign lgx_royal_product_type = cart.items.last.product.type | escape -%}
+              {%- assign lgx_royal_product_vendor = cart.items.last.product.vendor | escape -%}
+              {%- assign lgx_min_count = 999999 -%}
+              {%- assign lgx_royal_product_collection = blank -%}
+              {%- for coll in cart.items.last.product.collections -%}
+                {%- if coll.products_count > 0 and coll.products_count < lgx_min_count -%}
+                  {%- assign lgx_min_count = coll.products_count -%}
+                  {%- assign lgx_royal_product_collection = coll.handle -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+
+            {%- assign show_hm = false -%}
+            {%- assign show_royal = false -%}
+
+            {%- if royal10_active -%}
+              {%- if lgx_royal_count > 0 -%}{%- assign show_royal = true -%}{%- endif -%}
+            {%- else -%}
+              {%- if lgx_hm_count > 0 -%}{%- assign show_hm = true -%}{%- endif -%}
+            {%- endif -%}
+
+            {%- if show_hm or show_royal -%}
+              <div class="lgx-offers-container" style="margin-bottom: 24px;">
+                <p style="font-size: 11px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.05em; text-transform: uppercase; margin: 0 0 10px 4px; display: flex; align-items: center; gap: 6px;">
+                  🎁 Available Offers
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+            {%- endif -%}
+
+            {%- if show_hm -%}
               {%- assign lgx_hm_capped = lgx_hm_count -%}
               {%- if lgx_hm_capped > 3 -%}{%- assign lgx_hm_capped = 3 -%}{%- endif -%}
               {%- assign lgx_hm_pct = lgx_hm_capped | times: 100 | divided_by: 3 -%}
-              <div class="lgx-hm-promo{% if lgx_hm_count >= 3 %} lgx-hm-promo--done{% endif %}">
+              <div class="lgx-hm-promo{% if lgx_hm_count >= 3 %} lgx-hm-promo--done{% endif %}" style="margin-bottom: 0;">
                 <div class="lgx-hm-promo__main">
                   <div class="lgx-hm-promo__icon">
                     {%- if lgx_hm_count >= 3 -%}
@@ -205,10 +261,67 @@
                   <span>Mix &amp; Match eligible</span>
                 </div>
               </div>
-              {%- comment -%}HERITAGE MINIS SUGGESTIONS{%- endcomment -%}
+            {%- endif -%}
+
+            {%- if show_royal -%}
+              {%- assign lgx_royal_capped = lgx_royal_count -%}
+              {%- if lgx_royal_capped > 3 -%}{%- assign lgx_royal_capped = 3 -%}{%- endif -%}
+              {%- assign lgx_royal_pct = lgx_royal_capped | times: 100 | divided_by: 3 -%}
+              <div class="lgx-royal-promo{% if lgx_royal_count >= 3 %} lgx-royal-promo--done{% endif %}" style="margin-bottom: 0;">
+                <div class="lgx-royal-promo__main">
+                  <div class="lgx-royal-promo__icon">
+                    {%- if lgx_royal_count >= 3 -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#c9a84c" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    {%- else -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    {%- endif -%}
+                  </div>
+                  <div class="lgx-royal-promo__body">
+                    <p class="lgx-royal-promo__label">Storewide Offer</p>
+                    {%- if lgx_royal_count >= 3 -%}
+                      <p class="lgx-royal-promo__msg">&#127881; Congratulations! Your cart qualifies for flat 10% off. Apply <strong>ROYAL10</strong> at checkout.</p>
+                    {%- elsif lgx_royal_count == 2 -%}
+                      <p class="lgx-royal-promo__msg">Add 1 more product to unlock flat 10% off.</p>
+                    {%- else -%}
+                      <p class="lgx-royal-promo__msg">Add 2 more products to unlock flat 10% off.</p>
+                    {%- endif -%}
+                  </div>
+                  <div class="lgx-royal-promo__coupon">
+                    <span class="lgx-royal-promo__code">ROYAL10</span>
+                    <button type="button" class="lgx-royal-promo__copy" onclick="var b=this;navigator.clipboard.writeText('ROYAL10').then(function(){b.textContent='COPIED';setTimeout(function(){b.textContent='COPY'},2000)})">COPY</button>
+                  </div>
+                </div>
+                <div class="lgx-royal-promo__bar-bg">
+                  <div class="lgx-royal-promo__bar-fill" style="width:{{ lgx_royal_pct }}%"></div>
+                </div>
+                <div class="lgx-royal-promo__footer">
+                  <span>{{ lgx_royal_count }} of 3 added</span>
+                  <span>Mix &amp; Match eligible</span>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- if show_hm or show_royal -%}
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- comment -%}SUGGESTIONS CAROUSELS{%- endcomment -%}
+            {%- if show_hm -%}
               <div class="lgx-hm-suggest" id="lgx-hm-suggest-root" data-cart-pids="{{ cart.items | map: 'product_id' | join: ',' }}" data-hm-collection="{{ section.settings.heritage_minis_collection }}" style="display:none">
                 <p class="lgx-hm-suggest__hd">Add More Heritage Minis</p>
                 <div class="lgx-hm-suggest__row" id="lgx-hm-suggest-row"></div>
+              </div>
+            {%- endif -%}
+
+            {%- if show_royal -%}
+              <div class="lgx-royal-suggest" id="lgx-royal-suggest-root" data-cart-pids="{{ cart.items | map: 'product_id' | join: ',' }}" data-product-id="{{ lgx_royal_product_id }}" data-eligible-count="{{ lgx_royal_count }}" data-product-type="{{ lgx_royal_product_type }}" data-product-vendor="{{ lgx_royal_product_vendor }}" data-product-collection="{{ lgx_royal_product_collection }}" style="display:none">
+                <p class="lgx-royal-suggest__hd" style="text-transform: uppercase;">Add More to Mix &amp; Match</p>
+                <div class="lgx-royal-carousel-wrapper">
+                  <button type="button" class="lgx-royal-carousel-prev" onclick="document.getElementById('lgx-royal-suggest-row').scrollBy({left: -200, behavior: 'smooth'})" aria-label="Previous" style="display:none;">❮</button>
+                  <div class="lgx-royal-suggest__row" id="lgx-royal-suggest-row"></div>
+                  <button type="button" class="lgx-royal-carousel-next" onclick="document.getElementById('lgx-royal-suggest-row').scrollBy({left: 200, behavior: 'smooth'})" aria-label="Next" style="display:none;">❯</button>
+                </div>
               </div>
             {%- endif -%}
 
@@ -611,25 +724,327 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* ROYAL10 Promo */
+.lgx-royal-promo {
+  border: 1px solid #e2d9c8;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  font-family: inherit;
+}
+.lgx-royal-promo--done {
+  border-color: #c9a84c;
+}
+.lgx-royal-promo__main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px 12px;
+}
+.lgx-royal-promo__icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e2d9c8;
+  border-radius: 6px;
+  background: #faf6ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lgx-royal-promo__body {
+  flex: 1;
+  min-width: 0;
+}
+.lgx-royal-promo__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  margin: 0 0 3px;
+  line-height: 1;
+}
+.lgx-royal-promo__msg {
+  font-size: 12.5px;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+}
+.lgx-royal-promo__coupon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid #c9a84c;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.lgx-royal-promo__code {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: .1em;
+  padding: 5px 9px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.lgx-royal-promo__copy {
+  font-size: 10px;
+  font-weight: 700;
+  color: #c9a84c;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  background: none;
+  border: none;
+  border-left: 1.5px solid #c9a84c;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  transition: background .15s;
+}
+.lgx-royal-promo__copy:hover {
+  background: rgba(201,168,76,.08);
+}
+.lgx-royal-promo__bar-bg {
+  height: 5px;
+  background: #ede7d9;
+}
+.lgx-royal-promo__bar-fill {
+  height: 100%;
+  background: #c9a84c;
+  transition: width .3s ease;
+}
+.lgx-royal-promo--done .lgx-royal-promo__bar-fill {
+  background: linear-gradient(90deg, #c9a84c, #efd681);
+}
+.lgx-royal-promo__footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 14px;
+  font-size: 11px;
+  color: #888;
+}
+
+/* ROYAL10 Suggestions & Carousel */
+.lgx-royal-suggest {
+  margin-top: 8px;
+}
+.lgx-royal-suggest__hd {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  color: #888;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  line-height: 1;
+}
+.lgx-royal-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.lgx-royal-suggest__row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  width: 100%;
+}
+.lgx-royal-suggest__row::-webkit-scrollbar { display: none; }
+
+.lgx-royal-scard {
+  /* Dynamic size based on grid/flex, fits exactly 4 on desktop, 3 on mobile */
+  flex: 0 0 calc((100% - 16px) / 3); 
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: #faf6ef;
+  border: 1px solid #e2d9c8;
+  border-radius: 8px;
+  padding: 10px 8px;
+  text-align: center;
+  align-items: stretch; /* Stretch children for equal width alignment */
+  transition: box-shadow 0.2s ease;
+}
+@media (min-width: 768px) {
+  .lgx-royal-scard {
+    flex: 0 0 calc((100% - 24px) / 4); 
+  }
+}
+.lgx-royal-scard:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.lgx-royal-scard__img-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #f0ebe0;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lgx-royal-scard__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lgx-royal-scard__img-wrap .lgx-skel {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #f0ebe0 25%, #e8e3d6 50%, #f0ebe0 75%);
+  background-size: 200% 100%;
+  animation: lgx-skel-load 1.5s infinite;
+}
+@keyframes lgx-skel-load {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.lgx-royal-scard__name {
+  font-size: 10.5px;
+  color: #1a1a1a;
+  line-height: 1.3;
+  margin: 0 0 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1; /* Pushes the price and button to the bottom */
+  word-break: break-word;
+}
+.lgx-royal-scard__name.lgx-skel {
+  height: 24px;
+  background: linear-gradient(90deg, #f0ebe0 25%, #e8e3d6 50%, #f0ebe0 75%);
+  background-size: 200% 100%;
+  animation: lgx-skel-load 1.5s infinite;
+  border-radius: 2px;
+}
+.lgx-royal-scard__price {
+  font-size: 10.5px;
+  color: #888;
+  margin: 0 0 8px;
+  white-space: nowrap;
+}
+.lgx-royal-scard__price.lgx-skel {
+  height: 12px;
+  width: 60%;
+  margin: 0 auto 8px;
+  background: linear-gradient(90deg, #f0ebe0 25%, #e8e3d6 50%, #f0ebe0 75%);
+  background-size: 200% 100%;
+  animation: lgx-skel-load 1.5s infinite;
+  border-radius: 2px;
+}
+.lgx-royal-scard__add {
+  font-size: 10px;
+  font-weight: 700;
+  color: #c9a84c;
+  background: none;
+  border: 1.5px solid #c9a84c;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition: background .15s;
+  width: 100%; /* Consistent full-width button */
+}
+.lgx-royal-scard__add:hover {
+  background: rgba(201,168,76,.08);
+}
+.lgx-royal-scard__add:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.lgx-royal-scard__add.lgx-skel {
+  height: 26px;
+  border: none;
+  background: linear-gradient(90deg, #f0ebe0 25%, #e8e3d6 50%, #f0ebe0 75%);
+  background-size: 200% 100%;
+  animation: lgx-skel-load 1.5s infinite;
+}
+
+.lgx-royal-carousel-prev, .lgx-royal-carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e2d9c8;
+  color: #c9a84c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 10px;
+  padding: 0;
+  transition: opacity 0.2s, background 0.15s;
+}
+.lgx-royal-carousel-prev { left: 4px; z-index: 100; }
+.lgx-royal-carousel-next { right: 4px; z-index: 100; }
+.lgx-royal-carousel-prev:hover, .lgx-royal-carousel-next:hover {
+  background: #faf6ef;
+  color: #1a1a1a;
+}
+.lgx-royal-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(201,168,76, 0.3);
+  border-radius: 50%;
+  border-top-color: #c9a84c;
+  animation: lgx-spin 0.8s linear infinite;
+  vertical-align: middle;
+}
+@keyframes lgx-spin {
+  to { transform: rotate(360deg); }
+}
+
 </style>
 
 <script>
-function lgxHmAdd(vid, btn) {
+(function() {
+  /* ── state ── */
+  var lgxHmProducts   = null; // [{pid, title, vid, price, img}]
+  var lgxHmProductIds = [];
+
+  /* ── lgxHmAdd exposed globally for inline onclick handlers ── */
+  window.lgxHmAdd = function(vid, btn) {
   if (btn.disabled) return;
   btn.disabled = true;
   var orig = btn.textContent;
   btn.textContent = '···';
+  
+  var drawer = document.querySelector('cart-drawer');
+  var sectionId = 'cart-drawer';
+  if (drawer) {
+    var section = drawer.closest('.shopify-section') || drawer.closest('[id^="shopify-section-"]');
+    if (section && section.id) {
+      sectionId = section.id.replace('shopify-section-', '');
+    }
+  }
+
   fetch('/cart/add.js', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items: [{ id: vid, quantity: 1 }] })
+    body: JSON.stringify({ items: [{ id: vid, quantity: 1 }], sections: sectionId })
   })
   .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
-  .then(function() { return fetch('/cart.js'); })
-  .then(function(r) { return r.json(); })
   .then(function(cart) {
     document.documentElement.dispatchEvent(new CustomEvent('cart:change', {
-      bubbles: true, detail: { cart: cart }
+      bubbles: true, detail: { cart: cart, baseEvent: 'variant:add' }
     }));
     document.dispatchEvent(new CustomEvent('cart:refresh'));
   })
@@ -637,78 +1052,404 @@ function lgxHmAdd(vid, btn) {
     btn.disabled = false;
     btn.textContent = orig;
   });
-}
+};
 
-(function() {
-  var root = document.getElementById('lgx-hm-suggest-root');
-  var row  = document.getElementById('lgx-hm-suggest-row');
-  if (!root || !row) return;
+  /* ── helpers ── */
+  function resizeImg(src) {
+    return src ? src.replace(/(\.\w{3,4})(\?|$)/, '_160x160$1$2') : '';
+  }
 
-  var pidsStr = root.getAttribute('data-cart-pids') || '';
-  var cartPids = pidsStr ? pidsStr.split(',').map(Number) : [];
+  /* ── core: re-render suggestions based ONLY on Heritage Mini items ── */
+  function lgxHmRefresh(cartItems) {
+    var root = document.getElementById('lgx-hm-suggest-root');
+    if (!root || !lgxHmProducts) return;
+    var row = document.getElementById('lgx-hm-suggest-row');
+    if (!row) return;
 
-  function renderCards(cards) {
-    cards.forEach(function(c) {
-      var el = document.createElement('div');
-      el.className = 'lgx-hm-scard';
-      el.innerHTML =
+    root.setAttribute('data-lgx-ready', '1');
+
+    // Filter to Heritage Mini items only — all other cart products are ignored entirely
+    var hmItems    = cartItems.filter(function(item) {
+      return lgxHmProductIds.indexOf(item.product_id) !== -1;
+    });
+    var hmCount    = hmItems.reduce(function(n, item) { return n + item.quantity; }, 0);
+    var hmCartPids = hmItems.map(function(item) { return item.product_id; });
+
+    if (hmCount >= 3) {
+      root.style.display = 'none';
+      return;
+    }
+
+    // Suggest HM products not already in cart
+    var available = lgxHmProducts
+      .filter(function(p) { return hmCartPids.indexOf(p.pid) === -1; })
+      .slice(0, 3);
+
+    row.innerHTML = available.map(function(c) {
+      return '<div class="lgx-hm-scard">' +
         '<div class="lgx-hm-scard__img">' +
           (c.img ? '<img src="' + c.img + '" alt="" loading="lazy" width="80" height="80">' : '') +
         '</div>' +
         '<p class="lgx-hm-scard__name">' + c.title + '</p>' +
         '<p class="lgx-hm-scard__price">₹' + Math.round(c.price).toLocaleString('en-IN') + '</p>' +
-        '<button type="button" class="lgx-hm-scard__add" onclick="lgxHmAdd(' + c.vid + ',this)">Add</button>';
-      row.appendChild(el);
-    });
-    if (row.children.length > 0) root.style.display = '';
+        '<button type="button" class="lgx-hm-scard__add" onclick="lgxHmAdd(' + c.vid + ',this)">Add</button>' +
+      '</div>';
+    }).join('');
+
+    root.style.display = available.length > 0 ? '' : 'none';
   }
 
-  function resizeImg(src) {
-    return src ? src.replace(/(\.\w{3,4})(\?|$)/, '_160x160$1$2') : '';
+  /* ── detect a freshly-rendered suggest-root (no data-lgx-ready) after AJAX section re-render ── */
+  function lgxHmCheckNew() {
+    var root = document.getElementById('lgx-hm-suggest-root');
+    if (!root || root.getAttribute('data-lgx-ready')) return;
+    root.setAttribute('data-lgx-ready', '1');
+
+    function doRefresh() {
+      fetch('/cart.js')
+        .then(function(r) { return r.json(); })
+        .then(function(cart) { lgxHmRefresh(cart.items || []); })
+        .catch(function() {});
+    }
+
+    if (!lgxHmProducts) {
+      // Products not cached yet (page loaded with 0 HMs) — fetch now
+      var coll = root.getAttribute('data-hm-collection') || 'legxi-heritage-minis';
+      fetch('/collections/' + coll + '/products.json?limit=10')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(d) { if (d) parseCollection(d); })
+        .then(doRefresh)
+        .catch(doRefresh);
+    } else {
+      doRefresh();
+    }
   }
 
-  function fromCollectionJson(data) {
-    return (data.products || [])
-      .filter(function(p) { return cartPids.indexOf(p.id) === -1; })
-      .slice(0, 3)
-      .map(function(p) {
+  /* ── listen for cart:change (fired by lgxHmAdd and theme quantity selectors) ── */
+  function lgxHmOnCartChange(e) {
+    var cart = e.detail && e.detail.cart;
+    if (!cart) return;
+    if (lgxHmProducts) {
+      setTimeout(function() { lgxHmRefresh(cart.items || []); }, 0);
+    } else {
+      setTimeout(lgxHmCheckNew, 0);
+    }
+  }
+  // Some themes dispatch on document.documentElement, others directly on document.
+  // Listen on both; guard the document listener to avoid double-firing for bubbled events.
+  document.documentElement.addEventListener('cart:change', lgxHmOnCartChange);
+  document.addEventListener('cart:change', function(e) {
+    if (e.target === document) lgxHmOnCartChange(e);
+  });
+
+  /* ── MutationObserver: catches AJAX section re-renders that don't fire cart:change ── */
+  // Observe document.body (not the section element): Shopify AJAX re-renders replace the
+  // entire section node, which would detach an observer watching that specific element.
+  function setupObserver() {
+    new MutationObserver(function() {
+      clearTimeout(window._lgxHmObTimer);
+      window._lgxHmObTimer = setTimeout(function() {
+        lgxHmCheckNew();
+        if (typeof lgxRoyalCheckNew === 'function') lgxRoyalCheckNew();
+      }, 40);
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupObserver);
+  } else {
+    setupObserver();
+  }
+
+  /* ── init: fetch collection products, then initial cart ── */
+  var initRoot = document.getElementById('lgx-hm-suggest-root');
+  if (initRoot) {
+    var hmCollection = initRoot.getAttribute('data-hm-collection') || 'legxi-heritage-minis';
+
+    function parseCollection(d) {
+      lgxHmProducts = (d.products || []).map(function(p) {
         var v = p.variants && p.variants[0];
-        return v ? { title: p.title, vid: v.id, price: parseFloat(v.price), img: resizeImg(p.images && p.images[0] && p.images[0].src) } : null;
+        if (!v) return null;
+        return { pid: p.id, title: p.title, vid: v.id, price: parseFloat(v.price), img: resizeImg(p.images && p.images[0] && p.images[0].src) };
       }).filter(Boolean);
+      lgxHmProductIds = lgxHmProducts.map(function(p) { return p.pid; });
+    }
+
+    fetch('/collections/' + hmCollection + '/products.json?limit=10')
+      .then(function(r) {
+        if (!r.ok) throw new Error('404');
+        return r.json().then(parseCollection);
+      })
+      .catch(function() {
+        // Fallback: predictive search + per-product fetch
+        return fetch('/search/suggest.json?q=Heritage+Minis&type=product&resources[type]=product&resources[limit]=10')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var hits = ((data.resources || {}).results || {}).products || [];
+            return Promise.all(hits.filter(function(p) { return p.handle; }).slice(0, 6).map(function(p) {
+              return fetch('/products/' + p.handle + '.json').then(function(r) { return r.json(); }).catch(function() { return null; });
+            }));
+          })
+          .then(function(results) {
+            lgxHmProducts = (results || []).filter(Boolean).map(function(d) {
+              var prod = d && d.product;
+              var v = prod && prod.variants && prod.variants[0];
+              if (!v) return null;
+              return { pid: prod.id, title: prod.title, vid: v.id, price: parseFloat(v.price), img: resizeImg(prod.images && prod.images[0] && prod.images[0].src) };
+            }).filter(Boolean);
+            lgxHmProductIds = lgxHmProducts.map(function(p) { return p.pid; });
+          })
+          .catch(function() {});
+      })
+      .then(function() { return fetch('/cart.js').then(function(r) { return r.json(); }); })
+      .then(function(cart) { lgxHmRefresh(cart.items || []); })
+      .catch(function() {});
   }
 
-  var hmCollection = root.getAttribute('data-hm-collection') || 'legxi-heritage-minis';
+  /* ── ROYAL10 ── */
+  var lgxRoyalProducts   = null;
+  var lgxRoyalProductId  = null;
+  var lgxRoyalScrollPos  = 0;
+  var lgxRoyalRendered   = [];
 
-  // Try collection endpoint first, then fall back to predictive search + per-product fetch
-  fetch('/collections/' + hmCollection + '/products.json?limit=10')
-    .then(function(r) {
-      if (!r.ok) throw new Error('404');
-      return r.json().then(function(d) { renderCards(fromCollectionJson(d)); });
+  window.lgxRoyalAdd = function(vid, btn, event) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<span class="lgx-royal-spinner"></span>';
+    
+    var drawer = document.querySelector('cart-drawer');
+    var sectionId = 'cart-drawer';
+    if (drawer) {
+      var section = drawer.closest('.shopify-section') || drawer.closest('[id^="shopify-section-"]');
+      if (section && section.id) {
+        sectionId = section.id.replace('shopify-section-', '');
+      }
+    }
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: [{ id: vid, quantity: 1 }], sections: sectionId })
+    })
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    .then(function(cart) {
+      document.documentElement.dispatchEvent(new CustomEvent('cart:change', {
+        bubbles: true, detail: { cart: cart, baseEvent: 'variant:add' }
+      }));
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      
+      // Auto-restore button state in case drawer doesn't fully replace this node
+      setTimeout(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = orig;
+        }
+      }, 800);
     })
     .catch(function() {
-      fetch('/search/suggest.json?q=Heritage+Minis&type=product&resources[type]=product&resources[limit]=10')
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          var hits = (data.resources && data.resources.results && data.resources.results.products) || [];
-          var filtered = hits.filter(function(p) {
-            var numId = parseInt((p.id || '').split('/').pop(), 10);
-            return !isNaN(numId) && cartPids.indexOf(numId) === -1;
-          }).slice(0, 3);
-          if (!filtered.length) return;
-          return Promise.all(filtered.map(function(p) {
-            return fetch('/products/' + p.handle + '.json')
-              .then(function(r) { return r.json(); })
-              .then(function(d) {
-                var prod = d.product;
-                var v = prod && prod.variants && prod.variants[0];
-                if (!v) return null;
-                return { title: prod.title, vid: v.id, price: parseFloat(v.price), img: resizeImg(prod.images && prod.images[0] && prod.images[0].src) };
-              }).catch(function() { return null; });
-          }));
-        })
-        .then(function(cards) { if (cards) renderCards(cards.filter(Boolean)); })
-        .catch(function() {});
+      btn.disabled = false;
+      btn.innerHTML = orig;
     });
+  };
+
+  function lgxRoyalRefresh() {
+    var root = document.getElementById('lgx-royal-suggest-root');
+    if (!root || !lgxRoyalProducts) return;
+    var row = document.getElementById('lgx-royal-suggest-row');
+    if (!row) return;
+
+    root.setAttribute('data-lgx-ready', '1');
+
+    var cartPids = (root.getAttribute('data-cart-pids') || '').split(',').map(Number);
+    var eligibleCount = parseInt(root.getAttribute('data-eligible-count') || '0', 10);
+
+    if (eligibleCount >= 3) {
+      root.style.display = 'none';
+      return;
+    }
+
+    var available = lgxRoyalProducts.filter(function(p) { return cartPids.indexOf(p.pid) === -1; });
+    var availableIds = available.map(function(p) { return p.pid; }).join(',');
+
+    // Skip DOM replacement if exact same items are to be rendered to preserve smooth experience and scroll
+    var hasCards = !!row.querySelector('.lgx-royal-scard');
+    if (lgxRoyalRendered === availableIds && hasCards) {
+      root.style.display = available.length > 0 ? '' : 'none';
+      return;
+    }
+    lgxRoyalRendered = availableIds;
+
+    row.innerHTML = available.map(function(c) {
+      return '<div class="lgx-royal-scard">' +
+        '<div class="lgx-royal-scard__img-wrap">' +
+          (c.img ? '<img src="' + c.img + '" alt="" loading="lazy" width="120" height="120">' : '') +
+        '</div>' +
+        '<p class="lgx-royal-scard__name">' + c.title + '</p>' +
+        '<p class="lgx-royal-scard__price">₹' + Math.round(c.price).toLocaleString('en-IN') + '</p>' +
+        '<button type="button" class="lgx-royal-scard__add" onclick="lgxRoyalAdd(' + c.vid + ',this,event)">Add</button>' +
+      '</div>';
+    }).join('');
+
+    root.style.display = available.length > 0 ? '' : 'none';
+
+    // Restore scroll after DOM manipulation
+    row.scrollLeft = lgxRoyalScrollPos;
+
+    var prev = root.querySelector('.lgx-royal-carousel-prev');
+    var next = root.querySelector('.lgx-royal-carousel-next');
+    
+    // Attach smooth scroll logic
+    if (prev) prev.onclick = function() { row.scrollBy({left: -row.clientWidth, behavior: 'smooth'}); };
+    if (next) next.onclick = function() { row.scrollBy({left: row.clientWidth, behavior: 'smooth'}); };
+
+    function updateArrows() {
+      if (!prev || !next) return;
+      var cw = row.clientWidth;
+      var sw = row.scrollWidth;
+      
+      if (cw === 0) {
+        prev.style.display = 'flex';
+        next.style.display = 'flex';
+        prev.style.opacity = lgxRoyalScrollPos > 5 ? '1' : '0.3';
+        prev.style.pointerEvents = lgxRoyalScrollPos > 5 ? 'auto' : 'none';
+        next.style.opacity = '1';
+        next.style.pointerEvents = 'auto';
+        return;
+      }
+      
+      var canScroll = sw > cw;
+      if (!canScroll && lgxRoyalRendered.length <= 4) {
+        prev.style.display = 'none';
+        next.style.display = 'none';
+        return;
+      }
+      
+      prev.style.display = 'flex';
+      next.style.display = 'flex';
+      prev.style.opacity = (row.scrollLeft > 5) ? '1' : '0.3';
+      prev.style.pointerEvents = (row.scrollLeft > 5) ? 'auto' : 'none';
+      next.style.opacity = (Math.ceil(row.scrollLeft + cw) < sw - 5) ? '1' : '0.3';
+      next.style.pointerEvents = (Math.ceil(row.scrollLeft + cw) < sw - 5) ? 'auto' : 'none';
+    }
+    row.addEventListener('scroll', function() {
+      lgxRoyalScrollPos = row.scrollLeft;
+      updateArrows();
+    });
+    setTimeout(updateArrows, 100);
+    window.addEventListener('resize', updateArrows);
+  }
+
+  function lgxRoyalRenderSkeletons(row) {
+    var skels = '';
+    for(var i=0; i<4; i++){
+      skels += '<div class="lgx-royal-scard">' +
+        '<div class="lgx-royal-scard__img-wrap"><div class="lgx-skel"></div></div>' +
+        '<p class="lgx-royal-scard__name lgx-skel"></p>' +
+        '<p class="lgx-royal-scard__price lgx-skel"></p>' +
+        '<button type="button" class="lgx-royal-scard__add lgx-skel" disabled></button>' +
+      '</div>';
+    }
+    row.innerHTML = skels;
+  }
+
+  function lgxRoyalCheckNew() {
+    var root = document.getElementById('lgx-royal-suggest-root');
+    if (!root || root.getAttribute('data-lgx-ready')) return;
+    root.setAttribute('data-lgx-ready', '1');
+
+    var pid = root.getAttribute('data-product-id');
+    if (!pid) { lgxRoyalProducts = []; lgxRoyalRendered = ''; lgxRoyalRefresh(); return; }
+
+    var row = document.getElementById('lgx-royal-suggest-row');
+
+    if (!lgxRoyalProducts || lgxRoyalProductId != pid) {
+      lgxRoyalProductId = pid;
+      
+      if(row) lgxRoyalRenderSkeletons(row);
+
+      var type = root.getAttribute('data-product-type');
+      var vendor = root.getAttribute('data-product-vendor');
+      var coll = root.getAttribute('data-product-collection');
+
+      var extractProducts = function(r) {
+        if (!r.ok) {
+          return null;
+        }
+        return r.text().then(function(text) {
+          try {
+            var m = text.match(/\[[\s\S]*\]/);
+            if (m) {
+              var products = JSON.parse(m[0]);
+              return { products: products };
+            }
+          } catch(e) {
+          }
+          return null;
+        }).catch(function(e) {
+          return null;
+        });
+      };
+
+      var fetchColl = coll ? fetch('/collections/' + coll + '?section_id=lgx-royal-api').then(extractProducts) : Promise.resolve(null);
+      var fetchType = type ? fetch('/search?q=' + encodeURIComponent(type) + '&section_id=lgx-royal-api').then(extractProducts) : Promise.resolve(null);
+      var fetchVendor = vendor ? fetch('/search?q=' + encodeURIComponent(vendor) + '&section_id=lgx-royal-api').then(extractProducts) : Promise.resolve(null);
+      var fetchRecs = fetch('/recommendations/products?section_id=lgx-royal-api&product_id=' + pid + '&limit=10&intent=related').then(extractProducts);
+      var fetchComp = fetch('/recommendations/products?section_id=lgx-royal-api&product_id=' + pid + '&limit=10&intent=complementary').then(extractProducts);
+      var fetchAll = fetch('/collections/all?section_id=lgx-royal-api').then(extractProducts); // Huge fallback to guarantee carousel scrolling
+
+      Promise.all([fetchColl, fetchType, fetchVendor, fetchRecs, fetchComp, fetchAll]).then(function(results) {
+        var allProds = [];
+        var seen = {};
+        
+        function addList(d) {
+          if (!d) return;
+          var arr = d.products || (((d.resources||{}).results||{}).products);
+          if (arr) {
+            arr.forEach(function(p) {
+              if (p.id == pid || seen[p.id]) return;
+              var v = p.variants && p.variants[0];
+              if (!v) return;
+              seen[p.id] = true;
+              var imgSrc = (p.images && p.images[0] && (p.images[0].src || p.images[0])) || p.image || (typeof p.featured_image === 'string' ? p.featured_image : (p.featured_image && p.featured_image.url)) || (p.featured_media && p.featured_media.preview_image && p.featured_media.preview_image.src) || 'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png';
+              allProds.push({ pid: p.id, title: p.title, vid: v.id, price: parseFloat(v.price), img: resizeImg(imgSrc) });
+            });
+          }
+        }
+        
+        for (var i = 0; i < 6; i++) {
+          if (allProds.length >= 10) break;
+          addList(results[i]);
+        }
+        
+        lgxRoyalProducts = allProds;
+        lgxRoyalRendered = '';
+        lgxRoyalScrollPos = 0; // reset scroll for new products
+        lgxRoyalRefresh();
+      }).catch(function(){
+        lgxRoyalProducts = [];
+        lgxRoyalRendered = '';
+        lgxRoyalRefresh();
+      });
+    } else {
+      // Re-use cached products, this prevents scroll flicker on quantity change
+      if (row) row.scrollLeft = lgxRoyalScrollPos;
+      lgxRoyalRefresh();
+    }
+  }
+
+  function lgxRoyalOnCartChange(e) {
+    var cart = e.detail && e.detail.cart;
+    if (!cart) return;
+    setTimeout(lgxRoyalCheckNew, 0);
+  }
+
+  document.documentElement.addEventListener('cart:change', lgxRoyalOnCartChange);
+  document.addEventListener('cart:change', function(e) {
+    if (e.target === document) lgxRoyalOnCartChange(e);
+  });
+  
+  setTimeout(lgxRoyalCheckNew, 0);
 })();
 </script>
 
@@ -1088,3 +1829,4 @@ function lgxHmAdd(vid, btn) {
   ]
 }
 {% endschema %}
+

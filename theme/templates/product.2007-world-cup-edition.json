@@ -393,7 +393,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",
@@ -478,7 +478,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",

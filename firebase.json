@@ -8,7 +8,7 @@
     {
       "source": "transfer-service",
       "codebase": "transfer",
-      "ignore": ["node_modules", ".git", "firebase-debug.log", ".env*"],
+      "ignore": ["node_modules", ".git", "firebase-debug.log"],
       "predeploy": ["node scripts/sync-shared.mjs"]
     }
   ]

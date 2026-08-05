@@ -63,7 +63,34 @@ The implementation is rather complex and inefficient due to a lot of string pars
 only way to do it on Shopify right now.
 {%- endcomment -%}
 {% liquid
-  assign default_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media
+  comment
+    A URL's ?variant= parameter is honored even when that variant is sold out. Fall back to
+    an available SYSTEM ASSIGNED (AUTO) variant that matches the requested one on every other
+    option (e.g. framing style, when present), so we land on the correct live default without
+    silently switching the customer to a different option value. Works for both single-option
+    (edition-only) and multi-option (framing + edition) products.
+  endcomment
+  assign current_variant = product.selected_or_first_available_variant
+  if current_variant.available == false
+    assign requested_options = current_variant.options
+    assign available_variants = product.variants | where: 'available', true
+    for v in available_variants
+      assign is_match = true
+      for opt_val in v.options
+        assign idx = forloop.index0
+        assign requested_val = requested_options[idx]
+        if opt_val != requested_val and opt_val != 'SYSTEM ASSIGNED (AUTO)'
+          assign is_match = false
+        endif
+      endfor
+      if is_match and v.title contains 'SYSTEM ASSIGNED (AUTO)'
+        assign current_variant = v
+        break
+      endif
+    endfor
+  endif
+
+  assign default_media = current_variant.featured_media | default: product.featured_media
   assign product_gallery_carousel_id = 'product-gallery-carousel-' | append: product.id | append: '-' | append: section.id
   assign filtered_indexes = null | sort
 

@@ -23,6 +23,36 @@ Supported variables
 
 {%- assign variant = variant | default: product.selected_or_first_available_variant -%}
 
+{%- comment -%}
+  On search results, the variant that textually matched the query (e.g. a sold-out numbered
+  edition) can be resolved as "selected" even with no ?variant= URL param, making an in-stock
+  product show a false "Sold out" badge. Fall back to an available SYSTEM ASSIGNED (AUTO)
+  variant that matches on every other option (e.g. framing style, when present) when that
+  happens. Works for both single-option (edition-only) and multi-option (framing + edition)
+  products. No-op if the variant passed in is already available or no matching fallback
+  exists.
+{%- endcomment -%}
+{%- liquid
+  if variant.available == false
+    assign requested_options = variant.options
+    assign available_variants = product.variants | where: 'available', true
+    for v in available_variants
+      assign is_match = true
+      for opt_val in v.options
+        assign idx = forloop.index0
+        assign requested_val = requested_options[idx]
+        if opt_val != requested_val and opt_val != 'SYSTEM ASSIGNED (AUTO)'
+          assign is_match = false
+        endif
+      endfor
+      if is_match and v.title contains 'SYSTEM ASSIGNED (AUTO)'
+        assign variant = v
+        break
+      endif
+    endfor
+  endif
+-%}
+
 {%- capture badges -%}
   {%- if show_custom_badge -%}
     {%- for custom_badge in product.metafields.custom.badges.value -%}
@@ -30,8 +60,27 @@ Supported variables
     {%- endfor -%}
   {%- endif -%}
 
-  {%- if show_sold_out_badge and variant.available == false -%}
-    <sold-out-badge {% if variant.available %}hidden{% endif %} {% if form_id != blank %}form="{{ form_id }}"{% endif %} class="badge badge--sold-out {% if vertical_text %}vertical-text{% endif %}">
+  {%- comment -%}
+    On a card (search results, collection grids), there's no interactive variant picker, so
+    "Sold out" should reflect whether the PRODUCT has anything purchasable at all
+    (product.available), not just whichever variant search happened to resolve as "selected".
+    On the actual product page, keep reflecting the specific variant currently shown, since a
+    customer who manually picks a genuinely sold-out edition should see accurate feedback.
+  {%- endcomment -%}
+  {%- liquid
+    assign is_sold_out = false
+    if context == 'card'
+      unless product.available
+        assign is_sold_out = true
+      endunless
+    else
+      unless variant.available
+        assign is_sold_out = true
+      endunless
+    endif
+  -%}
+  {%- if show_sold_out_badge and is_sold_out -%}
+    <sold-out-badge {% if form_id != blank %}form="{{ form_id }}"{% endif %} class="badge badge--sold-out {% if vertical_text %}vertical-text{% endif %}">
       {{- 'product.general.sold_out_badge' | t -}}
     </sold-out-badge>
   {%- endif -%}

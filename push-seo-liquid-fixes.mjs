@@ -28,6 +28,6 @@ async function pushAsset(key, localPath) {
 
 async function main() {
   await pushAsset('layout/theme.liquid', 'theme/layout/theme.liquid');
-  await pushAsset('snippets/microdata-schema.liquid', 'theme/snippets/microdata-schema.liquid');
+  await pushAsset('templates/robots.txt.liquid', 'theme/templates/robots.txt.liquid');
 }
 main();

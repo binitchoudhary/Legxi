@@ -31,6 +31,33 @@ Supported variables
   if context == 'main_product'
     assign is_main_product = true
   endif
+
+  comment
+    A URL's ?variant= parameter is honored even when that variant is sold out. Fall back to
+    an available SYSTEM ASSIGNED (AUTO) variant that matches the requested one on every other
+    option (e.g. framing style, when present), so we land on the correct live default without
+    silently switching the customer to a different option value. Works for both single-option
+    (edition-only) and multi-option (framing + edition) products.
+  endcomment
+  assign current_variant = product.selected_or_first_available_variant
+  if current_variant.available == false
+    assign requested_options = current_variant.options
+    assign available_variants = product.variants | where: 'available', true
+    for v in available_variants
+      assign is_match = true
+      for opt_val in v.options
+        assign idx = forloop.index0
+        assign requested_val = requested_options[idx]
+        if opt_val != requested_val and opt_val != 'SYSTEM ASSIGNED (AUTO)'
+          assign is_match = false
+        endif
+      endfor
+      if is_match and v.title contains 'SYSTEM ASSIGNED (AUTO)'
+        assign current_variant = v
+        break
+      endif
+    endfor
+  endif
 -%}
 
 {%- unless product.has_only_default_variant -%}
@@ -39,9 +66,9 @@ Supported variables
     The variant data is outputted as a JSON, which allows the theme to emit an event with the data when the variant changes. This must not be removed.
     {%- endcomment -%}
     <script data-variant type="application/json">
-      {{- product.selected_or_first_available_variant | json -}}
+      {{- current_variant | json -}}
     </script>
-    {%- assign selected_framing = product.selected_or_first_available_variant.option1 | downcase -%}
+    {%- assign selected_framing = current_variant.option1 | downcase -%}
     {%- for option in product.options_with_values -%}
       {%- assign option_downcase = option.name | downcase -%}
       {%- if option_downcase contains 'edition' and selected_framing contains 'poster' -%}
@@ -52,6 +79,15 @@ Supported variables
       {%- if option_downcase contains 'edition' -%}
         {%- assign is_edition_option = true -%}
       {%- endif -%}
+      {%- comment -%}
+        option.selected_value / option_value.selected are Shopify-native and reflect the raw
+        requested variant even when it's the sold-out one current_variant fell back away from.
+        Compute the corrected value for this option position from current_variant.options so
+        the dropdown button text and checked radio match what's actually shown, not the
+        sold-out request.
+      {%- endcomment -%}
+      {%- assign current_option_index = option.position | minus: 1 -%}
+      {%- assign current_option_value = current_variant.options[current_option_index] -%}
       {% liquid
         assign option_downcase = option.name | downcase
         if forloop.index == 1 and product.options.size > 1
@@ -116,7 +152,7 @@ endif
             {%- capture popover_id -%}popover-variant-dropdown-{{ section.id }}-{{ product.id }}-{{ option.position }}{%- endcapture -%}
 
             <button type="button" class="select {% if settings.input_uppercase %}subheading{% endif %}" aria-controls="{{ popover_id }}" aria-expanded="false">
-              <span id="{{ popover_id }}-selected-value">{{- option.selected_value -}}</span>
+              <span id="{{ popover_id }}-selected-value">{{- current_option_value -}}</span>
               {%- render 'icon' with 'chevron-down' -%}
             </button>
 
@@ -125,16 +161,20 @@ endif
 
               <div class="popover__value-list">
                 {%- assign param_name = form_id | append: '-option' | append: option.position -%}
-                
+
                 {%- for option_value in option.values -%}
+                  {%- assign option_value_is_current = false -%}
+                  {%- if option_value.name == current_option_value -%}
+                    {%- assign option_value_is_current = true -%}
+                  {%- endif -%}
                   {%- capture option_markup -%}
                     <span {% if option_value.available == false %}class="line-through"{% endif %}>{{- option_value -}}</span>
                   {%- endcapture -%}
 
-                  {%- if hide_sold_out_variants == false or option_value.available or option_value.selected -%}
+                  {%- if hide_sold_out_variants == false or option_value.available or option_value_is_current -%}
                     {%- if is_main_product and option_value.product_url != blank -%}
                       <div class="popover__value-option">
-                        {%- if option_value.selected -%}
+                        {%- if option_value_is_current -%}
                           <input class="sr-only" type="radio" id="{{ param_name }}-{{ option_value.id }}" form="{{ form_id }}" name="{{ param_name }}" data-option-position="{{ option.position }}" value="{{ option_value.id }}" checked>
                         {%- endif -%}
 
@@ -144,7 +184,7 @@ endif
                       </div>
                     {%- else -%}
                       <label class="popover__value-option" for="{{ param_name }}-{{ option_value.id }}">
-                        <input class="sr-only" type="radio" id="{{ param_name }}-{{ option_value.id }}" form="{{ form_id }}" name="{{ param_name }}" {% if option_value.product_url != blank %}data-product-url="{{ option_value.product_url | escape }}"{% endif %} data-option-position="{{ option.position }}" value="{{ option_value.id }}" {% if option_value.selected %}checked{% endif %}>
+                        <input class="sr-only" type="radio" id="{{ param_name }}-{{ option_value.id }}" form="{{ form_id }}" name="{{ param_name }}" {% if option_value.product_url != blank %}data-product-url="{{ option_value.product_url | escape }}"{% endif %} data-option-position="{{ option.position }}" value="{{ option_value.id }}" {% if option_value_is_current %}checked{% endif %}>
                         {{- option_markup -}}
                       </label>
                     {%- endif -%}

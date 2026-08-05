@@ -3,8 +3,37 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "custom_badges_tVNEkn": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 4,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "limited Signed edition",
+            "badge_1_show": true,
+            "badge_1_bg": "#f0f0f0",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#e0e0e0",
+            "badge_2_text": "10 pieces",
+            "badge_2_show": true,
+            "badge_2_bg": "#dee8e2",
+            "badge_2_text_color": "#237c4c",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
         "vendor": {
           "type": "vendor",
+          "disabled": true,
           "settings": {}
         },
         "title": {
@@ -36,10 +65,21 @@
         },
         "separator": {
           "type": "separator",
+          "disabled": true,
           "settings": {}
+        },
+        "inventory_7yxnpD": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 10
+          }
         },
         "description": {
           "type": "description",
+          "disabled": true,
           "settings": {
             "collapse_content": false,
             "uppercase_title": false
@@ -62,8 +102,37 @@
             "size_chart_page": ""
           }
         },
+        "modal_gpmMyR": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": false,
+            "add_quantity_selector_spacing": false,
+            "atc_button_style": "outline",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
         "button_hPgGNY": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "link": "#specialist-form",
             "text": "APPLY FOR OWNERSHIP",
@@ -84,23 +153,81 @@
             "text_color": ""
           }
         },
-        "buy_buttons": {
-          "type": "buy_buttons",
+        "offers_7Km7V9": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_58fd9795-f1b7-4908-bccf-7bfa18c022cf.png",
+            "offer_1_icon_width": 18,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f5fbff",
+            "offer_1_text_color": "#171717",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_11525f28-e653-46a2-ad3f-616d74918f89.png",
+            "offer_2_icon_width": 16,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f5fbff",
+            "offer_2_text_color": "#171717",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_66be8c4f-5fa4-41cd-93b9-b083a53545fc.png",
+            "offer_3_icon_width": 16,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f5fbff",
+            "offer_3_text_color": "#171717"
+          }
+        },
+        "complementary_products_kDyUpm": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "Pairs well with",
+            "products_count": 10
+          }
+        },
+        "modal_pqn4HE": {
+          "type": "modal",
           "disabled": true,
           "settings": {
-            "show_payment_button": true,
-            "show_gift_card_recipient": true,
-            "show_quantity_selector": false,
-            "add_quantity_selector_spacing": false,
-            "atc_button_style": "solid",
-            "atc_button_background": "",
-            "atc_button_text_color": "",
-            "payment_button_background": "",
-            "payment_button_text_color": ""
+            "dialog_type": "modal",
+            "button_title": "Delivery & Refund",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "Shipping",
+            "modal_content": "<p>Free Shipping on all orders (within India). Delivery within 10 business days. All orders are shipped with a tracking number.<\/p><h5>Returns<\/h5><p>Returns are accepted only if the product is damaged or broken. Refunds will be processed back to the original payment method.<\/p><h5>Help<\/h5><p>Reach out to us if you have any other questions and\/or concerns.<\/p><p>Email: <a href=\"https:\/\/legxi.co\/products\/reach@legxi.co\">reach@legxi.co<\/a><\/p><p>Phone: +91 9315704239<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "modal_dWxbwn": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "material & dimensions",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #10 pieces worldwide<br\/>Personally signed by Argentine Legends.<br\/><br\/>Comes with: Wooden base and Museum grade poster with metal display frame<br\/><br\/>Size \/ Dimensions: 20 x 30 inches<\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "accordion_AExH3G": {
+          "type": "accordion",
+          "settings": {
+            "title": "Description",
+            "content": "<p>One nation. One squad. One eternal triumph.<br\/><br\/>Featuring the heroes of Qatar 2022, the artwork celebrates the generation that transformed belief into immortality and delivered one of the most iconic victories in football history. Designed as a visual monument to Argentina's World Cup triumph, Campeónes preserves the players, the achievement, and the legacy that captivated millions around the world.<\/p>",
+            "uppercase_title": false,
+            "icon": "none",
+            "page": ""
           }
         }
       },
       "block_order": [
+        "custom_badges_tVNEkn",
         "vendor",
         "title",
         "badges",
@@ -108,16 +235,31 @@
         "rating",
         "payment_terms",
         "separator",
+        "inventory_7yxnpD",
         "description",
         "sku_cPAfKw",
         "variant_picker",
+        "modal_gpmMyR",
+        "buy_buttons",
         "button_hPgGNY",
         "button_MNGMgp",
-        "buy_buttons"
+        "offers_7Km7V9",
+        "complementary_products_kDyUpm",
+        "modal_pqn4HE",
+        "modal_dWxbwn",
+        "accordion_AExH3G"
       ],
       "custom_css": [
         ".variant-picker__poster-note {display: none !important;}",
-        "[data-block-type=\"button\"] + [data-block-type=\"button\"] {margin-top: -8px;}"
+        "[data-block-type=\"button\"] + [data-block-type=\"button\"] {margin-top: -8px;}",
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}",
+        ".product {gap: 1rem;}",
+        ".product-title {padding: 0 !important;}",
+        ".product-info__block-item {margin: 10px 0;}",
+        "sale-price {margin-bottom: 10px;}"
       ],
       "settings": {
         "color_scheme": "scheme-1",
@@ -127,7 +269,7 @@
         "show_sticky_add_to_cart": true,
         "product_media_size": 40,
         "content_alignment": "left",
-        "desktop_media_layout": "carousel",
+        "desktop_media_layout": "grid_half_highlight_first",
         "desktop_carousel_controls": "thumbnails_under",
         "mobile_controls": "thumbnails",
         "enable_media_autoplay": false,
@@ -273,7 +415,7 @@
           "type": "richtext",
           "settings": {
             "text": "<p>Each artwork is individually hand-signed by a member of Argentina's World Cup-winning core, including Lionel Messi, Emiliano Martínez, Julián Álvarez, Enzo Fernández, Lautaro Martínez, and Rodrigo De Paul.<\/p><p>Across the complete edition of ten artworks, every signature creates a direct connection between collector and champion.<\/p><p>Officially licensed by the Argentine Football Association and accompanied by a Certificate of Authenticity, Campeónes has been created for collectors seeking rare pieces connected to football's defining moments.<\/p><p>Only ten editions exist worldwide.<\/p>",
-            "position": "top_left"
+            "position": "bottom_left"
           }
         },
         "button_Yb7jzA": {
@@ -398,7 +540,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",

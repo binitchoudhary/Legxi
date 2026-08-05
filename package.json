@@ -15,14 +15,19 @@
     "dev:sync": "node scripts/sync-dev.js"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "dotenv": "^16.4.5",
     "exceljs": "^4.4.0",
+    "googleapis": "^173.0.0",
     "localtunnel": "^2.0.2",
     "node-fetch": "^3.3.2",
-    "playwright": "^1.61.1"
+    "xlsx": "^0.18.5"
   },
   "type": "module",
   "devDependencies": {
-    "chokidar": "^5.0.0"
+    "chokidar": "^5.0.0",
+    "csv-parse": "^7.0.1",
+    "csv-stringify": "^6.8.1",
+    "playwright": "^1.62.0"
   }
 }

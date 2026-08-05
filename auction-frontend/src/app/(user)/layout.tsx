@@ -10,14 +10,16 @@ import { cn } from '@/utils/utils';
 import { Button } from '@/components/ui/button';
 import { Menu, X, LogOut, LayoutDashboard } from 'lucide-react';
 
+import { useLogout } from '@/features/auth/hooks/useLogout';
+
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   const pathname = usePathname();
-  const { user, logout } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const { logout } = useLogout();
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/login';
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (

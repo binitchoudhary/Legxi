@@ -62,6 +62,12 @@
             "progress_bar_max_value": 50
           }
         },
+        "text_rBFhpx": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Every LEGXI collectible is released in limited numbers. We don't restock. We don't repeat. When you find one you love, don't wait, that's your only opportunity. Secure it before it becomes sold out too.<\/strong><\/p>"
+          }
+        },
         "rating": {
           "type": "rating",
           "settings": {
@@ -218,6 +224,7 @@
         "badges",
         "price",
         "inventory_g3DVD6",
+        "text_rBFhpx",
         "rating",
         "payment_terms",
         "separator",

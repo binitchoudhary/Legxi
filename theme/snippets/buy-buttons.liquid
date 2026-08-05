@@ -30,19 +30,46 @@ Supported variables
       assign recipient_feature_active = true
       assign show_payment_button = false
     endif
+
+    comment
+      A URL's ?variant= parameter is honored even when that variant is sold out. Fall back to
+      an available SYSTEM ASSIGNED (AUTO) variant that matches the requested one on every
+      other option (e.g. framing style, when present), so we land on the correct live default
+      without silently switching the customer to a different option value. Works for both
+      single-option (edition-only) and multi-option (framing + edition) products.
+    endcomment
+    assign current_variant = product.selected_or_first_available_variant
+    if current_variant.available == false
+      assign requested_options = current_variant.options
+      assign available_variants = product.variants | where: 'available', true
+      for v in available_variants
+        assign is_match = true
+        for opt_val in v.options
+          assign idx = forloop.index0
+          assign requested_val = requested_options[idx]
+          if opt_val != requested_val and opt_val != 'SYSTEM ASSIGNED (AUTO)'
+            assign is_match = false
+          endif
+        endfor
+        if is_match and v.title contains 'SYSTEM ASSIGNED (AUTO)'
+          assign current_variant = v
+          break
+        endif
+      endfor
+    endif
   -%}
 
   <product-form>
     {%- form 'product', product, id: form_id -%}
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="id" value="{{ current_variant.id }}">
 
       {% liquid
         assign button_disabled = false
 
-        if product.selected_or_first_available_variant == nil
+        if current_variant == nil
           assign button_disabled = true
           assign button_content = 'product.general.unavailable_button' | t
-        elsif product.selected_or_first_available_variant.available == false
+        elsif current_variant.available == false
           assign button_disabled = true
           assign button_content = 'product.general.sold_out_button' | t
         else
@@ -86,7 +113,7 @@ Supported variables
             <div class="v-stack gap-2">
               {%- if product.available and show_quantity_selector -%}
                 {%- liquid
-                  assign variant = product.selected_or_first_available_variant
+                  assign variant = current_variant
                   assign quantity_rules = ''
 
                   if variant.quantity_rule.min > 1
@@ -112,7 +139,7 @@ Supported variables
 
               <div class="h-stack {% if add_quantity_selector_spacing or settings.button_border_radius > 0 %}gap-2{% else %}collapse-quantity-selector{% endif %}">
                 {%- if product.available and show_quantity_selector -%}
-                  {%- render 'quantity-selector', variant: product.selected_or_first_available_variant, form: form_id -%}
+                  {%- render 'quantity-selector', variant: current_variant, form: form_id -%}
                 {%- endif -%}
 
                 {%- assign _no_atc = 'argentine-icons-24k,trinity-set,campeones-world-cup-2022,la-scaloneta-2026-edition,ball-hand-signed' | split: ',' -%}
@@ -137,7 +164,7 @@ Supported variables
                       --button-text-color: {{ payment_button_text_color.rgb }};
                     {%- endif -%}
 
-                    {%- unless product.selected_or_first_available_variant.available -%}
+                    {%- unless current_variant.available -%}
                       display: none;
                     {%- endunless -%}
                   }

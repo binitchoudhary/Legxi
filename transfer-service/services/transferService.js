@@ -128,7 +128,7 @@ export async function getCertsByPhone(phone) {
   // Phase 2: Registry records — enrich edition_type from order data if empty
   const ownedRecords = allRecords
     .filter(r => {
-      return phone10(r.current_owner_phone) === normalPhone && r.transfer_status !== 'rejected';
+      return phone10(r.current_owner_phone) === normalPhone;
     })
     .map(r => {
       const rec = { ...r, _source: 'registry' };

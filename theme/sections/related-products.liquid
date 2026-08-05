@@ -17,28 +17,120 @@
 </style>
 
 <product-recommendations class="block color-scheme color-scheme--{{ section.settings.color_scheme.id }}" product="{{ product.id }}" limit="{{ section.settings.recommendations_count }}" intent="related">
-  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
-    <div class="container section-spacing">
-      <div class="section-stack">
-        {%- content_for 'block', type: '_section-header', id: 'section-header' -%}
-      
-        {%- assign product_list_id = 'section-' | append: section.id | append: '-product-list' -%}
+  {%- if recommendations.performed? -%}
+    {%- assign rec_limit = section.settings.recommendations_count -%}
+    {%- assign final_handles = '' -%}
+    {%- assign current_count = 0 -%}
 
-        {%- capture product_list -%}
-          <product-list id="{{ product_list_id }}" class="product-list product-list--padded full-bleed {% unless section.settings.stack_products %}product-list--carousel scroll-area{% endunless %}">
-            {%- capture sizes -%}
-              {%- if section.settings.stack_products -%}
-                (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 999px) calc(50vw - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }})
-              {%- else -%}
-                (max-width: 699px) 74vw, (max-width: 999px) 50vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }})
-              {%- endif -%}
-            {%- endcapture -%}
+    {%- comment -%} 1. Assigned Merchandising Collections {%- endcomment -%}
+    {%- assign blacklist = 'all,frontpage,best-sellers,new-arrivals,sale,featured,homepage' | split: ',' -%}
+    {%- for coll in product.collections -%}
+      {%- if blacklist contains coll.handle -%}{%- continue -%}{%- endif -%}
+      {%- assign source_products = coll.products -%}
+      {%- for p in source_products -%}
+        {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- assign et = p.metafields.custom.edition_type.value | downcase -%}
+        {%- if et == 'signed' -%}{%- continue -%}{%- endif -%}
+        {%- assign check_str = p.handle | append: ',' -%}
+        {%- unless final_handles contains check_str -%}
+          {%- assign final_handles = final_handles | append: check_str -%}
+          {%- assign current_count = current_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+      {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
 
-            {%- for product in recommendations.products -%}
-              {%- render 'product-card', product: product, reveal: true, sizes: sizes, position: forloop.index -%}
-            {%- endfor -%}
-          </product-list>
-        {%- endcapture -%}
+    {%- comment -%} 2. Product Type {%- endcomment -%}
+    {%- if current_count < rec_limit and product.type != blank -%}
+      {%- assign source_products = collections.all.products | where: 'type', product.type -%}
+      {%- for p in source_products -%}
+        {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- assign et = p.metafields.custom.edition_type.value | downcase -%}
+        {%- if et == 'signed' -%}{%- continue -%}{%- endif -%}
+        {%- assign check_str = p.handle | append: ',' -%}
+        {%- unless final_handles contains check_str -%}
+          {%- assign final_handles = final_handles | append: check_str -%}
+          {%- assign current_count = current_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} 3. Vendor {%- endcomment -%}
+    {%- if current_count < rec_limit and product.vendor != blank -%}
+      {%- assign source_products = collections.all.products | where: 'vendor', product.vendor -%}
+      {%- for p in source_products -%}
+        {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- assign et = p.metafields.custom.edition_type.value | downcase -%}
+        {%- if et == 'signed' -%}{%- continue -%}{%- endif -%}
+        {%- assign check_str = p.handle | append: ',' -%}
+        {%- unless final_handles contains check_str -%}
+          {%- assign final_handles = final_handles | append: check_str -%}
+          {%- assign current_count = current_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} 4. Native Recommendations {%- endcomment -%}
+    {%- if current_count < rec_limit and recommendations.products_count > 0 -%}
+      {%- assign source_products = recommendations.products -%}
+      {%- for p in source_products -%}
+        {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- assign et = p.metafields.custom.edition_type.value | downcase -%}
+        {%- if et == 'signed' -%}{%- continue -%}{%- endif -%}
+        {%- assign check_str = p.handle | append: ',' -%}
+        {%- unless final_handles contains check_str -%}
+          {%- assign final_handles = final_handles | append: check_str -%}
+          {%- assign current_count = current_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} 5. Fallback {%- endcomment -%}
+    {%- if current_count < rec_limit -%}
+      {%- assign source_products = collections.all.products -%}
+      {%- for p in source_products -%}
+        {%- if current_count >= rec_limit -%}{%- break -%}{%- endif -%}
+        {%- if p.id == product.id -%}{%- continue -%}{%- endif -%}
+        {%- assign et = p.metafields.custom.edition_type.value | downcase -%}
+        {%- if et == 'signed' -%}{%- continue -%}{%- endif -%}
+        {%- assign check_str = p.handle | append: ',' -%}
+        {%- unless final_handles contains check_str -%}
+          {%- assign final_handles = final_handles | append: check_str -%}
+          {%- assign current_count = current_count | plus: 1 -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- assign final_handles_arr = final_handles | split: ',' -%}
+    {%- if final_handles_arr.size > 0 -%}
+      <div class="container section-spacing">
+        <div class="section-stack">
+          {%- content_for 'block', type: '_section-header', id: 'section-header' -%}
+        
+          {%- assign product_list_id = 'section-' | append: section.id | append: '-product-list' -%}
+
+          {%- capture product_list -%}
+            <product-list id="{{ product_list_id }}" class="product-list product-list--padded full-bleed {% unless section.settings.stack_products %}product-list--carousel scroll-area{% endunless %}">
+              {%- capture sizes -%}
+                {%- if section.settings.stack_products -%}
+                  (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }} - 40px), (max-width: 999px) calc(50vw - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }})
+                {%- else -%}
+                  (max-width: 699px) 74vw, (max-width: 999px) 50vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop }})
+                {%- endif -%}
+              {%- endcapture -%}
+
+              {%- for handle in final_handles_arr -%}
+                {%- assign rec_product = all_products[handle] -%}
+                {%- if rec_product != blank -%}
+                  {%- render 'product-card', product: rec_product, reveal: true, sizes: sizes, position: forloop.index -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </product-list>
+          {%- endcapture -%}
 
         {%- if section.settings.stack_products -%}
           {{- product_list -}}
@@ -69,6 +161,7 @@
         {%- endif -%}
       </div>
     </div>
+  {%- endif -%}
   {%- endif -%}
 </product-recommendations>
 

@@ -17,7 +17,8 @@
         "storefront_token": "",
         "app_proxy_url": "https:\/\/api-7zal2ngszq-uc.a.run.app",
         "transfer_api_url": "https:\/\/api-7zal2ngszq-uc.a.run.app",
-        "brand_name": "Sixxer",
+        "brand_logo": "shopify:\/\/shop_images\/logo-transparent-header.png",
+        "brand_name": "LEGXI",
         "brand_tagline": "Certificate Authentication",
         "ed_title_lt": "Select Your",
         "ed_title_bd": "Edition",
@@ -28,6 +29,7 @@
         "signed_script": "Signed",
         "signed_type": "Editions",
         "signed_desc": "Rare signed memorabilia — from the hands of legends. Authenticated and certified by Sixxer.",
+        "signed_img": "shopify:\/\/shop_images\/signed-edition-desktop.png",
         "login_title": "Verify Your Number",
         "login_sub": "Enter your registered mobile number. We will send a one-time verification code."
       }

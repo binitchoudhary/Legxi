@@ -1,0 +1,1 @@
+{% paginate collections.all.products by 1000 %}{% for p in collections.all.products %}{% if p.metafields.custom.edition_type != blank %}{{ p.handle }}:{{ p.metafields.custom.edition_type }},{% endif %}{% endfor %}{% endpaginate %}

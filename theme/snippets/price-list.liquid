@@ -64,11 +64,12 @@ Supported variables
     <sale-price class="{% if variant.compare_at_price > variant.price %}{{ on_sale_price_classes }}{% else %}{{ regular_price_classes }}{% endif %}">
       <span class="sr-only">{{ 'product.price.sale_price' | t }}</span>
 
-      {%- if settings.currency_code_enabled -%}
+      {%- assign lgx_ts = product.template_suffix -%}{%- assign lgx_ip3 = false -%}{%- if context == 'product' -%}{%- if lgx_ts == 'magshield-argentina' or lgx_ts == 'argentina-heritage-mini' or lgx_ts == 'brazil-heritage-mini' or lgx_ts == 'france-heritage-mini' or lgx_ts == 'portugal-heritage-mini' -%}{%- assign lgx_ip3 = true -%}{%- endif -%}{%- endif -%}
+      {%- if lgx_ip3 -%}<span style="font-weight:700;">{%- endif -%}{%- if settings.currency_code_enabled -%}
         {{- variant.price | money_with_currency -}}
       {%- else -%}
         {{- variant.price | money -}}
-      {%- endif -%}
+      {%- endif -%}{%- if lgx_ip3 -%}</span><span style="display:inline-block;background:#F3F3F3;border:none;color:#444;font-size:calc(1em - 3px);font-weight:500;white-space:nowrap;padding:4px 8px;text-transform:none;border-radius:0px;margin-left:8px;vertical-align:middle;">Includes Pack of 3</span>{%- endif -%}
     </sale-price>
 
     {%- if variant.compare_at_price > variant.price -%}

@@ -9,7 +9,7 @@
           "type": "item",
           "settings": {
             "icon": "picto-earth",
-            "icon_width": 24,
+            "icon_width": 20,
             "mobile_icon_width": 20,
             "title": "Worldwide delivery",
             "content": "Get your order delivered anywhere across the globe."
@@ -19,7 +19,7 @@
           "type": "item",
           "settings": {
             "icon": "picto-shipping-protection",
-            "icon_width": 24,
+            "icon_width": 20,
             "mobile_icon_width": 20,
             "title": "100% Secure shipping",
             "content": "Every order is processed with care and shipped fully insured."
@@ -29,17 +29,17 @@
           "type": "item",
           "settings": {
             "icon": "picto-checked",
-            "icon_width": 24,
+            "icon_width": 20,
             "mobile_icon_width": 20,
             "title": "Certified Collectibles",
-            "content": "All collectible items comes with a certificate of authentication."
+            "content": "All collectible items come with a certificate of authentication."
           }
         },
         "item-4": {
           "type": "item",
           "settings": {
             "icon": "picto-magnifying-glass",
-            "icon_width": 24,
+            "icon_width": 20,
             "mobile_icon_width": 20,
             "title": "Expert Advice",
             "content": "Connect with us on WhatsApp for bespoke guidance."
@@ -55,6 +55,345 @@
       "settings": {
         "color_scheme": "scheme-2",
         "item_heading_style": "subheading"
+      }
+    },
+    "media_wall_CcbNin": {
+      "type": "media-wall",
+      "blocks": {
+        "media_card_NCkn73": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Hero Video",
+            "card_type": "tall",
+            "media_type": "video",
+            "video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/9a24b139f5c94b2d94758a5a3f9f9f24.mp4",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#0a0a0a",
+            "overlay_opacity": 55,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_Ra6rbR": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Top",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/vatsal-desai.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Vatsal Desai",
+            "subtext": "Director, Uniclan Healthcare",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_eEYC4A": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Top",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/testimonial-01.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_NxVre8": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Feature Video",
+            "card_type": "tall",
+            "media_type": "video",
+            "video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/780828121cc947d2ba3a3fada460314d.mp4",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "https:\/\/www.instagram.com\/legxi.co\/",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#1a0a2e",
+            "overlay_opacity": 45,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_9UEVhp": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Bottom",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/gurman-bhullar.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_4tRpVw": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Portrait Bottom",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/sameer-manglani.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Sameer Manglani",
+            "subtext": "MD, Meena Bazar",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_Xq9gCM": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Tall Portrait",
+            "card_type": "tall",
+            "media_type": "video",
+            "video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/bad458d8df6d42bab1676068ab26aa0a.mp4",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "https:\/\/www.instagram.com\/legxi.co\/",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_Xy8geM": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square A",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/shrenik.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Shrenika Ghodawat",
+            "subtext": "MD, Star Air",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_xwkprN": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square B",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/narinder.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Narinder Dhruv Batra",
+            "subtext": "Member, International Olympic Committee",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_WiKEWH": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Tall Portrait",
+            "card_type": "tall",
+            "media_type": "video",
+            "video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/364ced1642b24887871bfa297cc271d5.mp4",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "https:\/\/www.instagram.com\/legxi.co\/",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "",
+            "subtext": "",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_7ikjHy": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square C",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/sachin.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Sachin Bhatia",
+            "subtext": "Co-Founder, Make My Trip",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        },
+        "media_card_z3RE9U": {
+          "type": "media_card",
+          "settings": {
+            "block_label": "Square D",
+            "card_type": "half",
+            "media_type": "image",
+            "image": "shopify:\/\/shop_images\/raghav-gupta.jpg",
+            "video": "",
+            "gif": "",
+            "display_mode": "cover",
+            "video_autoplay": true,
+            "video_loop": true,
+            "card_link": "",
+            "open_new_tab": false,
+            "overlay_enable": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 40,
+            "text": "Raghav Gupta",
+            "subtext": "CEO, Fanatic Sports",
+            "text_color": "#ffffff",
+            "text_size": "md",
+            "vertical_align": "bottom",
+            "horizontal_align": "left"
+          }
+        }
+      },
+      "block_order": [
+        "media_card_NCkn73",
+        "media_card_Ra6rbR",
+        "media_card_eEYC4A",
+        "media_card_NxVre8",
+        "media_card_9UEVhp",
+        "media_card_4tRpVw",
+        "media_card_Xq9gCM",
+        "media_card_Xy8geM",
+        "media_card_xwkprN",
+        "media_card_WiKEWH",
+        "media_card_7ikjHy",
+        "media_card_z3RE9U"
+      ],
+      "custom_css": [
+        ".mw-subheading {font-size: 14px; font-weight: 400 !important;}"
+      ],
+      "name": "Media Wall",
+      "settings": {
+        "heading": "OUR COLLECTORS LOVE US ❤️",
+        "subheading": "The Biggest Review? More than 30% of our collectors come back for more",
+        "heading_size": 28,
+        "heading_weight": "600",
+        "heading_color": "#ffffff",
+        "subheading_color": "#C3C3C3",
+        "section_bg": "#1c1c1c",
+        "padding_top": 72,
+        "padding_bottom": 64,
+        "border_radius": 10,
+        "card_gap": 10,
+        "card_width": 275,
+        "desktop_height": 560,
+        "tablet_height": 440,
+        "mobile_height": 340,
+        "animation_speed": 45,
+        "pause_on_hover": true,
+        "enable_autoplay": true
       }
     },
     "footer": {
@@ -89,7 +428,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "title": "WHAT WE STAND FOR",
+            "title": "",
             "content": "<p>Every LEGXI product is officially registered and protected under copyright law. Any unauthorized reproduction, duplication, or commercial use will constitute a legal infringement and may result in strict legal and commercial penalties.<br\/><br\/>BY <strong>LEGXI ORIGINALS PRIVATE LIMITED<\/strong><\/p>",
             "enable_follow_on_shop": true
           }
@@ -112,6 +451,7 @@
     }
   },
   "order": [
+    "media_wall_CcbNin",
     "trust-icons",
     "footer"
   ]

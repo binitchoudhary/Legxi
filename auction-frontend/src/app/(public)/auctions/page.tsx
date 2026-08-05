@@ -45,7 +45,7 @@ export default function PublicAuctionsPage() {
           </div>
           
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <SearchBar onSearch={(q) => console.log('Search:', q)} className="flex-1 md:w-72 bg-[#0a0a0a] border-white/10" />
+            <SearchBar onSearch={(_q) => {}} className="flex-1 md:w-72 bg-[#0a0a0a] border-white/10" />
             <FilterDrawer onFilterChange={handleFilterChange} />
           </div>
         </div>

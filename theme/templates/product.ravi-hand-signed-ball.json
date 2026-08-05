@@ -14,12 +14,12 @@
             "badge_border_radius": 20,
             "padding_x": 14,
             "padding_y": 6,
-            "badge_1_text": "MAGSHIELD",
+            "badge_1_text": "LIMITED EDITION",
             "badge_1_show": true,
             "badge_1_bg": "#f1f1f1",
             "badge_1_text_color": "#1a1a1a",
             "badge_1_border": "#f1f1f1",
-            "badge_2_text": "LICENSED PRODUCT",
+            "badge_2_text": "#256 PIECES ONLY",
             "badge_2_show": true,
             "badge_2_bg": "#dee8e2",
             "badge_2_text_color": "#237c4c",
@@ -35,12 +35,6 @@
           "type": "title",
           "settings": {
             "heading_tag": "h4"
-          }
-        },
-        "text_rfXgzp": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The First of Its Kind Football Collectible for Your iPhone.<\/p><p><strong>Carry the Champions:<\/strong> A Collectible That Becomes Part of Your Everyday Carry<\/p>"
           }
         },
         "badges": {
@@ -235,7 +229,6 @@
       "block_order": [
         "custom_badges_i77r7P",
         "title",
-        "text_rfXgzp",
         "badges",
         "price",
         "description",
@@ -547,7 +540,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",

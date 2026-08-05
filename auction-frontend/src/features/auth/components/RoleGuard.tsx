@@ -1,8 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import { PermissionGuard } from './PermissionGuard';
-import { useAuthStore, UserRole } from '@/features/auth/store/authStore';
+import { AuthGuard } from './AuthGuard';
+import { AccessDenied } from './AccessDenied';
+import { useAuthStore, UserRole } from '../store/authStore';
+import { canAccess } from '../utils/authorization';
 
 interface RoleGuardProps {
   allowedRoles: UserRole[];
@@ -11,13 +13,19 @@ interface RoleGuardProps {
 }
 
 /**
- * RoleGuard specifically enforces role-based access control.
- * It wraps the generic PermissionGuard for explicit role validations.
+ * RoleGuard enforces role-based client authorization.
+ * Wraps AuthGuard to ensure session is authenticated first, then checks role requirements.
  */
-export function RoleGuard({ allowedRoles, children, fallback = null }: RoleGuardProps) {
+export function RoleGuard({
+  allowedRoles,
+  children,
+  fallback = <AccessDenied />,
+}: RoleGuardProps) {
+  const { user } = useAuthStore();
+
   return (
-    <PermissionGuard allowedRoles={allowedRoles} fallback={fallback}>
-      {children}
-    </PermissionGuard>
+    <AuthGuard fallback={null}>
+      {canAccess(user, allowedRoles) ? children : fallback}
+    </AuthGuard>
   );
 }

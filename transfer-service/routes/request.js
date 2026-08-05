@@ -3,6 +3,7 @@ import { requireFirebase } from '../middleware/requireFirebase.js';
 import { phone10 } from '../_shared/phoneUtils.js';
 import { buildHandle } from '../services/transferService.js';
 import { getOwnershipByHandle, getAllOwnership, createOwnership, updateOwnership } from '../services/ownershipRegistry.js';
+import { sendTransferRequestNotification, sendCustomerAcknowledgement } from '../services/emailService.js';
 
 const router = Router();
 
@@ -57,6 +58,47 @@ router.post('/transfer/request', requireFirebase, async (req, res) => {
     }
 
     res.json({ ok: true });
+
+    (async () => {
+      const currentOwner = original_owner_name || (record ? record.current_owner_name : '');
+      const currentEmail = original_owner_email || (record ? record.current_owner_email : '');
+      const edition = edition_number || (record ? record.edition_number : '');
+
+      const opsRes = await sendTransferRequestNotification({
+        certificateId: certificate_id,
+        editionNumber: edition,
+        currentOwnerName: currentOwner,
+        newOwnerName: to_name
+      });
+
+      let custRes = { success: true };
+      if (currentEmail) {
+        custRes = await sendCustomerAcknowledgement({
+          email: currentEmail,
+          certificateId: certificate_id,
+          name: currentOwner
+        });
+      }
+
+      console.log(`Transfer Request Created
+Certificate ID: ${certificate_id}
+Current Owner: ${currentOwner}
+New Owner: ${to_name}
+Transfer Status: Pending
+Operations Email: ${opsRes.success ? 'Success' : 'Failed'}
+Customer Email: ${custRes.success ? 'Success' : 'Failed'}
+Timestamp: ${new Date().toISOString()}`);
+
+      if (!opsRes.success) {
+        console.error(`Email Failed\nReason: ${opsRes.error}\nTimestamp: ${new Date().toISOString()}`);
+      }
+      if (currentEmail && !custRes.success) {
+        console.error(`Email Failed\nReason: ${custRes.error}\nTimestamp: ${new Date().toISOString()}`);
+      }
+    })().catch(err => {
+      console.error(`[Background Email Error] Unexpected failure: ${err.message || err}\nTimestamp: ${new Date().toISOString()}`);
+    });
+
   } catch (e) { console.error('[/transfer/request]', e.message); res.status(500).json({ error: e.message }); }
 });
 

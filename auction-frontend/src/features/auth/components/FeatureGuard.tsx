@@ -13,8 +13,7 @@ interface FeatureGuardProps {
  * Currently, it always allows access per ADR v1.0 constraints, but remains in place
  * for future feature flag support.
  */
-export function FeatureGuard({ featureFlag, children, fallback = null }: FeatureGuardProps) {
-  // TODO: Integrate with actual feature flag service here in the future
+export function FeatureGuard({ featureFlag: _featureFlag, children, fallback = null }: FeatureGuardProps) {
   const isFeatureEnabled = true; 
 
   if (!isFeatureEnabled) {

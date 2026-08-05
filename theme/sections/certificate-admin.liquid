@@ -532,13 +532,13 @@ window.CACfg = {
           ['Phone', r.original_owner_phone],
           ['Email', r.original_owner_email],
         ]),
-        (r.pending_to_phone ? detailSection('Pending Transfer To', [
+        (r.pending_to_phone ? (detailSection('Pending Transfer To', [
           ['Name',     r.pending_to_name],
           ['Phone',    r.pending_to_phone],
           ['Email',    r.pending_to_email],
           ['Reason',   r.transfer_reason || '—'],
           ['Draft Order', r.pending_order_id || '—'],
-        ]) : ''),
+        ]) + (r.transfer_status === 'pending' ? '<div class="ca-detail-section"><div class="ca-detail-section__hd">Approval Settings</div><div class="ca-edit-field"><label for="ca-transfer-fee">Transfer Fee (₹)</label><input type="number" min="0" step="1" id="ca-transfer-fee" placeholder="e.g. 0 or 499" style="max-width:200px;"></div></div>' : '')) : ''),
         // Edit fields section
         '<div class="ca-detail-section"><div class="ca-detail-section__hd">Edit Ownership Directly (Admin Override)</div>'
         + '<div class="ca-edit-grid" id="ca-edit-grid">'
@@ -639,11 +639,23 @@ window.CACfg = {
 
   /* ── ACTIONS ── */
   function doAction(record, action) {
+    var fee = '';
+    if (action === 'approve') {
+      var feeEl = $('ca-transfer-fee');
+      if (feeEl && feeEl.value.trim() !== '') {
+        fee = feeEl.value.trim();
+        if (isNaN(fee) || Number(fee) < 0) {
+          toast('Transfer fee must be a valid non-negative number.', 'err');
+          return;
+        }
+      }
+    }
+
     loading(true);
     fetch(API + '/admin/transfers/' + encodeURIComponent(record.handle), {
       method: 'PUT',
       headers: { 'X-Admin-Token': S.token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: action }),
+      body: JSON.stringify({ action: action, transfer_fee: fee }),
     })
     .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }); })
     .then(function(res){

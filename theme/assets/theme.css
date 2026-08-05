@@ -10637,3 +10637,36 @@ figcaption {
 
 /* =======Stop product popup button to redirect======== */
 
+
+
+/* =========product badge csss============ */
+
+/* .badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-block-end: 1.2rem;
+}
+
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(var(--color-foreground));
+}
+
+.label-badge--outline {
+  border: 1px solid rgb(var(--color-foreground));
+  background: transparent;
+}
+
+.label-badge--filled {
+  border: 1px solid transparent;
+  background: rgb(var(--color-background));
+} */

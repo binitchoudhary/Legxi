@@ -192,7 +192,7 @@
                       loading="lazy"
                     >
                       {%- if block.settings.fallback_image != blank -%}
-                        <img slot="poster" src="{{ block.settings.fallback_image | image_url: width: 800 }}" alt="{{ block.settings.block_heading | default: '3D Object' | escape }}">
+                        <img slot="poster" src="{{ block.settings.fallback_image | image_url: width: 800 }}" width="{{ block.settings.fallback_image.width }}" height="{{ block.settings.fallback_image.height }}" alt="{{ block.settings.block_heading | default: '3D Object' | escape }}">
                       {%- endif -%}
                     </model-viewer>
                   </div>

@@ -1,0 +1,582 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_badges_p7q4dy": {
+          "type": "custom_badges",
+          "settings": {
+            "badge_alignment": "left",
+            "badge_gap": 8,
+            "font_size_desktop": 11,
+            "font_size_mobile": 10,
+            "font_weight": "600",
+            "badge_border_radius": 20,
+            "padding_x": 14,
+            "padding_y": 6,
+            "badge_1_text": "limited edition",
+            "badge_1_show": true,
+            "badge_1_bg": "#f0f0f0",
+            "badge_1_text_color": "#1a1a1a",
+            "badge_1_border": "#e0e0e0",
+            "badge_2_text": "921 PIECES WORLDWIDE",
+            "badge_2_show": true,
+            "badge_2_bg": "#dee8e2",
+            "badge_2_text_color": "#237c4c",
+            "badge_2_border": "#dee8e2",
+            "badge_3_text": "SOLD OUT",
+            "badge_3_show": false,
+            "badge_3_bg": "#fce8e8",
+            "badge_3_text_color": "#c0392b",
+            "badge_3_border": "#f5c6c6"
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h4"
+          }
+        },
+        "text_7Uzppb": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>The Beginning of Greatness.<\/strong><br\/>Every player artwork is limited to just 921 Editions Worldwide. 921 represents every footballer who has earned the honour of wearing Argentina's colours<\/p>"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "inventory_UiJCK4": {
+          "type": "inventory",
+          "settings": {
+            "show_in_stock_quantity": false,
+            "low_inventory_threshold": 0,
+            "show_progress_bar": true,
+            "progress_bar_max_value": 50
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {
+            "show_empty": false
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "collapse_content": false,
+            "uppercase_title": false
+          }
+        },
+        "sku_cPAfKw": {
+          "type": "sku",
+          "settings": {}
+        },
+        "variant_picker_LJXpEY": {
+          "type": "variant_picker",
+          "disabled": true,
+          "settings": {
+            "hide_sold_out_variants": false,
+            "separate_options": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "swatch_selector_size": "lg",
+            "block_selector_style": "outline",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "buy_buttons_EMHJiK": {
+          "type": "buy_buttons",
+          "disabled": true,
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "show_quantity_selector": true,
+            "add_quantity_selector_spacing": true,
+            "atc_button_style": "solid",
+            "atc_button_background": "",
+            "atc_button_text_color": "",
+            "payment_button_background": "",
+            "payment_button_text_color": ""
+          }
+        },
+        "player_qty_grid_lgx": {
+          "type": "player_qty_grid",
+          "settings": {
+            "enable": true,
+            "max_pieces": 3,
+            "heading": "CHOOSE YOUR PLAYERS",
+            "subheading": "3 pieces total across all players",
+            "show_whatsapp": true,
+            "whatsapp_link": "https:\/\/wa.me\/919315704239?text=Hi%2C%20I%20would%20like%20to%20enquire%20regarding%20the%20LEGXI%20Origins%20of%20Champions%20collection.",
+            "whatsapp_text": "CONNECT WITH A COLLECTIBLES SPECIALIST",
+            "msg_zero": "Select at least 3 pieces to continue.",
+            "msg_ready": "Ready to add {count} pieces to cart.",
+            "card_border_radius": 8,
+            "card_gap": 12,
+            "cols_desktop": 3,
+            "cols_tablet": 2,
+            "cols_mobile": 1,
+            "show_tick": true,
+            "show_summary": true,
+            "show_validation": true,
+            "show_heading": true,
+            "enable_price_update": true,
+            "pricing_mode": "fixed_bundle",
+            "fixed_bundle_price": 14921,
+            "show_player_price": false
+          }
+        },
+        "modal_wPncRT": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "<strong>SPEAK TO AN EXPERT<\/strong>",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "#8e8e8e",
+            "modal_title": "New to collecting?",
+            "modal_content": "<p>Get 1-on-1 guidance from a LEGXI Collector Advisor<br\/><br\/><a href=\"tel:9315704239\" title=\"+91 93157 04239\">+91 93157 04239<\/a><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "offers_hL9Pra": {
+          "type": "offers",
+          "settings": {
+            "layout": "split",
+            "icon_position": "inline",
+            "text_alignment": "left",
+            "offer_1_icon": "shopify:\/\/shop_images\/verified_58fd9795-f1b7-4908-bccf-7bfa18c022cf.png",
+            "offer_1_icon_width": 18,
+            "offer_1_subheading": "Certified & Authenticated",
+            "offer_1_content": "",
+            "offer_1_background": "#f9f9f9",
+            "offer_1_text_color": "#000000",
+            "offer_2_icon": "shopify:\/\/shop_images\/secure_11525f28-e653-46a2-ad3f-616d74918f89.png",
+            "offer_2_icon_width": 18,
+            "offer_2_subheading": "Insured & Secure Shipping",
+            "offer_2_content": "",
+            "offer_2_background": "#f9f9f9",
+            "offer_2_text_color": "#000000",
+            "offer_3_icon": "shopify:\/\/shop_images\/manager_66be8c4f-5fa4-41cd-93b9-b083a53545fc.png",
+            "offer_3_icon_width": 18,
+            "offer_3_subheading": "Dedicated Collector Support",
+            "offer_3_content": "",
+            "offer_3_background": "#f9f9f9",
+            "offer_3_text_color": "#000000"
+          }
+        },
+        "modal_Gcyj3h": {
+          "type": "modal",
+          "settings": {
+            "dialog_type": "modal",
+            "button_title": "material & dimensions",
+            "button_style": "link",
+            "stretch_button": false,
+            "button_background": "",
+            "button_text_color": "",
+            "modal_title": "",
+            "modal_content": "<p>Limited to #921 pieces worldwide<br\/><br\/>Comes in a premium honeycomb protective box with a display frame and a museum grade finish artwork. <br\/><br\/>Final display size: 17 × 29 inches - each frame<br\/><br\/><br\/><\/p>",
+            "modal_size": "sm"
+          }
+        },
+        "accordion_JFN3Td": {
+          "type": "accordion",
+          "settings": {
+            "title": "<strong>Description<\/strong>",
+            "content": "<p>The LEGXI Origins of Champions collection celebrates where football legends began their journey. Every artwork traces the birthplace of Argentina's greatest icons, beautifully integrated into the map of Argentina to honour the origins that shaped champions.<br\/>Crafted as premium collector's artworks, each piece measures 19 × 27 inches, professionally finished with a premium frame, and individually numbered and certified by LEGXI.<br\/>Honouring the modern legends of Argentine football.<\/p>",
+            "uppercase_title": false,
+            "icon": "none",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_badges_p7q4dy",
+        "vendor",
+        "title",
+        "text_7Uzppb",
+        "badges",
+        "price",
+        "inventory_UiJCK4",
+        "rating",
+        "payment_terms",
+        "separator",
+        "description",
+        "sku_cPAfKw",
+        "variant_picker_LJXpEY",
+        "buy_buttons_EMHJiK",
+        "player_qty_grid_lgx",
+        "modal_wPncRT",
+        "offers_hL9Pra",
+        "modal_Gcyj3h",
+        "accordion_JFN3Td"
+      ],
+      "custom_css": [
+        ".variant-picker__poster-note {display: none !important;}",
+        "[data-block-type=\"button\"] + [data-block-type=\"button\"] {margin-top: -8px;}",
+        ".offer-item .prose p {text-transform: lowercase;}",
+        "a.vendor.text-subdued {background: rgb(223 24 24); color: white; padding: 6px; font-size: 10px;}",
+        ".product-title.h3 {padding-top: 10px; padding-bottom: 10px;}",
+        ".warns {color: gray; margin-top: -20px; font-size: 10px;}",
+        ".product {gap: 1rem;}",
+        ".product-title {padding: 0 !important;}",
+        ".product-info__block-item {margin: 10px 0;}",
+        "sale-price {margin-bottom: 10px;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "allow_transparent_header": false,
+        "transparent_header_use_primary_colors": false,
+        "add_top_spacing": true,
+        "show_sticky_add_to_cart": true,
+        "product_media_size": 50,
+        "content_alignment": "left",
+        "desktop_media_layout": "carousel",
+        "desktop_carousel_controls": "thumbnails_under",
+        "mobile_controls": "numbers",
+        "enable_media_autoplay": false,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3
+      }
+    },
+    "specialist_form_apps": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_specialist": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "980079",
+            "text_color": "#ffffff",
+            "button_background_color": "#0d3f4b",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "left",
+            "form_alignment": "flex-start",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_specialist"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "specialist_form_popup": {
+      "type": "specialist-form-popup",
+      "settings": {}
+    },
+    "specifications_CP4tEq": {
+      "type": "specifications",
+      "blocks": {
+        "attribute_jCyfCg": {
+          "type": "attribute",
+          "settings": {
+            "icon": "picto-secure",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "LIMITED EDITION",
+            "content": "<p>Limited to 921 Editions Worldwide for every player.<\/p>"
+          }
+        },
+        "attribute_ct9cxi": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/star-icon_e86cb518-683f-43a4-a20e-fa6f734df243.png",
+            "title": "ORIGINS OF CHAMPIONS",
+            "content": "<p>Honouring every player to have worn Argentina's colours.<\/p>"
+          }
+        },
+        "attribute_bfqQig": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "ARTWORK SIZE",
+            "content": "<p>19 × 27 Inches.<\/p>"
+          }
+        },
+        "attribute_QY7AUP": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/sign-icon_d49da9e7-9569-4221-9082-cf2866a49ae4.png",
+            "title": "BUILD YOUR OWN COLLECTION",
+            "content": "<p>Choose any 3 player artworks from the Origins of Champions series.<\/p>"
+          }
+        },
+        "attribute_4NzyYY": {
+          "type": "attribute",
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/frame-icon_1.png",
+            "title": "MUSEUM GRADE FINISH",
+            "content": "<p>Premium metallic sheet artwork with velvet lamination for exceptional depth, clarity and durability<\/p>"
+          }
+        },
+        "attribute_JpjUwQ": {
+          "type": "attribute",
+          "disabled": true,
+          "settings": {
+            "icon": "none",
+            "custom_icon": "shopify:\/\/shop_images\/verified-icon_72d2b996-c989-48cc-bb97-a53b368c7d5e.png",
+            "title": "LEGXI COA",
+            "content": "<p>Certificate of Authentication<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "attribute_jCyfCg",
+        "attribute_ct9cxi",
+        "attribute_bfqQig",
+        "attribute_QY7AUP",
+        "attribute_4NzyYY",
+        "attribute_JpjUwQ"
+      ],
+      "name": "t:sections.specifications.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "layout": "split",
+        "add_image_spacing": false,
+        "image_position": "start",
+        "subheading": "",
+        "title": "Specifications",
+        "heading_size": "h4",
+        "content": "<p>At LEGXI, every artwork is a work of craftsmanship. Produced using more than 15 specialised finishing techniques, including metallic printing, museum grade treatments, and velvet lamination, each piece is created to exceed international collector standards and preserve greatness for generations<\/p>",
+        "collapse_attributes": false,
+        "show_attribute_icon_on_top": false,
+        "uppercase_attribute_title": false
+      }
+    },
+    "text_with_media_ikUQBL": {
+      "type": "text-with-media",
+      "blocks": {
+        "subheading_bmtjDE": {
+          "type": "subheading",
+          "settings": {
+            "text": "A JOURNEY THAT INSPIRES",
+            "position": "top_left"
+          }
+        },
+        "heading_y3jzKP": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>THE MAKING OF A COLLECTIBLE<\/strong>",
+            "heading_tag": "h4",
+            "position": "top_left",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_NT7QmM": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>AT LEGXI, Every collectible begins with a question:<br\/>How do you preserve sporting greatness?<\/p><p>The answer became a design language built around Argentina itself.<\/p><p>Each artwork starts with the silhouette of the nation, transformed into a canvas that celebrates the athlete's journey, achievements, and connection to Argentine football. Layers of typography, historical references, and 24K gold-plated detailing are then carefully integrated to create a piece that feels equally at home in a private collection, office, or gallery.<\/p><p>The final step is the most important. The athlete's original signature.<\/p><p>Applied by hand and paired with official authentication, it transforms the artwork from a tribute into a collectible.<br\/><\/p>",
+            "position": "top_left"
+          }
+        },
+        "button_Yb7jzA": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "text": "Button text",
+            "url": "",
+            "position": "bottom_left",
+            "style": "solid",
+            "background": "",
+            "text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "subheading_bmtjDE",
+        "heading_y3jzKP",
+        "richtext_NT7QmM",
+        "button_Yb7jzA"
+      ],
+      "disabled": true,
+      "name": "t:sections.text_with_media.name",
+      "settings": {
+        "color_scheme": "",
+        "content_position": "end",
+        "content_percentage_width": 50,
+        "overlay_color": "#000000",
+        "overlay_opacity": 20,
+        "add_media_spacing": false,
+        "autoplay_video": true,
+        "primary_image": "shopify:\/\/shop_images\/Messi-4.gif",
+        "secondary_media_width": 60,
+        "secondary_media_mobile_width": 60,
+        "show_secondary_media_on_mobile": true,
+        "secondary_media_alignment": "place-self-center",
+        "secondary_media_shape": "none"
+      }
+    },
+    "scrolling_content_EPB3cB": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_cnQWAx": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our shop",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_JyGefV": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Discover our products",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_cnQWAx",
+        "text_JyGefV"
+      ],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "",
+        "scrolling_speed": 0.3,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 0,
+        "pause_on_hover": false,
+        "text_font": "heading",
+        "text_font_size_mobile": 10,
+        "text_font_size_desktop": 5,
+        "section_vertical_spacing_mobile": 24,
+        "section_vertical_spacing_desktop": 60,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 80
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Related products",
+            "content": "",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "scheme-1",
+        "stack_products": true,
+        "recommendations_count": 4,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4,
+        "show_view_all_button": true,
+        "show_scrolling_bar": true
+      }
+    },
+    "1781112044f505a227": {
+      "type": "apps",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "specialist_form_apps",
+    "specialist_form_popup",
+    "specifications_CP4tEq",
+    "text_with_media_ikUQBL",
+    "scrolling_content_EPB3cB",
+    "related-products",
+    "1781112044f505a227"
+  ]
+}

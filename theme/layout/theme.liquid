@@ -20,9 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0">
 
     <title>
-      {%- if request.page_type == 'index' -%}
-        {{ shop.name }} &mdash; Premium Authenticated Sports Memorabilia | Signed Jerseys &amp; Collectibles
-      {%- elsif page_title == blank -%}
+      {%- if page_title == blank -%}
         {{ shop.name }}
       {%- elsif page_title contains shop.name -%}
         {{ page_title }}{%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{%- endif -%}
@@ -58,8 +56,8 @@
     <link rel="alternate" hreflang="x-default" href="{{ seo_canonical }}">
 
     {%- if settings.favicon -%}
-      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
-      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+      <link rel="icon" type="image/png" href="https:{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="https:{{ settings.favicon | image_url: width: 180 }}">
     {%- endif -%}
 
     {%- unless settings.heading_font.system? -%}

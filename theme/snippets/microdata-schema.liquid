@@ -156,6 +156,13 @@ We output our own instead of `article | structured_data` to include publisher br
         {%- endfor -%}
       ],
     {%- endif -%}
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": {{ shop.email | json }},
+      "telephone": {{ shop.phone | json }},
+      "availableLanguage": "en"
+    },
     "url": {{ shop.url | json }}
   }
 </script>
@@ -166,6 +173,11 @@ We output our own instead of `article | structured_data` to include publisher br
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": {{ shop.name | json }},
+    {%- if shop.brand.logo -%}
+      "image": "https:{{ shop.brand.logo | image_url: width: 600 }}",
+    {%- else -%}
+      "image": "https://legxi.co/cdn/shop/files/legxi_logo.png",
+    {%- endif -%}
     {%- if shop.email != blank -%}
       "email": {{ shop.email | json }},
     {%- endif -%}

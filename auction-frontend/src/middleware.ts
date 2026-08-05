@@ -53,9 +53,11 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  if (pathname.startsWith('/admin') || pathname.startsWith('/profile') || pathname.startsWith('/my-auctions')) {
+  if (pathname.startsWith('/admin') || pathname.startsWith('/user') || pathname.startsWith('/profile') || pathname.startsWith('/my-auctions')) {
     if (!sessionToken) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', pathname);
+      return NextResponse.redirect(loginUrl);
     }
   }
 

@@ -12,28 +12,346 @@ Supported parameters
 None
 {%- endcomment -%}
 
-<shipping-estimator class="shipping-estimator v-stack gap-5">
-  <div class="form">
-    {%- liquid
-      assign country_label = 'cart.shipping_estimator.country' | t
-      assign province_label = 'cart.shipping_estimator.province' | t
-      assign zip_label = 'cart.shipping_estimator.zip' | t
-      assign estimate_button = 'cart.shipping_estimator.estimate' | t
+<style>
+  .geo-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
 
-      assign default_country = customer.default_address.country | default: localization.country.name
-    -%}
+  .geo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    opacity: 0.78;
+    transition: opacity 0.18s ease;
+    line-height: 1;
+    text-align: left;
+    width: fit-content;
+  }
 
-    <div class="shipping-estimator__fieldset">
-      <country-selector class="contents" country="{{ default_country | escape }}">
-        {%- render 'select', label: country_label, show_label_as_block: true, options: country_option_tags, name: 'address[country]' -%}
-        {%- render 'select', label: province_label, show_label_as_block: true, name: 'address[province]' -%}
-      </country-selector>
+  .geo-btn:hover:not(:disabled) { opacity: 1; }
+  .geo-btn:disabled { cursor: not-allowed; opacity: 0.45; }
 
-      {%- render 'input', label: zip_label, show_label_as_block: true, name: 'address[zip]', autocomplete: 'off', autocapitalize: 'characters' -%}
-    </div>
+  .geo-btn__icon { font-size: 14px; line-height: 1; flex-shrink: 0; }
 
-    {%- render 'button', type: 'button', content: estimate_button, class: 'justify-self-start' -%}
+  .geo-btn__spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: geo-spin 0.72s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes geo-spin { to { transform: rotate(360deg); } }
+
+  .geo-status {
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.45;
+    min-height: 0;
+  }
+
+  .geo-status:empty { display: none; }
+  .geo-status--success { color: #1e7a1e; }
+  .geo-status--warn { color: #8a5000; }
+</style>
+
+<div class="shipping-estimator-geo-outer v-stack gap-5">
+
+  {{- '<!-- geo location block -->' -}}
+  <div class="geo-wrap">
+    <button type="button" class="geo-btn" data-geo-trigger>
+      <span class="geo-btn__icon" aria-hidden="true">📍</span>
+      <span class="geo-btn__label">Use My Location</span>
+      <span class="geo-btn__spinner" aria-hidden="true" hidden></span>
+    </button>
+    <p class="geo-status" aria-live="polite" data-geo-status></p>
   </div>
 
-  <div role="region" class="shipping-estimator__results" aria-live="polite" hidden><!-- Holder for results --></div>
-</shipping-estimator>
+  <shipping-estimator class="shipping-estimator v-stack gap-5">
+    <div class="form">
+      {%- liquid
+        assign country_label = 'cart.shipping_estimator.country' | t
+        assign province_label = 'cart.shipping_estimator.province' | t
+        assign zip_label = 'cart.shipping_estimator.zip' | t
+        assign estimate_button = 'cart.shipping_estimator.estimate' | t
+
+        assign default_country = customer.default_address.country | default: localization.country.name
+      -%}
+
+      <div class="shipping-estimator__fieldset">
+        <country-selector class="contents" country="{{ default_country | escape }}">
+          {%- render 'select', label: country_label, show_label_as_block: true, options: country_option_tags, name: 'address[country]' -%}
+          {%- render 'select', label: province_label, show_label_as_block: true, name: 'address[province]' -%}
+        </country-selector>
+
+        {%- render 'input', label: zip_label, show_label_as_block: true, name: 'address[zip]', autocomplete: 'off', autocapitalize: 'characters' -%}
+      </div>
+
+      {%- render 'button', type: 'button', content: estimate_button, class: 'justify-self-start' -%}
+    </div>
+
+    <div role="region" class="shipping-estimator__results" aria-live="polite" hidden><!-- Holder for results --></div>
+  </shipping-estimator>
+
+</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    function setStatus(wrap, msg, type) {
+      var el = wrap.querySelector('[data-geo-status]');
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'geo-status' + (type ? ' geo-status--' + type : '');
+    }
+
+    function setBusy(btn, busy) {
+      var icon    = btn.querySelector('.geo-btn__icon');
+      var label   = btn.querySelector('.geo-btn__label');
+      var spinner = btn.querySelector('.geo-btn__spinner');
+      btn.disabled = busy;
+      if (busy) {
+        icon.hidden    = true;
+        spinner.hidden = false;
+        label.textContent = 'Detecting location…';
+      } else {
+        icon.hidden    = false;
+        spinner.hidden = true;
+        label.textContent = 'Use My Location';
+      }
+    }
+
+    function getPosition() {
+      return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 10000,
+          maximumAge: 60000,
+          enableHighAccuracy: false
+        });
+      });
+    }
+
+    async function reverseGeocode(lat, lon) {
+      try {
+        var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lon + '&accept-language=en';
+        var res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) return null;
+        var data = await res.json();
+        var addr = data.address || {};
+        return {
+          country  : addr.country  || null,
+          state    : addr.state || addr.region || addr.province || addr.county || null,
+          postcode : addr.postcode || null
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Match country option by text (Shopify stores country name as both value and text)
+    function fillCountry(countrySelect, countryName) {
+      if (!countrySelect || !countryName) return false;
+      var opts = Array.from(countrySelect.options);
+      var name = countryName.trim().toLowerCase();
+
+      // 1. Exact text match
+      var match = opts.find(function (o) { return o.text.trim().toLowerCase() === name; });
+
+      // 2. Partial — Nominatim country contained in option text (handles "Korea, South" etc.)
+      if (!match) {
+        match = opts.find(function (o) {
+          var t = o.text.trim().toLowerCase();
+          return t.includes(name) || name.includes(t);
+        });
+      }
+
+      if (!match) return false;
+
+      countrySelect.value = match.value;
+      // Dispatch change — CountrySelector handles this synchronously to populate provinces
+      countrySelect.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+
+    // Match province option by text (province select is populated synchronously by CountrySelector on country change)
+    function fillProvince(provinceSelect, stateName) {
+      if (!provinceSelect || !stateName) return false;
+      var opts = Array.from(provinceSelect.options).filter(function (o) { return o.value; });
+      if (opts.length === 0) return false;
+
+      var name = stateName.trim().toLowerCase();
+      var match = opts.find(function (o) { return o.text.trim().toLowerCase() === name; });
+
+      if (!match) {
+        match = opts.find(function (o) {
+          var t = o.text.trim().toLowerCase();
+          return t.includes(name) || name.includes(t);
+        });
+      }
+
+      if (!match) return false;
+
+      provinceSelect.value = match.value;
+      provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    }
+
+    function setDefaultIndia(countrySelect) {
+      if (!countrySelect) return;
+      var india = Array.from(countrySelect.options).find(function (o) {
+        return o.text.trim().toLowerCase() === 'india';
+      });
+      if (india) {
+        countrySelect.value = india.value;
+        countrySelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    // ── Main click handler (event delegation) ────────────────────────────────
+
+    async function handleGeoClick(e) {
+      var btn = e.target.closest('[data-geo-trigger]');
+      if (!btn || btn.disabled) return;
+
+      var wrap = btn.closest('.shipping-estimator-geo-outer');
+      if (!wrap) return;
+
+      var estimator     = wrap.querySelector('shipping-estimator');
+      var countrySelect = estimator && estimator.querySelector('[name="address[country]"]');
+      var provinceSelect= estimator && estimator.querySelector('[name="address[province]"]');
+      var zipInput      = estimator && estimator.querySelector('[name="address[zip]"]');
+      var estimateBtn   = estimator && estimator.querySelector('[type="button"]');
+
+      if (!estimator || !countrySelect) return;
+
+      setBusy(btn, true);
+      setStatus(wrap, '', '');
+
+      // ── No geolocation support ───────────────────────────────────────────
+      if (!navigator.geolocation) {
+        setBusy(btn, false);
+        setDefaultIndia(countrySelect);
+        setStatus(wrap, 'Geolocation is not supported by your browser.', 'warn');
+        return;
+      }
+
+      try {
+        // ── 1. Get coordinates ─────────────────────────────────────────────
+        var position = await getPosition();
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+
+        // ── 2. Reverse geocode ─────────────────────────────────────────────
+        var geo = await reverseGeocode(lat, lon);
+
+        if (!geo || !geo.country) {
+          setBusy(btn, false);
+          setDefaultIndia(countrySelect);
+          setStatus(wrap, 'Could not determine your location. Please fill in manually.', 'warn');
+          return;
+        }
+
+        // ── 3. Fill country (triggers province population synchronously) ───
+        var countryOk  = fillCountry(countrySelect, geo.country);
+        var provinceOk = false;
+        var zipOk      = false;
+
+        if (!countryOk) {
+          // Country not in Shopify list — default to India
+          setDefaultIndia(countrySelect);
+        }
+
+        // ── 4. Fill province (synchronously available after country change) ─
+        if (geo.state) {
+          provinceOk = fillProvince(provinceSelect, geo.state);
+        }
+
+        // ── 5. Fill zip ────────────────────────────────────────────────────
+        if (geo.postcode && zipInput) {
+          zipInput.value = geo.postcode;
+          zipInput.dispatchEvent(new Event('input',  { bubbles: true }));
+          zipInput.dispatchEvent(new Event('change', { bubbles: true }));
+          zipOk = true;
+        }
+
+        setBusy(btn, false);
+
+        // ── 6. Build status + auto-estimate ───────────────────────────────
+        var detected = [geo.country, provinceOk ? geo.state : null, zipOk ? geo.postcode : null]
+                         .filter(Boolean).join(', ');
+
+        if (zipOk) {
+          setStatus(wrap, '✓ Location detected: ' + detected, 'success');
+          // Auto-trigger shipping estimate
+          if (estimateBtn) estimateBtn.click();
+        } else {
+          setStatus(wrap, '✓ Detected: ' + detected + '. Please enter your ZIP / Postal code to estimate shipping.', 'warn');
+        }
+
+      } catch (err) {
+        setBusy(btn, false);
+
+        if (err && err.code === 1) {
+          // Permission denied — keep form usable, no scary error
+          setStatus(wrap, 'Location access denied. Please fill in your details manually.', 'warn');
+        } else {
+          setStatus(wrap, 'Location could not be detected. Please fill in your details manually.', 'warn');
+          setDefaultIndia(countrySelect);
+        }
+      }
+    }
+
+    // ── Event delegation (works across cart drawer open/close) ───────────────
+    document.addEventListener('click', handleGeoClick);
+
+    // ── Blank province on initial load ───────────────────────────────────────
+    // CountrySelector.connectedCallback() populates province options synchronously
+    // on page parse. We run after the current frame so options are already there,
+    // then prepend a blank placeholder and select it.
+    function insertBlankProvince() {
+      var provinceSelect = document.querySelector('shipping-estimator [name="address[province]"]');
+      if (!provinceSelect) return;
+
+      // If options not yet populated, retry once more
+      if (provinceSelect.options.length === 0) {
+        setTimeout(insertBlankProvince, 120);
+        return;
+      }
+
+      // Don't double-insert
+      if (provinceSelect.options[0] && provinceSelect.options[0].value === '') return;
+
+      var blank = document.createElement('option');
+      blank.value = '';
+      blank.text  = '';
+      blank.selected = true;
+      provinceSelect.insertBefore(blank, provinceSelect.firstChild);
+      provinceSelect.value = '';
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        requestAnimationFrame(insertBlankProvince);
+      });
+    } else {
+      requestAnimationFrame(insertBlankProvince);
+    }
+
+  })();
+</script>

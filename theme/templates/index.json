@@ -84,12 +84,12 @@
       "name": "t:sections.slideshow.name",
       "settings": {
         "allow_transparent_header": true,
-        "image_size": "auto",
+        "image_size": "fill",
         "transition_type": "curtain",
         "autoplay": true,
         "pause_auto_rotate_on_hover": false,
         "cycle_speed": 6,
-        "background": "#1C1C1C"
+        "background": "#1c1c1c"
       }
     },
     "featured_collections_YjqTPw": {
@@ -302,6 +302,7 @@
     },
     "reading-text": {
       "type": "reading-text",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-2",
         "image": "shopify:\/\/shop_images\/bg-cover.jpg",
@@ -374,6 +375,7 @@
         "faq_q5",
         "faq_q6"
       ],
+      "disabled": true,
       "settings": {
         "bg_color": "#1c1c1c",
         "text_color": "#ffffff",

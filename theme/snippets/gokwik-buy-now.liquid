@@ -14,13 +14,41 @@
   </span>
   {% endif %}
 </button>
+{%- comment -%}
+  A URL's ?variant= parameter is honored even when that variant is sold out. Fall back to
+  an available SYSTEM ASSIGNED (AUTO) variant that matches the requested one on every other
+  option (e.g. framing style, when present), so we land on the correct live default without
+  silently switching the customer to a different option value. Works for both single-option
+  (edition-only) and multi-option (framing + edition) products.
+{%- endcomment -%}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  if current_variant.available == false
+    assign requested_options = current_variant.options
+    assign available_variants = product.variants | where: 'available', true
+    for v in available_variants
+      assign is_match = true
+      for opt_val in v.options
+        assign idx = forloop.index0
+        assign requested_val = requested_options[idx]
+        if opt_val != requested_val and opt_val != 'SYSTEM ASSIGNED (AUTO)'
+          assign is_match = false
+        endif
+      endfor
+      if is_match and v.title contains 'SYSTEM ASSIGNED (AUTO)'
+        assign current_variant = v
+        break
+      endif
+    endfor
+  endif
+-%}
 {% unless product.template_suffix == 'argentine-icons-24k' or product.template_suffix == 'afa-artisan' %}
 <style>
   #gokwik-buy-now[data-lgx-avail="false"]{background:#e0e0e0!important;color:#999!important;border-color:#e0e0e0!important;box-shadow:none!important;pointer-events:none!important;}
 </style>
 <script>
 (function(){
-  var _avail = {{ product.selected_or_first_available_variant.available | json }};
+  var _avail = {{ current_variant.available | json }};
   var _origBtnText = {{ settings.buyNowText | json }};
 
   function _sync(){

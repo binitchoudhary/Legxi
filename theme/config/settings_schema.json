@@ -1692,21 +1692,5 @@
         "default": 500
       }
     ]
-  },
-  {
-    "name": "Register Interest",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "Configure which products and form IDs to use in Theme Customizer → Header group → Register Interest section."
-      },
-      {
-        "type": "text",
-        "id": "lgx_ri_button_text",
-        "label": "Button text",
-        "default": "Register Interest",
-        "info": "Text shown on the button that replaces Sold Out for configured products."
-      }
-    ]
   }
 ]

@@ -191,15 +191,15 @@
         "transparent_header_use_primary_colors": true,
         "add_top_spacing": true,
         "show_sticky_add_to_cart": true,
-        "product_media_size": 51,
+        "product_media_size": 55,
         "content_alignment": "left",
-        "desktop_media_layout": "carousel",
+        "desktop_media_layout": "grid_half_highlight_first",
         "desktop_carousel_controls": "thumbnails_under",
         "mobile_controls": "thumbnails",
         "enable_media_autoplay": true,
         "enable_video_looping": true,
         "enable_image_zoom": true,
-        "max_image_zoom_level": 3
+        "max_image_zoom_level": 2.5
       }
     },
     "text_with_media_FqXT4R": {
@@ -454,7 +454,7 @@
           "settings": {
             "subheading": "",
             "title": "Header",
-            "content": "",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
             "button_text": "",
             "button_link": "",
             "button_style": "outline",

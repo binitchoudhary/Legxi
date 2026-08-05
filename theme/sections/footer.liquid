@@ -150,6 +150,53 @@
                     </div>
                   </div>
 
+                {%- when 'interactive_3d_object' -%}
+                  {%- liquid
+                    assign v3d = 'v3d-' | append: block.id
+                    assign v3d_ml = ''
+                    assign v3d_mr = ''
+                    case block.settings.object_alignment
+                      when 'center'
+                        assign v3d_ml = 'margin-left:auto;'
+                        assign v3d_mr = 'margin-right:auto;'
+                      when 'right'
+                        assign v3d_ml = 'margin-left:auto;'
+                    endcase
+                    assign v3d_shadow_int = block.settings.shadow_opacity | divided_by: 100.0
+                    assign v3d_rotate_speed = block.settings.auto_rotate_speed | times: 8
+                  -%}
+                  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+                  <style>
+                    #{{ v3d }}-wrap{margin-top:{{ block.settings.margin_top }}px;margin-bottom:{{ block.settings.margin_bottom }}px}
+                    #{{ v3d }}-mv{display:block;width:{{ block.settings.width_mobile }}px;max-width:100%;height:{{ block.settings.object_height }}px;{{ v3d_ml }}{{ v3d_mr }}--poster-color:transparent{% unless block.settings.bg_color == blank or block.settings.bg_color == 'rgba(0,0,0,0)' %};background:{{ block.settings.bg_color }}{% endunless %}}
+                    @media(min-width:700px){#{{ v3d }}-mv{width:{{ block.settings.width_tablet }}px}}
+                    @media(min-width:1000px){#{{ v3d }}-mv{width:{{ block.settings.width_desktop }}px}}
+                    #{{ v3d }}-mv::part(default-progress-bar){display:none}
+                    #{{ v3d }}-mv::part(default-ar-button){display:none}
+                  </style>
+                  <div id="{{ v3d }}-wrap"{% if block.settings.custom_class != blank %} class="{{ block.settings.custom_class | escape }}"{% endif %}>
+                    {%- if block.settings.block_heading != blank -%}
+                      <p class="subheading" style="margin-bottom:.75rem">{{ block.settings.block_heading | escape }}</p>
+                    {%- endif -%}
+                    <model-viewer
+                      id="{{ v3d }}-mv"
+                      src="{{ block.settings.model_url }}"
+                      alt="{{ block.settings.block_heading | default: '3D Object' | escape }}"
+                      {%- if block.settings.auto_rotate %} auto-rotate auto-rotate-delay="500" rotation-per-second="{{ v3d_rotate_speed }}deg"{% endif %}
+                      {%- if block.settings.enable_drag %} camera-controls{% endif %}
+                      touch-action="{% if block.settings.enable_touch %}pan-y{% else %}none{% endif %}"
+                      {%- if block.settings.enable_shadow %} shadow-intensity="{{ v3d_shadow_int }}" shadow-softness="0.8"{% endif %}
+                      {%- unless block.settings.enable_zoom %} disable-zoom{% endunless %}
+                      environment-image="neutral"
+                      reveal="auto"
+                      loading="lazy"
+                    >
+                      {%- if block.settings.fallback_image != blank -%}
+                        <img slot="poster" src="{{ block.settings.fallback_image | image_url: width: 800 }}" width="{{ block.settings.fallback_image.width }}" height="{{ block.settings.fallback_image.height }}" alt="{{ block.settings.block_heading | default: '3D Object' | escape }}">
+                      {%- endif -%}
+                    </model-viewer>
+                  </div>
+
               {%- endcase -%}
             {%- endcapture -%}
 
@@ -208,7 +255,7 @@
       {%- endif -%}
 
       <div class="v-stack gap-3">
-        <p class="text-sm">© {{ 'now' | date: '%Y' }} - {{ shop.name }} </p>
+        <p class="text-sm">© {{ 'now' | date: '%Y' }} - BY LEGXI ORIGINALS PRIVATE LIMITED </p>
 
         {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
           <ul class="h-stack gap-4 wrap unstyled-list">
@@ -450,6 +497,180 @@
           "label": "t:global.image.mobile_width",
           "default": 65,
           "visible_if": "{{ block.settings.layout != 'full_width' }}"
+        }
+      ]
+    },
+    {
+      "type": "interactive_3d_object",
+      "name": "Interactive 3D Object",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "header",
+          "content": "3D Model"
+        },
+        {
+          "type": "text",
+          "id": "model_url",
+          "label": "3D Model URL (.glb / .gltf)",
+          "info": "Go to Admin → Content → Files → upload your .glb file → click the file → copy the URL and paste it here. Do NOT use cdn.shopify.com/3d/models/ links — those are CORS-blocked."
+        },
+        {
+          "type": "image_picker",
+          "id": "fallback_image",
+          "label": "Fallback image",
+          "info": "Shown if the model fails to load or no URL is provided"
+        },
+        {
+          "type": "header",
+          "content": "Dimensions"
+        },
+        {
+          "type": "range",
+          "id": "width_desktop",
+          "label": "Width — desktop",
+          "min": 100,
+          "max": 800,
+          "step": 10,
+          "unit": "px",
+          "default": 420
+        },
+        {
+          "type": "range",
+          "id": "width_tablet",
+          "label": "Width — tablet",
+          "min": 100,
+          "max": 600,
+          "step": 10,
+          "unit": "px",
+          "default": 360
+        },
+        {
+          "type": "range",
+          "id": "width_mobile",
+          "label": "Width — mobile",
+          "min": 100,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 300
+        },
+        {
+          "type": "range",
+          "id": "object_height",
+          "label": "Height",
+          "min": 150,
+          "max": 800,
+          "step": 10,
+          "unit": "px",
+          "default": 420
+        },
+        {
+          "type": "select",
+          "id": "object_alignment",
+          "label": "Alignment",
+          "options": [
+            { "value": "left",   "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Interaction"
+        },
+        {
+          "type": "checkbox",
+          "id": "auto_rotate",
+          "label": "Auto rotate",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "auto_rotate_speed",
+          "label": "Auto rotate speed",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "default": 3,
+          "info": "Higher = faster"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_drag",
+          "label": "Mouse drag rotation",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_touch",
+          "label": "Touch rotation (mobile)",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_zoom",
+          "label": "Zoom controls",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Shadow"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_shadow",
+          "label": "Enable shadow",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "shadow_opacity",
+          "label": "Shadow opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 30
+        },
+        {
+          "type": "header",
+          "content": "Spacing & style"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Top margin",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Bottom margin",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background color"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom CSS class"
         }
       ]
     }

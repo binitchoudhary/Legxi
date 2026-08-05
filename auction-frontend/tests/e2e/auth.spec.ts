@@ -1,37 +1,73 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Authentication E2E', () => {
-  test('Login flow and WebSocket upgrade', async ({ page }) => {
-    // Navigate to login
+test.describe('Layer 4 Client Authentication & Lifecycle E2E', () => {
+  test('1. Unauthenticated user accessing protected route is redirected to /login with redirect query param', async ({
+    page,
+  }) => {
+    await page.context().clearCookies();
+    await page.goto('/admin/dashboard');
+
+    // Should redirect to login page with encoded redirect param
+    await expect(page).toHaveURL(/\/login\?redirect=%2Fadmin%2Fdashboard/, { timeout: 10000 });
+  });
+
+  test('2. Successful login establishes session, connects WebSocket, and redirects to role dashboard', async ({
+    page,
+  }) => {
     await page.goto('/login');
-    
-    // Fill credentials
+
     await page.fill('input[type="email"]', 'admin@legxi.com');
     await page.fill('input[type="password"]', 'Password123!');
-    
-    // Setup a wait for the websocket upgrade event
-    const wsPromise = page.waitForEvent('websocket', { timeout: 15000 }).catch(() => null);
 
-    // Setup a wait for the polling responses to ensure we are connected
-    const pollingPromise = page.waitForResponse(
-      response => response.url().includes('/api/proxy/socket.io') && response.url().includes('transport=polling') && response.status() === 200,
-      { timeout: 10000 }
+    // Setup wait for authenticated WebSocket or Polling handshake
+    const socketEventPromise = page.waitForResponse(
+      (response) =>
+        response.url().includes('/api/proxy/socket.io') && response.status() === 200,
+      { timeout: 15000 }
     ).catch(() => null);
 
-    // Click sign in
     await page.click('button[type="submit"]');
 
-    // Should redirect to dashboard
-    await expect(page).toHaveURL(/\/user\/dashboard/, { timeout: 10000 });
+    // Admin user redirects to admin dashboard
+    await expect(page).toHaveURL(/\/admin\/dashboard/, { timeout: 10000 });
 
-    // Wait for the websocket / polling
-    const ws = await wsPromise;
-    const pollingResponse = await pollingPromise;
-    
-    // Verify polling or WebSocket upgraded successfully
-    expect(pollingResponse || ws).toBeTruthy();
-    if (ws) {
-      expect(ws.url()).toContain('/api/proxy/socket.io');
-    }
+    // Verify socket connection initiated
+    const socketRes = await socketEventPromise;
+    expect(socketRes).toBeTruthy();
+  });
+
+  test('3. Session survives browser refresh without flashing or returning to login', async ({
+    page,
+  }) => {
+    await page.goto('/login');
+    await page.fill('input[type="email"]', 'admin@legxi.com');
+    await page.fill('input[type="password"]', 'Password123!');
+    await page.click('button[type="submit"]');
+    await expect(page).toHaveURL(/\/admin\/dashboard/, { timeout: 10000 });
+
+    // Reload page
+    await page.reload();
+
+    // Verify we remain on /admin/dashboard
+    await expect(page).toHaveURL(/\/admin\/dashboard/, { timeout: 10000 });
+  });
+
+  test('4. Logout revokes session, clears state, and redirects to /login', async ({ page }) => {
+    await page.goto('/login');
+    await page.fill('input[type="email"]', 'admin@legxi.com');
+    await page.fill('input[type="password"]', 'Password123!');
+    await page.click('button[type="submit"]');
+    await expect(page).toHaveURL(/\/admin\/dashboard/, { timeout: 10000 });
+
+    // Click Sign Out
+    const signOutBtn = page.getByText(/sign out/i).first();
+    await signOutBtn.click();
+
+    // Should redirect to /login
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+
+    // Subsequent access to /admin/dashboard redirects to /login
+    await page.goto('/admin/dashboard');
+    await expect(page).toHaveURL(/\/login\?redirect=%2Fadmin%2Fdashboard/, { timeout: 10000 });
   });
 });

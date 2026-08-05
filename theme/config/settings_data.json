@@ -55,7 +55,7 @@
     "product_card_show_product_size_selector": true,
     "product_listing_spacing": "x-small",
     "cart_type": "message",
-    "cart_icon": "shopping_cart",
+    "cart_icon": "tote_bag",
     "cart_show_free_shipping_bar": false,
     "social_instagram": "https:\/\/www.instagram.com\/legxi.co\/",
     "social_youtube": "https:\/\/www.youtube.com\/@legxi_co",
@@ -70,6 +70,9 @@
     "enableLogo": false,
     "enableIntlFlow": true,
     "enableBannertext": false,
+    "lgx_active_promo": "none",
+    "lgx_promo1_icon": "#10",
+    "lgx_promo1_text": "🐐GOAT BIRTHDAY EXCLUSIVE",
     "content_for_index": [],
     "blocks": {
       "13768625480086291342": {
@@ -97,6 +100,16 @@
       "14060646107696862457": {
         "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
+        "settings": {}
+      },
+      "12657775114333427046": {
+        "type": "shopify:\/\/apps\/essential-countdown-timer\/blocks\/app_embed\/722378e8-5a70-4eae-aa89-9e44e8e9f6de",
+        "disabled": false,
+        "settings": {}
+      },
+      "7385302900728337613": {
+        "type": "shopify:\/\/apps\/depo\/blocks\/app-embed\/fa2b6a7a-29ea-4193-bcc4-3ecc583efe2e",
+        "disabled": true,
         "settings": {}
       }
     },

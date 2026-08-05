@@ -3,9 +3,11 @@
     "certificate_admin": {
       "type": "certificate-admin",
       "settings": {
-        "api_base_url": "https:\/\/api-7zal2ngszq-uc.a.run.app"
+        "api_base_url": "https:\/\/transferapi-7zal2ngszq-uc.a.run.app"
       }
     }
   },
-  "order": ["certificate_admin"]
+  "order": [
+    "certificate_admin"
+  ]
 }

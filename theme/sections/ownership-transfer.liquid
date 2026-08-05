@@ -246,6 +246,7 @@ html:has(#ot-root), body:has(#ot-root) { overflow-x:hidden !important; margin:0 
           </div>
           <h1 class="ot-card__h">Transfer Certificate Ownership</h1>
           <p class="ot-card__sub">Enter your registered mobile number to view your certificates and initiate a transfer to a new owner.</p>
+
           <label class="ot-field__lbl" for="ot-phone-input">Mobile Number</label>
           <div class="ot-row">
             <button class="ot-cc" id="ot-cc-btn" type="button">🇮🇳 +91</button>
@@ -337,10 +338,21 @@ html:has(#ot-root), body:has(#ot-root) { overflow-x:hidden !important; margin:0 
             <div class="ot-selected-cert-preview__type" id="ot-form-cert-type"></div>
           </div>
         </div>
-        <div class="ot-form-section" id="ot-shopify-form-wrap">
+        <div class="ot-form-section">
           <div class="ot-form-section__hd">New Owner Details</div>
-          {% content_for 'blocks' %}
+          <label class="ot-field__lbl" for="ot-to-name">Full Name *</label>
+          <input type="text" id="ot-to-name" class="ot-input--full" placeholder="Enter new owner's full name" autocomplete="name">
+          <label class="ot-field__lbl" for="ot-to-phone">Mobile Number *</label>
+          <input type="tel" id="ot-to-phone" class="ot-input--full" placeholder="+91XXXXXXXXXX" inputmode="tel">
+          <label class="ot-field__lbl" for="ot-to-email">Email Address *</label>
+          <input type="email" id="ot-to-email" class="ot-input--full" placeholder="new.owner@example.com" autocomplete="email">
+          <label class="ot-field__lbl" for="ot-reason">Reason for Transfer (Optional)</label>
+          <textarea id="ot-reason" class="ot-input--full" placeholder="e.g. Gift, Sale, Personal preference..."></textarea>
         </div>
+        <button id="ot-transfer-submit" class="ot-btn ot-btn--gold">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Submit Transfer Request
+        </button>
       </div>
     </div>
   </div>
@@ -353,16 +365,9 @@ html:has(#ot-root), body:has(#ot-root) { overflow-x:hidden !important; margin:0 
           <div class="ot-success__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
           </div>
-          <h2 class="ot-success__h">Transfer Request Submitted</h2>
-          <p class="ot-success__p">Your ownership transfer request has been received and is now pending admin approval.</p>
+          <h2 class="ot-success__h">Thank You!</h2>
+          <p class="ot-success__p" style="font-size:15px; color:#fff; max-width:400px; margin:0 auto; line-height:1.6;">Thank you for your submission.<br><br>Our team will review your ownership transfer request and contact you soon.</p>
         </div>
-        <div class="ot-success__steps">
-          <div class="ot-success__step"><div class="ot-success__step-n">✓</div><div class="ot-success__step-t"><strong>Request Submitted</strong> — Your transfer request has been received.</div></div>
-          <div class="ot-success__step"><div class="ot-success__step-n">2</div><div class="ot-success__step-t"><strong>Admin Review</strong> — Our team will verify the transfer request within 24–48 hours.</div></div>
-          <div class="ot-success__step"><div class="ot-success__step-n">3</div><div class="ot-success__step-t"><strong>Ownership Updated</strong> — New owner will gain access to the certificate.</div></div>
-        </div>
-        <p class="ot-success__p" style="font-size:12px;margin-top:0;">You will be notified once the transfer is approved. The new owner can verify using the LEGXI Certificate Authentication portal.</p>
-        <a href="/" class="ot-btn ot-btn--outline" style="max-width:280px;margin:20px auto 0;display:flex;color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.15);">Return to Homepage</a>
       </div>
     </div>
   </div>
@@ -416,7 +421,6 @@ window.OTCfg = {
     idToken:        null,
     certs:          [],
     selectedCert:   null,
-    formSubmitted:  false,
     resendTimer:    null,
     resendSecs:     30,
   };
@@ -648,82 +652,35 @@ window.OTCfg = {
     if(edEl) edEl.textContent = cert.edition_number || '---';
     if(ttEl) ttEl.textContent = cert.product_title  || 'Certificate';
     if(tyEl) tyEl.textContent = (cert.edition_type||'').charAt(0).toUpperCase() + (cert.edition_type||'').slice(1) + ' Edition';
-    S.formSubmitted = false; // allow a fresh submission if the customer went back and re-selected
     go('form');
   }
 
-  /* ── SHOPIFY FORM SUBMISSION CAPTURE (no payment — creates a pending request directly) ──
-     The embedded Shopify Forms app block (form_id set via the section's block settings)
-     does not deliver submitted field values to any backend we control — it only submits
-     to Shopify's own forms service. So we read the field values ourselves, directly from
-     the DOM, at the moment of submission (capture-phase 'submit' listener, same detection
-     mechanism already used by snippets/afa-form-tracker.liquid elsewhere in this theme),
-     and send them to our own backend independently. We do not preventDefault or interfere
-     with the Shopify Form's own submission in any way — this fires alongside it. */
-  function extractFormFields(formEl) {
-    var out = {};
-    var root2 = formEl.getRootNode ? formEl.getRootNode() : document;
-    var elements = Array.prototype.slice.call(formEl.elements || []);
-    elements.forEach(function (el) {
-      if (!el.name || el.disabled) return;
-      var type = (el.type || '').toLowerCase();
-      if (type === 'submit' || type === 'button' || type === 'reset') return;
-      var label = '';
-      if (el.id && root2 && root2.querySelector) {
-        var lbl = root2.querySelector('label[for="' + el.id + '"]');
-        if (lbl) label = lbl.textContent || '';
-      }
-      if (!label && el.closest) {
-        var parentLabel = el.closest('label');
-        if (parentLabel) label = parentLabel.textContent || '';
-      }
-      out[el.name] = { value: el.value, label: label.trim() };
-    });
-    return out;
-  }
+  /* ── TRANSFER FORM SUBMIT ── */
+  function handleTransferSubmit() {
+    var name  = ($('ot-to-name').value  || '').trim();
+    var phone = ($('ot-to-phone').value || '').trim();
+    var email = ($('ot-to-email').value || '').trim();
+    var reason= ($('ot-reason').value   || '').trim();
+    var ok = true;
 
-  function matchField(fields, keywords) {
-    var keys = Object.keys(fields);
-    for (var i = 0; i < keys.length; i++) {
-      var f = fields[keys[i]];
-      var haystack = (keys[i] + ' ' + (f.label || '')).toLowerCase();
-      for (var k = 0; k < keywords.length; k++) {
-        if (haystack.indexOf(keywords[k]) !== -1) return (f.value || '').trim();
-      }
-    }
-    return '';
-  }
+    if (!name)  { $('ot-to-name').classList.add('err');  ok = false; }
+    if (!phone) { $('ot-to-phone').classList.add('err'); ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('ot-to-email').classList.add('err'); ok = false; }
+    if (!ok) { toast('Please fill all required fields correctly.','err'); return; }
 
-  function handleShopifyFormSubmit(e) {
-    if (S.formSubmitted) return; // guard against double-fire
-    if (S.screen !== 'form') return;
-    var wrap = $('ot-shopify-form-wrap');
-    if (!wrap) return;
-    var path = e.composedPath ? e.composedPath() : [e.target];
-    if (path.indexOf(wrap) === -1) return; // submit did not originate inside our form block
+    ['ot-to-name','ot-to-phone','ot-to-email'].forEach(function(id){ var el = $(id); if(el) el.classList.remove('err'); });
 
-    var formEl = null;
-    for (var i = 0; i < path.length; i++) {
-      if (path[i] && path[i].tagName === 'FORM') { formEl = path[i]; break; }
-    }
-    if (!formEl) return;
+    showLoad('Creating transfer request…');
+    setBtn('ot-transfer-submit', true);
 
     var cert = S.selectedCert;
-    if (!cert) return;
-
-    var fields  = extractFormFields(formEl);
-    var toName  = matchField(fields, ['name']);
-    var toPhone = matchField(fields, ['phone', 'mobile', 'tel']);
-    var toEmail = matchField(fields, ['email']);
-    var reason  = matchField(fields, ['reason', 'note', 'message', 'comment']);
-
-    S.formSubmitted = true;
-    showLoad('Submitting transfer request…');
-
     var body = {
       certificate_id:      cert.certificate_id,
       certificate_handle:  cert.handle || null,
-      to_name:  toName, to_phone: toPhone, to_email: toEmail, reason: reason,
+      to_name:             name,
+      to_phone:            phone,
+      to_email:            email,
+      reason:              reason,
       // Pass original order data in case this is the first transfer (no registry record yet)
       original_owner_name:  cert.original_owner_name  || cert.current_owner_name  || '',
       original_owner_email: cert.original_owner_email || cert.current_owner_email || '',
@@ -731,7 +688,6 @@ window.OTCfg = {
       edition_number:       cert.edition_number || '',
       edition_type:         cert.edition_type   || '',
       order_id:             cert.order_id       || '',
-      form_fields:          fields, // raw capture, for admin/log visibility only — not persisted to the registry
     };
 
     fetch(cfg.apiBaseUrl + '/transfer/request', {
@@ -741,15 +697,12 @@ window.OTCfg = {
     })
     .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, data: d }; }); })
     .then(function(res){
-      hideLoad();
+      hideLoad(); setBtn('ot-transfer-submit', false);
       if (!res.ok) throw new Error(res.data.error || 'Failed to submit transfer request');
       go('success');
+      setTimeout(function() { window.location.href = '/'; }, 5000);
     })
-    .catch(function(e2){
-      hideLoad();
-      S.formSubmitted = false; // allow retry
-      toast(e2.message || 'Something went wrong. Please try again.','err');
-    });
+    .catch(function(e){ hideLoad(); setBtn('ot-transfer-submit',false); toast(e.message,'err'); });
   }
 
   /* ── DEMO DATA ── */
@@ -766,7 +719,8 @@ window.OTCfg = {
   function init() {
     initFirebase();
     initBoxes();
-    document.addEventListener('submit', handleShopifyFormSubmit, true);
+
+    // (Legacy payment logic removed)
 
     var sendBtn = $('ot-send-otp');
     if(sendBtn) sendBtn.addEventListener('click', handleSend);
@@ -788,6 +742,9 @@ window.OTCfg = {
     var certNext = $('ot-cert-next');
     if(certNext) certNext.addEventListener('click', function(){ if(S.selectedCert) showForm(S.selectedCert); });
 
+    var submitBtn = $('ot-transfer-submit');
+    if(submitBtn) submitBtn.addEventListener('click', handleTransferSubmit);
+
     // Back buttons
     $('ot-back-otp')    && $('ot-back-otp').addEventListener('click',     function(){ go('phone'); });
     $('ot-back-certs')  && $('ot-back-certs').addEventListener('click',   function(){ go('phone'); });
@@ -801,9 +758,6 @@ window.OTCfg = {
 {% schema %}
 {
   "name": "Ownership Transfer",
-  "blocks": [
-    { "type": "@app" }
-  ],
   "settings": [
     { "type": "header", "content": "Firebase (same as Auth Portal)" },
     { "type": "text", "id": "firebase_api_key",            "label": "API Key" },
@@ -813,8 +767,7 @@ window.OTCfg = {
     { "type": "text", "id": "firebase_messaging_sender_id","label": "Messaging Sender ID" },
     { "type": "header", "content": "Backend API" },
     { "type": "text", "id": "api_base_url", "label": "Transfer API Base URL", "placeholder": "https://your-app.vercel.app", "info": "The deployed transfer-api server URL. No trailing slash." },
-    { "type": "header", "content": "Transfer Fee" },
-    { "type": "number", "id": "transfer_fee", "label": "Transfer Fee (₹)", "default": 499 },
+
     { "type": "header", "content": "Brand" },
     { "type": "text", "id": "brand_name", "label": "Brand Name", "default": "LEGXI" }
   ],

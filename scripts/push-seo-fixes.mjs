@@ -11,24 +11,9 @@ const HEADERS = { 'X-Shopify-Access-Token': TOKEN, 'Content-Type': 'application/
 
 const files = [
   { key: 'snippets/social-meta-tags.liquid', path: 'theme/snippets/social-meta-tags.liquid' },
-  { key: 'snippets/microdata-schema.liquid', path: 'theme/snippets/microdata-schema.liquid' },
-  { key: 'snippets/breadcrumb.liquid', path: 'theme/snippets/breadcrumb.liquid' },
-  { key: 'snippets/product-card.liquid', path: 'theme/snippets/product-card.liquid' },
-  { key: 'snippets/blog-post-card.liquid', path: 'theme/snippets/blog-post-card.liquid' },
-  { key: 'snippets/product-gallery.liquid', path: 'theme/snippets/product-gallery.liquid' },
-  { key: 'layout/theme.liquid', path: 'theme/layout/theme.liquid' },
-  { key: 'sections/blog-post-banner.liquid', path: 'theme/sections/blog-post-banner.liquid' },
-  { key: 'sections/blog-banner.liquid', path: 'theme/sections/blog-banner.liquid' },
-  { key: 'sections/collection-banner.liquid', path: 'theme/sections/collection-banner.liquid' },
-  { key: 'sections/main-list-collections.liquid', path: 'theme/sections/main-list-collections.liquid' },
-  { key: 'sections/main-product.liquid', path: 'theme/sections/main-product.liquid' },
-  { key: 'sections/main-article.liquid', path: 'theme/sections/main-article.liquid' },
+  { key: 'sections/legend_collection.liquid', path: 'theme/sections/legend_collection.liquid' },
   { key: 'sections/footer.liquid', path: 'theme/sections/footer.liquid' },
-  { key: 'templates/index.json', path: 'theme/templates/index.json' },
-  { key: 'templates/page.auction.json', path: 'theme/templates/page.auction.json' },
-  { key: 'templates/page.afa-x-legxi.json', path: 'theme/templates/page.afa-x-legxi.json' },
-  { key: 'snippets/gokwik.liquid', path: 'theme/snippets/gokwik.liquid' },
-  { key: 'sections/certificate-authentication.liquid', path: 'theme/sections/certificate-authentication.liquid' },
+  { key: 'sections/footer-live-fetched.liquid', path: 'theme/sections/footer-live-fetched.liquid' },
 ];
 
 const THEME_ID = process.argv[2] === 'live' ? LIVE : DEV;

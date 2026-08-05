@@ -1,0 +1,556 @@
+{
+  "sections": {
+    "video_6jgTt8": {
+      "type": "video",
+      "blocks": {
+        "heading_ACjPNF": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>WE ARE THE CUSTODIANS OF <\/strong><em><strong>GREATNESS<\/strong><\/em>",
+            "mobile_heading_tag": "h4",
+            "desktop_heading_tag": "sm:h3",
+            "position": "middle_center",
+            "highlight_effect": "underline_pencil",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "richtext_k98eqB": {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Some moments change sport forever.<\/p><p>We preserve them.<\/p>",
+            "position": "middle_center"
+          }
+        }
+      },
+      "block_order": [
+        "heading_ACjPNF",
+        "richtext_k98eqB"
+      ],
+      "custom_css": [
+        "p {margin: 0px;}",
+        ".h4 {margin-bottom: 10px;}"
+      ],
+      "name": "t:sections.video.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "allow_transparent_header": false,
+        "autoplay": true,
+        "show_controls": false,
+        "video_size": "md",
+        "mobile_video_size": "md",
+        "video": "shopify:\/\/files\/videos\/afa page banner.mp4",
+        "mobile_video": "shopify:\/\/files\/videos\/afa page banner.mp4",
+        "external_video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc"
+      }
+    },
+    "rich_text_DJj4PE": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_egRKEV": {
+          "type": "heading",
+          "settings": {
+            "text": "THE CHOSEN COLLECTION",
+            "heading_tag": "h3",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "heading_egRKEV"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich_text.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "content_width": "md",
+        "text_alignment": "center"
+      }
+    },
+    "featured_collections_x7MDHB": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_EbtC4N": {
+          "type": "collection",
+          "settings": {
+            "collection": "afa-signed-collectibles",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_EbtC4N"
+      ],
+      "custom_css": [
+        ".product-card__info {background: #1c1c1c; color: #fff;}",
+        ".text-subdued {color: #fff;}"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 3,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": false,
+        "show_scrolling_bar": true
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-3",
+        "show_title": false,
+        "content_width": "md"
+      }
+    },
+    "17811035112a0a9eb8": {
+      "type": "_blocks",
+      "blocks": {
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "settings": {
+        "color_scheme": "",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "featured_collections_xxWYFR": {
+      "type": "featured-collections",
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "arrow",
+        "show_view_all_button": false,
+        "show_scrolling_bar": true
+      }
+    },
+    "image_with_text_overlay_6GjU7K": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_hkcQix": {
+          "type": "heading",
+          "settings": {
+            "text": "<strong>THE LAST DANCE<\/strong>",
+            "heading_size": "h3",
+            "html_tag": "p",
+            "indent": "none",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          },
+          "blocks": {}
+        },
+        "rich_text_U6Wigd": {
+          "type": "rich-text",
+          "settings": {
+            "text": "<p>From the streets of Buenos Aires to the summit of world football, this Argentina generation has given fans moments that will be remembered forever. As the reigning World Champions prepare for FIFA World Cup 2026, this collection honours a team that united a nation, inspired millions, and etched its legacy into football history.<\/p>",
+            "content_width": "sm"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading_hkcQix",
+        "rich_text_U6Wigd"
+      ],
+      "name": "t:sections.image_with_text_overlay.name",
+      "settings": {
+        "color_scheme": "",
+        "allow_transparent_header": true,
+        "image_size": "auto",
+        "image": "shopify:\/\/shop_images\/storyline.jpg",
+        "mobile_image": "shopify:\/\/shop_images\/phone-attachment.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "enable_sticky_content": false,
+        "content_width": "md",
+        "desktop_text_position": "sm:place-self-center",
+        "mobile_text_position": "place-self-center"
+      }
+    },
+    "scrolling_content_btRnD4": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_FKThQn": {
+          "type": "text",
+          "settings": {
+            "text": "The Last <em> Dance<\/em>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_RB9iDK": {
+          "type": "text",
+          "settings": {
+            "text": "A Legacy worth Owning",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_FKThQn",
+        "text_RB9iDK"
+      ],
+      "custom_css": [],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "scrolling_speed": 0.2,
+        "scroll_direction": "start-to-end",
+        "section_rotation": -2,
+        "pause_on_hover": true,
+        "text_font": "body",
+        "text_font_size_mobile": 4,
+        "text_font_size_desktop": 2,
+        "section_vertical_spacing_mobile": 16,
+        "section_vertical_spacing_desktop": 26,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 40
+      }
+    },
+    "ownership_highlights_VqLtNT": {
+      "type": "ownership-highlights",
+      "blocks": {
+        "feature_item_mHFLGV": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "TOTAL",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "84 Pieces",
+            "title_color": "",
+            "title_font_size_desktop": 16,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_CNw4gC": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PERSONALLY SIGNED BY",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Lionel Messi & others",
+            "title_color": "#ffffff",
+            "title_font_size_desktop": 16,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_QGaFFx": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "CRAFTMANSHIP",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Hand Finished",
+            "title_color": "",
+            "title_font_size_desktop": 30,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_c4JnUa": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "PROVENANCE",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Official AFA Collection",
+            "title_color": "",
+            "title_font_size_desktop": 30,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_kPphcr": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "ONE LAST CHANCE",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Last World Cup for many",
+            "title_color": "",
+            "title_font_size_desktop": 30,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        },
+        "feature_item_RkJyd6": {
+          "type": "feature_item",
+          "settings": {
+            "label_text": "FOREVER",
+            "label_color": "",
+            "label_font_size": 10,
+            "label_font_weight": "400",
+            "title_text": "Legacy worth Acquiring",
+            "title_color": "",
+            "title_font_size_desktop": 30,
+            "title_font_size_mobile": 24,
+            "title_font_weight": "400",
+            "desc_text": "",
+            "desc_color": "",
+            "desc_font_size": 13,
+            "text_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_mHFLGV",
+        "feature_item_CNw4gC",
+        "feature_item_QGaFFx",
+        "feature_item_c4JnUa",
+        "feature_item_kPphcr",
+        "feature_item_RkJyd6"
+      ],
+      "name": "Ownership Highlights",
+      "settings": {
+        "section_heading": "ESSENCE OF OWNERSHIP",
+        "section_subheading": "",
+        "heading_alignment": "center",
+        "heading_color": "",
+        "heading_font_size_desktop": 24,
+        "heading_font_size_mobile": 24,
+        "heading_font_weight": "500",
+        "color_scheme": "scheme-2",
+        "bg_color": "",
+        "container_width": "page",
+        "content_max_width": 1200,
+        "grid_gap": 64,
+        "pt_desktop": 120,
+        "pb_desktop": 120,
+        "pt_mobile": 60,
+        "pb_mobile": 60,
+        "enable_hover": true,
+        "enable_dividers": false
+      }
+    },
+    "scrolling_content_HLJHLr": {
+      "type": "scrolling-content",
+      "blocks": {
+        "text_zVgLNJ": {
+          "type": "text",
+          "settings": {
+            "text": "The Last <em> Dance<\/em>",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        },
+        "text_9LkVLp": {
+          "type": "text",
+          "settings": {
+            "text": "A Legacy worth Owning",
+            "icon_position": "before_text",
+            "highlight_effect": "default",
+            "highlight_accent_color": "",
+            "highlight_text_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_zVgLNJ",
+        "text_9LkVLp"
+      ],
+      "custom_css": [],
+      "name": "t:sections.scrolling_content.name",
+      "settings": {
+        "color_scheme": "scheme-4",
+        "scrolling_speed": 0.2,
+        "scroll_direction": "start-to-end",
+        "section_rotation": 2,
+        "pause_on_hover": true,
+        "text_font": "body",
+        "text_font_size_mobile": 4,
+        "text_font_size_desktop": 2,
+        "section_vertical_spacing_mobile": 16,
+        "section_vertical_spacing_desktop": 26,
+        "item_horizontal_spacing_mobile": 40,
+        "item_horizontal_spacing_desktop": 40
+      }
+    },
+    "1775425429d867f4d6": {
+      "type": "apps",
+      "blocks": {
+        "forms_inline_pQkke6": {
+          "type": "shopify:\/\/apps\/forms\/blocks\/inline\/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "980079",
+            "text_color": "#ffffff",
+            "button_background_color": "#0d3f4b",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 30,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        },
+        "section-header": {
+          "type": "_section-header",
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "forms_inline_pQkke6"
+      ],
+      "custom_css": [
+        ".prose {display: none;}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": true,
+        "add_horizontal_spacing": true
+      }
+    },
+    "blocks_ggqj7q": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_8811cc2_CiawmT": {
+          "type": "ai_gen_block_8811cc2",
+          "settings": {
+            "button_text": "Apply for Ownership",
+            "button_link": "#ATUYxdFhlYjlGOEFVe__forms_inline_pQkke6",
+            "horizontal_offset": 30,
+            "vertical_offset": 30,
+            "horizontal_offset_mobile": 15,
+            "vertical_offset_mobile": 20,
+            "button_background": "#5297ab",
+            "button_text_color": "#ffffff",
+            "button_hover_background": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "font_size": 12,
+            "font_size_mobile": 11,
+            "text_transform": "uppercase",
+            "letter_spacing": 0,
+            "border_radius": 0,
+            "padding_horizontal": 30,
+            "padding_vertical": 15,
+            "padding_horizontal_mobile": 20,
+            "padding_vertical_mobile": 12
+          },
+          "blocks": {}
+        },
+        "section-header": {
+          "type": "_section-header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "subheading": "",
+            "title": "Header",
+            "content": "<p>Use this content to share information about your store and products.<\/p>",
+            "button_text": "",
+            "button_link": "",
+            "button_style": "outline",
+            "text_alignment": "left",
+            "heading_size": "h3",
+            "title_icon": "none",
+            "show_scrolling_title": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_8811cc2_CiawmT"
+      ],
+      "name": "Fixed waitlist button",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    }
+  },
+  "order": [
+    "video_6jgTt8",
+    "rich_text_DJj4PE",
+    "featured_collections_x7MDHB",
+    "main",
+    "17811035112a0a9eb8",
+    "featured_collections_xxWYFR",
+    "image_with_text_overlay_6GjU7K",
+    "scrolling_content_btRnD4",
+    "ownership_highlights_VqLtNT",
+    "scrolling_content_HLJHLr",
+    "1775425429d867f4d6",
+    "blocks_ggqj7q"
+  ]
+}

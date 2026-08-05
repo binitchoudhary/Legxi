@@ -406,6 +406,207 @@
       ]
     },
     {
+      "type": "custom_badges",
+      "name": "Custom Badges",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "badge_alignment",
+          "label": "Alignment",
+          "options": [
+            { "value": "left",   "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right",  "label": "Right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "range",
+          "id": "badge_gap",
+          "label": "Gap between badges",
+          "min": 4,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "header",
+          "content": "Typography & shape"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size — desktop",
+          "min": 9,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 11
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size — mobile",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "font_weight",
+          "label": "Font weight",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi-bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "range",
+          "id": "badge_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "default": 4,
+          "info": "50px = full pill shape"
+        },
+        {
+          "type": "range",
+          "id": "padding_x",
+          "label": "Horizontal padding",
+          "min": 6,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "padding_y",
+          "label": "Vertical padding",
+          "min": 3,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 6
+        },
+        {
+          "type": "header",
+          "content": "Badge 1"
+        },
+        {
+          "type": "text",
+          "id": "badge_1_text",
+          "label": "Text",
+          "default": "AUTOMATIC"
+        },
+        {
+          "type": "checkbox",
+          "id": "badge_1_show",
+          "label": "Show badge",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "badge_1_bg",
+          "label": "Background",
+          "default": "#f0f0f0"
+        },
+        {
+          "type": "color",
+          "id": "badge_1_text_color",
+          "label": "Text color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "badge_1_border",
+          "label": "Border color",
+          "default": "#e0e0e0"
+        },
+        {
+          "type": "header",
+          "content": "Badge 2"
+        },
+        {
+          "type": "text",
+          "id": "badge_2_text",
+          "label": "Text",
+          "default": "100 PCS"
+        },
+        {
+          "type": "checkbox",
+          "id": "badge_2_show",
+          "label": "Show badge",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "badge_2_bg",
+          "label": "Background",
+          "default": "#f0f0f0"
+        },
+        {
+          "type": "color",
+          "id": "badge_2_text_color",
+          "label": "Text color",
+          "default": "#1a1a1a"
+        },
+        {
+          "type": "color",
+          "id": "badge_2_border",
+          "label": "Border color",
+          "default": "#e0e0e0"
+        },
+        {
+          "type": "header",
+          "content": "Badge 3"
+        },
+        {
+          "type": "text",
+          "id": "badge_3_text",
+          "label": "Text",
+          "default": "SOLD OUT"
+        },
+        {
+          "type": "checkbox",
+          "id": "badge_3_show",
+          "label": "Show badge",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "badge_3_bg",
+          "label": "Background",
+          "default": "#fce8e8"
+        },
+        {
+          "type": "color",
+          "id": "badge_3_text_color",
+          "label": "Text color",
+          "default": "#c0392b"
+        },
+        {
+          "type": "color",
+          "id": "badge_3_border",
+          "label": "Border color",
+          "default": "#f5c6c6"
+        }
+      ]
+    },
+    {
       "type": "price",
       "name": "t:sections.main_product.blocks.price.name",
       "limit": 1,

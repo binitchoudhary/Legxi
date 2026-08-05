@@ -32,14 +32,77 @@
         "swatch_selector_size": "lg"
       }
     },
+    "custom_liquid_ajJKqF": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom_liquid.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "liquid": "<hr>",
+        "text_alignment": "left",
+        "add_vertical_spacing": false,
+        "add_horizontal_spacing": false
+      }
+    },
+    "featured_collections_TAHD6a": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_bkDbXU": {
+          "type": "collection",
+          "settings": {
+            "collection": "legxi-heritage-mini",
+            "products_count": 8,
+            "title": "{{ block.settings.collection.title }}",
+            "content": "{{ block.settings.collection.description }}",
+            "link": "{{ block.settings.collection.url }}"
+          }
+        }
+      },
+      "block_order": [
+        "collection_bkDbXU"
+      ],
+      "name": "t:sections.featured_collections.name",
+      "settings": {
+        "color_scheme": "",
+        "stack_products_mobile": false,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "tabs_alignment": "start",
+        "tabs_icon": "none",
+        "show_view_all_button": false,
+        "show_scrolling_bar": true
+      }
+    },
+    "dual_product_carousel_wRbQnw": {
+      "type": "dual-product-carousel",
+      "disabled": true,
+      "name": "t:sections.featured_product_list.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "product_list": [
+          "legxi-heritage-minis-portugal",
+          "legxi-heritage-minis-france",
+          "legxi-heritage-minis-brazil"
+        ],
+        "stack_products_mobile": true,
+        "stack_products_desktop": false,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 4
+      }
+    },
     "lgx-col-seo": {
       "type": "collection-seo-text",
+      "disabled": true,
       "settings": {}
     }
   },
   "order": [
     "banner",
     "main",
+    "custom_liquid_ajJKqF",
+    "featured_collections_TAHD6a",
+    "dual_product_carousel_wRbQnw",
     "lgx-col-seo"
   ]
 }

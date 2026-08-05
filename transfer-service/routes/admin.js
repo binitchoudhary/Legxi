@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { requireAdmin } from '../middleware/requireAdmin.js';
-import { TRANSFER_FEE } from '../config/env.js';
 import {
   getAllOwnership, getOwnershipByHandle, createOwnership, updateOwnership,
   createHistoryRecord, getHistoryByCertId,
 } from '../services/ownershipRegistry.js';
 import { buildHandle } from '../services/transferService.js';
+import { sendTransferApprovedNotification, sendTransferRejectedNotification } from '../services/emailService.js';
 
 const router = Router();
 
@@ -44,13 +44,13 @@ router.put('/admin/transfers/:handle', requireAdmin, async (req, res) => {
         certificate_id: record.certificate_id || '', edition_number: record.edition_number || '',
         old_owner_name: record.current_owner_name || '', old_owner_phone: record.current_owner_phone || '',
         new_owner_name: record.pending_to_name || '', new_owner_phone: record.pending_to_phone || '',
-        transfer_fee: TRANSFER_FEE, transfer_date: now, approved_by: req.headers['x-admin-name'] || 'admin',
+        transfer_fee: req.body.transfer_fee || '', transfer_date: now, approved_by: req.headers['x-admin-name'] || 'admin',
       }, record.handle || buildHandle(record.certificate_id));
       Object.assign(update, {
         current_owner_name: record.pending_to_name || '', current_owner_phone: record.pending_to_phone || '',
         current_owner_email: record.pending_to_email || '',
         transfer_count: String(parseInt(record.transfer_count || '0', 10) + 1),
-        transfer_status: 'approved', pending_to_name: '', pending_to_phone: '',
+        transfer_status: 'active', pending_to_name: '', pending_to_phone: '',
         pending_to_email: '', pending_order_id: '', transfer_reason: '',
       });
     } else if (action === 'reject') {
@@ -63,6 +63,30 @@ router.put('/admin/transfers/:handle', requireAdmin, async (req, res) => {
 
     const updated = await updateOwnership(record.id, update);
     res.json({ transfer: updated });
+
+    (async () => {
+      if (action === 'approve') {
+        const emailRes = await sendTransferApprovedNotification({
+          oldOwnerEmail: record.current_owner_email || '',
+          newOwnerEmail: record.pending_to_email || '',
+          certificateId: record.certificate_id,
+          editionNumber: record.edition_number || ''
+        });
+        console.log(`Transfer Approved\nCertificate ID: ${record.certificate_id}\nOld Owner: ${record.current_owner_name || ''}\nNew Owner: ${record.pending_to_name || ''}\nHistory Created\nApproval Email: ${emailRes.success ? 'Success' : 'Failed'}\nTimestamp: ${new Date().toISOString()}`);
+        if (!emailRes.success) console.error(`Email Failed\nReason: ${emailRes.error}\nTimestamp: ${new Date().toISOString()}`);
+      } else if (action === 'reject') {
+        const emailRes = await sendTransferRejectedNotification({
+          email: record.pending_to_email || '',
+          certificateId: record.certificate_id,
+          reason: req.body.reason || record.transfer_reason || ''
+        });
+        console.log(`Transfer Rejected\nCertificate ID: ${record.certificate_id}\nCurrent Owner: ${record.current_owner_name || ''}\nRequested Owner: ${record.pending_to_name || ''}\nReason: ${req.body.reason || record.transfer_reason || ''}\nRejection Email: ${emailRes.success ? 'Success' : 'Failed'}\nTimestamp: ${new Date().toISOString()}`);
+        if (!emailRes.success) console.error(`Email Failed\nReason: ${emailRes.error}\nTimestamp: ${new Date().toISOString()}`);
+      }
+    })().catch(err => {
+      console.error(`[Background Email Error] Unexpected failure: ${err.message || err}\nTimestamp: ${new Date().toISOString()}`);
+    });
+
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
