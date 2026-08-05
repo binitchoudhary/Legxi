@@ -1,0 +1,58 @@
+
+> auction-frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.2.12 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 20.2s
+  Running TypeScript ...
+  Finished TypeScript in 39.3s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/30) ...
+  Generating static pages using 7 workers (7/30) 
+  Generating static pages using 7 workers (14/30) 
+  Generating static pages using 7 workers (22/30) 
+✓ Generating static pages using 7 workers (30/30) in 2.0s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin/analytics
+├ ○ /admin/analytics/operations
+├ ○ /admin/analytics/performance
+├ ○ /admin/analytics/revenue
+├ ○ /admin/auctions
+├ ƒ /admin/auctions/[id]
+├ ○ /admin/certificates
+├ ○ /admin/dashboard
+├ ○ /admin/payments
+├ ○ /admin/settings
+├ ○ /admin/settlements
+├ ○ /admin/transfers
+├ ƒ /api/auctions/by-product/[handle]
+├ ƒ /api/auth/session
+├ ƒ /api/shopify/products
+├ ○ /auctions
+├ ƒ /auctions/[id]
+├ ○ /login
+├ ○ /user/active
+├ ○ /user/auctions
+├ ○ /user/certificates
+├ ○ /user/dashboard
+├ ○ /user/lost
+├ ○ /user/notifications
+├ ○ /user/preferences
+├ ○ /user/profile
+├ ○ /user/security
+├ ○ /user/sessions
+└ ○ /user/won
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

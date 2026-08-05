@@ -1,0 +1,93 @@
+[
+  {
+    "url": "http://127.0.0.1:3000/auctions/active",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\active.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/upcoming",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\upcoming.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/ended",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\ended.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/unknown-layout",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\unknown-layout.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/missing-story",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\missing-story.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/missing-timeline",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\missing-timeline.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  },
+  {
+    "url": "http://127.0.0.1:3000/auctions/unknown-module",
+    "status": 200,
+    "screenshot": "C:\\Users\\DELL\\Desktop\\legxi\\auction-frontend\\screenshots\\phase4\\unknown-module.png",
+    "logs": [
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ]
+  }
+]

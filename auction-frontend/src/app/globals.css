@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #ffffff;
+  
+  --color-primary: #D4AF37;
+  --color-primary-foreground: #000000;
+  
+  --color-muted: #141414;
+  --color-muted-foreground: #a1a1aa;
+  
+  --color-card: #0a0a0a;
+  --color-card-foreground: #ffffff;
+  
+  --color-border: #262626;
+  --color-input: #1f1f1f;
+  --color-ring: #D4AF37;
+  
+  --font-sans: var(--font-inter), -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Luxury utilities */
+@utility glass {
+  background-color: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+@utility smooth-zoom {
+  transition: transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
