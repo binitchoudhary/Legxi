@@ -8,6 +8,7 @@ import partialPaymentRouter from './routes/partialPayment.js';
 import dashboardRouter from './routes/dashboard.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { ENV } from './config/env.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,7 +20,18 @@ app.set('trust proxy', 1);
 
 // Global Middleware
 // 1. Security Headers (disables x-powered-by, etc.)
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      "frame-ancestors": [
+        `https://${ENV.SHOPIFY_STORE}`,
+        "https://admin.shopify.com"
+      ]
+    }
+  },
+  frameguard: false
+}));
 
 // 2. Strict CORS (Only allow Admin Extension origin)
 // Assuming extensions run inside admin.shopify.com. We can tighten this to exactly the shopify origin.
