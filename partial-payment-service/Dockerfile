@@ -15,6 +15,9 @@ RUN npm install --production
 # Copy backend source
 COPY backend/src ./src
 
+# Copy built frontend assets
+COPY backend/public ./public
+
 # Create volumes directories
 RUN mkdir -p /usr/src/app/data /usr/src/app/logs && chown -R node:node /usr/src/app
 

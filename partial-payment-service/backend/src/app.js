@@ -5,6 +5,12 @@ import rateLimit from 'express-rate-limit';
 import { requestIdMiddleware } from './middleware/requestId.js';
 import healthRouter from './routes/health.js';
 import partialPaymentRouter from './routes/partialPayment.js';
+import dashboardRouter from './routes/dashboard.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initialize the Express app
 const app = express();
@@ -48,8 +54,17 @@ const apiLimiter = rateLimit({
 // API Routes
 app.use('/api/v1', healthRouter);
 app.use('/api/v1/partial-payment', apiLimiter, partialPaymentRouter);
+app.use('/api/v1/dashboard', apiLimiter, dashboardRouter);
 
-// Basic 404 handler
+// Serve Static Frontend (Dashboard)
+app.use(express.static(path.join(__dirname, '../public')));
+
+// SPA Fallback for all non-API GET requests
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+// Basic API 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found', requestId: req.id });
 });
