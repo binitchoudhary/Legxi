@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import db from './src/database/db.js';
-import { executeGraphQL } from './src/shopify/client.js';
+import db from '../database/db.js';
+import { executeGraphQL } from '../shopify/client.js';
 
 async function backfill() {
   console.log('Starting historical Shopify orders backfill...');
