@@ -1,25 +1,59 @@
 import db from '../database/db.js';
 
 export const dashboardRepository = {
-  getMetrics() {
-    const row = db.prepare(`
+  getMetrics({ dateFrom, dateTo } = {}) {
+    let dateFilter = '';
+    const params = [];
+    if (dateFrom) {
+      dateFilter += ' AND created_at >= datetime(?)';
+      params.push(dateFrom);
+    }
+    if (dateTo) {
+      dateFilter += ' AND created_at <= datetime(?)';
+      params.push(dateTo);
+    }
+
+    // Order-Level Metrics (Deduplicated)
+    const orderMetricsRow = db.prepare(`
+      WITH UniqueSuccess AS (
+        SELECT *, ROW_NUMBER() OVER(PARTITION BY draft_order_id ORDER BY created_at DESC) as rn
+        FROM payment_attempts 
+        WHERE status = 'SUCCESS' ${dateFilter}
+      )
       SELECT 
-        COUNT(*) as total,
-        SUM(CASE WHEN status = 'SUCCESS' THEN 1 ELSE 0 END) as completed,
-        SUM(CASE WHEN status IN ('PENDING','CREATING_ORDER','VERIFYING') THEN 1 ELSE 0 END) as pending,
-        SUM(CASE WHEN status = 'FAILED' THEN 1 ELSE 0 END) as failed,
-        SUM(CASE WHEN status = 'ROLLBACK' THEN 1 ELSE 0 END) as rolledBack,
-        SUM(CASE WHEN status = 'SUCCESS' THEN CAST(advance_amount AS REAL) ELSE 0 END) as totalAdvanceCollected,
-        SUM(CASE WHEN status = 'SUCCESS' AND DATE(created_at) = DATE('now') THEN 1 ELSE 0 END) as todayPayments,
-        SUM(CASE WHEN status = 'SUCCESS' AND DATE(created_at) = DATE('now') THEN CAST(advance_amount AS REAL) ELSE 0 END) as todayAdvanceCollected
+        COUNT(*) as totalPartialPaymentOrders,
+        SUM(CAST(advance_amount AS REAL)) as totalAdvanceCollected,
+        SUM(CAST(order_total AS REAL) - CAST(advance_amount AS REAL)) as totalRemainingBalance
+      FROM UniqueSuccess
+      WHERE rn = 1
+    `).get(...params);
+
+    // Attempt-Level Metrics (Raw Counts)
+    const attemptMetricsRow = db.prepare(`
+      SELECT 
+        COUNT(*) as totalPaymentAttempts,
+        SUM(CASE WHEN status = 'SUCCESS' THEN 1 ELSE 0 END) as completedAttempts,
+        SUM(CASE WHEN status IN ('PENDING','CREATING_ORDER','VERIFYING') THEN 1 ELSE 0 END) as pendingAttempts,
+        SUM(CASE WHEN status IN ('FAILED', 'ROLLBACK') THEN 1 ELSE 0 END) as failedAttempts
       FROM payment_attempts
-    `).get();
+      WHERE 1=1 ${dateFilter}
+    `).get(...params);
 
     const lastSuccess = db.prepare(`SELECT completed_at FROM payment_attempts WHERE status = 'SUCCESS' ORDER BY completed_at DESC LIMIT 1`).get();
     const lastFailed = db.prepare(`SELECT completed_at FROM payment_attempts WHERE status = 'FAILED' ORDER BY completed_at DESC LIMIT 1`).get();
 
     return {
-      ...row,
+      orderLevel: {
+        totalPartialPaymentOrders: orderMetricsRow.totalPartialPaymentOrders || 0,
+        totalAdvanceCollected: orderMetricsRow.totalAdvanceCollected || 0,
+        totalRemainingBalance: orderMetricsRow.totalRemainingBalance || 0
+      },
+      attemptLevel: {
+        totalPaymentAttempts: attemptMetricsRow.totalPaymentAttempts || 0,
+        completedAttempts: attemptMetricsRow.completedAttempts || 0,
+        pendingAttempts: attemptMetricsRow.pendingAttempts || 0,
+        failedAttempts: attemptMetricsRow.failedAttempts || 0
+      },
       lastSuccessfulPayment: lastSuccess ? lastSuccess.completed_at : null,
       lastFailedPayment: lastFailed ? lastFailed.completed_at : null
     };
@@ -43,11 +77,11 @@ export const dashboardRepository = {
       params.push(paymentMode);
     }
     if (dateFrom) {
-      sql += ` AND created_at >= ?`;
+      sql += ` AND created_at >= datetime(?)`;
       params.push(dateFrom);
     }
     if (dateTo) {
-      sql += ` AND created_at <= ?`;
+      sql += ` AND created_at <= datetime(?)`;
       params.push(dateTo);
     }
     if (search) {

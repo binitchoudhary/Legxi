@@ -5,7 +5,8 @@ import { ENV } from '../config/env.js';
 export const dashboardController = {
   getMetrics(req, res) {
     try {
-      const metrics = dashboardRepository.getMetrics();
+      const { dateFrom, dateTo } = req.query;
+      const metrics = dashboardRepository.getMetrics({ dateFrom, dateTo });
       res.json({ metrics });
     } catch (err) {
       req.id = req.id || 'unknown';
