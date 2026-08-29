@@ -20,7 +20,8 @@ export const dashboardRepository = {
         SUM(advance_amount) as totalAdvanceCollected,
         SUM(remaining_amount) as totalRemainingBalance
       FROM shopify_orders_cache
-      WHERE 1=1 ${dateFilter}
+      WHERE financial_status IN ('PARTIALLY_PAID', 'PAID') 
+        ${dateFilter ? dateFilter.replace(/created_at/g, 'datetime(created_at)') : ''}
     `).get(...params);
 
 
