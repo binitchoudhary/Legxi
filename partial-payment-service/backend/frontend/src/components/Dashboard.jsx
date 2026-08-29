@@ -11,15 +11,15 @@ export default function Dashboard({ metrics }) {
       <div className="metrics-grid">
         <div className="card">
           <h3>App-Created Partial Payment Orders</h3>
-          <p className="value">{orderLevel.totalPartialPaymentOrders}</p>
+          <p className="value">{Number(orderLevel.totalPartialPaymentOrders ?? 0).toLocaleString('en-IN')}</p>
         </div>
         <div className="card">
           <h3>Total Advance Collected</h3>
-          <p className="value">{Number(orderLevel.totalAdvanceCollected).toLocaleString()} INR</p>
+          <p className="value">{Number(orderLevel.totalAdvanceCollected ?? 0).toLocaleString('en-IN')} INR</p>
         </div>
         <div className="card">
           <h3>Total Remaining Balance</h3>
-          <p className="value">{Number(orderLevel.totalRemainingBalance).toLocaleString()} INR</p>
+          <p className="value">{Number(orderLevel.totalRemainingBalance ?? 0).toLocaleString('en-IN')} INR</p>
         </div>
       </div>
 
@@ -27,19 +27,19 @@ export default function Dashboard({ metrics }) {
       <div className="metrics-grid">
         <div className="card">
           <h3>Total Payment Attempts</h3>
-          <p className="value">{attemptLevel.totalPaymentAttempts}</p>
+          <p className="value">{Number(attemptLevel.totalPaymentAttempts ?? 0).toLocaleString('en-IN')}</p>
         </div>
         <div className="card">
           <h3>Completed Attempts</h3>
-          <p className="value" style={{ color: 'var(--success)' }}>{attemptLevel.completedAttempts}</p>
+          <p className="value" style={{ color: 'var(--success)' }}>{Number(attemptLevel.completedAttempts ?? 0).toLocaleString('en-IN')}</p>
         </div>
         <div className="card">
           <h3>Pending Attempts</h3>
-          <p className="value" style={{ color: 'var(--warning)' }}>{attemptLevel.pendingAttempts}</p>
+          <p className="value" style={{ color: 'var(--warning)' }}>{Number(attemptLevel.pendingAttempts ?? 0).toLocaleString('en-IN')}</p>
         </div>
         <div className="card">
           <h3>Failed / Rolled Back Attempts</h3>
-          <p className="value" style={{ color: 'var(--critical)' }}>{attemptLevel.failedAttempts}</p>
+          <p className="value" style={{ color: 'var(--critical)' }}>{Number(attemptLevel.failedAttempts ?? 0).toLocaleString('en-IN')}</p>
         </div>
       </div>
     </div>
