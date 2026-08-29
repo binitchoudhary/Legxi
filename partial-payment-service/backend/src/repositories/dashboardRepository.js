@@ -13,20 +13,16 @@ export const dashboardRepository = {
       params.push(dateTo);
     }
 
-    // Order-Level Metrics (Deduplicated)
+    // Order-Level Metrics (Absolute Source of Truth from Shopify Orders)
     const orderMetricsRow = db.prepare(`
-      WITH UniqueSuccess AS (
-        SELECT *, ROW_NUMBER() OVER(PARTITION BY draft_order_id ORDER BY created_at DESC) as rn
-        FROM payment_attempts 
-        WHERE status = 'SUCCESS' ${dateFilter}
-      )
       SELECT 
         COUNT(*) as totalPartialPaymentOrders,
-        SUM(CAST(advance_amount AS REAL)) as totalAdvanceCollected,
-        SUM(CAST(order_total AS REAL) - CAST(advance_amount AS REAL)) as totalRemainingBalance
-      FROM UniqueSuccess
-      WHERE rn = 1
+        SUM(advance_amount) as totalAdvanceCollected,
+        SUM(remaining_amount) as totalRemainingBalance
+      FROM shopify_orders_cache
+      WHERE 1=1 ${dateFilter}
     `).get(...params);
+
 
     // Attempt-Level Metrics (Raw Counts)
     const attemptMetricsRow = db.prepare(`

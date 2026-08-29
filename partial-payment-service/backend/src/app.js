@@ -6,6 +6,7 @@ import { requestIdMiddleware } from './middleware/requestId.js';
 import healthRouter from './routes/health.js';
 import partialPaymentRouter from './routes/partialPayment.js';
 import dashboardRouter from './routes/dashboard.js';
+import webhooksRouter from './routes/webhooks.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { ENV } from './config/env.js';
@@ -68,6 +69,7 @@ const apiLimiter = rateLimit({
 app.use('/api/v1', healthRouter);
 app.use('/api/v1/partial-payment', apiLimiter, partialPaymentRouter);
 app.use('/api/v1/dashboard', apiLimiter, dashboardRouter);
+app.use('/api/v1/webhooks/shopify', webhooksRouter);
 
 // Serve Static Frontend (Dashboard)
 app.use(express.static(path.join(__dirname, '../public')));

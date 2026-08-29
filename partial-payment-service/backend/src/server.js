@@ -7,6 +7,7 @@ import { rollbackRepository } from './repositories/rollbackRepository.js';
 import { createDraftOrderService } from './shopify/draftOrder.js';
 import { createOrderService } from './shopify/order.js';
 import { executeGraphQL } from './shopify/client.js';
+import { reconcileOrders } from './jobs/reconciliationCron.js';
 import db from './database/db.js';
 
 const log = getLogger('server');
@@ -31,6 +32,16 @@ const server = app.listen(PORT, async () => {
     await recoveryWorker.runRecovery(0); // QA TEST 4: Instantly scan instead of waiting 5 minutes
   } catch (err) {
     log.error({ err: err.message }, 'Failed to run Recovery Worker on startup');
+  }
+
+  // Run Dashboard Reconciliation automatically after restart and every hour
+  try {
+    reconcileOrders(24).catch(err => log.error({ err }, 'Error in initial order reconciliation'));
+    setInterval(() => {
+      reconcileOrders(2).catch(err => log.error({ err }, 'Error in periodic order reconciliation'));
+    }, 60 * 60 * 1000); // Every 1 hour
+  } catch (err) {
+    log.error({ err: err.message }, 'Failed to initialize Reconciliation Cron');
   }
 });
 
