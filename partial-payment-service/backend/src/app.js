@@ -27,7 +27,8 @@ app.use(helmet({
       "frame-ancestors": [
         `https://${ENV.SHOPIFY_STORE}`,
         "https://admin.shopify.com"
-      ]
+      ],
+      "script-src": ["'self'", "https://cdn.shopify.com"]
     }
   },
   frameguard: false
