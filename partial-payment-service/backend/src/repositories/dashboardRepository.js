@@ -58,32 +58,31 @@ export const dashboardRepository = {
 
   getTransactions({ status, paymentMode, dateFrom, dateTo, search, sortBy, sortDir, limit, offset }) {
     let sql = `
-      SELECT *, 
-        (CAST(order_total AS REAL) - CAST(advance_amount AS REAL)) as remaining_balance
-      FROM payment_attempts
+      SELECT *
+      FROM shopify_orders_cache
       WHERE 1=1
     `;
     const params = [];
 
     if (status) {
-      sql += ` AND status = ?`;
+      sql += ` AND financial_status = ?`;
       params.push(status);
     }
+    // paymentMode is not available in shopify_orders_cache easily, so we can ignore it or leave it
     if (paymentMode) {
-      sql += ` AND payment_mode = ?`;
-      params.push(paymentMode);
+      // no-op, shopify cache doesn't track specific gateways natively right now
     }
     if (dateFrom) {
-      sql += ` AND created_at >= datetime(?)`;
+      sql += ` AND datetime(created_at) >= datetime(?)`;
       params.push(dateFrom);
     }
     if (dateTo) {
-      sql += ` AND created_at <= datetime(?)`;
+      sql += ` AND datetime(created_at) <= datetime(?)`;
       params.push(dateTo);
     }
     if (search) {
-      sql += ` AND (order_name LIKE ? OR draft_order_name LIKE ?)`;
-      params.push(`%${search}%`, `%${search}%`);
+      sql += ` AND (name LIKE ?)`;
+      params.push(`%${search}%`);
     }
 
     // Count query
@@ -91,28 +90,34 @@ export const dashboardRepository = {
     const total = db.prepare(countSql).get(...params).total;
 
     // Sorting and Pagination
-    sql += ` ORDER BY ${sortBy} ${sortDir} LIMIT ? OFFSET ?`;
+    // Map sortBy to cache columns
+    let sortColumn = 'created_at';
+    if (sortBy === 'order_name') sortColumn = 'name';
+    else if (sortBy === 'advance_amount') sortColumn = 'advance_amount';
+    else if (sortBy === 'status') sortColumn = 'financial_status';
+
+    sql += ` ORDER BY ${sortColumn} ${sortDir} LIMIT ? OFFSET ?`;
     params.push(limit, offset);
 
     const rows = db.prepare(sql).all(...params);
 
     return {
       transactions: rows.map(row => ({
-        idempotencyKey: row.idempotency_key,
-        draftOrderId: row.draft_order_id,
-        draftOrderName: row.draft_order_name,
+        idempotencyKey: row.order_id, // Use order_id as unique key for React lists
+        draftOrderId: null, // deprecated
+        draftOrderName: '-', // deprecated
         orderId: row.order_id,
-        orderName: row.order_name,
+        orderName: row.name,
         advanceAmount: row.advance_amount,
-        currency: row.currency,
-        orderTotal: row.order_total,
-        remainingBalance: row.remaining_balance?.toFixed(2),
-        paymentMode: row.payment_mode,
-        staffNote: row.staff_note,
-        status: row.status,
-        errorMessage: row.error_message,
+        currency: 'INR',
+        orderTotal: row.total_amount,
+        remainingBalance: row.remaining_amount?.toFixed(2),
+        paymentMode: 'Online', // Shopify canonical doesn't easily expose this in our simple cache
+        staffNote: null,
+        status: row.financial_status,
+        errorMessage: null,
         createdAt: row.created_at,
-        completedAt: row.completed_at
+        completedAt: row.shopify_updated_at
       })),
       totalItems: total
     };

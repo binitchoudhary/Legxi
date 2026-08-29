@@ -10,7 +10,7 @@ export default function Dashboard({ metrics }) {
       <h2 style={{ marginTop: '0', paddingBottom: '10px', borderBottom: '1px solid var(--border)' }}>Order-Level Metrics (Deduplicated)</h2>
       <div className="metrics-grid">
         <div className="card">
-          <h3>App-Created Partial Payment Orders</h3>
+          <h3>Partial Payment Orders</h3>
           <p className="value">{Number(orderLevel.totalPartialPaymentOrders ?? 0).toLocaleString('en-IN')}</p>
         </div>
         <div className="card">
