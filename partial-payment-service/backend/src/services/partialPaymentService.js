@@ -76,7 +76,11 @@ export function createPartialPaymentService({ attemptRepository, rollbackReposit
           const orderId = orderData.id;
           const orderName = orderData.name;
           const legacyResourceId = orderData.legacyResourceId;
-  
+
+          // 6.5 Persist orderId/orderName immediately so rollback can see it if step 7 fails
+          attempt = await attemptRepository.update(idempotencyKey, { orderId, orderName });
+          eventBus.emit(BUSINESS_EVENTS.ORDER_CREATED, { requestId: reqId, attemptId: idempotencyKey, draftOrderId, orderId });
+
           // 7. Add Transaction via REST API
           if (!ENV.DRY_RUN && legacyResourceId) {
             const res = await fetch(`https://${ENV.SHOPIFY_STORE}/admin/api/${ENV.SHOPIFY_API_VERSION}/orders/${legacyResourceId}/transactions.json`, {
@@ -96,13 +100,11 @@ export function createPartialPaymentService({ attemptRepository, rollbackReposit
               })
             });
             if (!res.ok) {
-              const errText = await res.text();
-              throw new Error(`Failed to apply transaction: ${errText}`);
+              let errBody = '';
+              try { errBody = await res.text(); } catch (_) { /* body unreadable */ }
+              throw new Error(`Failed to apply transaction: HTTP ${res.status} ${res.statusText}${errBody ? ` — ${errBody}` : ' (empty response body)'}`);
             }
           }
-
-        attempt = await attemptRepository.update(idempotencyKey, { orderId, orderName });
-        eventBus.emit(BUSINESS_EVENTS.ORDER_CREATED, { requestId: reqId, attemptId: idempotencyKey, draftOrderId, orderId });
 
         // 8. State Transition to VERIFYING
         attempt = await updateState(idempotencyKey, STATES.CREATING_ORDER, STATES.VERIFYING);
