@@ -23,6 +23,7 @@ export async function fetchAndUpsertOrder(orderId) {
           createdAt
           updatedAt
           displayFinancialStatus
+          cancelledAt
           channel { name }
           totalPriceSet { shopMoney { amount } }
           totalReceivedSet { shopMoney { amount } }
@@ -44,10 +45,11 @@ export async function fetchAndUpsertOrder(orderId) {
     const shopifyUpdatedAt = new Date(o.updatedAt).getTime();
 
     // Protection against out-of-order updates
-    const existing = db.prepare('SELECT shopify_updated_at FROM shopify_orders_cache WHERE order_id = ?').get(gid);
+    const existing = db.prepare('SELECT shopify_updated_at, cancelled_at FROM shopify_orders_cache WHERE order_id = ?').get(gid);
     if (existing) {
       const existingUpdatedAt = new Date(existing.shopify_updated_at).getTime();
-      if (shopifyUpdatedAt <= existingUpdatedAt) {
+      const cancelledAtChanged = (o.cancelledAt || null) !== (existing.cancelled_at || null);
+      if (shopifyUpdatedAt <= existingUpdatedAt && !cancelledAtChanged) {
         log.info({ orderId: gid, shopifyUpdatedAt, existingUpdatedAt }, 'Ignoring older or identical order update');
         return true;
       }
@@ -61,8 +63,8 @@ export async function fetchAndUpsertOrder(orderId) {
     const stmt = db.prepare(`
       INSERT INTO shopify_orders_cache (
         order_id, name, created_at, shopify_updated_at, financial_status,
-        total_amount, advance_amount, remaining_amount, channel
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        total_amount, advance_amount, remaining_amount, channel, cancelled_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(order_id) DO UPDATE SET
         name = excluded.name,
         created_at = excluded.created_at,
@@ -71,7 +73,8 @@ export async function fetchAndUpsertOrder(orderId) {
         total_amount = excluded.total_amount,
         advance_amount = excluded.advance_amount,
         remaining_amount = excluded.remaining_amount,
-        channel = excluded.channel
+        channel = excluded.channel,
+        cancelled_at = excluded.cancelled_at
     `);
 
     stmt.run(
@@ -83,7 +86,8 @@ export async function fetchAndUpsertOrder(orderId) {
       totalAmount,
       advanceAmount,
       remainingAmount,
-      channelName
+      channelName,
+      o.cancelledAt || null
     );
 
     log.info({ orderId: gid, status: o.displayFinancialStatus }, 'Successfully upserted order into cache');

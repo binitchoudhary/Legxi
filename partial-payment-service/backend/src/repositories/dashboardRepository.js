@@ -20,7 +20,7 @@ export const dashboardRepository = {
         SUM(advance_amount) as totalAdvanceCollected,
         SUM(remaining_amount) as totalRemainingBalance
       FROM shopify_orders_cache
-      WHERE financial_status IN ('PARTIALLY_PAID', 'PAID') 
+      WHERE financial_status IN ('PARTIALLY_PAID', 'PAID') AND cancelled_at IS NULL
         ${dateFilter ? dateFilter.replace(/created_at/g, 'datetime(created_at)') : ''}
     `).get(...params);
 
@@ -54,7 +54,7 @@ export const dashboardRepository = {
         COUNT(*) as pendingCount,
         SUM(remaining_amount) as pendingRemainingBalance
       FROM shopify_orders_cache
-      WHERE financial_status = 'PENDING' ${allOrdersDateFilter}
+      WHERE financial_status = 'PENDING' AND cancelled_at IS NULL ${allOrdersDateFilter}
     `).get(...params);
 
     return {
@@ -95,6 +95,9 @@ export const dashboardRepository = {
       const statuses = Array.isArray(status) ? status : [status];
       sql += ` AND financial_status IN (${statuses.map(() => '?').join(',')})`;
       params.push(...statuses);
+      // Cancelled orders are excluded only for status-filtered views (Pending/Partial
+      // Payments) — the unfiltered Orders tab (no status param) still shows them.
+      sql += ` AND cancelled_at IS NULL`;
     }
     // paymentMode is not available in shopify_orders_cache easily, so we can ignore it or leave it
     if (paymentMode) {
