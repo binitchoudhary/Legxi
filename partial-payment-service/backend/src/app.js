@@ -53,6 +53,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Bypass-Tunnel-Reminder']
 }));
 
+app.use('/api/v1/webhooks/shopify', webhooksRouter);
+
 app.use(express.json());
 app.use(requestIdMiddleware);
 
@@ -69,7 +71,6 @@ const apiLimiter = rateLimit({
 app.use('/api/v1', healthRouter);
 app.use('/api/v1/partial-payment', apiLimiter, partialPaymentRouter);
 app.use('/api/v1/dashboard', apiLimiter, dashboardRouter);
-app.use('/api/v1/webhooks/shopify', webhooksRouter);
 
 // Serve Static Frontend (Dashboard)
 app.use(express.static(path.join(__dirname, '../public')));
