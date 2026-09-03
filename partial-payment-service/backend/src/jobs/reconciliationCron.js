@@ -14,7 +14,7 @@ export async function reconcileOrders(hoursBack = 3) {
   const since = new Date(Date.now() - (hoursBack * 60 * 60 * 1000)).toISOString();
   
   // We only care about orders that have transitioned to one of our tracked states
-  const queryFilter = `updated_at:>=${since} AND (financial_status:partially_paid OR financial_status:paid OR financial_status:refunded OR financial_status:partially_refunded)`;
+  const queryFilter = `updated_at:>=${since} AND (financial_status:pending OR financial_status:partially_paid OR financial_status:paid OR financial_status:refunded OR financial_status:partially_refunded)`;
 
   const query = `
     query getUpdatedOrders($query: String!, $cursor: String) {
