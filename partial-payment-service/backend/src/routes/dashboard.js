@@ -9,6 +9,7 @@ router.use(verifySessionToken);
 
 router.get('/metrics', dashboardController.getMetrics);
 router.get('/transactions', dashboardController.getTransactions);
+router.get('/attempts', dashboardController.getAttempts);
 router.get('/health', dashboardController.getHealth);
 
 export default router;

@@ -31,9 +31,13 @@ export const dashboardController = {
       let sortDir = (req.query.sortDir || 'DESC').toUpperCase();
       if (sortDir !== 'ASC' && sortDir !== 'DESC') sortDir = 'DESC';
 
-      const validStatuses = ['PENDING', 'CREATING_ORDER', 'VERIFYING', 'SUCCESS', 'ROLLBACK', 'FAILED'];
-      let status = req.query.status;
-      if (status && !validStatuses.includes(status)) status = null;
+      // shopify_orders_cache.financial_status mirrors Shopify's displayFinancialStatus enum —
+      // distinct from the payment_attempts status enum used by getAttempts below.
+      const validFinancialStatuses = ['PENDING', 'AUTHORIZED', 'PARTIALLY_PAID', 'PAID', 'PARTIALLY_REFUNDED', 'REFUNDED', 'VOIDED', 'EXPIRED'];
+      let status = req.query.status
+        ? req.query.status.split(',').map(s => s.trim()).filter(s => validFinancialStatuses.includes(s))
+        : null;
+      if (status && status.length === 0) status = null;
 
       const validModes = ['Cash', 'UPI', 'Bank Transfer', 'Razorpay', 'Other'];
       let paymentMode = req.query.paymentMode;
@@ -64,6 +68,55 @@ export const dashboardController = {
       req.id = req.id || 'unknown';
       console.error(`[${req.id}] Error in getTransactions:`, err);
       res.status(500).json({ error: 'Failed to load transactions' });
+    }
+  },
+
+  getAttempts(req, res) {
+    try {
+      const page = parseInt(req.query.page) || 1;
+      let limit = parseInt(req.query.limit) || 20;
+      if (limit > 100) limit = 100;
+      if (limit < 1) limit = 1;
+
+      const offset = (page - 1) * limit;
+
+      const validSortBy = ['created_at', 'advance_amount', 'status'];
+      let sortBy = req.query.sortBy || 'created_at';
+      if (!validSortBy.includes(sortBy)) sortBy = 'created_at';
+
+      let sortDir = (req.query.sortDir || 'DESC').toUpperCase();
+      if (sortDir !== 'ASC' && sortDir !== 'DESC') sortDir = 'DESC';
+
+      // payment_attempts status enum — distinct from the Shopify financial-status enum used by getTransactions.
+      const validStatuses = ['PENDING', 'CREATING_ORDER', 'VERIFYING', 'SUCCESS', 'ROLLBACK', 'FAILED'];
+      let status = req.query.status
+        ? req.query.status.split(',').map(s => s.trim()).filter(s => validStatuses.includes(s))
+        : null;
+      if (status && status.length === 0) status = null;
+
+      const result = dashboardRepository.getAttempts({
+        status,
+        dateFrom: req.query.dateFrom,
+        dateTo: req.query.dateTo,
+        sortBy,
+        sortDir,
+        limit,
+        offset
+      });
+
+      res.json({
+        attempts: result.attempts,
+        pagination: {
+          page,
+          limit,
+          totalItems: result.totalItems,
+          totalPages: Math.ceil(result.totalItems / limit)
+        }
+      });
+    } catch (err) {
+      req.id = req.id || 'unknown';
+      console.error(`[${req.id}] Error in getAttempts:`, err);
+      res.status(500).json({ error: 'Failed to load attempts' });
     }
   },
 

@@ -39,11 +39,36 @@ export const dashboardRepository = {
     const lastSuccess = db.prepare(`SELECT completed_at FROM payment_attempts WHERE status = 'SUCCESS' ORDER BY completed_at DESC LIMIT 1`).get();
     const lastFailed = db.prepare(`SELECT completed_at FROM payment_attempts WHERE status = 'FAILED' ORDER BY completed_at DESC LIMIT 1`).get();
 
+    // All-Shopify-orders metrics (all channels, all financial statuses) — same shopify_orders_cache
+    // source of truth as orderMetricsRow above, reusing the same date-boundary handling.
+    const allOrdersDateFilter = dateFilter ? dateFilter.replace(/created_at/g, 'datetime(created_at)') : '';
+
+    const totalOrdersRow = db.prepare(`
+      SELECT COUNT(*) as totalOrders
+      FROM shopify_orders_cache
+      WHERE 1=1 ${allOrdersDateFilter}
+    `).get(...params);
+
+    const pendingOrdersRow = db.prepare(`
+      SELECT
+        COUNT(*) as pendingCount,
+        SUM(remaining_amount) as pendingRemainingBalance
+      FROM shopify_orders_cache
+      WHERE financial_status = 'PENDING' ${allOrdersDateFilter}
+    `).get(...params);
+
     return {
       orderLevel: {
         totalPartialPaymentOrders: orderMetricsRow.totalPartialPaymentOrders || 0,
         totalAdvanceCollected: orderMetricsRow.totalAdvanceCollected || 0,
         totalRemainingBalance: orderMetricsRow.totalRemainingBalance || 0
+      },
+      allOrders: {
+        totalOrders: totalOrdersRow.totalOrders || 0
+      },
+      pendingPayments: {
+        count: pendingOrdersRow.pendingCount || 0,
+        remainingBalance: pendingOrdersRow.pendingRemainingBalance || 0
       },
       attemptLevel: {
         totalPaymentAttempts: attemptMetricsRow.totalPaymentAttempts || 0,
@@ -65,8 +90,11 @@ export const dashboardRepository = {
     const params = [];
 
     if (status) {
-      sql += ` AND financial_status = ?`;
-      params.push(status);
+      // status may be a single Shopify financial-status value or an array of them
+      // (e.g. ['PARTIALLY_PAID', 'PAID'] for the Partial Payments view).
+      const statuses = Array.isArray(status) ? status : [status];
+      sql += ` AND financial_status IN (${statuses.map(() => '?').join(',')})`;
+      params.push(...statuses);
     }
     // paymentMode is not available in shopify_orders_cache easily, so we can ignore it or leave it
     if (paymentMode) {
@@ -118,6 +146,63 @@ export const dashboardRepository = {
         errorMessage: null,
         createdAt: row.created_at,
         completedAt: row.shopify_updated_at
+      })),
+      totalItems: total
+    };
+  },
+
+  getAttempts({ status, dateFrom, dateTo, sortBy, sortDir, limit, offset }) {
+    let sql = `
+      SELECT idempotency_key, draft_order_id, draft_order_name, order_id, order_name,
+             advance_amount, currency, order_total, payment_mode, staff_note,
+             status, error_message, created_at, completed_at
+      FROM payment_attempts
+      WHERE 1=1
+    `;
+    const params = [];
+
+    if (status) {
+      const statuses = Array.isArray(status) ? status : [status];
+      sql += ` AND status IN (${statuses.map(() => '?').join(',')})`;
+      params.push(...statuses);
+    }
+    if (dateFrom) {
+      sql += ` AND datetime(created_at) >= datetime(?)`;
+      params.push(dateFrom);
+    }
+    if (dateTo) {
+      sql += ` AND datetime(created_at) <= datetime(?)`;
+      params.push(dateTo);
+    }
+
+    const countSql = sql.replace(/SELECT[\s\S]*?FROM/, 'SELECT COUNT(*) as total FROM');
+    const total = db.prepare(countSql).get(...params).total;
+
+    let sortColumn = 'created_at';
+    if (sortBy === 'advance_amount') sortColumn = 'advance_amount';
+    else if (sortBy === 'status') sortColumn = 'status';
+
+    sql += ` ORDER BY ${sortColumn} ${sortDir} LIMIT ? OFFSET ?`;
+    params.push(limit, offset);
+
+    const rows = db.prepare(sql).all(...params);
+
+    return {
+      attempts: rows.map(r => ({
+        idempotencyKey: r.idempotency_key,
+        draftOrderId: r.draft_order_id,
+        draftOrderName: r.draft_order_name,
+        orderId: r.order_id,
+        orderName: r.order_name,
+        advanceAmount: r.advance_amount,
+        currency: r.currency,
+        orderTotal: r.order_total,
+        paymentMode: r.payment_mode,
+        staffNote: r.staff_note,
+        status: r.status,
+        errorMessage: r.error_message,
+        createdAt: r.created_at,
+        completedAt: r.completed_at
       })),
       totalItems: total
     };
