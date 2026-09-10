@@ -31,7 +31,7 @@ services:
       - TRANSFER_SERVICE_URL=${TRANSFER_SERVICE_URL}
       - SHOPIFY_STORE=${SHOPIFY_STORE}
     ports:
-      - "4000:4000"
+      - "127.0.0.1:4000:4000"
     restart: unless-stopped
     depends_on:
       - postgres
