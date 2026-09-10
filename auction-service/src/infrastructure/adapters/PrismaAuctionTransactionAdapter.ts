@@ -138,6 +138,17 @@ export class PrismaAuctionTransactionAdapter implements IAuctionTransactionBound
           });
         },
 
+        async insertOutboxEvent(event: any): Promise<void> {
+          await tx.outboxEvent.create({
+            data: {
+              id: ulid(),
+              eventType: 'DOMAIN_EVENT',
+              payload: event,
+              status: 'PENDING'
+            }
+          });
+        },
+
         async getSettlement(auctionId: string): Promise<any> {
           const rows: any[] = await tx.$queryRaw`
             SELECT * FROM settlements WHERE auction_id = ${auctionId} FOR UPDATE

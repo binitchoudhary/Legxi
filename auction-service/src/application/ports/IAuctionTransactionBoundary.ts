@@ -14,6 +14,7 @@ export interface ITransactionContext {
   fetchBids(auctionId: string): Promise<Bid[]>;
   updateAuction(auction: Auction): Promise<void>;
   logAudit(audit: AuditLog): Promise<void>;
+  insertOutboxEvent(event: any): Promise<void>;
   
   // Phase 3 extensions for atomic settlement webhook
   getSettlement(auctionId: string): Promise<any>;

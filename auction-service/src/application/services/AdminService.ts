@@ -6,14 +6,15 @@ import { IAuctionTransactionBoundary } from '../ports/IAuctionTransactionBoundar
 import { AuctionDTO } from '../../api/dto/auction.dto';
 import { InvalidAuctionTimeError, InvalidStateTransitionError } from '../exceptions/ApplicationErrors';
 import { ulid } from 'ulidx';
-import { AuctionTimeWindow, Auction, BidAmount } from '../../domain';
+import { AuctionTimeWindow, Auction, BidAmount, AuctionEngine } from '../../domain';
 
 export class AdminService implements IAdminService {
   constructor(
     private auctionRepository: IAuctionRepository,
     private eventPublisher: IEventPublisher,
     private timeProvider: ITimeProvider,
-    private transactionBoundary: IAuctionTransactionBoundary
+    private transactionBoundary: IAuctionTransactionBoundary,
+    private auctionEngine: AuctionEngine
   ) {}
 
   async createAuction(payload: CreateAuctionPayload, adminUserId: string, idempotencyKey: string): Promise<AuctionDTO> {
@@ -82,26 +83,29 @@ export class AdminService implements IAdminService {
       }
 
       const currentTime = this.timeProvider.getCurrentTime();
-      // To force close, we need to end the auction immediately.
-      // We can use withExtendedEndTime to adjust the end time, then withStatus to ENDED.
-      let updatedAuction = auction.withExtendedEndTime(currentTime).withStatus('ENDED');
+      const bids = await txContext.fetchBids(auctionId);
 
-      await txContext.updateAuction(updatedAuction);
+      // Route force-close through canonical domain method
+      const closureResult = this.auctionEngine.forceCloseAuction(auction, bids, currentTime);
 
+      await txContext.updateAuction(closureResult.updatedAuction);
+
+      for (const event of closureResult.eventsToPublish) {
+        await txContext.insertOutboxEvent(event);
+      }
+      
       await txContext.logAudit({
         action: 'ADMIN_FORCE_CLOSE',
         actorId: adminUserId,
-        details: { newStatus: 'ENDED', endTime: currentTime.toISOString() }
+        details: { newStatus: closureResult.updatedAuction.getStatus().getValue(), endTime: currentTime.toISOString() }
       });
 
-      return { updatedAuction, eventType: 'auction.ended' };
+      return { updatedAuction: closureResult.updatedAuction, eventsToPublish: closureResult.eventsToPublish };
     });
 
-    await this.eventPublisher.publish(result.eventType, { 
-      auctionId, 
-      winnerId: result.updatedAuction.getWinningBidId() || null, 
-      finalPrice: result.updatedAuction.getCurrentPrice().toString() 
-    });
+    for (const event of result.eventsToPublish) {
+      await this.eventPublisher.publish(event.type, event.payload);
+    }
 
     // Publish telemetry to admin global room
     await this.eventPublisher.publish('telemetry.admin.force_close', { auctionId, actorId: adminUserId });

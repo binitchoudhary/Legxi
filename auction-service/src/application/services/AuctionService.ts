@@ -46,6 +46,10 @@ export class AuctionService implements IAuctionService {
       // 4. Delegate Atomic Persistence
       await txContext.updateAuction(result.updatedAuction);
 
+      for (const event of result.eventsToPublish) {
+        await txContext.insertOutboxEvent(event);
+      }
+
       return result.eventsToPublish;
     });
 

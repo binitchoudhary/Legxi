@@ -36,6 +36,37 @@ export class SettlementRepositoryAdapter implements ISettlementRepository {
     logger.debug({ settlementId: settlement.settlementId }, 'Settlement saved');
   }
 
+  async saveWithOutboxEvent(settlement: Settlement, event: any): Promise<void> {
+    const { ulid } = await import('ulidx');
+    await prisma.$transaction(async (tx) => {
+      await tx.settlement.create({
+        data: {
+          id: settlement.settlementId,
+          auctionId: settlement.auctionId,
+          winnerId: settlement.winnerId,
+          paymentState: settlement.paymentState,
+          settlementStatus: settlement.settlementStatus,
+          paymentWindowOpenedAt: settlement.paymentWindowOpenedAt,
+          paymentAttempts: settlement.paymentAttempts,
+          provider: settlement.providerReference?.provider,
+          providerPaymentId: settlement.providerReference?.providerPaymentId,
+          providerEventId: settlement.providerReference?.providerEventId,
+          version: settlement.version
+        }
+      });
+
+      await tx.outboxEvent.create({
+        data: {
+          id: ulid(),
+          eventType: 'DOMAIN_EVENT',
+          payload: event,
+          status: 'PENDING'
+        }
+      });
+    });
+    logger.debug({ settlementId: settlement.settlementId }, 'Settlement and outbox event saved atomically');
+  }
+
   async updateOptimistically(settlement: Settlement, currentVersion: number): Promise<void> {
     const result = await prisma.settlement.updateMany({
       where: {

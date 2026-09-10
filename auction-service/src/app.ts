@@ -125,14 +125,20 @@ const diContainer = {
     settlementRepoAdapter,
     eventPublisher
   ),
-  adminService: new AdminService(auctionRepoAdapter, eventPublisher, timeProvider, auctionTxBoundary),
+  adminService: new AdminService(auctionRepoAdapter, eventPublisher, timeProvider, auctionTxBoundary, auctionEngine),
   healthService: new HealthService(),
 };
 
 // Initialize Process Managers
 import { SettlementProcessManager } from './application/services/SettlementProcessManager';
+import { ShopifyDraftOrderOrchestrator } from './application/services/ShopifyDraftOrderOrchestrator';
+
 const settlementProcessManager = new SettlementProcessManager(diContainer.settlementService);
-// eventPublisher.subscribe('AuctionClosedWithWinner', settlementProcessManager.onAuctionClosedWithWinner.bind(settlementProcessManager));
+const shopifyDraftOrderOrchestrator = new ShopifyDraftOrderOrchestrator(
+  paymentGatewayAdapter,
+  diContainer.settlementService,
+  diContainer.auctionService
+);
 
 import { HttpTransferServiceAdapter } from './infrastructure/adapters/transfer/HttpTransferServiceAdapter';
 import { CertificateTransferProcessManager } from './application/services/CertificateTransferProcessManager';
@@ -220,8 +226,6 @@ const telemetryEventPublisher = {
     return originalEventPublisher.publish(topic, payload);
   }
 };
-
-// eventPublisher.subscribe('SettlementCompleted', certificateTransferProcessManager.onSettlementCompleted.bind(certificateTransferProcessManager));
 
 import { setupWebSocket } from './ws/setup';
 import { authRoutes } from './modules/auth/auth.routes';
@@ -314,6 +318,20 @@ export function buildApp() {
   // Initialize Layer 5 Background Workers
   const stateScheduler = new StateTransitionScheduler(prisma, diContainer.auctionService);
   const outboxWorker = new OutboxRelayWorker(prisma);
+
+  // Wire Domain Event Handlers
+  outboxWorker.registerDomainEventHandler(
+    'AuctionClosedWithWinner',
+    settlementProcessManager.onAuctionClosedWithWinner.bind(settlementProcessManager)
+  );
+  outboxWorker.registerDomainEventHandler(
+    'SettlementCreated',
+    shopifyDraftOrderOrchestrator.onSettlementCreated.bind(shopifyDraftOrderOrchestrator)
+  );
+  outboxWorker.registerDomainEventHandler(
+    'SettlementCompleted',
+    certificateTransferProcessManager.onSettlementCompleted.bind(certificateTransferProcessManager)
+  );
 
   stateScheduler.start();
   outboxWorker.start();

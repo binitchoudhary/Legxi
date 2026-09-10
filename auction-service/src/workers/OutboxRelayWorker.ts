@@ -3,11 +3,19 @@ import { PrismaClient } from '@prisma/client';
 export class OutboxRelayWorker {
   private timer: NodeJS.Timeout | null = null;
   private isRunning = false;
+  private domainEventHandlers: Map<string, Array<(event: any) => Promise<void>>> = new Map();
 
   constructor(
     private readonly prisma: PrismaClient,
     private readonly pollIntervalMs: number = 2000
   ) {}
+
+  public registerDomainEventHandler(eventType: string, handler: (event: any) => Promise<void>) {
+    if (!this.domainEventHandlers.has(eventType)) {
+      this.domainEventHandlers.set(eventType, []);
+    }
+    this.domainEventHandlers.get(eventType)!.push(handler);
+  }
 
   public start() {
     if (this.timer) return;
@@ -67,6 +75,15 @@ export class OutboxRelayWorker {
                 )
                 ON CONFLICT (id) DO NOTHING
               `;
+            } else if (ev.event_type === 'DOMAIN_EVENT') {
+              const eventPayload = typeof ev.payload === 'string' ? JSON.parse(ev.payload) : ev.payload;
+              const handlers = this.domainEventHandlers.get(eventPayload.type);
+              
+              if (handlers) {
+                for (const handler of handlers) {
+                  await handler(eventPayload.payload);
+                }
+              }
             }
             
             // Mark processed
@@ -76,8 +93,14 @@ export class OutboxRelayWorker {
               WHERE id = ${ev.id}
             `;
           }, { isolationLevel: 'ReadCommitted' });
-        } catch (err) {
+        } catch (err: any) {
           console.error(`[OutboxRelayWorker] Failed to process event ${candidate.id}:`, err);
+          // Keep event PENDING and record error
+          await this.prisma.$executeRaw`
+            UPDATE outbox_events
+            SET error = ${err.message || String(err)}
+            WHERE id = ${candidate.id}
+          `;
         }
       }
     } catch (err) {

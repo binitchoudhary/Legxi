@@ -34,8 +34,17 @@ export class SettlementService {
       1
     );
 
+    const event = {
+      type: 'SettlementCreated',
+      payload: {
+        settlementId: settlement.settlementId,
+        auctionId: settlement.auctionId,
+        winnerId: settlement.winnerId
+      }
+    };
+
     try {
-      await this.repository.save(settlement);
+      await this.repository.saveWithOutboxEvent(settlement, event);
     } catch (error: any) {
       // Handle concurrent creation race: if another worker created the settlement
       // between our findByAuctionId check and save, Prisma throws P2002 (unique constraint).
@@ -47,12 +56,6 @@ export class SettlementService {
       }
       throw error;
     }
-    
-    await this.eventPublisher.publish('SettlementCreated', {
-      settlementId: settlement.settlementId,
-      auctionId: settlement.auctionId,
-      winnerId: settlement.winnerId
-    });
 
     return settlement;
   }
