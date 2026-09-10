@@ -14,6 +14,13 @@ export interface WebhookEventRecord {
 }
 
 export class WebhookIdempotencyStore {
+  async checkIfExists(provider: string, providerEventId: string): Promise<boolean> {
+    const record = await prisma.webhookEvent.findUnique({
+      where: { provider_providerEventId: { provider, providerEventId } }
+    });
+    return !!record;
+  }
+
   /**
    * Attempts to record a webhook event.
    * If the event ID already exists for the provider, returns false (Duplicate detected).

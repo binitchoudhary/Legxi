@@ -4,8 +4,15 @@ import { IAuctionService } from '../services/IAuctionService';
 import { AuctionListQuerySchema, AuctionIdParamSchema } from '../dto/auction.dto';
 import { RequestIdHeaderSchema } from '../dto/headers.dto';
 
-export default async function auctionRoutes(app: FastifyInstance, opts: { auctionService: IAuctionService }) {
-  const controller = new AuctionController(opts.auctionService);
+import Redis from 'ioredis';
+import { IBidService } from '../services/IBidService';
+
+export default async function auctionRoutes(app: FastifyInstance, opts: { 
+  auctionService: IAuctionService,
+  bidService: IBidService,
+  redisClient: Redis
+}) {
+  const controller = new AuctionController(opts.auctionService, opts.bidService, opts.redisClient);
 
   app.get('/', {
     schema: {
@@ -20,4 +27,11 @@ export default async function auctionRoutes(app: FastifyInstance, opts: { auctio
       params: AuctionIdParamSchema
     }
   }, controller.getAuction.bind(controller));
+
+  app.get('/:id/snapshot', {
+    schema: {
+      headers: RequestIdHeaderSchema,
+      params: AuctionIdParamSchema
+    }
+  }, controller.getSnapshot.bind(controller));
 }

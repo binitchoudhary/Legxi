@@ -8,7 +8,8 @@
     "start": "node dist/server.js",
     "dev": "tsx src/server.ts",
     "lint": "eslint \"src/**/*.ts\" --fix",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:layer2": "vitest run tests/layer2-concurrency.test.ts",
     "seed-demo": "tsx scripts/seed-demo.ts"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "@opentelemetry/semantic-conventions": "^1.43.0",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.0",
+    "@socket.io/redis-adapter": "^8.3.0",
     "argon2": "^0.45.1",
     "bullmq": "^5.81.2",
     "dotenv": "^17.4.2",
@@ -38,6 +40,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/localtunnel": "^2.0.4",
     "@types/node": "^26.1.1",
     "@types/pg": "^8.20.3",
     "@types/uuid": "^10.0.0",
@@ -46,9 +49,12 @@
     "eslint": "^10.8.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.2.0",
+    "localtunnel": "^2.0.2",
     "pino-pretty": "^13.1.3",
     "prettier": "^3.9.6",
+    "socket.io-client": "^4.8.3",
     "tsx": "^4.23.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
   }
 }

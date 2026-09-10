@@ -8,7 +8,7 @@ export interface CreateAuctionData {
   startingPricePaise: string;
   minIncrementPaise: string;
   reservePricePaise?: string;
-  status: 'DRAFT' | 'PUBLISHED' | 'ACTIVE' | 'PAUSED' | 'CLOSED';
+  status: 'DRAFT' | 'SCHEDULED' | 'PREPARING' | 'LIVE' | 'EXTENDED' | 'ENDING' | 'ENDED' | 'SETTLED' | 'ARCHIVED';
 }
 
 export interface IAuctionRepository {

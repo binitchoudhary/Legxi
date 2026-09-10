@@ -1,17 +1,19 @@
-import { IAdminService, CreateAuctionPayload } from '../../api/services/IAdminService';
+import { IAdminService, CreateAuctionPayload, UpdateAuctionConfigPayload } from '../../api/services/IAdminService';
 import { IAuctionRepository } from '../ports/IAuctionRepository';
 import { IEventPublisher } from '../ports/IEventPublisher';
 import { ITimeProvider } from '../ports/ITimeProvider';
+import { IAuctionTransactionBoundary } from '../ports/IAuctionTransactionBoundary';
 import { AuctionDTO } from '../../api/dto/auction.dto';
-import { InvalidAuctionTimeError } from '../exceptions/ApplicationErrors';
+import { InvalidAuctionTimeError, InvalidStateTransitionError } from '../exceptions/ApplicationErrors';
 import { ulid } from 'ulidx';
-import { AuctionTimeWindow } from '../../domain';
+import { AuctionTimeWindow, Auction, BidAmount } from '../../domain';
 
 export class AdminService implements IAdminService {
   constructor(
     private auctionRepository: IAuctionRepository,
     private eventPublisher: IEventPublisher,
-    private timeProvider: ITimeProvider
+    private timeProvider: ITimeProvider,
+    private transactionBoundary: IAuctionTransactionBoundary
   ) {}
 
   async createAuction(payload: CreateAuctionPayload, adminUserId: string, idempotencyKey: string): Promise<AuctionDTO> {
@@ -41,5 +43,114 @@ export class AdminService implements IAdminService {
     await this.eventPublisher.publish('AuctionCreated', auction);
 
     return auction;
+  }
+
+  async forceStartAuction(auctionId: string, adminUserId: string): Promise<AuctionDTO> {
+    const result = await this.transactionBoundary.executeWithLock(auctionId, async (auction, txContext) => {
+      const currentStatus = auction.getStatus().getValue();
+      if (currentStatus !== 'SCHEDULED' && currentStatus !== 'PREPARING') {
+        throw new InvalidStateTransitionError(`Cannot force start auction from state ${currentStatus}. Allowed states: SCHEDULED, PREPARING`);
+      }
+
+      const updatedAuction = auction.withStatus('LIVE');
+
+      await txContext.updateAuction(updatedAuction);
+
+      await txContext.logAudit({
+        action: 'ADMIN_FORCE_START',
+        actorId: adminUserId,
+        details: { newStatus: 'LIVE' }
+      });
+
+      return { eventType: 'auction.started' };
+    });
+
+    await this.eventPublisher.publish(result.eventType, { auctionId, timestamp: this.timeProvider.getCurrentTime().toISOString() });
+    
+    // Publish telemetry to admin global room
+    await this.eventPublisher.publish('telemetry.admin.force_start', { auctionId, actorId: adminUserId });
+
+    const updatedDto = await this.auctionRepository.findById(auctionId);
+    return updatedDto!;
+  }
+
+  async forceCloseAuction(auctionId: string, adminUserId: string): Promise<AuctionDTO> {
+    const result = await this.transactionBoundary.executeWithLock(auctionId, async (auction, txContext) => {
+      const currentStatus = auction.getStatus().getValue();
+      if (currentStatus !== 'LIVE' && currentStatus !== 'EXTENDED') {
+        throw new InvalidStateTransitionError(`Cannot force close auction from state ${currentStatus}. Allowed states: LIVE, EXTENDED`);
+      }
+
+      const currentTime = this.timeProvider.getCurrentTime();
+      // To force close, we need to end the auction immediately.
+      // We can use withExtendedEndTime to adjust the end time, then withStatus to ENDED.
+      let updatedAuction = auction.withExtendedEndTime(currentTime).withStatus('ENDED');
+
+      await txContext.updateAuction(updatedAuction);
+
+      await txContext.logAudit({
+        action: 'ADMIN_FORCE_CLOSE',
+        actorId: adminUserId,
+        details: { newStatus: 'ENDED', endTime: currentTime.toISOString() }
+      });
+
+      return { updatedAuction, eventType: 'auction.ended' };
+    });
+
+    await this.eventPublisher.publish(result.eventType, { 
+      auctionId, 
+      winnerId: result.updatedAuction.getWinningBidId() || null, 
+      finalPrice: result.updatedAuction.getCurrentPrice().toString() 
+    });
+
+    // Publish telemetry to admin global room
+    await this.eventPublisher.publish('telemetry.admin.force_close', { auctionId, actorId: adminUserId });
+
+    const updatedDto = await this.auctionRepository.findById(auctionId);
+    return updatedDto!;
+  }
+
+  async updateAuctionConfiguration(auctionId: string, payload: UpdateAuctionConfigPayload, adminUserId: string): Promise<AuctionDTO> {
+    await this.transactionBoundary.executeWithLock(auctionId, async (auction, txContext) => {
+      // Configuration Freeze Domain Rule
+      const currentStatus = auction.getStatus().getValue();
+      const frozenStates = ['PREPARING', 'LIVE', 'EXTENDED', 'ENDING', 'ENDED', 'SETTLED', 'ARCHIVED'];
+      if (frozenStates.includes(currentStatus)) {
+        throw new InvalidStateTransitionError(`Configuration is frozen. Cannot edit auction in state ${currentStatus}`);
+      }
+
+      // Since Auction is immutable, we instantiate a new one with the updated values.
+      // We increment the version here as well.
+      const updatedAuction = new Auction(
+        auction.getId(),
+        auction.getShopifyProductId(),
+        auction.getTimeWindow(),
+        auction.getStatus(),
+        payload.startingPricePaise !== undefined ? new BidAmount(payload.startingPricePaise) : auction.getStartingPrice(),
+        auction.getCurrentPrice(),
+        payload.minIncrementPaise !== undefined ? new BidAmount(payload.minIncrementPaise) : auction.getMinIncrement(),
+        payload.reservePricePaise !== undefined ? new BidAmount(payload.reservePricePaise) : auction.getReservePrice(),
+        auction.getWinningBidId(),
+        auction.getVersion() + 1,
+        auction.getExtensionCount(),
+        payload.extensionDurationSec !== undefined ? payload.extensionDurationSec : auction.getExtensionDurationSec(),
+        payload.extensionThresholdSec !== undefined ? payload.extensionThresholdSec : auction.getExtensionThresholdSec(),
+        payload.maxExtensions !== undefined ? payload.maxExtensions : auction.getMaxExtensions()
+      );
+
+      await txContext.updateAuction(updatedAuction);
+
+      await txContext.logAudit({
+        action: 'ADMIN_UPDATE_CONFIG',
+        actorId: adminUserId,
+        details: { updatedFields: Object.keys(payload) }
+      });
+    });
+
+    // Configuration updates are pre-live, so we optionally broadcast an update to clients who might be on the upcoming page
+    await this.eventPublisher.publish('auction.config_updated', { auctionId, timestamp: this.timeProvider.getCurrentTime().toISOString() });
+
+    const updatedDto = await this.auctionRepository.findById(auctionId);
+    return updatedDto!;
   }
 }

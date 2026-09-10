@@ -1,4 +1,5 @@
 export interface ISettlementService {
+  getSettlement(settlementId: string): Promise<any>;
   initiateSettlement(auctionId: string, winnerId: string): Promise<any>;
   recordPaymentAttempt(settlementId: string, provider: string, paymentId: string, eventId?: string): Promise<void>;
   markPaymentCaptured(settlementId: string): Promise<void>;

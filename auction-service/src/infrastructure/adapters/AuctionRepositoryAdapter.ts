@@ -85,7 +85,7 @@ export class AuctionRepositoryAdapter implements IAuctionRepository {
       const updated = await this.dbRepo.updateOptimistically(
         id,
         current.version,
-        { status }
+        { status: status as any }
       );
 
       return this.mapToDTO(updated);
@@ -110,6 +110,9 @@ export class AuctionRepositoryAdapter implements IAuctionRepository {
       winningBidId: auction.winningBidId ?? null,
       version: auction.version,
       extensionCount: auction.extensionCount,
+      extensionDurationSec: auction.extensionDurationSec,
+      extensionThresholdSec: auction.extensionThresholdSec,
+      maxExtensions: auction.maxExtensions,
       createdAt: auction.createdAt.toISOString(),
       updatedAt: auction.updatedAt.toISOString()
     };

@@ -1,21 +1,20 @@
 import { BidAmount } from '../value-objects/BidAmount';
 
 /**
- * Immutable Domain Entity representing a single accepted Bid.
- * Serves as an immutable ledger entry.
+ * Immutable Domain Entity representing an idempotent Bid Intent.
  */
-export class Bid {
+export class BidIntent {
   constructor(
-    private readonly id: string,
+    private readonly intentId: string,
     private readonly auctionId: string,
     private readonly userId: string,
     private readonly amount: BidAmount,
-    private readonly isProxy: boolean,
+    private readonly bidId: string | null,
     private readonly createdAt: Date
   ) {}
 
-  public getId(): string {
-    return this.id;
+  public getIntentId(): string {
+    return this.intentId;
   }
 
   public getAuctionId(): string {
@@ -30,11 +29,11 @@ export class Bid {
     return this.amount;
   }
 
-  public getIsProxy(): boolean {
-    return this.isProxy;
+  public getBidId(): string | null {
+    return this.bidId;
   }
 
   public getCreatedAt(): Date {
-    return new Date(this.createdAt.getTime()); // Clone to maintain immutability
+    return new Date(this.createdAt.getTime());
   }
 }

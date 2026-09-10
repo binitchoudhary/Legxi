@@ -6,7 +6,6 @@ export interface CreateBidData {
   userId: string;
   amountPaise: string;
   isProxy: boolean;
-  status: 'ACCEPTED' | 'REJECTED' | 'OUTBID';
   createdAt: Date;
 }
 

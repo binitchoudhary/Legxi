@@ -8,9 +8,9 @@ import { IBidService } from '../services/IBidService';
 import { IAdminService } from '../services/IAdminService';
 import { IHealthService } from '../services/IHealthService';
 import { ISettlementService } from '../services/ISettlementService';
+import { IEventPublisher } from '../../application/ports/IEventPublisher';
 import { IPaymentGateway } from '../../application/ports/IPaymentGateway';
 import { WebhookIdempotencyStore } from '../../infrastructure/adapters/WebhookIdempotencyStore';
-import razorpayWebhookRoutes from './webhooks/razorpay';
 import { setupZodValidator } from '../plugins/fastify-zod';
 
 export interface ApiDependencies {
@@ -19,22 +19,28 @@ export interface ApiDependencies {
   adminService: IAdminService;
   healthService: IHealthService;
   settlementService: ISettlementService;
+  eventPublisher: IEventPublisher;
   paymentGateway: IPaymentGateway;
   webhookIdempotencyStore: WebhookIdempotencyStore;
+  redisClient: import('ioredis').default;
 }
 
 export default async function apiRoutes(app: FastifyInstance, opts: ApiDependencies) {
   setupZodValidator(app);
 
   app.register(healthRoutes, { prefix: '/health', healthService: opts.healthService });
-  app.register(auctionRoutes, { prefix: '/auctions', auctionService: opts.auctionService });
+  app.register(auctionRoutes, { 
+    prefix: '/auctions', 
+    auctionService: opts.auctionService,
+    bidService: opts.bidService,
+    redisClient: opts.redisClient
+  });
   app.register(adminRoutes, { prefix: '/admin', adminService: opts.adminService });
   app.register(bidRoutes, { bidService: opts.bidService }); // mounts /bids and /auctions/:id/bids
   
-  app.register(razorpayWebhookRoutes, { 
-    prefix: '/webhooks', 
-    settlementService: opts.settlementService,
-    paymentGateway: opts.paymentGateway,
-    webhookIdempotencyStore: opts.webhookIdempotencyStore
-  });
+  // Phase 3 Webhooks
+  app.register(async (instance) => {
+    const shopifyWebhookRoutes = (await import('./webhooks/shopify')).default;
+    await shopifyWebhookRoutes(instance, opts);
+  }, { prefix: '/webhooks' });
 }

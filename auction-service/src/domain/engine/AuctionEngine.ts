@@ -79,8 +79,8 @@ export class AuctionEngine {
         userId: bid.getUserId(),
         amountPaise: bid.getAmount().toString(),
         isProxy: bid.getIsProxy(),
-        status: bid.getStatus(),
-        createdAt: bid.getCreatedAt().toISOString()
+        createdAt: bid.getCreatedAt().toISOString(),
+        version: updatedAuction.getVersion()
       }
     });
 
@@ -92,7 +92,8 @@ export class AuctionEngine {
         payload: {
           auctionId: updatedAuction.getId(),
           newEndTime: updatedAuction.getTimeWindow().getEndTime().toISOString(),
-          extensionCount: updatedAuction.getExtensionCount()
+          extensionCount: updatedAuction.getExtensionCount(),
+          version: updatedAuction.getVersion()
         }
       });
     }
@@ -108,6 +109,63 @@ export class AuctionEngine {
    */
   public evaluateStateTransition(auction: Auction, newStatus: AllowedAuctionStatus): void {
     this.auctionStatePolicy.validateTransition(auction, newStatus);
+  }
+
+  /**
+   * Evaluates and applies time-based state transitions.
+   * SCHEDULED -> PREPARING (5 mins before start)
+   * PREPARING -> LIVE (at start)
+   * LIVE/EXTENDED -> ENDING (at end)
+   * ENDING -> ENDED (grace period after end)
+   */
+  public evaluateTimeBasedTransition(auction: Auction, currentTime: Date): { updatedAuction: Auction; eventsToPublish: DomainEvent[]; isIdempotentNoOp: boolean } {
+    const status = auction.getStatus().getValue();
+    const startTimeMs = auction.getTimeWindow().getStartTime().getTime();
+    const endTimeMs = auction.getTimeWindow().getEndTime().getTime();
+    const currentTimeMs = currentTime.getTime();
+    
+    const PREPARING_WINDOW_MS = 5 * 60 * 1000;
+    const ENDING_GRACE_PERIOD_MS = 10 * 1000;
+
+    let newStatus: AllowedAuctionStatus | null = null;
+
+    if (status === 'SCHEDULED' && currentTimeMs >= startTimeMs - PREPARING_WINDOW_MS) {
+      if (currentTimeMs >= startTimeMs) {
+        newStatus = 'LIVE'; // Fast forward if missed preparing
+      } else {
+        newStatus = 'PREPARING';
+      }
+    } else if (status === 'PREPARING' && currentTimeMs >= startTimeMs) {
+      if (currentTimeMs >= endTimeMs) {
+        newStatus = 'ENDING'; // Fast forward
+      } else {
+        newStatus = 'LIVE';
+      }
+    } else if ((status === 'LIVE' || status === 'EXTENDED') && currentTimeMs >= endTimeMs) {
+      newStatus = 'ENDING';
+    } else if (status === 'ENDING' && currentTimeMs >= endTimeMs + ENDING_GRACE_PERIOD_MS) {
+      newStatus = 'ENDED'; // Final state before close() determines winner
+    }
+
+    if (!newStatus) {
+      return { updatedAuction: auction, eventsToPublish: [], isIdempotentNoOp: true };
+    }
+
+    const updatedAuction = auction.withStatus(newStatus);
+    return {
+      updatedAuction,
+      eventsToPublish: [{
+        type: 'AuctionStateTransitioned',
+        payload: {
+          auctionId: updatedAuction.getId(),
+          oldStatus: status,
+          newStatus: newStatus,
+          timestamp: currentTime.toISOString(),
+          version: updatedAuction.getVersion()
+        }
+      }],
+      isIdempotentNoOp: false
+    };
   }
 
   /**
@@ -147,7 +205,8 @@ export class AuctionEngine {
       payload: {
         auctionId: updatedAuction.getId(),
         status: updatedAuction.getStatus().getValue(),
-        closedAt: currentTime.toISOString()
+        closedAt: currentTime.toISOString(),
+        version: updatedAuction.getVersion()
       }
     });
 
@@ -159,7 +218,8 @@ export class AuctionEngine {
           winningBidId: winnerDecision.winningBid.getId(),
           winnerId: winnerDecision.winningBid.getUserId(),
           winningAmountPaise: winnerDecision.winningBid.getAmount().toString(),
-          determinedAt: currentTime.toISOString()
+          determinedAt: currentTime.toISOString(),
+          version: updatedAuction.getVersion()
         }
       });
     }

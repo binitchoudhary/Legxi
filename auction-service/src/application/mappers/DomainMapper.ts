@@ -15,7 +15,10 @@ export class DomainMapper {
       dto.reservePricePaise ? new BidAmount(dto.reservePricePaise) : null,
       dto.winningBidId,
       dto.version,
-      dto.extensionCount || 0
+      dto.extensionCount || 0,
+      dto.extensionDurationSec || 0,
+      dto.extensionThresholdSec || 0,
+      dto.maxExtensions || 0
     );
   }
 
@@ -26,8 +29,8 @@ export class DomainMapper {
       dto.userId,
       new BidAmount(dto.amountPaise),
       dto.isProxy,
-      dto.status as any,
       new Date(dto.createdAt)
     );
   }
 }
+

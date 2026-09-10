@@ -11,8 +11,8 @@ export class AuctionClosingPolicy {
   public validate(auction: Auction, currentTime: Date): boolean {
     const status = auction.getStatus().getValue();
 
-    // Idempotency: if already ended or canceled, we consider it a no-op success
-    if (status === 'CLOSED' || status === 'CANCELLED') {
+    // Idempotency: if already ended, settled, or archived, we consider it a no-op success
+    if (status === 'ENDED' || status === 'SETTLED' || status === 'ARCHIVED') {
       return false; 
     }
 

@@ -3,6 +3,7 @@ export * from './value-objects/BidAmount';
 export * from './value-objects/AuctionStatus';
 export * from './value-objects/AuctionTimeWindow';
 export * from './models/Bid';
+export * from './models/BidIntent';
 export * from './models/Auction';
 export * from './policies/IncrementPolicy';
 export * from './policies/AuctionStatePolicy';

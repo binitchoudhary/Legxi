@@ -41,4 +41,8 @@ export class BidAmount {
   public subtract(other: BidAmount): BidAmount {
     return new BidAmount(this.value - other.value);
   }
+
+  public equals(other: BidAmount): boolean {
+    return this.value === other.value;
+  }
 }

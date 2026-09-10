@@ -1,9 +1,9 @@
 import { InvalidAuctionStatusError } from '../exceptions/DomainErrors';
 
-export type AllowedAuctionStatus = 'DRAFT' | 'PUBLISHED' | 'ACTIVE' | 'PAUSED' | 'CLOSED' | 'READY_FOR_SETTLEMENT' | 'MANUAL_REVIEW' | 'SETTLED' | 'CANCELLED';
+export type AllowedAuctionStatus = 'DRAFT' | 'SCHEDULED' | 'PREPARING' | 'LIVE' | 'EXTENDED' | 'ENDING' | 'ENDED' | 'SETTLED' | 'ARCHIVED';
 
 const VALID_STATUSES = new Set<AllowedAuctionStatus>([
-  'DRAFT', 'PUBLISHED', 'ACTIVE', 'PAUSED', 'CLOSED', 'READY_FOR_SETTLEMENT', 'MANUAL_REVIEW', 'SETTLED', 'CANCELLED'
+  'DRAFT', 'SCHEDULED', 'PREPARING', 'LIVE', 'EXTENDED', 'ENDING', 'ENDED', 'SETTLED', 'ARCHIVED'
 ]);
 
 /**
@@ -31,10 +31,10 @@ export class AuctionStatus {
   }
 
   public isActive(): boolean {
-    return this.status === 'ACTIVE';
+    return this.status === 'LIVE' || this.status === 'EXTENDED' || this.status === 'ENDING';
   }
   
   public isClosed(): boolean {
-    return this.status === 'CLOSED';
+    return this.status === 'ENDED' || this.status === 'SETTLED' || this.status === 'ARCHIVED';
   }
 }

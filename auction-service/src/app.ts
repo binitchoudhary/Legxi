@@ -14,16 +14,12 @@ import { AdminService } from './application/services/AdminService';
 import { SettlementService } from './application/services/SettlementService';
 import { AuctionRepositoryAdapter } from './infrastructure/adapters/AuctionRepositoryAdapter';
 import { BidRepositoryAdapter } from './infrastructure/adapters/BidRepositoryAdapter';
-import { BidTransactionRepositoryAdapter } from './infrastructure/adapters/BidTransactionRepositoryAdapter';
-import { AuctionTransactionRepositoryAdapter } from './infrastructure/adapters/AuctionTransactionRepositoryAdapter';
-import { AuctionLifecycleTransactionRepositoryAdapter } from './infrastructure/adapters/AuctionLifecycleTransactionRepositoryAdapter';
 import { NoOpEventPublisher } from './infrastructure/adapters/NoOpEventPublisher';
 import { SystemTimeProvider } from './infrastructure/adapters/SystemTimeProvider';
 import { AuctionRepository } from './database/repositories/auction.repository';
 import { BidRepository } from './database/repositories/bid.repository';
 import { RetryExecutor } from './application/utils/RetryExecutor';
 import { NoOpPaymentGateway } from './infrastructure/adapters/NoOpPaymentGateway';
-import { RazorpayPaymentGateway } from './infrastructure/adapters/RazorpayPaymentGateway';
 import { WebhookIdempotencyStore } from './infrastructure/adapters/WebhookIdempotencyStore';
 
 // Domain Imports
@@ -47,25 +43,27 @@ const dbBidRepo = new BidRepository();
 // Initialize Infrastructure Adapters (Ports)
 const auctionRepoAdapter = new AuctionRepositoryAdapter(dbAuctionRepo);
 const bidRepoAdapter = new BidRepositoryAdapter(dbBidRepo);
-const bidTxRepoAdapter = new BidTransactionRepositoryAdapter();
-const auctionTxRepoAdapter = new AuctionTransactionRepositoryAdapter();
-const auctionLifecycleTxRepoAdapter = new AuctionLifecycleTransactionRepositoryAdapter();
+import { PrismaAuctionTransactionAdapter } from './infrastructure/adapters/PrismaAuctionTransactionAdapter';
+const auctionTxBoundary = new PrismaAuctionTransactionAdapter();
 const webhookIdempotencyStore = new WebhookIdempotencyStore();
 import { SettlementRepositoryAdapter } from './infrastructure/adapters/SettlementRepositoryAdapter';
 const settlementRepoAdapter = new SettlementRepositoryAdapter();
 
-// Use Razorpay in production, NoOp for tests based on ENV. Hardcoded to NoOp here for safety unless Razorpay config is present.
-// If implementing fully, we'd inject this from config module.
-const razorpayConfig = {
-  keyId: process.env.RAZORPAY_KEY_ID || 'test_key',
-  keySecret: process.env.RAZORPAY_KEY_SECRET || 'test_secret',
-  webhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET || 'test_webhook_secret'
-};
-const paymentGatewayAdapter = process.env.NODE_ENV === 'production' 
-  ? new RazorpayPaymentGateway(razorpayConfig) 
-  : new NoOpPaymentGateway();
+import { IPaymentGateway } from './application/ports/IPaymentGateway';
+import { ShopifyPaymentGateway } from './infrastructure/adapters/ShopifyPaymentGateway';
+let paymentGatewayAdapter: IPaymentGateway;
+if (process.env.SHOPIFY_STORE || process.env.SHOPIFY_STORE_DOMAIN) {
+  paymentGatewayAdapter = new ShopifyPaymentGateway(auctionRepoAdapter, settlementRepoAdapter);
+} else if (process.env.NODE_ENV === 'production') {
+  throw new Error('FATAL: Payment gateway is not configured for production environment. NoOpPaymentGateway is only allowed in test/dev.');
+} else {
+  paymentGatewayAdapter = new NoOpPaymentGateway();
+}
 
-const eventPublisher = new NoOpEventPublisher();
+import { RedisEventPublisher } from './infrastructure/adapters/RedisEventPublisher';
+import { redisClient, redisPublisher, redisSubscriber } from './redis';
+
+const eventPublisher = new RedisEventPublisher(redisClient, redisPublisher);
 const timeProvider = new SystemTimeProvider();
 const retryExecutor = new RetryExecutor();
 
@@ -109,28 +107,25 @@ const diContainer = {
   auctionService: new AuctionService(
     auctionRepoAdapter,
     bidRepoAdapter,
-    auctionTxRepoAdapter,
-    auctionLifecycleTxRepoAdapter,
+    auctionTxBoundary,
     eventPublisher,
     timeProvider,
-    auctionEngine,
-    retryExecutor
+    auctionEngine
   ),
   bidService: new BidService(
     bidRepoAdapter, 
     auctionRepoAdapter, 
-    bidTxRepoAdapter, 
+    auctionTxBoundary, 
     eventPublisher, 
     timeProvider, 
-    auctionEngine, 
-    retryExecutor,
+    auctionEngine,
     antiSnipingConfig
   ),
   settlementService: new SettlementService(
     settlementRepoAdapter,
     eventPublisher
   ),
-  adminService: new AdminService(auctionRepoAdapter, eventPublisher, timeProvider),
+  adminService: new AdminService(auctionRepoAdapter, eventPublisher, timeProvider, auctionTxBoundary),
   healthService: new HealthService(),
 };
 
@@ -230,6 +225,8 @@ const telemetryEventPublisher = {
 
 import { setupWebSocket } from './ws/setup';
 import { authRoutes } from './modules/auth/auth.routes';
+import { StateTransitionScheduler } from './workers/StateTransitionScheduler';
+import { OutboxRelayWorker } from './workers/OutboxRelayWorker';
 
 export function buildApp() {
   const app = fastify({
@@ -287,8 +284,10 @@ export function buildApp() {
     adminService: diContainer.adminService,
     healthService: diContainer.healthService,
     settlementService: diContainer.settlementService,
+    eventPublisher: eventPublisher,
     paymentGateway: paymentGatewayAdapter,
-    webhookIdempotencyStore: webhookIdempotencyStore
+    webhookIdempotencyStore: webhookIdempotencyStore,
+    redisClient: redisClient
   });
 
   app.register(authRoutes, { prefix: '/api/v1/auth' });
@@ -304,11 +303,25 @@ export function buildApp() {
   const io = setupWebSocket(app.server, {
     auctionService: diContainer.auctionService,
     bidService: diContainer.bidService,
-    adminService: diContainer.adminService
+    adminService: diContainer.adminService,
+    redisPublisher: redisPublisher,
+    redisSubscriber: redisSubscriber
   });
   
   // Store io on fastify app for graceful shutdown
   app.decorate('io', io);
+
+  // Initialize Layer 5 Background Workers
+  const stateScheduler = new StateTransitionScheduler(prisma, diContainer.auctionService);
+  const outboxWorker = new OutboxRelayWorker(prisma);
+
+  stateScheduler.start();
+  outboxWorker.start();
+
+  app.addHook('onClose', async () => {
+    stateScheduler.stop();
+    outboxWorker.stop();
+  });
 
   return app;
 }

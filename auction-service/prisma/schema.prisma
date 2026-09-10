@@ -6,74 +6,94 @@ datasource db {
   provider = "postgresql"
 }
 
+enum AuctionStatus {
+  DRAFT
+  SCHEDULED
+  PREPARING
+  LIVE
+  EXTENDED
+  ENDING
+  ENDED
+  SETTLED
+  ARCHIVED
+}
+
 model Auction {
-  id                   String    @id @db.VarChar(26)
-  shopifyProductId     String    @unique @map("shopify_product_id") @db.VarChar(255)
-  startTime            DateTime  @map("start_time") @db.Timestamptz
-  endTime              DateTime  @map("end_time") @db.Timestamptz
-  status               String    @default("DRAFT") @db.VarChar(32)
-  startingPricePaise   BigInt    @map("starting_price_paise")
-  reservePricePaise    BigInt?   @map("reserve_price_paise")
-  minIncrementPaise    BigInt    @map("min_increment_paise")
-  currentPricePaise    BigInt    @map("current_price_paise")
-  winningBidId         String?   @map("winning_bid_id") @db.VarChar(26)
-  version              Int       @default(1) // For optimistic locking
-  extensionCount       Int       @default(0) @map("extension_count")
-  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt            DateTime  @updatedAt @map("updated_at") @db.Timestamptz
-  deletedAt            DateTime? @map("deleted_at") @db.Timestamptz
+  id                 String        @id @db.VarChar(26)
+  shopifyProductId   String        @unique @map("shopify_product_id") @db.VarChar(255)
+  startTime          DateTime      @map("start_time") @db.Timestamptz
+  endTime            DateTime      @map("end_time") @db.Timestamptz
+  status             AuctionStatus @default(DRAFT)
+  startingPricePaise BigInt        @map("starting_price_paise")
+  reservePricePaise  BigInt?       @map("reserve_price_paise")
+  minIncrementPaise  BigInt        @map("min_increment_paise")
+  currentPricePaise  BigInt        @map("current_price_paise")
+  winningBidId       String?       @unique @map("winning_bid_id") @db.VarChar(26)
+  version            Int           @default(1)
+  extensionCount     Int           @default(0) @map("extension_count")
 
-  bids                 Bid[]
-  payments             Payment[]
+  extensionThresholdSec Int @default(60) @map("extension_threshold_sec")
+  extensionDurationSec  Int @default(60) @map("extension_duration_sec")
+  maxExtensions         Int @default(50) @map("max_extensions")
 
-  @@map("auctions")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz
+
+  bids       Bid[]       @relation("AuctionBids")
+  winningBid Bid?        @relation("AuctionWinningBid", fields: [winningBidId], references: [id])
+  payments   Payment[]
+  bidIntents BidIntent[]
+
   @@index([status, endTime(sort: Asc)])
+  @@map("auctions")
 }
 
 model Bid {
-  id           String   @id @db.VarChar(26)
-  auctionId    String   @map("auction_id") @db.VarChar(26)
-  userId       String   @map("user_id") @db.VarChar(128)
-  amountPaise  BigInt   @map("amount_paise")
-  isProxy      Boolean  @default(false) @map("is_proxy")
-  status       String   @default("ACCEPTED") @db.VarChar(32)
-  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  id          String   @id @db.VarChar(26)
+  auctionId   String   @map("auction_id") @db.VarChar(26)
+  userId      String   @map("user_id") @db.VarChar(128)
+  amountPaise BigInt   @map("amount_paise")
+  isProxy     Boolean  @default(false) @map("is_proxy")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
 
-  auction      Auction  @relation(fields: [auctionId], references: [id])
+  auction    Auction    @relation("AuctionBids", fields: [auctionId], references: [id])
+  wonAuction Auction?   @relation("AuctionWinningBid")
+  bidIntent  BidIntent?
 
-  @@map("bids")
   @@index([auctionId, amountPaise(sort: Desc)])
   @@index([userId, createdAt(sort: Desc)])
+  @@map("bids")
 }
 
 model Payment {
-  id                   String   @id @db.VarChar(26)
-  auctionId            String   @map("auction_id") @db.VarChar(26)
-  userId               String   @map("user_id") @db.VarChar(128)
-  amountPaise          BigInt   @map("amount_paise")
-  gatewayTransactionId String?  @unique @map("gateway_transaction_id") @db.VarChar(255)
-  status               String   @default("HOLD") @db.VarChar(32)
+  id                   String  @id @db.VarChar(26)
+  auctionId            String  @map("auction_id") @db.VarChar(26)
+  userId               String  @map("user_id") @db.VarChar(128)
+  amountPaise          BigInt  @map("amount_paise")
+  gatewayTransactionId String? @unique @map("gateway_transaction_id") @db.VarChar(255)
+  status               String  @default("HOLD") @db.VarChar(32)
 
-  auction              Auction  @relation(fields: [auctionId], references: [id])
+  auction Auction @relation(fields: [auctionId], references: [id])
 
-  @@map("payments")
   @@index([gatewayTransactionId])
+  @@map("payments")
 }
 
 model Settlement {
-  id                    String    @id @db.VarChar(26)
-  auctionId             String    @unique @map("auction_id") @db.VarChar(26)
-  winnerId              String    @map("winner_id") @db.VarChar(128)
-  paymentState          String    @map("payment_state") @db.VarChar(32)
-  settlementStatus      String    @map("settlement_status") @db.VarChar(32)
-  paymentWindowOpenedAt DateTime  @map("payment_window_opened_at") @db.Timestamptz
-  paymentAttempts       Int       @default(0) @map("payment_attempts")
-  provider              String?   @db.VarChar(64)
-  providerPaymentId     String?   @map("provider_payment_id") @db.VarChar(255)
-  providerEventId       String?   @map("provider_event_id") @db.VarChar(255)
-  version               Int       @default(1)
-  createdAt             DateTime  @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt             DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  id                    String   @id @db.VarChar(26)
+  auctionId             String   @unique @map("auction_id") @db.VarChar(26)
+  winnerId              String   @map("winner_id") @db.VarChar(128)
+  paymentState          String   @map("payment_state") @db.VarChar(32)
+  settlementStatus      String   @map("settlement_status") @db.VarChar(32)
+  paymentWindowOpenedAt DateTime @map("payment_window_opened_at") @db.Timestamptz
+  paymentAttempts       Int      @default(0) @map("payment_attempts")
+  provider              String?  @db.VarChar(64)
+  providerPaymentId     String?  @map("provider_payment_id") @db.VarChar(255)
+  providerEventId       String?  @map("provider_event_id") @db.VarChar(255)
+  version               Int      @default(1)
+  createdAt             DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt             DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("settlements")
 }
@@ -93,16 +113,16 @@ model AuditLog {
 }
 
 model OutboxEvent {
-  id            String    @id @db.VarChar(26)
-  eventType     String    @map("event_type") @db.VarChar(128)
-  payload       Json
-  status        String    @default("PENDING") @db.VarChar(32)
-  error         String?   @db.Text
-  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
-  processedAt   DateTime? @map("processed_at") @db.Timestamptz
+  id          String    @id @db.VarChar(26)
+  eventType   String    @map("event_type") @db.VarChar(128)
+  payload     Json
+  status      String    @default("PENDING") @db.VarChar(32)
+  error       String?   @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  processedAt DateTime? @map("processed_at") @db.Timestamptz
 
-  @@map("outbox_events")
   @@index([status, createdAt(sort: Asc)])
+  @@map("outbox_events")
 }
 
 model IdempotencyKey {
@@ -132,18 +152,18 @@ model WebhookEvent {
   rawPayloadHash    String?  @map("raw_payload_hash") @db.VarChar(255)
 
   @@unique([provider, providerEventId])
-  @@map("webhook_events")
   @@index([auctionId])
+  @@map("webhook_events")
 }
 
 model User {
-  id            String         @id @db.VarChar(128)
-  email         String         @unique @db.VarChar(255)
-  passwordHash  String         @map("password_hash") @db.VarChar(255)
-  name          String         @db.VarChar(255)
-  roles         Json           @default("[\"USER\"]")
-  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamptz
+  id           String   @id @db.VarChar(128)
+  email        String   @unique @db.VarChar(255)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  name         String   @db.VarChar(255)
+  roles        Json     @default("[\"USER\"]")
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt    DateTime @updatedAt @map("updated_at") @db.Timestamptz
 
   refreshTokens RefreshToken[]
 
@@ -151,20 +171,37 @@ model User {
 }
 
 model RefreshToken {
-  id          String    @id @default(cuid()) @db.VarChar(30)
-  userId      String    @map("user_id") @db.VarChar(128)
-  tokenHash   String    @unique @map("token_hash") @db.VarChar(255)
-  expiresAt   DateTime  @map("expires_at") @db.Timestamptz
-  revokedAt   DateTime? @map("revoked_at") @db.Timestamptz
-  replacedBy  String?   @map("replaced_by") @db.VarChar(30)
-  lastUsedAt  DateTime? @map("last_used_at") @db.Timestamptz
-  userAgent   String?   @map("user_agent") @db.VarChar(512)
-  ipAddress   String?   @map("ip_address") @db.Inet
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  id         String    @id @default(cuid()) @db.VarChar(30)
+  userId     String    @map("user_id") @db.VarChar(128)
+  tokenHash  String    @unique @map("token_hash") @db.VarChar(255)
+  expiresAt  DateTime  @map("expires_at") @db.Timestamptz
+  revokedAt  DateTime? @map("revoked_at") @db.Timestamptz
+  replacedBy String?   @map("replaced_by") @db.VarChar(30)
+  lastUsedAt DateTime? @map("last_used_at") @db.Timestamptz
+  userAgent  String?   @map("user_agent") @db.VarChar(512)
+  ipAddress  String?   @map("ip_address") @db.Inet
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz
 
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("refresh_tokens")
   @@index([userId])
   @@index([tokenHash])
+  @@map("refresh_tokens")
+}
+
+model BidIntent {
+  intentId    String @id @map("intent_id") @db.VarChar(36)
+  auctionId   String @map("auction_id") @db.VarChar(26)
+  userId      String @map("user_id") @db.VarChar(128)
+  amountPaise BigInt @map("amount_paise")
+
+  bidId String? @unique @map("bid_id") @db.VarChar(26)
+  bid   Bid?    @relation(fields: [bidId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  auction Auction @relation(fields: [auctionId], references: [id])
+
+  @@index([createdAt(sort: Asc)])
+  @@map("bid_intents")
 }

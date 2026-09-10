@@ -11,10 +11,10 @@ async function migrate() {
 
   // We find all closed auctions with a winner that don't have a settlement yet.
   // In our old model, payment state wasn't explicitly stored in the DB, it was inferred 
-  // or stored in another way. Let's say we find all auctions where status = 'READY_FOR_SETTLEMENT' or 'SETTLED'
+  // or stored in another way. Let's say we find all auctions where status = 'ENDED' or 'SETTLED' or 'ARCHIVED'
   const targetAuctions = await prisma.auction.findMany({
     where: {
-      status: { in: ['READY_FOR_SETTLEMENT', 'SETTLED'] },
+      status: { in: ['ENDED', 'SETTLED', 'ARCHIVED'] },
       winningBidId: { not: null }
     },
     include: {

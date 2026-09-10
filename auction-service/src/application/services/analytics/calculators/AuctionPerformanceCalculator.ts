@@ -12,7 +12,8 @@ export class AuctionPerformanceCalculator {
       totalBids += row.bidCount;
       totalExtensions += row.extensionCount;
 
-      if (row.status.toUpperCase() === 'CLOSED') {
+      const status = row.status.toUpperCase();
+      if (status === 'ENDED' || status === 'SETTLED' || status === 'ARCHIVED') {
         completedAuctions++;
       }
     }

@@ -47,3 +47,9 @@ export class InvalidAuctionStatusError extends DomainError {
     super(message, 'INVALID_AUCTION_STATUS');
   }
 }
+
+export class IdempotentIntentMismatchError extends DomainError {
+  constructor(message: string) {
+    super(message, 'IDEMPOTENT_INTENT_MISMATCH');
+  }
+}

@@ -13,7 +13,7 @@ export const CursorQuerySchema = z.object({
 }).strict();
 
 export const AuctionListQuerySchema = CursorQuerySchema.extend({
-  status: z.enum(['DRAFT', 'ACTIVE', 'ENDED', 'SETTLED', 'CANCELLED']).optional(),
+  status: z.enum(['DRAFT', 'SCHEDULED', 'PREPARING', 'LIVE', 'EXTENDED', 'ENDING', 'ENDED', 'SETTLED', 'ARCHIVED']).optional(),
   shopifyProductId: z.string().optional(),
 }).strict();
 
@@ -24,6 +24,15 @@ export const CreateAuctionRequestSchema = z.object({
   startingPricePaise: z.string().regex(AMOUNT_REGEX),
   minIncrementPaise: z.string().regex(AMOUNT_REGEX),
   reservePricePaise: z.string().regex(AMOUNT_REGEX).optional(),
+}).strict();
+
+export const UpdateAuctionConfigRequestSchema = z.object({
+  reservePricePaise: z.string().regex(AMOUNT_REGEX).optional(),
+  minIncrementPaise: z.string().regex(AMOUNT_REGEX).optional(),
+  startingPricePaise: z.string().regex(AMOUNT_REGEX).optional(),
+  extensionThresholdSec: z.number().int().min(1).optional(),
+  extensionDurationSec: z.number().int().min(1).optional(),
+  maxExtensions: z.number().int().min(0).optional(),
 }).strict();
 
 // Internal DTO structure mapped from DB schema for type safety
@@ -40,6 +49,9 @@ export interface AuctionDTO {
   winningBidId: string | null;
   version: number;
   extensionCount: number;
+  extensionDurationSec: number;
+  extensionThresholdSec: number;
+  maxExtensions: number;
   createdAt: string;
   updatedAt: string;
 }

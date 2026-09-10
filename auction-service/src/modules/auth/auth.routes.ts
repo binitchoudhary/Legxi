@@ -8,7 +8,7 @@ import { authenticateIdentity } from './middleware/authenticate';
 export async function authRoutes(app: FastifyInstance) {
   
   const ARGON2_OPTIONS = {
-    type: argon2.argon2id,
+    type: argon2.argon2id as 0 | 1 | 2,
     memoryCost: 65536, // 64 MB
     timeCost: 4,       // 4 iterations
     parallelism: 2,    // 2 threads

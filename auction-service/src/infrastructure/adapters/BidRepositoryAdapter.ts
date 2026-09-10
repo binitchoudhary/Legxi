@@ -48,7 +48,6 @@ export class BidRepositoryAdapter implements IBidRepository {
         userId: data.userId,
         amountPaise: BigInt(data.amountPaise),
         isProxy: data.isProxy,
-        status: data.status,
         createdAt: data.createdAt,
       } as any);
 
@@ -76,7 +75,7 @@ export class BidRepositoryAdapter implements IBidRepository {
       userId: bid.userId,
       amountPaise: bid.amountPaise.toString(),
       isProxy: bid.isProxy,
-      status: bid.status,
+      status: 'ACCEPTED', // Synthesized for external API contract
       createdAt: bid.createdAt.toISOString()
     };
   }

@@ -11,6 +11,10 @@ export class SettlementService {
     private eventPublisher: IEventPublisher
   ) {}
 
+  async getSettlement(settlementId: string): Promise<Settlement | null> {
+    return this.repository.findById(settlementId);
+  }
+
   async initiateSettlement(auctionId: string, winnerId: string): Promise<Settlement> {
     const existing = await this.repository.findByAuctionId(auctionId);
     if (existing) {
@@ -30,7 +34,19 @@ export class SettlementService {
       1
     );
 
-    await this.repository.save(settlement);
+    try {
+      await this.repository.save(settlement);
+    } catch (error: any) {
+      // Handle concurrent creation race: if another worker created the settlement
+      // between our findByAuctionId check and save, Prisma throws P2002 (unique constraint).
+      // Treat as idempotent success — re-read and return the existing record.
+      if (error.code === 'P2002') {
+        logger.warn({ auctionId }, 'Settlement unique constraint race — treating as idempotent success');
+        const raceWinner = await this.repository.findByAuctionId(auctionId);
+        if (raceWinner) return raceWinner;
+      }
+      throw error;
+    }
     
     await this.eventPublisher.publish('SettlementCreated', {
       settlementId: settlement.settlementId,

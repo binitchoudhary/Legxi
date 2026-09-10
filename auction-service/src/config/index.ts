@@ -4,4 +4,3 @@ export * from './database.config';
 export * from './redis.config';
 export * from './bullmq.config';
 export * from './logger.config';
-export * from './security.config';

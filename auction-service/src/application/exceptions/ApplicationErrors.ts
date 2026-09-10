@@ -30,3 +30,9 @@ export class ConcurrencyConflictError extends AppError {
     super(message, 409, 'CONCURRENCY_CONFLICT');
   }
 }
+
+export class InvalidStateTransitionError extends AppError {
+  constructor(message: string) {
+    super(message, 400, 'INVALID_STATE_TRANSITION');
+  }
+}
