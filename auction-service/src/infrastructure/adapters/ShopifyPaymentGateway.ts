@@ -77,6 +77,124 @@ export class ShopifyPaymentGateway implements IPaymentGateway {
         throw new Error(`Failed to fetch existing Draft Order for idempotency check: HTTP ${getResponse.status}`);
       }
 
+      // --- Remote State Recovery: Idempotency fallback if local DB lost reference ---
+      if (!settlement.providerReference || !settlement.providerReference.providerPaymentId) {
+        let hasNextPage = true;
+        let endCursor: string | null = null;
+        let recoveredDraftOrder: any = null;
+        let candidateCount = 0;
+
+        while (hasNextPage) {
+          const graphqlQuery = `
+            query getDraftOrdersByTag($query: String!, $after: String) {
+              draftOrders(first: 10, query: $query, after: $after) {
+                edges {
+                  node {
+                    id
+                    legacyResourceId
+                    status
+                    invoiceUrl
+                    totalPrice
+                    currencyCode
+                    customAttributes {
+                      key
+                      value
+                    }
+                  }
+                }
+                pageInfo {
+                  hasNextPage
+                  endCursor
+                }
+              }
+            }
+          `;
+
+          const graphqlPayload: any = {
+            query: graphqlQuery,
+            variables: {
+              query: `tag:settlement_${settlement.settlementId}`,
+              after: endCursor
+            }
+          };
+
+          const graphqlUrl = `https://${ShopifyConfig.storeDomain}/admin/api/${ShopifyConfig.apiVersion}/graphql.json`;
+          const searchRes: Response = await fetch(graphqlUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Shopify-Access-Token': ShopifyConfig.adminToken
+            },
+            body: JSON.stringify(graphqlPayload)
+          });
+
+          if (!searchRes.ok) {
+             throw new Error(`Shopify API unreachable for remote state recovery. Retrying later. HTTP ${searchRes.status}`);
+          }
+
+          const searchData: any = await searchRes.json();
+          if (searchData.errors) {
+            throw new Error(`Shopify GraphQL error during remote state recovery. Retrying later. ${JSON.stringify(searchData.errors)}`);
+          }
+
+          const draftOrdersConnection: any = searchData.data.draftOrders;
+          const edges: any[] = draftOrdersConnection.edges;
+          candidateCount += edges.length;
+
+          if (candidateCount > 1) {
+             throw new Error("BLOCKER: Multiple remote Draft Orders found for settlement. Fail-closed.");
+          }
+
+          if (edges.length === 1) {
+            recoveredDraftOrder = edges[0].node;
+          }
+
+          hasNextPage = draftOrdersConnection.pageInfo.hasNextPage;
+          endCursor = draftOrdersConnection.pageInfo.endCursor;
+        }
+
+        if (candidateCount === 1 && recoveredDraftOrder) {
+          logger.info({ settlementId: settlement.settlementId, recoveredDraftOrderId: recoveredDraftOrder.legacyResourceId }, 'Recovered missing local Draft Order reference via remote tag search');
+
+          // Safety guard 1: Is still unpaid/payable
+          if (recoveredDraftOrder.status === 'COMPLETED') {
+            throw new Error('Safety guard: Unpaid status check failed. Recovered Draft Order is completed.');
+          }
+
+          // Safety guard 2: Amount matches
+          if (parseFloat(recoveredDraftOrder.totalPrice).toFixed(2) !== price) {
+            throw new Error(`Safety guard: Amount mismatch. Expected ${price}, found ${recoveredDraftOrder.totalPrice} on recovered Draft Order.`);
+          }
+
+          // Safety guard 3: Currency matches
+          if (recoveredDraftOrder.currencyCode !== 'INR') {
+            throw new Error(`Safety guard: Currency mismatch. Expected INR, found ${recoveredDraftOrder.currencyCode} on recovered Draft Order.`);
+          }
+
+          // Safety guard 4: Valid invoice URL
+          if (!recoveredDraftOrder.invoiceUrl) {
+            throw new Error('Safety guard: Recovered Draft Order missing invoice_url.');
+          }
+
+          // Safety guard 5: Correlation metadata matches
+          const notes = recoveredDraftOrder.customAttributes || [];
+          const sid = notes.find((n: any) => n.key === '_settlement_id')?.value;
+          const aid = notes.find((n: any) => n.key === '_auction_id')?.value;
+          const wid = notes.find((n: any) => n.key === '_winner_id')?.value;
+
+          if (sid !== settlement.settlementId || aid !== auctionId || wid !== userId) {
+            throw new Error('Safety guard: Correlation metadata mismatch on recovered Draft Order.');
+          }
+
+          return {
+            success: true,
+            status: 'PENDING',
+            paymentReference: recoveredDraftOrder.invoiceUrl,
+            providerReference: String(recoveredDraftOrder.legacyResourceId)
+          };
+        }
+      }
+
       // --- New Draft Order Creation ---
       const shopifyProductId = auction.shopifyProductId;
       if (!shopifyProductId) {
@@ -147,6 +265,7 @@ export class ShopifyPaymentGateway implements IPaymentGateway {
             { name: "_auction_id", value: auction.id },
             { name: "_winner_id", value: userId }
           ],
+          tags: `settlement_${settlement.settlementId}, auction_${auction.id}`,
           use_customer_default_address: true
         }
       };

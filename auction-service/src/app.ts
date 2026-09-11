@@ -137,7 +137,8 @@ const settlementProcessManager = new SettlementProcessManager(diContainer.settle
 const shopifyDraftOrderOrchestrator = new ShopifyDraftOrderOrchestrator(
   paymentGatewayAdapter,
   diContainer.settlementService,
-  diContainer.auctionService
+  diContainer.auctionService,
+  redisClient
 );
 
 import { HttpTransferServiceAdapter } from './infrastructure/adapters/transfer/HttpTransferServiceAdapter';
