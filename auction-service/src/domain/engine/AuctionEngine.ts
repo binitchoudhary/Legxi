@@ -231,4 +231,67 @@ export class AuctionEngine {
       isIdempotentNoOp: false
     };
   }
+
+  /**
+   * Forces the closure of an auction, bypassing the time-based closing policy.
+   * Utilizes identical WinnerDeterminationPolicy and state transition logic
+   * to guarantee consistent semantic resolution.
+   */
+  public forceCloseAuction(
+    auction: Auction,
+    bids: Bid[],
+    currentTime: Date
+  ): AuctionClosureResult {
+    const status = auction.getStatus().getValue();
+
+    // Idempotency: If already closed, return no-op result
+    if (status === 'ENDED' || status === 'SETTLED' || status === 'ARCHIVED') {
+      return {
+        updatedAuction: auction,
+        winnerDecision: WinnerDecision.withoutWinner(),
+        eventsToPublish: [],
+        isIdempotentNoOp: true
+      };
+    }
+
+    // 1. Determine Winner
+    const winnerDecision = this.winnerDeterminationPolicy.determineWinner(bids);
+
+    // 2. Mutate State
+    const updatedAuction = auction.close(winnerDecision);
+
+    // 3. Generate Events
+    const eventsToPublish: DomainEvent[] = [];
+    
+    eventsToPublish.push({
+      type: 'AuctionClosed',
+      payload: {
+        auctionId: updatedAuction.getId(),
+        status: updatedAuction.getStatus().getValue(),
+        closedAt: currentTime.toISOString(),
+        version: updatedAuction.getVersion()
+      }
+    });
+
+    if (winnerDecision.hasWinner && winnerDecision.winningBid) {
+      eventsToPublish.push({
+        type: 'AuctionClosedWithWinner', // Canonical Event for SettlementProcessManager
+        payload: {
+          auctionId: updatedAuction.getId(),
+          winningBidId: winnerDecision.winningBid.getId(),
+          winnerId: winnerDecision.winningBid.getUserId(),
+          winningAmountPaise: winnerDecision.winningBid.getAmount().toString(),
+          determinedAt: currentTime.toISOString(),
+          version: updatedAuction.getVersion()
+        }
+      });
+    }
+
+    return {
+      updatedAuction,
+      winnerDecision,
+      eventsToPublish,
+      isIdempotentNoOp: false
+    };
+  }
 }
