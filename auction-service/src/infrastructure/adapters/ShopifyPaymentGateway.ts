@@ -4,6 +4,28 @@ import { SettlementRepositoryAdapter } from './SettlementRepositoryAdapter';
 import { ShopifyConfig } from '../config/ShopifyConfig';
 import { logger } from '../../shared/logger';
 
+function parseFiatToPaise(amountStr: string): string {
+  if (!amountStr || typeof amountStr !== 'string') {
+    throw new Error('Invalid amount format');
+  }
+  
+  const trimmed = amountStr.trim();
+  const regex = /^(0|[1-9]\d*)(\.\d{1,2})?$/;
+  
+  if (!regex.test(trimmed)) {
+    throw new Error('Malformed amount or unsupported precision');
+  }
+  
+  const parts = trimmed.split('.');
+  const rupees = parts[0];
+  let paise = parts[1] || '';
+  
+  if (paise.length === 1) paise += '0';
+  if (paise.length === 0) paise = '00';
+  
+  return parseInt(rupees + paise, 10).toString();
+}
+
 export class ShopifyPaymentGateway implements IPaymentGateway {
   constructor(
     private readonly auctionRepo: AuctionRepositoryAdapter,
@@ -399,6 +421,69 @@ export class ShopifyPaymentGateway implements IPaymentGateway {
     } catch (error: any) {
       logger.error(error, 'Error cancelling Shopify payment');
       return { success: false, status: 'FAILED', failureReason: error.message };
+    }
+  }
+
+  async syncSettlementOrder(draftOrderId: string, expectedSettlementId: string, expectedAuctionId: string, expectedWinnerId: string, expectedPrice: string): Promise<{ success: boolean; orderId?: string; payload?: any; failureReason?: string }> {
+    try {
+      const draftUrl = `https://${ShopifyConfig.storeDomain}/admin/api/${ShopifyConfig.apiVersion}/draft_orders/${draftOrderId}.json`;
+      const draftRes = await fetch(draftUrl, {
+        headers: { 'X-Shopify-Access-Token': ShopifyConfig.adminToken }
+      });
+
+      if (!draftRes.ok) {
+        return { success: false, failureReason: `Failed to fetch Draft Order: HTTP ${draftRes.status}` };
+      }
+
+      const draftData = await draftRes.json();
+      const draftOrder = draftData.draft_order;
+
+      if (!draftOrder.order_id) {
+        return { success: false, failureReason: 'Draft Order has not been converted to an Order (not paid).' };
+      }
+
+      const orderUrl = `https://${ShopifyConfig.storeDomain}/admin/api/${ShopifyConfig.apiVersion}/orders/${draftOrder.order_id}.json`;
+      const orderRes = await fetch(orderUrl, {
+        headers: { 'X-Shopify-Access-Token': ShopifyConfig.adminToken }
+      });
+
+      if (!orderRes.ok) {
+        return { success: false, failureReason: `Failed to fetch Order: HTTP ${orderRes.status}` };
+      }
+
+      const orderData = await orderRes.json();
+      const order = orderData.order;
+
+      if (order.financial_status !== 'paid') {
+        return { success: false, failureReason: `Order financial_status is ${order.financial_status}, expected paid.` };
+      }
+
+      try {
+        const shopifyAmountPaise = parseFiatToPaise(order.total_price);
+        if (shopifyAmountPaise !== expectedPrice) {
+          return { success: false, failureReason: `Amount mismatch. Expected ${expectedPrice} paise, found ${shopifyAmountPaise} paise (from ${order.total_price})` };
+        }
+      } catch (err: any) {
+        return { success: false, failureReason: `Amount validation failed: ${err.message}` };
+      }
+
+      if (order.currency !== 'INR') {
+        return { success: false, failureReason: `Currency mismatch. Expected INR, found ${order.currency}` };
+      }
+
+      const notes = order.note_attributes || [];
+      const sid = notes.find((n: any) => n.name === '_settlement_id')?.value;
+      const aid = notes.find((n: any) => n.name === '_auction_id')?.value;
+      const wid = notes.find((n: any) => n.name === '_winner_id')?.value;
+
+      if (sid !== expectedSettlementId || aid !== expectedAuctionId || wid !== expectedWinnerId) {
+        return { success: false, failureReason: 'Correlation metadata mismatch on Shopify Order.' };
+      }
+
+      return { success: true, orderId: String(order.id), payload: order };
+    } catch (error: any) {
+      logger.error(error, 'Error in ShopifyPaymentGateway.syncSettlementOrder');
+      return { success: false, failureReason: error.message };
     }
   }
 }
